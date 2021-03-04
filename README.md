@@ -1,5 +1,3 @@
-<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" /><link href="./main.css" rel="stylesheet" /><title>Document</title></head><body><div class="v1_16"><div class="v1_13"></div><span class="v1_17">todo</span><span class="v5_67">About</span><span class="v5_99">Features</span><span class="v5_3">Dashboard</span><div class="v5_78"><div class="v5_75"></div><span class="v5_77">Login</span></div></div></body></html>
-
 # TodoApplication
 ![image](logo.PNG)
 
