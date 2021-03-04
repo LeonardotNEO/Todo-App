@@ -14,21 +14,29 @@ Instructions for running the todo-application
 
 ### Downloading the project
 To download the project either download the Zip file or clone with SSH or HTTPS:
-* SSH: git@gitlab.stud.idi.ntnu.no:markussp/idatt1002_2021_28.git
-* HTTPS: https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28.git
+
+***SSH:*** 
+```
+git@gitlab.stud.idi.ntnu.no:markussp/idatt1002_2021_28.git
+```
+***HTTPS:*** 
+```
+https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28.git
+```
 
 ### Running the project in IntelliJ
 Installing with zip-file:
-* Download and extract zip-file or clone project to desired location
-* Run pom.xml. The project will now open in IntelliJ
-* In the IntelliJ toolbar select View -> Tool windows -> Maven -> Plugins -> Javafx -> 1. javafx:compile, then 2. javafx:run
+1. Download and extract zip-file or clone project to desired location
+2. Run pom.xml. The project will now open in IntelliJ
+3. In the IntelliJ toolbar select View -> Tool windows -> Maven -> Plugins -> Javafx -> 1. javafx:compile, then 2. javafx:run
+
 
 ## Questions or need help?
 * Javadocs
-* Wiki
+* [Wiki](https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28/-/wikis/home)
 
 ## Gitlab issueboard
-* (gitlab issueboard)
+* [Link](https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28/-/boards/3045)
 
 ## Authors
 * Omar Tveiten Sheikh
