@@ -31,7 +31,6 @@ https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28.git
 ```
 
 ### Running the project in IntelliJ
-Installing with zip-file:
 1. Download and extract zip-file or clone project to desired location
 2. Run pom.xml. The project will now open in IntelliJ
 3. In the IntelliJ toolbar select View -> Tool windows -> Maven -> Plugins -> Javafx -> 1. javafx:compile, then 2. javafx:run
