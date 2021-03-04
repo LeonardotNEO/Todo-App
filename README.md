@@ -13,8 +13,9 @@ Instructions for running the todo-application
 * IDEA of choice
 
 ### Downloading the project
-To download the project either download the Zip file or clone with SSH or HTTPS:
-
+To install the project either download the zip file or clone with SSH or HTTPS:
+***ZIP-file***
+[Link](https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28/-/archive/master/idatt1002_2021_28-master.zip)
 ***SSH:*** 
 ```
 git@gitlab.stud.idi.ntnu.no:markussp/idatt1002_2021_28.git
