@@ -1,4 +1,6 @@
 # TodoApplication
+![image](logo.PNG)
+
 A stand-alone Java-application for tracking tasks in an organized and structured manner.
 
 ## Table of content
@@ -14,8 +16,11 @@ Instructions for running the todo-application
 
 ### Downloading the project
 To install the project either download the zip file or clone with SSH or HTTPS:
-***ZIP-file***
+
+***ZIP-file:***
+
 [Link](https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28/-/archive/master/idatt1002_2021_28-master.zip)
+
 ***SSH:*** 
 ```
 git@gitlab.stud.idi.ntnu.no:markussp/idatt1002_2021_28.git
