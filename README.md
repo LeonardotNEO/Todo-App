@@ -11,7 +11,7 @@ Instructions for running the todo-application
 
 ### Prerequisits
 * Gitlab
-* Java SDK (insert version) or newer
+* Java SDK 11 or newer
 * IDEA of choice
 
 ### Downloading the project
@@ -23,11 +23,11 @@ To install the project either download the zip file or clone with SSH or HTTPS:
 
 ***SSH:*** 
 ```
-git@gitlab.stud.idi.ntnu.no:markussp/idatt1002_2021_28.git
+git clone git@gitlab.stud.idi.ntnu.no:markussp/idatt1002_2021_28.git
 ```
 ***HTTPS:*** 
 ```
-https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28.git
+git clone https://gitlab.stud.idi.ntnu.no/markussp/idatt1002_2021_28.git
 ```
 
 ### Running the project in IntelliJ
