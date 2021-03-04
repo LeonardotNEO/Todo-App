@@ -1,5 +1,5 @@
 # TodoApplication
-![image](logo.PNG)
+![image](src/main/resources/images/logo.PNG)
 
 A stand-alone Java-application for tracking tasks in an organized and structured manner.
 
