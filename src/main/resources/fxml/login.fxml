@@ -19,7 +19,7 @@
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <Button layoutX="354.0" layoutY="427.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Login" textFill="WHITE">
+      <Button layoutX="354.0" layoutY="427.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Login" textFill="WHITE">
          <font>
             <Font name="Microsoft JhengHei" size="14.0" />
          </font>
@@ -38,7 +38,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Button layoutX="354.0" layoutY="601.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Register" textFill="WHITE">
+      <Button layoutX="354.0" layoutY="601.0" mnemonicParsing="false" onAction="#buttonRegister" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Register" textFill="WHITE">
          <font>
             <Font name="Microsoft JhengHei" size="14.0" />
          </font>
