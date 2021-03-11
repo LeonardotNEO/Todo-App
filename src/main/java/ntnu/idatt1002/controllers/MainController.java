@@ -5,9 +5,9 @@ import ntnu.idatt1002.App;
 
 import java.io.IOException;
 
-public class RegisterController {
+public class MainController {
 
-    public void buttonRegister(ActionEvent event) throws IOException {
-        App.setRoot("main");
+    public void buttonLogout(ActionEvent event) throws IOException {
+        App.setRoot("login");
     }
 }

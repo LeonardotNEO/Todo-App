@@ -12,6 +12,6 @@ public class LoginController {
     }
 
     public void buttonLogin(ActionEvent event) throws IOException{
-        App.setRoot("dashboard");
+        App.setRoot("main");
     }
 }
