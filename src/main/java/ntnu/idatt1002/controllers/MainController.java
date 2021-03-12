@@ -29,7 +29,7 @@ public class MainController {
      */
     public void setMainContent(String page) throws IOException {
         AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
-        pane.setBottom(newContent);
+        pane.setCenter(newContent);
     }
 
     /**
