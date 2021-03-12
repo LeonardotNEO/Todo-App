@@ -3,30 +3,49 @@ package ntnu.idatt1002.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import ntnu.idatt1002.App;
-
+import javafx.scene.layout.BorderPane;
 import java.io.IOException;
-import java.security.cert.PolicyNode;
 
 public class MainController {
+    // Variables
+    private static MainController instance;
 
+    // FXML
+    @FXML private BorderPane pane;
 
-    @FXML private AnchorPane navbar;
-    @FXML private AnchorPane content;
+    public MainController(){
+        instance = this;
+    }
 
     public void initialize() throws IOException {
         setNavbar("navbar");
     }
 
-    public void setMainContent(String fxmlfileName) throws IOException {
-        AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + fxmlfileName + ".fxml"));
-        content.getChildren().setAll(newContent);
-        System.out.println("hello");
-        System.out.println(content.getChildren());
+    /**
+     * Loads an fxml page to content section of main.fxml
+     * @param page
+     * @throws IOException
+     */
+    public void setMainContent(String page) throws IOException {
+        AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
+        pane.setBottom(newContent);
     }
 
-    public void setNavbar(String fxmlfileName) throws IOException {
-        AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + fxmlfileName + ".fxml"));
-        navbar.getChildren().setAll(newContent);
+    /**
+     * Loads an fxml page to navbar section of main.fxml
+     * @param page which fxml page to load (the name)
+     * @throws IOException
+     */
+    public void setNavbar(String page) throws IOException {
+        AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
+        pane.setTop(newContent);
+    }
+
+    /**
+     * Returnes an istance of MainController, which can be used by the others controllers to edit the content of navbar and content
+     * @return
+     */
+    public static MainController getInstance(){
+        return instance;
     }
 }

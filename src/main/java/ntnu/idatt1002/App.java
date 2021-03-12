@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import ntnu.idatt1002.controllers.MainController;
 
 import java.io.IOException;
 
