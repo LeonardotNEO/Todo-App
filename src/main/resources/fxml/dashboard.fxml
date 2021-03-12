@@ -1,15 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.DashboardController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.DashboardController">
    <children>
-      <Text layoutX="398.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard" textAlignment="CENTER" wrappingWidth="204.11305147058823">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Text>
+      <BorderPane prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <AnchorPane prefHeight="700.0" prefWidth="250.0" style="-fx-background-color: #00254d; -fx-border-width: 0 0 0 0; -fx-border-color: #e6e6e6;" BorderPane.alignment="TOP_LEFT">
+               <children>
+                  <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </left>
+         <top>
+            <AnchorPane prefHeight="75.0" prefWidth="1000.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="75.0" prefWidth="250.0" style="-fx-background-color: #001933;">
+                     <children>
+                        <Text fill="WHITE" layoutX="62.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard" textAlignment="CENTER">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="250.0" prefHeight="75.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField layoutX="518.0" layoutY="22.0" nodeOrientation="LEFT_TO_RIGHT" promptText="Search..." style="-fx-background-color: #001021;">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <MenuButton layoutX="364.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="148.0" style="-fx-background-color: #001021;" text="Sort" textFill="WHITE">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </MenuButton>
+                        <Button layoutX="259.0" layoutY="22.0" mnemonicParsing="false" onAction="#addTaskButton" style="-fx-background-color: #001021;" text="Add Task" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="750.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="TOP_LEFT">
+               <children>
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

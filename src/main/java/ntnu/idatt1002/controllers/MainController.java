@@ -19,6 +19,7 @@ public class MainController {
 
     public void initialize() throws IOException {
         setNavbar("navbar");
+        setMainContent("dashboard");
     }
 
     /**

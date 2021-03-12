@@ -3,9 +3,9 @@ package ntnu.idatt1002;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import ntnu.idatt1002.controllers.MainController;
 
 import java.io.IOException;
 
@@ -18,11 +18,15 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        // Load custom font, Roboto
+        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Roboto/Roboto-Light.ttf"), 14);
 
         // The fxml file to load, found in resources/fxml/
         scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
         stage.setTitle("ToDo-App");
+        stage.setMinHeight(800);
+        stage.setMinWidth(1050);
         stage.show();
     }
 

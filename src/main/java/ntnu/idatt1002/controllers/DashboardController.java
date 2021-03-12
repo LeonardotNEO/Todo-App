@@ -2,4 +2,7 @@ package ntnu.idatt1002.controllers;
 
 public class DashboardController {
 
+    public void addTaskButton(){
+
+    }
 }
