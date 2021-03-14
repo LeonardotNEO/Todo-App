@@ -24,4 +24,7 @@ public class NavbarController {
         App.setRoot("login");
     }
 
+    public void buttonNotificationHistory(ActionEvent event) throws IOException{
+        MainController.getInstance().setMainContent("notificationHistory");
+    }
 }

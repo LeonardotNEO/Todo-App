@@ -69,13 +69,19 @@
                           <items>
                             <MenuItem mnemonicParsing="false">
                                  <graphic>
-                                    <Pane prefHeight="87.0" prefWidth="300.0" style="-fx-background-color: #001021; -fx-background-radius: 5;">
+                                    <Pane prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #001021; -fx-background-radius: 5;" stylesheets="@../css/main.css">
                                        <children>
-                                          <Text fill="WHITE" layoutX="10.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.03.2020:19:40: Lorum ipsum some text is here blalblalala some information lorum ipsum bla bla bla bla bla bla bla" wrappingWidth="280.94791412353516">
+                                          <Button id="button1" layoutY="4.0" mnemonicParsing="false" onAction="#buttonNotificationHistory" style="-fx-background-color: transparent;" stylesheets="@../css/main.css" text="Notification history" textFill="WHITE">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
-                                          </Text>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="18" />
+                                             </graphic>
+                                          </Button>
                                        </children>
                                     </Pane>
                                  </graphic></MenuItem>
@@ -89,6 +95,9 @@
                                              </font>
                                           </Text>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Pane>
                                  </graphic>
                               </MenuItem>
@@ -102,6 +111,9 @@
                                              </font>
                                           </Text>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Pane>
                                  </graphic>
                               </MenuItem>
