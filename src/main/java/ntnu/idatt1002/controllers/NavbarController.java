@@ -23,4 +23,5 @@ public class NavbarController {
     public void buttonLogout(ActionEvent event) throws IOException {
         App.setRoot("login");
     }
+
 }

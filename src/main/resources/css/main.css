@@ -5,6 +5,15 @@
   -fx-text-fill: white;
 }
 
+#button1:hover{
+  -fx-text-fill: #ffcc00;
+  -fx-background-color:  #001021;
+}
+
+#button1Icon:hover{
+  -fx-fill: #ffcc00;
+}
+
 .button2{
 
 }
