@@ -1,7 +1,8 @@
 .button1{
   -fx-background-color:  #001021;
   -fx-background-radius: 20;
-
+  -fx-font-size: 18;
+  -fx-text-fill: white;
 }
 
 .button2{
