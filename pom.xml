@@ -43,7 +43,7 @@
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-commons</artifactId>
             <version>9.1.2</version>
-            <type>pom</type>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
