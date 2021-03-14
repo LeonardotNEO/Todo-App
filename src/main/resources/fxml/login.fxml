@@ -13,46 +13,63 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <AnchorPane prefHeight="343.0" prefWidth="566.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="350.0" prefWidth="566.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="131.0" fitWidth="292.0" layoutX="354.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/logo.PNG" />
-                     </image>
-                  </ImageView>
-                  <TextField layoutX="354.0" layoutY="263.0" prefHeight="49.0" prefWidth="292.0" promptText="Username">
+                  <TextField fx:id="usernameField" layoutX="354.0" layoutY="78.0" prefHeight="49.0" prefWidth="292.0" promptText="Username">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button layoutX="354.0" layoutY="398.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Login" textFill="WHITE">
+                  <Button layoutX="354.0" layoutY="234.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Login" textFill="WHITE">
                      <font>
                         <Font name="Microsoft JhengHei" size="14.0" />
                      </font>
                   </Button>
-                  <TextField layoutX="354.0" layoutY="332.0" prefHeight="49.0" prefWidth="292.0" promptText="Password">
+                  <TextField fx:id="passwordField" layoutX="354.0" layoutY="136.0" prefHeight="49.0" prefWidth="292.0" promptText="Password">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Text layoutX="354.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" textAlignment="CENTER" wrappingWidth="292.0">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="354.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not mad an account yet?" textAlignment="CENTER" wrappingWidth="292.0">
+                  <Text fx:id="errorMessageText" layoutX="354.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="292.13671875">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Button layoutX="354.0" layoutY="622.0" mnemonicParsing="false" onAction="#buttonRegister" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Register" textFill="WHITE">
+               </children>
+            </AnchorPane>
+         </center>
+         <bottom>
+            <AnchorPane prefHeight="100.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text layoutX="354.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not mad an account yet?" textAlignment="CENTER" wrappingWidth="292.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="354.0" layoutY="48.0" mnemonicParsing="false" onAction="#buttonRegister" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Register" textFill="WHITE">
                      <font>
                         <Font name="Microsoft JhengHei" size="14.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
-         </center>
+         </bottom>
+         <top>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="131.0" fitWidth="292.0" layoutX="354.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.PNG" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="354.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" textAlignment="CENTER" wrappingWidth="292.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>

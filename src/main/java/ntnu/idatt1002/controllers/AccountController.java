@@ -12,7 +12,4 @@ public class AccountController {
 
     }
 
-    public void resetUsernameButton(ActionEvent event){
-
-    }
 }

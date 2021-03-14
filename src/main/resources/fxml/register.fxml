@@ -5,41 +5,71 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.RegisterController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.RegisterController">
    <children>
-      <ImageView fitHeight="131.0" fitWidth="292.0" layoutX="354.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/logo.PNG" />
-         </image>
-      </ImageView>
-      <TextField layoutX="354.0" layoutY="260.0" prefHeight="49.0" prefWidth="292.0" promptText="username">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <Button layoutX="354.0" layoutY="453.0" mnemonicParsing="false" onAction="#buttonRegister" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Register" textFill="WHITE">
-         <font>
-            <Font name="Microsoft JhengHei" size="14.0" />
-         </font>
-      </Button>
-      <TextField layoutX="354.0" layoutY="326.0" prefHeight="49.0" prefWidth="292.0" promptText="password">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <Text layoutX="354.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" textAlignment="CENTER" wrappingWidth="292.0">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Text>
-      <TextField layoutX="354.0" layoutY="389.0" prefHeight="49.0" prefWidth="292.0" promptText="repeat password">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
+      <BorderPane prefHeight="700.0" prefWidth="1000.0">
+         <bottom>
+            <AnchorPane prefHeight="100.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="354.0" layoutY="48.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Back to login" textFill="WHITE">
+                     <font>
+                        <Font name="Microsoft JhengHei" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <top>
+            <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="131.0" fitWidth="292.0" layoutX="354.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.PNG" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="354.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" textAlignment="CENTER" wrappingWidth="292.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <AnchorPane prefHeight="350.0" prefWidth="566.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="usernameField" layoutX="354.0" layoutY="78.0" prefHeight="49.0" prefWidth="292.0" promptText="Username">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="354.0" layoutY="285.0" mnemonicParsing="false" onAction="#buttonRegister" prefHeight="39.0" prefWidth="292.0" style="-fx-background-color: #001021;" text="Register" textFill="WHITE">
+                     <font>
+                        <Font name="Microsoft JhengHei" size="14.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="passwordField" layoutX="354.0" layoutY="136.0" prefHeight="49.0" prefWidth="292.0" promptText="Password">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Text fx:id="errorMessageText" layoutX="354.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="292.13671875">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="repeatPasswordField" layoutX="354.0" layoutY="193.0" prefHeight="49.0" prefWidth="292.0" promptText="Repeat password">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
