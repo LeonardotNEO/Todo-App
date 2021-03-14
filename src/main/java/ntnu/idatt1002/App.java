@@ -25,8 +25,8 @@ public class App extends Application {
         scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
         stage.setTitle("ToDo-App");
-        stage.setMinHeight(800);
-        stage.setMinWidth(1050);
+        stage.setMinHeight(700);
+        stage.setMinWidth(1000);
         stage.show();
     }
 
