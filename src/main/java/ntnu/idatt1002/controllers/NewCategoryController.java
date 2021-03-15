@@ -1,4 +1,4 @@
 package ntnu.idatt1002.controllers;
 
-public class AddTaskController {
+public class NewCategoryController {
 }
