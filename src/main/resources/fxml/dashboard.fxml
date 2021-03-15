@@ -24,9 +24,9 @@
                <children>
                   <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <VBox prefHeight="500.0" prefWidth="250.0" spacing="10.0">
+                        <VBox fx:id="categories" prefHeight="500.0" prefWidth="250.0" spacing="10.0">
                            <children>
-                              <Button id="button1" mnemonicParsing="false" prefWidth="200.0" styleClass="button1" stylesheets="@../css/main.css" text="Add category">
+                              <Button id="button1" mnemonicParsing="false" onAction="#buttonNewCategory" prefWidth="200.0" styleClass="button1" stylesheets="@../css/main.css" text="New category">
                                  <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
                                  </graphic>
@@ -64,6 +64,14 @@
                                     <Font size="20.0" />
                                  </font>
                               </Text>
+                              <Button id="button1" mnemonicParsing="false" onAction="#buttonEditCategory" prefHeight="39.0" prefWidth="97.0" styleClass="button2" stylesheets="@../css/main.css" text="Edit">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="EDIT" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                               <MenuButton id="button1" mnemonicParsing="false" prefHeight="39.0" prefWidth="148.0" style="-fx-background-color: #001021;" stylesheets="@../css/main.css" text="Sort" textFill="WHITE">
                                 <items>
                                   <MenuItem mnemonicParsing="false" text="Action 1" />
@@ -104,7 +112,7 @@
                                        <children>
                                           <Pane prefHeight="100.0" prefWidth="725.0" style="-fx-background-color: #001021;" />
                                           <Pane prefHeight="100.0" prefWidth="725.0" style="-fx-background-color: #001021;" />
-                                          <Button id="button1" mnemonicParsing="false" prefWidth="200.0" styleClass="button1" stylesheets="@../css/main.css" text="Add task">
+                                          <Button id="button1" mnemonicParsing="false" onAction="#buttonNewTask" prefWidth="200.0" styleClass="button1" stylesheets="@../css/main.css" text="New task">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
