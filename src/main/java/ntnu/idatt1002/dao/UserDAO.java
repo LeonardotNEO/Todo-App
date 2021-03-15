@@ -5,11 +5,11 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 
-public class UserDAO {
+public final class UserDAO {
     /**
      * @return a random salt
      */
-    public byte[] generateSalt() {
+    public static byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
@@ -22,7 +22,7 @@ public class UserDAO {
      * @param salt a users personal salt
      * @return {@code null} if an error occured
      */
-    public String hashPassword(String password, byte[] salt){
+    public static String hashPassword(String password, byte[] salt){
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
         try {
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
