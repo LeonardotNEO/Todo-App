@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="navbar" prefHeight="100.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NavbarController">
+<AnchorPane fx:id="navbar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NavbarController">
    <children>
       <BorderPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: #001021;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <left>
@@ -23,21 +30,109 @@
          <right>
             <AnchorPane prefHeight="100.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="28.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="50.0" prefWidth="112.0" style="-fx-background-color: transparent; -fx-font-size: 20;" text="Log out" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="493.0" layoutY="29.0" mnemonicParsing="false" onAction="#buttonAccount" prefHeight="47.0" prefWidth="147.0" style="-fx-background-color: transparent; -fx-font-size: 20;" text="Account" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="346.0" layoutY="27.0" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="147.0" style="-fx-background-color: transparent; -fx-font-size: 20;" text="Dashboard" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
+                  <HBox alignment="CENTER" layoutX="282.0" prefHeight="100.0" prefWidth="623.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Button id="button1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="171.0" style="-fx-background-color: transparent; -fx-font-size: 20;" stylesheets="@../css/main.css" text="Dashboard" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="CLIPBOARD" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button id="button1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonAccount" prefHeight="47.0" prefWidth="164.0" style="-fx-background-color: transparent; -fx-font-size: 20;" stylesheets="@../css/main.css" text="Account" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="WRENCH" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button id="button1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="50.0" prefWidth="144.0" style="-fx-background-color: transparent; -fx-font-size: 20;" stylesheets="@../css/main.css" text="Log out" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <MenuButton id="button1Icon" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: transparent;" stylesheets="@../css/main.css" textFill="WHITE">
+                          <items>
+                            <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <Pane prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #001021; -fx-background-radius: 5;" stylesheets="@../css/main.css">
+                                       <children>
+                                          <Button id="button1" layoutY="4.0" mnemonicParsing="false" onAction="#buttonNotificationHistory" style="-fx-background-color: transparent;" stylesheets="@../css/main.css" text="Notification history" textFill="WHITE">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="18" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </Pane>
+                                 </graphic></MenuItem>
+                              <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <Pane prefHeight="87.0" prefWidth="300.0" style="-fx-background-color: #001021; -fx-background-radius: 5;">
+                                       <children>
+                                          <Text fill="WHITE" layoutX="10.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.03.2020:19:40: Lorum ipsum some text is here blalblalala some information lorum ipsum bla bla bla bla bla bla bla" wrappingWidth="280.94791412353516">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Pane>
+                                 </graphic>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <Pane prefHeight="87.0" prefWidth="300.0" style="-fx-background-color: #001021; -fx-background-radius: 5;">
+                                       <children>
+                                          <Text fill="WHITE" layoutX="10.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.03.2020:19:40: Lorum ipsum some text is here blalblalala some information lorum ipsum bla bla bla bla bla bla bla" wrappingWidth="280.94791412353516">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Pane>
+                                 </graphic>
+                              </MenuItem>
+                          </items>
+                           <graphic>
+                              <FontAwesomeIconView id="button1Icon" fill="WHITE" glyphName="BELL" selectionStart="1" size="35" wrappingWidth="33.0">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></FontAwesomeIconView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MenuButton>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </right>
