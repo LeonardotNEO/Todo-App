@@ -10,29 +10,40 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 public class DashboardController {
+    //VARIABLES
+    private static DashboardController instance;
 
+    //FXML
     @FXML private Text categoryName;
     @FXML private VBox categories;
     @FXML private BorderPane borderPane;
 
+    public DashboardController(){
+        instance = this;
+    }
+
     public void initialize() throws IOException {
-        updateCenterContent("tasks");
+        setCenterContent("tasks");
     }
 
     public void buttonNewTask() throws IOException {
-        updateCenterContent("newTask");
+        setCenterContent("newTask");
     }
 
     public void buttonEditCategory() throws IOException {
-        updateCenterContent("editCategory");
+        setCenterContent("editCategory");
     }
 
     public void buttonNewCategory() throws IOException {
-        updateCenterContent("newCategory");
+        setCenterContent("newCategory");
     }
 
-    public void updateCenterContent(String page) throws IOException {
+    public void setCenterContent(String page) throws IOException {
         AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
         borderPane.setCenter(newContent);
+    }
+
+    public static DashboardController getInstance(){
+        return instance;
     }
 }
