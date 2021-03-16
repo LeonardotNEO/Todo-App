@@ -15,7 +15,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <AnchorPane prefHeight="350.0" prefWidth="1000.0" style="-fx-background-color: #e6f2ff;" BorderPane.alignment="TOP_LEFT">
+            <AnchorPane prefHeight="350.0" prefWidth="1000.0" styleClass="background-color_3" stylesheets="@../css/main.css" BorderPane.alignment="TOP_LEFT">
                <children>
                   <TextField fx:id="usernameField" layoutX="354.0" layoutY="105.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="49.0" prefWidth="292.0" promptText="Username">
                      <font>

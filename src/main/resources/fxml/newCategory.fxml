@@ -23,7 +23,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button id="button1" layoutX="257.0" layoutY="555.0" mnemonicParsing="false" onAction="#buttonNewCategory" prefHeight="39.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Add task">
+      <Button id="button1" layoutX="233.0" layoutY="555.0" mnemonicParsing="false" onAction="#buttonNewCategory" prefHeight="39.0" prefWidth="139.0" styleClass="button2" stylesheets="@../css/main.css" text="New category">
          <graphic>
             <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
          </graphic>

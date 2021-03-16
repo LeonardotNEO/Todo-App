@@ -45,7 +45,7 @@
             </AnchorPane>
          </top>
          <center>
-            <AnchorPane prefHeight="350.0" style="-fx-background-color: #e6f2ff;">
+            <AnchorPane prefHeight="350.0" styleClass="background-color_3" stylesheets="@../css/main.css">
                <children>
                   <TextField fx:id="usernameField" layoutX="354.0" layoutY="75.0" prefHeight="49.0" prefWidth="292.0" promptText="Username">
                      <font>
