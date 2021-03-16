@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class NewTaskController {
+public class EditTaskController {
 
     @FXML private TextField titleTextField;
     @FXML private TextArea descriptionTextArea;
@@ -21,18 +21,24 @@ public class NewTaskController {
      * @param event
      * @throws IOException
      */
-    public void buttonCancelNewTask(ActionEvent event) throws IOException {
+    public void buttonCancelEditTask(ActionEvent event) throws IOException {
         DashboardController.getInstance().setCenterContent("tasks");
     }
 
-    public void buttonNewTask(ActionEvent event) throws  IOException {
-        boolean addTaskSuccesfull = true; // method that communicates with DAO to att new task (parameters are FXML parameters). If succesfull the method return true
+    public void buttonEditTask(ActionEvent event) throws IOException {
+        boolean editTask = true; //
 
-        if(addTaskSuccesfull){
-            DashboardController.getInstance().setCenterContent("tasks"); // redirects back to tasks if succesfull
+        if(editTask){
+            DashboardController.getInstance().setCenterContent("tasks");
         } else {
-            //errormessage to textfield?
+            //errormessage
         }
-
     }
+
+    public void editTask(){
+        titleTextField.getText();
+        descriptionTextArea.getText();
+        datePicker.getPromptText();
+    }
+
 }
