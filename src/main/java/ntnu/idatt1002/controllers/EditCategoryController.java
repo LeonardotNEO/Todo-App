@@ -6,6 +6,11 @@ import java.io.IOException;
 
 public class EditCategoryController {
 
+    /**
+     * cancel button loads the tasks page back into center-content of dashboard
+     * @param event
+     * @throws IOException
+     */
     public void buttonCancelEditCategory(ActionEvent event) throws IOException {
         DashboardController.getInstance().setCenterContent("tasks");
     }

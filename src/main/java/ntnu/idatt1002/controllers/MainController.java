@@ -17,6 +17,10 @@ public class MainController {
         instance = this;
     }
 
+    /**
+     * When mainpage is loaded, we automatically populate it with navbar at the top, and the maincontent = dashboard
+     * @throws IOException
+     */
     public void initialize() throws IOException {
         setNavbar("navbar");
         setMainContent("dashboard");
