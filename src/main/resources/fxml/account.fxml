@@ -19,7 +19,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{.............................}" wrappingWidth="144.1130514705883">
+            <Text fx:id="usernameText" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{.............................}" wrappingWidth="144.1130514705883">
                <font>
                   <Font size="20.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{.............................}" wrappingWidth="144.1130514705883">
+            <Text fx:id="dashboardsText" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{.............................}" wrappingWidth="144.1130514705883">
                <font>
                   <Font size="20.0" />
                </font>
@@ -47,7 +47,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{.............................}" wrappingWidth="144.1130514705883">
+            <Text fx:id="dateCreatedText" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{.............................}" wrappingWidth="144.1130514705883">
                <font>
                   <Font size="20.0" />
                </font>
