@@ -10,7 +10,7 @@ import java.security.spec.KeySpec;
 import java.util.ArrayList;
 
 public final class UserDAO {
-    private static final String SAVEPATH = "resources/saves/";
+    private static final String SAVEPATH = "src/main/resources/saves";
     private static final String FILETYPE = ".ser";
 
     /**
@@ -36,18 +36,29 @@ public final class UserDAO {
      * Save user to storage
      * @param user {@code User} object
      */
-    private static void serializeUser(User user){
-        File file = new File(SAVEPATH + user.getUsername() + FILETYPE);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+    public static void serializeUser(User user){
+        String username = user.getUsername();
+        File directory = new File(SAVEPATH + "/" + username);
+        File file = new File(directory.getPath() + "/" + username + FILETYPE);
 
-            oos.writeObject(user);
+        /* Try to save user to directory. If it fails it may be because the folder is not created.
+        In that instance it will create said folder and try again. */
+        for(int i=0; i<2; i++) {
+            try {
+                FileOutputStream fos = new FileOutputStream(file);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            oos.close();
-            fos.close();
-        }catch(IOException ioe){
-            ioe.printStackTrace();
+                oos.writeObject(user);
+
+                oos.close();
+                fos.close();
+                break;
+            } catch (FileNotFoundException fnfe) {
+                boolean mkdir = directory.mkdir();
+                if (!mkdir) { fnfe.printStackTrace(); }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
     }
 
@@ -56,8 +67,8 @@ public final class UserDAO {
      * @param username case-sensitive username
      * @return {@code null} if error occurs
      */
-    private static User deserializeUser(String username){
-        File file = new File(SAVEPATH + username + FILETYPE);
+    public static User deserializeUser(String username){
+        File file = new File(SAVEPATH + "/" + username + "/" + username + FILETYPE);
         User user = null;
         try{
             FileInputStream fis = new FileInputStream(file);
