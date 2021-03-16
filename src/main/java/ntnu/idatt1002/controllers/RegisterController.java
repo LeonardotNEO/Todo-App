@@ -15,10 +15,26 @@ public class RegisterController {
     @FXML TextField passwordField;
     @FXML TextField repeatPasswordField;
 
+    /**
+     * Method that register a new user
+     * @param event
+     * @throws IOException
+     */
     public void buttonRegister(ActionEvent event) throws IOException {
-        App.setRoot("main");
+        boolean userSuccesfullyRegistered = true; // uses registerSerivice to register a new user. has usernameField.getText(), passwordField.getText() and repeatPasswordField.getText() as parameters.
+
+        if(userSuccesfullyRegistered){
+            App.setRoot("main");
+        } else {
+            errorMessageText.setText("Could not register new user!");
+        }
     }
 
+    /**
+     * Loads login stage
+     * @param event
+     * @throws IOException
+     */
     public void buttonLogin(ActionEvent event) throws IOException {
         App.setRoot("login");
     }

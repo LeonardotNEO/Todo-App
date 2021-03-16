@@ -8,7 +8,7 @@ import java.io.IOException;
 public class NavbarController {
 
     /**
-     * We get an istance of MainController and use its setMainContent method. We then specify to load dashboard page into main page content
+     * Communicate with mainController to updates its main-content to dashboard.fxml when button in navbar is clicked
      * @param event
      * @throws IOException
      */
@@ -16,15 +16,33 @@ public class NavbarController {
         MainController.getInstance().setMainContent("dashboard");
     }
 
+    /**
+     * Communicate with mainController to updates its main-content to account.fxml when button in navbar is clicked
+     * @param event
+     * @throws IOException
+     */
     public void buttonAccount(ActionEvent event) throws IOException {
         MainController.getInstance().setMainContent("account");
     }
 
+    /**
+     * Communicate with mainController to updates its main-content to notificationHistory.fxml when button on notifcations is clicked
+     * @param event
+     * @throws IOException
+     */
+    public void buttonNotificationHistory(ActionEvent event) throws IOException{
+        MainController.getInstance().setMainContent("notificationHistory");
+    }
+
+    /**
+     * method for loading login.fxml
+     * @param event
+     * @throws IOException
+     */
     public void buttonLogout(ActionEvent event) throws IOException {
         App.setRoot("login");
     }
 
-    public void buttonNotificationHistory(ActionEvent event) throws IOException{
-        MainController.getInstance().setMainContent("notificationHistory");
-    }
+
+
 }
