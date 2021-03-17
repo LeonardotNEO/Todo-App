@@ -9,6 +9,9 @@ import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.ArrayList;
 
+/**
+ * Access user objects in storage
+ */
 public final class UserDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
     private static final String FILETYPE = ".ser";
