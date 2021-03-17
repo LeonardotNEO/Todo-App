@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.App;
+import ntnu.idatt1002.service.RegisterService;
 
 import java.io.IOException;
 
@@ -21,13 +22,23 @@ public class RegisterController {
      * @throws IOException
      */
     public void buttonRegister(ActionEvent event) throws IOException {
-        boolean userSuccesfullyRegistered = true; // uses registerSerivice to register a new user. has usernameField.getText(), passwordField.getText() and repeatPasswordField.getText() as parameters.
+        String errorMessage = "";
 
-        if(userSuccesfullyRegistered){
-            App.setRoot("main");
+        if (!RegisterService.checkIfPasswordValid(passwordField.getText(), repeatPasswordField.getText())){
+            errorMessage += "Password syntax is wrong \n";
+        } else if(!RegisterService.checkIfUsernameValid(usernameField.getText())){
+            errorMessage += "Username is not valid \n";
         } else {
-            errorMessageText.setText("Could not register new user!");
+            boolean userSuccesfullyRegistered = RegisterService.registerNewUser(usernameField.getText(), passwordField.getText());
+
+            if(userSuccesfullyRegistered){
+                App.setRoot("main");
+            } else {
+                errorMessage += "Error in saving user to storage! \n";
+            }
         }
+
+        errorMessageText.setText(errorMessage);
     }
 
     /**
