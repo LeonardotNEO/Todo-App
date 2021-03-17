@@ -2,6 +2,7 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.UserStateDAO;
 
 public class LoginService {
 
@@ -26,7 +27,7 @@ public class LoginService {
         return result;
     }
 
-    public static void saveLogin(){
-        //UserState userState
+    public static void saveLogin(String username){
+        UserStateDAO.setUserState(username);
     }
 }
