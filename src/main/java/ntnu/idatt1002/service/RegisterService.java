@@ -1,7 +1,6 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.UserState;
 import ntnu.idatt1002.dao.UserDAO;
 
 public class RegisterService {
@@ -10,13 +9,21 @@ public class RegisterService {
         User newUser = new User(name, password, UserDAO.generateSalt());
         UserDAO.serializeUser(newUser);
 
-        UserState userState = new UserState();
-        userState.setUserState(newUser);
+        // We need to set userState here via UserStateService
+
         return true;
     }
 
+    public static boolean checkIfPasswordValidSyntax(String password, String repeatPassword){
+        if(password.length() > 6 || repeatPassword.length() > 6){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static boolean checkIfPasswordValid(String password, String repeatPassword){
-        if(password.equals(repeatPassword) && password.length() > 6 && repeatPassword.length() > 6){
+        if(password.equals(repeatPassword)){
             return true;
         } else {
             return false;

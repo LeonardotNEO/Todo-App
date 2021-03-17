@@ -1,5 +1,6 @@
 package ntnu.idatt1002;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  * This class provides access methods for all fields contained within.
  * The class also provides hashCode and a equals method as well as a toString method.
  */
-public class Task {
+public class Task implements Serializable {
     private String name;
     private String userName;
     private String description = "";
