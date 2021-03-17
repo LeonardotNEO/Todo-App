@@ -23,7 +23,6 @@ public class LoginService {
         User user = UserDAO.deserializeUser(username);
 
         if(user.getPassword().equals(password)){
-            System.out.println(user.getUsername().equals(username) + " " + user.getPassword().equals(password));
             result = true;
         }
 
