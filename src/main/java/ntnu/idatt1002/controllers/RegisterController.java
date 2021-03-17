@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.App;
+import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.RegisterService;
 
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class RegisterController {
 
             if(userSuccesfullyRegistered){
                 App.setRoot("main");
+                LoginService.saveLogin(usernameField.getText());
             } else {
                 errorMessage += "Error in saving user to storage! \n";
             }
