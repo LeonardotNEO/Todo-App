@@ -2,6 +2,10 @@ package ntnu.idatt1002.dao;
 
 import ntnu.idatt1002.Task;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public final class TaskDAO {
@@ -13,7 +17,17 @@ public final class TaskDAO {
      * @return {@code null} if user could not be found
      */
     public static ArrayList<Task> getTasksByUser(String username){
-        return null;
+        ArrayList<Task> tasks = new ArrayList<>();
+        File directory = new File(SAVEPATH + "/" + username);
+        String[] pathnames = directory.list();
+        if(pathnames != null){
+            for(String path : pathnames){
+                tasks.add(deserializeTask(directory.getPath() + "/" + path));
+            }
+            return tasks;
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -38,6 +52,28 @@ public final class TaskDAO {
      * @return {@code null} if user or task could not be found
      */
     public static Task deserializeTask(String username, int taskID){
-        return null;
+        String filepath = SAVEPATH + "/" + username + "/" + "task" + taskID + FILETYPE;
+        return deserializeTask(filepath);
+    }
+
+    /**
+     * Get a single task given by filename
+     * @return {@code null} if task could not be found
+     */
+    private static Task deserializeTask(String filepath){
+        File file = new File(filepath);
+        Task task = null;
+        try{
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            task = (Task) ois.readObject();
+
+            ois.close();
+            fis.close();
+        }catch(IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        return task;
     }
 }
