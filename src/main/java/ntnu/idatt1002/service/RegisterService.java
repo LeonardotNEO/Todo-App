@@ -14,8 +14,16 @@ public class RegisterService {
         return true;
     }
 
+    public static boolean checkIfPasswordValidSyntax(String password, String repeatPassword){
+        if(password.length() > 6 || repeatPassword.length() > 6){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static boolean checkIfPasswordValid(String password, String repeatPassword){
-        if(password.equals(repeatPassword) && password.length() > 6 && repeatPassword.length() > 6){
+        if(password.equals(repeatPassword)){
             return true;
         } else {
             return false;

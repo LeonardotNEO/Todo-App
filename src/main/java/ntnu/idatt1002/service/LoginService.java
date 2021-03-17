@@ -18,9 +18,10 @@ public class LoginService {
         boolean result = false;
         User user = UserDAO.deserializeUser(username);
 
-        if(user.getPassword().equals(password)){
+        if(user != null && user.getPassword().equals(password)){
             result = true;
         }
+
 
         return result;
     }
