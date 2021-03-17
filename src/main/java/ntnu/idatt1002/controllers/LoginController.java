@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.App;
+import ntnu.idatt1002.service.LoginService;
 
 import java.io.IOException;
 
@@ -29,14 +30,22 @@ public class LoginController {
      * @throws IOException
      */
     public void buttonLogin(ActionEvent event) throws IOException{
-        boolean login = true; // boolean login needs to check with loginService if credentials are OK (send in usernameField.getText() and passwordField.getText())
+        String errorMessage = "";
 
-        if(login){
-            App.setRoot("main");
+        if(LoginService.checkIfLoginSyntaxValid(usernameField.getText(), passwordField.getText())){
+            boolean login = LoginService.checkIfLoginValid(usernameField.getText(), passwordField.getText());
 
-            // Should set userState to the user with input in usernamefield
+            if(login){
+                App.setRoot("main");
+                LoginService.saveLogin();
+            } else {
+                errorMessage += "Username or password is wrong";
+            }
+
         } else {
-            errorMessageText.setText("Login credentials are wrong!");
+            errorMessage += "Username or password is empty! \n";
         }
+
+        errorMessageText.setText(errorMessage);
     }
 }
