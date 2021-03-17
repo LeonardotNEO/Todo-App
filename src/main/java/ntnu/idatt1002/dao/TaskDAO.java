@@ -2,12 +2,12 @@ package ntnu.idatt1002.dao;
 
 import ntnu.idatt1002.Task;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Acces task objects in storage
+ */
 public final class TaskDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
     private static final String FILETYPE = ".ser";
@@ -17,9 +17,15 @@ public final class TaskDAO {
      * @return {@code null} if user could not be found
      */
     public static ArrayList<Task> getTasksByUser(String username){
+        //Get all files in a user folder
         ArrayList<Task> tasks = new ArrayList<>();
         File directory = new File(SAVEPATH + "/" + username);
-        String[] pathnames = directory.list();
+
+        //Only get task files
+        FilenameFilter filter = (directory1, name) -> name.startsWith("task");
+        String[] pathnames = directory.list(filter);
+
+        //List through all task files and add to ArrayList
         if(pathnames != null){
             for(String path : pathnames){
                 tasks.add(deserializeTask(directory.getPath() + "/" + path));
@@ -32,27 +38,41 @@ public final class TaskDAO {
 
     /**
      * Save an {@code ArrayList} of tasks to their owner folder
-     * @param tasks all need to have the same owner
      */
     public static void saveTasksToUser(ArrayList<Task> tasks){
-        //empty
+        for(Task task : tasks){
+            serializeTask(task);
+        }
     }
 
     /**
      * Save a single task to storage
      */
     public static void serializeTask(Task task){
-        //empty
+        String username = task.getUserName();
+        int taskID = task.hashCode();
+        File file = new File(SAVEPATH + "/" + username + "/task" + taskID + FILETYPE);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(task);
+
+            oos.close();
+            fos.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     /**
      * Get a single task given by ID and owner
      * @param username which user that owns the task
-     * @param taskID unique task ID
+     * @param taskID tasks hashcode
      * @return {@code null} if user or task could not be found
      */
     public static Task deserializeTask(String username, int taskID){
-        String filepath = SAVEPATH + "/" + username + "/" + "task" + taskID + FILETYPE;
+        String filepath = SAVEPATH + "/" + username + "/task" + taskID + FILETYPE;
         return deserializeTask(filepath);
     }
 
