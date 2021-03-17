@@ -1,11 +1,7 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.UserState;
 import ntnu.idatt1002.dao.UserDAO;
-
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoginService {
 

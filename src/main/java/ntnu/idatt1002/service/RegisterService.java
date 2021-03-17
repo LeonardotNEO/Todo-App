@@ -1,7 +1,6 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.UserState;
 import ntnu.idatt1002.dao.UserDAO;
 
 public class RegisterService {
@@ -10,8 +9,8 @@ public class RegisterService {
         User newUser = new User(name, password, UserDAO.generateSalt());
         UserDAO.serializeUser(newUser);
 
-        UserState userState = new UserState();
-        userState.setUserState(newUser);
+        // We need to set userState here via UserStateService
+
         return true;
     }
 
