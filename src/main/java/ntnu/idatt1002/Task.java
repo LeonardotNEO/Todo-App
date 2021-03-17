@@ -13,7 +13,7 @@ public class Task implements Serializable {
     private String userName;
     private String description = "";
     private String deadline;
-    private byte priority;
+    private int priority;
     private String startDate;
 
     /**
@@ -25,7 +25,7 @@ public class Task implements Serializable {
      * @param priority
      * @param startDate
      */
-    public Task(String name, String userName, String description, String deadline, byte priority, String startDate) {
+    public Task(String name, String userName, String description, String deadline, int priority, String startDate) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -41,7 +41,7 @@ public class Task implements Serializable {
      * @param description
      * @param priority
      */
-    public Task(String name, String userName, String description, byte priority) {
+    public Task(String name, String userName, String description, int priority) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -76,7 +76,7 @@ public class Task implements Serializable {
      * A method to get the field priority
      * @return the priority of the task
      */
-    public byte getPriority() {return priority;}
+    public int getPriority() {return priority;}
 
     /**
      * A method to set a new start date
