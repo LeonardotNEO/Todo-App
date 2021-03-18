@@ -7,6 +7,7 @@ import ntnu.idatt1002.dao.TaskDAO;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class TaskService {
 
@@ -31,12 +32,40 @@ public class TaskService {
         TaskDAO taskdao = new TaskDAO();
         ArrayList<Task> usersTasks = taskdao.getTasksByUser(Username);
         ArrayList<Task> tasksSortedByCat = new ArrayList<>();
-        for(Task t: usersTasks) {
-            if(t.getCategory().equals(CategoryName)){
-                tasksSortedByCat.add(t);
+        tasksSortedByCat = (ArrayList<Task>) usersTasks.stream().filter(t -> t.getCategory().equals(CategoryName));
+        return tasksSortedByCat;
+    }
+
+    /**
+     * Returns Array of all the tasks sorted by their priority.
+     * @param Username
+     * @return
+     */
+    public ArrayList<Task> TaskSortedByPriority(String Username){
+        TaskDAO taskDAO = new TaskDAO();
+        ArrayList<Task> userTasks = taskDAO.getTasksByUser(Username);
+        ArrayList<Task> taskSortedByPrio = new ArrayList<>();
+        for(Task t: userTasks){
+            if(t.getPriority() == 3){
+                taskSortedByPrio.add(t);
             }
         }
-        return tasksSortedByCat;
+        for(Task t: userTasks){
+            if(t.getPriority() == 2){
+                taskSortedByPrio.add(t);
+            }
+        }
+        for(Task t: userTasks){
+            if(t.getPriority() == 1){
+                taskSortedByPrio.add(t);
+            }
+        }
+        for(Task t: userTasks){
+            if(t.getPriority() == 0){
+                taskSortedByPrio.add(t);
+            }
+        }
+        return taskSortedByPrio;
     }
 
 }
