@@ -1,6 +1,7 @@
 package ntnu.idatt1002;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
     private String username;
@@ -41,5 +42,18 @@ public class User implements Serializable {
 
     public void setSalt(byte[] salt) {
         this.salt = salt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return username.equals(user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
     }
 }

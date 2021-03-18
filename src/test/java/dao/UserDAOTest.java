@@ -5,10 +5,17 @@ import ntnu.idatt1002.dao.UserDAO;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class UserDAOTest {
+    @Test
+    public void _getUsers(){
+        ArrayList<User> users = UserDAO.getUsers();
+    }
+
     @Test
     public void serialization_and_deserialization(){
         User userA = new User("olanormann");
