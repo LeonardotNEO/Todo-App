@@ -23,6 +23,11 @@ public class App extends Application {
         // Load custom font, Roboto
         Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Roboto/Roboto-Light.ttf"), 14);
 
+        // create userstate.ser if it doesnt exist
+        if(!UserStateDAO.filExists()){
+            UserStateDAO.setUserState(null);
+        }
+
         // check if userState contains a saved user, loads login if not
         if(UserStateService.checkIfUserState()){
             scene = new Scene(loadFXML("main"));
