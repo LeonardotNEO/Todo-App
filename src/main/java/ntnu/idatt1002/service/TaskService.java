@@ -11,8 +11,8 @@ import java.util.HashMap;
 public class TaskService {
 
     public static boolean newTask(String username, String title, String deadline, String description, int priority, String startDate) {
-        Task newTask = new Task(title, username, description, deadline, priority, startDate);
-        TaskDAO.serializeTask(newTask);
+        //Task newTask = new Task(title, username, description, deadline, priority, startDate);
+        //TaskDAO.serializeTask(newTask);
 
         return true;
     }
