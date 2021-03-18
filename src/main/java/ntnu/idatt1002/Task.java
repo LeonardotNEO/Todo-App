@@ -15,6 +15,7 @@ public class Task implements Serializable {
     private String deadline;
     private int priority;
     private String startDate;
+    private String category;
 
     /**
      * A constructor for the class Task. Use when there is a deadline and start date for task.
@@ -24,14 +25,16 @@ public class Task implements Serializable {
      * @param deadline
      * @param priority
      * @param startDate
+     * @param category
      */
-    public Task(String name, String userName, String description, String deadline, int priority, String startDate) {
+    public Task(String name, String userName, String description, String deadline, int priority, String startDate, String category) {
         this.name = name;
         this.userName = userName;
         this.description = description;
         this.deadline = deadline;
         this.priority = priority;
         this.startDate = startDate;
+        this.category = category;
     }
 
     /**
@@ -40,12 +43,14 @@ public class Task implements Serializable {
      * @param userName
      * @param description
      * @param priority
+     * @param category
      */
-    public Task(String name, String userName, String description, int priority) {
+    public Task(String name, String userName, String description, int priority, String category) {
         this.name = name;
         this.userName = userName;
         this.description = description;
         this.priority = priority;
+        this.category = category;
     }
 
     /**
@@ -79,10 +84,16 @@ public class Task implements Serializable {
     public int getPriority() {return priority;}
 
     /**
-     * A method to set a new start date
+     * A method to get the field start date
      * @return the startDate of the task
      */
     public String getStartDate() {return startDate;}
+
+    /**A method to get the field category
+     *
+     * @return the category of the task
+     */
+    public String getCategory() {return category;}
 
     /**
      * A method to set a new name for the task
@@ -115,6 +126,12 @@ public class Task implements Serializable {
     public void setStartDate(String startDate) {this.startDate = startDate;}
 
     /**
+     * A method to set a new category.
+     * @param category
+     */
+    public void setCategory(String category) {this.category = category;}
+
+    /**
      * Checks to see if all fields in the object up for comparison is equal to the fields in Task.
      * @param o
      * @return whenever or not the object o is equal to the class Task.
@@ -124,7 +141,13 @@ public class Task implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return priority == task.priority && Objects.equals(name, task.name) && Objects.equals(userName, task.userName) && Objects.equals(description, task.description) && Objects.equals(deadline, task.deadline) && Objects.equals(startDate, task.startDate);
+        return priority == task.priority &&
+                Objects.equals(name, task.name) &&
+                Objects.equals(userName, task.userName) &&
+                Objects.equals(description, task.description) &&
+                Objects.equals(deadline, task.deadline) &&
+                Objects.equals(startDate, task.startDate) &&
+                Objects.equals(category, task.category);
     }
 
     /**
@@ -133,7 +156,7 @@ public class Task implements Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(name, userName, description, deadline, priority, startDate);
+        return Objects.hash(name, userName, description, deadline, priority, startDate, category);
     }
 
     /**
@@ -149,6 +172,7 @@ public class Task implements Serializable {
                 ", deadline='" + deadline + '\'' +
                 ", priority=" + priority +
                 ", startDate='" + startDate + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }
