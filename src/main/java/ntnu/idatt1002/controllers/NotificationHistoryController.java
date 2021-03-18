@@ -14,13 +14,14 @@ import ntnu.idatt1002.service.NotificationService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NotificationHistoryController {
 
     @FXML private VBox notificationsVBox;
 
     public void initialize(){
-        ArrayList<Notification> notifications = NotificationDAO.getNotifsByUser(UserStateDAO.getUserState());
+        ArrayList<Notification> notifications = NotificationService.getNotificationsByUser();
 
         notifications.forEach(notification -> {
             Pane pane = null;
@@ -36,13 +37,15 @@ public class NotificationHistoryController {
             Text description = (Text) pane.lookup("#description");
             description.setText(notification.getDescription());
 
-            notificationsVBox.getChildren().add(pane);
+            notificationsVBox.getChildren().add(0, pane);
         });
     }
 
     public void newNotification(ActionEvent event) throws IOException {
-        NotificationService.newNotification("Notification 1", "this is some description");
-        NotificationService.newNotification("Notification 2", "this is some description");
+        Random random = new Random();
+        NotificationService.newNotification("Notification " + random.nextInt(), "this is some description");
+
         MainController.getInstance().setMainContent("notificationHistory");
     }
+
 }

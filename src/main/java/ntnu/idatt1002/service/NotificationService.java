@@ -7,9 +7,13 @@ import java.util.ArrayList;
 
 public class NotificationService {
 
-    public static ArrayList<Notification> getNotificationsByUser(String username){
-        return NotificationDAO.getNotifsByUser(username);
+    public static ArrayList<Notification> getNotificationsByUser(){
+        return NotificationDAO.getNotifsByUser(UserStateService.getCurrentUser().getUsername());
     }
+
+    /**public static ArrayList<Notification> getNotificationsSortedDate(){
+
+    }*/
 
     public static void newNotification(String title, String description){
         Notification notification = new Notification(title, UserStateService.getCurrentUser().getUsername(), description);
