@@ -6,6 +6,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
@@ -30,7 +32,12 @@ public class DashboardController {
         // loads tasks page
         setCenterContent("tasks");
 
+        // set currentCategoryName
+
+        //categoryName.setText();
+
         // categoryName.setText() should be equals currently selected dashboards name
+
     }
 
     /**

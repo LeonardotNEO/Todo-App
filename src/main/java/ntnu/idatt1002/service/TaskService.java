@@ -1,7 +1,12 @@
 package ntnu.idatt1002.service;
 
+import ntnu.idatt1002.Category;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TaskService {
 
@@ -10,6 +15,10 @@ public class TaskService {
         TaskDAO.serializeTask(newTask);
 
         return true;
+    }
+
+    public static ArrayList<Task> getTasksByCurrentUser(){
+        return TaskDAO.getTasksByUser(UserStateService.getCurrentUser().getUsername());
     }
 
 }
