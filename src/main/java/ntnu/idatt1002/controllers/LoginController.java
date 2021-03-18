@@ -42,7 +42,7 @@ public class LoginController {
 
             if(login){
                 App.setRoot("main");
-                LoginService.saveLogin();
+                LoginService.saveLogin(usernameField.getText());
             } else {
                 errorMessage += "Username or password is wrong";
             }
