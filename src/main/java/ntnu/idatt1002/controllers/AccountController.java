@@ -3,6 +3,7 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
+import ntnu.idatt1002.service.UserStateService;
 
 public class AccountController {
 
@@ -13,6 +14,7 @@ public class AccountController {
 
     public void initialize(){
         // when page is initialized, set textfields to appropraite values (f.eks usernameText.setText())
+        usernameText.setText(UserStateService.getCurrentUser().getUsername());
     }
 
     /**
