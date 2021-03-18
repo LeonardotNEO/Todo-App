@@ -21,6 +21,24 @@ public class TaskService {
         return TaskDAO.getTasksByUser(UserStateService.getCurrentUser().getUsername());
     }
 
+    /**
+     * Methode that sorts all the tasks by category.
+     * @param CategoryName
+     * @param Username
+     * @return
+     */
+    public ArrayList<Task> TaskSortedByCategory(String CategoryName, String Username){
+        TaskDAO taskdao = new TaskDAO();
+        ArrayList<Task> usersTasks = taskdao.getTasksByUser(Username);
+        ArrayList<Task> tasksSortedByCat = new ArrayList<>();
+        for(Task t: usersTasks) {
+            if(t.getCategory().equals(CategoryName)){
+                tasksSortedByCat.add(t);
+            }
+        }
+        return tasksSortedByCat;
+    }
+
 }
 
 
