@@ -23,7 +23,10 @@ public final class UserDAO {
     public static ArrayList<User> getUsers(){
         ArrayList<User> users = new ArrayList<>(16);
         File saveDirectory = new File(SAVEPATH);
-        String[] pathnames = saveDirectory.list();
+
+        //Filter away files
+        FilenameFilter filter = (directory1, name) -> !name.endsWith(".ser") && !name.contains(".gitkeep");
+        String[] pathnames = saveDirectory.list(filter);
 
         if(pathnames != null){
             for(String path : pathnames){
