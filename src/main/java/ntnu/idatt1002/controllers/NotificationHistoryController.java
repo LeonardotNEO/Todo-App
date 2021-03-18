@@ -18,9 +18,6 @@ import java.util.ArrayList;
 public class NotificationHistoryController {
 
     @FXML private VBox notificationsVBox;
-    @FXML private Pane notificationPane;
-    @FXML private Text title;
-    @FXML private Text description;
 
     public void initialize(){
         ArrayList<Notification> notifications = NotificationDAO.getNotifsByUser(UserStateDAO.getUserState());
@@ -46,6 +43,6 @@ public class NotificationHistoryController {
     public void newNotification(ActionEvent event) throws IOException {
         NotificationService.newNotification("Notification 1", "this is some description");
         NotificationService.newNotification("Notification 2", "this is some description");
-
+        MainController.getInstance().setMainContent("notificationHistory");
     }
 }
