@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskDAOTest {
     User user = new User("olanormann");
-    Task taskA = new Task("Clean room","olanormann","",0);
+    Task taskA = new Task("Clean room","olanormann","",0,"Bil");
     int taskID = taskA.hashCode();
 
     @Test
@@ -36,7 +36,7 @@ public class TaskDAOTest {
 
     @Test
     public void save_arraylist_of_tasks(){
-        Task taskB = new Task("Throw trash","olanormann","",0);
+        Task taskB = new Task("Throw trash","olanormann","",0,"Bil");
 
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(taskB);
