@@ -10,6 +10,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.stream.Collectors;
+
+/**
+ * Comparator for dates in tasks.
+ */
 class TaskComparator implements Comparator<Task>{
 
     @Override
@@ -87,6 +91,11 @@ public class TaskService {
         }
         return taskSortedByPrio;
     }
+
+    /**
+     * Returns list of tasks sorted.
+     * @return
+     */
     public ArrayList<Task> TasksSortedByDate (){
         ArrayList<Task> userTasks = getTasksByCurrentUser();
         TaskDAO taskDAO = new TaskDAO();
