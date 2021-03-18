@@ -33,7 +33,6 @@ public class DashboardController {
         setCenterContent("tasks");
 
         // set currentCategoryName
-
         //categoryName.setText();
 
         // categoryName.setText() should be equals currently selected dashboards name
