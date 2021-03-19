@@ -91,6 +91,31 @@ public final class UserDAO {
     }
 
     /**
+     * Delete a user and all its files
+     * @return {@code false} if the user folder or some of its elements could not be deleted
+     */
+    public static boolean deleteUser(String username){
+        File saveDirectory = new File(SAVEPATH + "/" + username);
+        String[] pathnames = saveDirectory.list();
+        boolean success = true;
+
+        if(pathnames != null){
+            for(String path : pathnames){
+                File file = new File(saveDirectory.getPath() + "/" + path);
+                if(!file.delete()){
+                    success = false;
+                }
+            }
+        }
+
+        if(!saveDirectory.delete()){
+            success = false;
+        }
+
+        return success;
+    }
+
+    /**
      * @return a random salt
      */
     public static byte[] generateSalt() {

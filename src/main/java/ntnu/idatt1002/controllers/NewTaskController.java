@@ -6,6 +6,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
 
@@ -26,10 +28,18 @@ public class NewTaskController {
     }
 
     public void buttonNewTask(ActionEvent event) throws  IOException {
-        boolean addTaskSuccesfull = true; // method that communicates with DAO to att new task (parameters are FXML parameters). If succesfull the method return true
+        boolean addTaskSuccessful = TaskService.newTask(
+                titleTextField.getText(),
+                datePicker.getAccessibleText(),
+                descriptionTextArea.getText(),
+                1,
+                null,
+                categoryMenu.getText()
+        ); // method that communicates with DAO to att new task (parameters are FXML parameters). If successful the method return true
 
-        if(addTaskSuccesfull){
-            DashboardController.getInstance().setCenterContent("tasks"); // redirects back to tasks if succesfull
+        if(addTaskSuccessful){
+            TaskService.getCategoriesWithTasks();
+            DashboardController.getInstance().setCenterContent("tasks"); // redirects back to tasks if successful
         } else {
             //errormessage to textfield?
         }
