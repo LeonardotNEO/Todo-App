@@ -1,3 +1,5 @@
+package services;
+
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 import org.junit.jupiter.api.Test;
