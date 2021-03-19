@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -31,11 +32,17 @@ public class NotificationHistoryController {
                 e.printStackTrace();
             }
 
-            Text title = (Text) pane.lookup("#title");
+            Label title = (Label) pane.lookup("#title");
             title.setText(notification.getTitle());
 
-            Text description = (Text) pane.lookup("#description");
+            Label description = (Label) pane.lookup("#description");
             description.setText(notification.getDescription());
+
+            Label dueDate = (Label) pane.lookup("#dueDate");
+            String[] fullDate = notification.getDateDue().split("[T.]");
+            String date = fullDate[0];
+            String clock = fullDate[1];
+            dueDate.setText("This notification is due at date: " + date + " and time: " + clock);
 
             notificationsVBox.getChildren().add(0, pane);
         });
@@ -46,6 +53,7 @@ public class NotificationHistoryController {
         NotificationService.newNotification("Notification " + random.nextInt(), "this is some description");
 
         MainController.getInstance().setMainContent("notificationHistory");
+        MainController.getInstance().setNavbar("navbar");
     }
 
 }
