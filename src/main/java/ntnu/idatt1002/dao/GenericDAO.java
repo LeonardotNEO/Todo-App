@@ -87,4 +87,15 @@ class GenericDAO<T> {
         }
         return obj;
     }
+
+    /**
+     * Delete an element from storage
+     * @param prefix "task" or "notif"
+     * @param uniqueID hash code
+     * @return {@code false} if element could not be removed
+     */
+    boolean deleteElement(T element, String prefix, String username, int uniqueID){
+        File file = new File(SAVEPATH + "/" + username + "/" + prefix + uniqueID + FILETYPE);
+        return file.delete();
+    }
 }

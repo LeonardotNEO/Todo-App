@@ -49,4 +49,35 @@ public final class NotificationDAO {
     public static Notification deserializeNotif(String username, int notifID){
         return (Notification) genericDAO.deserializeElement(username, PREFIX, notifID);
     }
+
+    /**
+     * Delete all notifications for a user
+     * @return {@code false} if one or more could not be deleted
+     */
+    public static boolean deleteNotifsByUser(String username){
+        return deleteNotifs(getNotifsByUser(username));
+    }
+
+    /**
+     * Delete an array of notifications
+     * @return {@code false} if one or more could not be deleted
+     */
+    public static boolean deleteNotifs(ArrayList<Notification> notifications){
+        boolean success = true;
+        for(Notification notification : notifications){
+            if(!deleteNotif(notification)){
+                success = false;
+            }
+        }
+        return success;
+    }
+
+    /**
+     * Delete a single notification
+     * @return {@code false} if notification could not be deleted
+     */
+    public static boolean deleteNotif(Notification notification){
+        return genericDAO.deleteElement(notification, PREFIX, notification.getUsername(),
+                notification.hashCode());
+    }
 }

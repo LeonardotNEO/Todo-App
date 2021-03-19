@@ -2,6 +2,7 @@ package dao;
 
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class UserDAOTest {
+    User userA = new User("olanormann");
+
     @Test
     public void _getUsers(){
         ArrayList<User> users = UserDAO.getUsers();
@@ -18,7 +21,6 @@ public class UserDAOTest {
 
     @Test
     public void serialization_and_deserialization(){
-        User userA = new User("olanormann");
         UserDAO.serializeUser(userA);
         User userB = UserDAO.deserializeUser("olanormann");
 
@@ -67,5 +69,10 @@ public class UserDAOTest {
 
             assertEquals(hashA, hashB);
         }
+    }
+
+    @AfterAll
+    public static void cleanup(){
+        UserDAO.deleteUser("olanormann");
     }
 }
