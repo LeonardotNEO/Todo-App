@@ -17,10 +17,19 @@ public class NavbarController {
 
     @FXML private MenuButton notificationBell;
     @FXML private Button buttonNotificationHistory;
+    @FXML private Pane notificationCountPane;
+    @FXML private Text notificationCountText;
 
     public void initialize(){
         Button newButton = buttonNotificationHistory;
         notificationBell.getItems().add(new CustomMenuItem(newButton));
+
+        if(NotificationService.getNotCheckedNotifications().isEmpty()){
+            notificationCountPane.setVisible(false);
+        } else {
+            notificationCountPane.setVisible(true);
+            notificationCountText.setText(Integer.toString(NotificationService.getNotCheckedNotifications().size()));
+        }
 
         NotificationService.getNotCheckedNotifications().forEach(notification -> {
             try {
