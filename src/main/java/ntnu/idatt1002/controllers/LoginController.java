@@ -41,8 +41,8 @@ public class LoginController {
             boolean login = LoginService.checkIfLoginValid(usernameField.getText(), passwordField.getText());
 
             if(login){
-                App.setRoot("main");
                 LoginService.saveLogin(usernameField.getText());
+                App.setRoot("main");
             } else {
                 errorMessage += "Username or password is wrong";
             }
