@@ -34,7 +34,7 @@ public class TaskServiceTest {
     @Test
     public void tasksByCategoryTest() {
         HashMap<String, ArrayList<Task>> list = TaskService.getCategoriesWithTasks();
-        assertEquals(list.get("Category").get(0).getName(), "Hei");
+        assertEquals("Hei",list.get("Category").get(0).getName());
     }
 
     @Test
