@@ -47,4 +47,12 @@ public final class UserStateDAO {
             ioe.printStackTrace();
         }
     }
+
+    /**
+     * Check if user state file exists
+     */
+    public static boolean fileExists(){
+        File file = new File(SAVEFILE);
+        return file.exists();
+    }
 }

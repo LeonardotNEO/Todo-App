@@ -36,6 +36,7 @@ public class TaskDAOTest {
 
     @Test
     public void save_arraylist_of_tasks(){
+        UserDAO.serializeUser(user);
         Task taskB = new Task("Throw trash","olanormann","",0,"Bil");
 
         ArrayList<Task> tasks = new ArrayList<>();
