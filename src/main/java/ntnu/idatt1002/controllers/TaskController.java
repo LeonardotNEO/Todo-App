@@ -2,7 +2,12 @@ package ntnu.idatt1002.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
 
@@ -29,11 +34,29 @@ public class TaskController {
     }
 
     /**
-     * updates center-content of dashboard to editTask.fxml
+     * updates center-content of dashboard to editTask.fxml and add promp attributes
      * @param event
      * @throws IOException
      */
     public void editTask(ActionEvent event) throws IOException{
-        //DashboardController.getInstance().setCenterContent();
+        // this tasks id
+        int id = Integer.parseInt(taskName.getParent().getParent().getId());
+
+        // set id of editmenu Anchorpane, so we can fetch id when editing
+        AnchorPane editMenu = DashboardController.getInstance().setCenterContent("editTask");
+        editMenu.setId(Integer.toString(id));
+
+        // set title prompt
+        TextField title = (TextField) editMenu.lookup("#titleTextField");
+        title.setPromptText(TaskService.getTaskByCurrentUser(id).getName());
+
+        // set description prompt
+        TextArea description = (TextArea) editMenu.lookup("#descriptionTextArea");
+        description.setPromptText(TaskService.getTaskByCurrentUser(id).getDescription());
+
+        // set datepicker prompt
+        DatePicker datePicker = (DatePicker) editMenu.lookup("#datePicker");
+        datePicker.setPromptText(TaskService.getTaskByCurrentUser(id).getDeadline());
+
     }
 }

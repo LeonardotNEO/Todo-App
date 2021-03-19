@@ -68,9 +68,10 @@ public class DashboardController {
      * @param page name of fxml page in resources/fxml/--pageName--
      * @throws IOException
      */
-    public void setCenterContent(String page) throws IOException {
+    public AnchorPane setCenterContent(String page) throws IOException {
         AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
         borderPane.setCenter(newContent);
+        return newContent;
     }
 
     /**

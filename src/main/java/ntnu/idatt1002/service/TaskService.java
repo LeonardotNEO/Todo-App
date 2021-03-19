@@ -137,6 +137,16 @@ public class TaskService {
 
         return userTasks;
     }
+
+    /**
+     * Uses TaskDAO and UserStateDAO to get task by id for current user
+     * @param id
+     * @return
+     */
+    public static Task getTaskByCurrentUser(int id){
+        Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUser().getUsername(), id);
+        return task;
+    }
 }
 
 
