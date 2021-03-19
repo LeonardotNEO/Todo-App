@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <Pane fx:id="notificationPane" disable="true" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="747.0" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fx:id="title" fill="WHITE" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="473.33673095703125">
+      <Label fx:id="title" layoutX="8.0" layoutY="1.0" text="title" textFill="WHITE" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
-      </Text>
-      <Text fx:id="description" fill="WHITE" layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      </Label>
+      <Label fx:id="description" layoutX="8.0" layoutY="23.0" text="description" textFill="WHITE" wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="18.0" />
          </font>
-      </Text>
+      </Label>
+      <Label fx:id="dueDate" layoutX="6.0" layoutY="77.0" text="duedate" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
