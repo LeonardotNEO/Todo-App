@@ -79,6 +79,7 @@ public class NavbarController {
         MainController.getInstance().setMainContent("notificationHistory");
     }
 
+    // This button is not working like it should be (when clicking MenuButton)
     public void notificationBellClicked(ActionEvent event) throws IOException {
         System.out.println("clicked");
     }

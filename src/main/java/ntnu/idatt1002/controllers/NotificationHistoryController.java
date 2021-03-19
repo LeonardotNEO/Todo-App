@@ -21,6 +21,9 @@ public class NotificationHistoryController {
 
     @FXML private VBox notificationsVBox;
 
+    /**
+     * At initializing of NotificationHistory.fxml we load in all notifcations of the user
+     */
     public void initialize(){
         ArrayList<Notification> notifications = NotificationService.getNotificationsByUser();
 
@@ -49,11 +52,13 @@ public class NotificationHistoryController {
     }
 
     public void newNotification(ActionEvent event) throws IOException {
-        Random random = new Random();
-        NotificationService.newNotification("Notification " + random.nextInt(), "this is some description");
+        Random random = new Random(); // only for testing atm. We should make notification templates generated for different situations
 
-        MainController.getInstance().setMainContent("notificationHistory");
-        MainController.getInstance().setNavbar("navbar");
+        if(NotificationService.newNotification("Notification " + random.nextInt(), "this is some description")){
+            MainController.getInstance().setMainContent("notificationHistory");
+            MainController.getInstance().setNavbar("navbar");
+        }
+
     }
 
 }

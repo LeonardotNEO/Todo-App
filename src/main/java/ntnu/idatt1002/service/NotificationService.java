@@ -30,12 +30,18 @@ public class NotificationService {
         return notificationsChecked;
     }
 
-    public static void newNotification(String title, String description){
+    public static boolean newNotification(String title, String description){
         Notification notification = new Notification(title, UserStateService.getCurrentUser().getUsername(), description, Clock.systemDefaultZone());
-
         NotificationDAO.serializeNotif(notification);
+        return true;
     }
 
+    /**
+     * Setting the checked variable in notification specified by id to true
+     * @param id
+     * @return
+     * @throws IOException
+     */
     public static boolean checkNotification(int id) throws IOException {
         Notification notification = NotificationDAO.deserializeNotif(UserStateService.getCurrentUser().getUsername(), id);
         notification.setChecked(true);
