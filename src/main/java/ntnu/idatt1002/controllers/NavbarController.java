@@ -21,9 +21,11 @@ public class NavbarController {
     @FXML private Text notificationCountText;
 
     public void initialize(){
+        // Add button at the top that navigates to notificationHistoryPage
         Button newButton = buttonNotificationHistory;
         notificationBell.getItems().add(new CustomMenuItem(newButton));
 
+        // Notification Bell Count
         if(NotificationService.getNotCheckedNotifications().isEmpty()){
             notificationCountPane.setVisible(false);
         } else {
@@ -31,6 +33,7 @@ public class NavbarController {
             notificationCountText.setText(Integer.toString(NotificationService.getNotCheckedNotifications().size()));
         }
 
+        // Load notifications into menuButton
         NotificationService.getNotCheckedNotifications().forEach(notification -> {
             try {
                 Pane element = FXMLLoader.load(getClass().getResource("/fxml/notificationElement.fxml"));
