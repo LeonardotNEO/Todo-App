@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -14,16 +15,17 @@ import ntnu.idatt1002.service.NotificationService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NotificationHistoryController {
 
     @FXML private VBox notificationsVBox;
-    @FXML private Pane notificationPane;
-    @FXML private Text title;
-    @FXML private Text description;
 
+    /**
+     * At initializing of NotificationHistory.fxml we load in all notifcations of the user
+     */
     public void initialize(){
-        ArrayList<Notification> notifications = NotificationDAO.getNotifsByUser(UserStateDAO.getUserState());
+        ArrayList<Notification> notifications = NotificationService.getNotificationsByUser();
 
         notifications.forEach(notification -> {
             Pane pane = null;
@@ -33,19 +35,30 @@ public class NotificationHistoryController {
                 e.printStackTrace();
             }
 
-            Text title = (Text) pane.lookup("#title");
+            Label title = (Label) pane.lookup("#title");
             title.setText(notification.getTitle());
 
-            Text description = (Text) pane.lookup("#description");
+            Label description = (Label) pane.lookup("#description");
             description.setText(notification.getDescription());
 
-            notificationsVBox.getChildren().add(pane);
+            Label dueDate = (Label) pane.lookup("#dueDate");
+            String[] fullDate = notification.getDateDue().split("[T.]");
+            String date = fullDate[0];
+            String clock = fullDate[1];
+            dueDate.setText("This notification is due at date: " + date + " and time: " + clock);
+
+            notificationsVBox.getChildren().add(0, pane);
         });
     }
 
     public void newNotification(ActionEvent event) throws IOException {
-        NotificationService.newNotification("Notification 1", "this is some description");
-        NotificationService.newNotification("Notification 2", "this is some description");
+        Random random = new Random(); // only for testing atm. We should make notification templates generated for different situations
+
+        if(NotificationService.newNotification("Notification " + random.nextInt(), "this is some description")){
+            MainController.getInstance().setMainContent("notificationHistory");
+            MainController.getInstance().setNavbar("navbar");
+        }
 
     }
+
 }

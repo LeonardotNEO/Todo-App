@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -8,12 +9,20 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NotificationHistoryController">
    <children>
-      <Button layoutX="151.0" layoutY="45.0" mnemonicParsing="false" onAction="#newNotification" text="Button" />
+      <Button layoutX="151.0" layoutY="45.0" mnemonicParsing="false" onAction="#newNotification" text="Add notification" />
       <Text layoutX="390.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notification history" textAlignment="CENTER">
          <font>
             <Font size="26.0" />
          </font>
       </Text>
-      <VBox fx:id="notificationsVBox" layoutX="177.0" layoutY="101.0" maxHeight="1.7976931348623157E308" prefHeight="162.0" prefWidth="646.0" spacing="10.0" />
+      <ScrollPane layoutX="126.0" layoutY="102.0" prefHeight="544.0" prefWidth="747.0">
+        <content>
+          <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefWidth="744.0">
+               <children>
+                  <VBox fx:id="notificationsVBox" maxHeight="1.7976931348623157E308" prefHeight="162.0" spacing="10.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
