@@ -15,7 +15,6 @@ public class RegisterService {
     }
 
     public static boolean checkIfPasswordValidSyntax(String password, String repeatPassword){
-        if(password.equals("1") && repeatPassword.equals("1")) return true; // Just for testing;
         if(password.length() > 6 || repeatPassword.length() > 6){
             return true;
         } else {
