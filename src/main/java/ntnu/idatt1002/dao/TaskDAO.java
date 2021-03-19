@@ -48,4 +48,34 @@ public final class TaskDAO {
     public static Task deserializeTask(String username, int taskID){
         return (Task) genericDAO.deserializeElement(username, PREFIX, taskID);
     }
+
+    /**
+     * Delete all task for a user
+     * @return {@code false} if one or more could not be deleted
+     */
+    public static boolean deleteTasksByUser(String username){
+        return deleteTasks(getTasksByUser(username));
+    }
+
+    /**
+     * Delete an array of tasks
+     * @return {@code false} if one or more could not be deleted
+     */
+    public static boolean deleteTasks(ArrayList<Task> tasks){
+        boolean success = true;
+        for(Task task : tasks){
+            if(!deleteTask(task)){
+                success = false;
+            }
+        }
+        return success;
+    }
+
+    /**
+     * Delete a single task
+     * @return {@code false} if task could not be deleted
+     */
+    public static boolean deleteTask(Task task){
+        return genericDAO.deleteElement(task, PREFIX, task.getUserName(), task.hashCode());
+    }
 }
