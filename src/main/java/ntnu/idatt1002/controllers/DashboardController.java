@@ -1,15 +1,22 @@
 package ntnu.idatt1002.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class DashboardController {
     //VARIABLES
@@ -19,6 +26,7 @@ public class DashboardController {
     @FXML private Text categoryName;
     @FXML private VBox categories;
     @FXML private BorderPane borderPane;
+    @FXML private MenuButton sort;
 
     public DashboardController(){
         instance = this;
@@ -30,13 +38,13 @@ public class DashboardController {
      */
     public void initialize() throws IOException {
         // loads tasks page
-        setCenterContent("tasks");
+        loadTasksPage(TaskService.getTasksByCurrentUser());
 
         // set currentCategoryName
         //categoryName.setText();
 
-        // categoryName.setText() should be equals currently selected dashboards name
-
+        // add sorting options to MenuButton sort at initializing of Dashboard
+        addSortingOptions();
     }
 
     /**
@@ -68,19 +76,19 @@ public class DashboardController {
      * @param page name of fxml page in resources/fxml/--pageName--
      * @throws IOException
      */
-    public AnchorPane setCenterContent(String page) throws IOException {
-        AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
-        borderPane.setCenter(newContent);
-        return newContent;
+    public Node setCenterContent(String page) throws IOException {
+        Node node =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
+        borderPane.setCenter(node);
+        return node;
     }
 
     /**
      * Update center-content of dashboard to Anchorpane pane
-     * @param pane
+     * @param node
      * @throws IOException
      */
-    public void setCenterContent(AnchorPane pane) throws IOException {
-        borderPane.setCenter(pane);
+    public void setCenterContent(Node node) throws IOException {
+        borderPane.setCenter(node);
     }
 
     /**
@@ -89,5 +97,38 @@ public class DashboardController {
      */
     public static DashboardController getInstance(){
         return instance;
+    }
+
+    public void addSortingOptions(){
+        //sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate())); <- error from this sorting method
+        sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
+        //sort.getItems().add(createSortingMenuItem("Sort by date", TaskService.TasksSortedByDate()));
+    }
+
+    public void loadTasksPage(ArrayList<Task> tasks) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
+        BorderPane borderPane = loader.load();
+        TasksController tasksController = loader.getController();
+
+        tasksController.addTasks(tasks);
+
+        setCenterContent((Node) borderPane);
+    }
+
+    public MenuItem createSortingMenuItem(String name, ArrayList<Task> tasks){
+        MenuItem menuItem = new MenuItem();
+        menuItem.setText(name);
+        menuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    loadTasksPage(tasks);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return menuItem;
     }
 }

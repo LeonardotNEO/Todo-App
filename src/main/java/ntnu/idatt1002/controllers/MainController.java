@@ -32,7 +32,7 @@ public class MainController {
      * @throws IOException
      */
     public void setMainContent(String page) throws IOException {
-        AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
+        BorderPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
         pane.setCenter(newContent);
     }
 

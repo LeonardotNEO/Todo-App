@@ -20,18 +20,7 @@ public class TaskController {
     @FXML private Text taskName;
     @FXML private Text taskDescription;
     @FXML private Label taskDate;
-
-    public void setTaskName(String name){
-        taskName.setText(name);
-    }
-
-    public void setTaskDescription(String description){
-        taskDescription.setText(description);
-    }
-
-    public void setTaskDate(String date){
-        taskDate.setText("This task is due: " + date);
-    }
+    @FXML private Label taskPriority;
 
     /**
      * Get the id of this task (from tasks anchorpane), then we delete the task with this id with TaskService
@@ -85,5 +74,21 @@ public class TaskController {
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(editMenu);
 
+    }
+
+    public void setTaskName(String name){
+        taskName.setText(name);
+    }
+
+    public void setTaskDescription(String description){
+        taskDescription.setText(description);
+    }
+
+    public void setTaskDate(String date){
+        taskDate.setText("This task is due: " + date);
+    }
+
+    public void setTaskPriority(int priority) {
+        taskPriority.setText("Priority: " + priority);
     }
 }

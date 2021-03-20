@@ -8,6 +8,7 @@ import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
+import java.time.Clock;
 import java.util.ArrayList;
 
 public class NewTaskController {
@@ -16,6 +17,7 @@ public class NewTaskController {
     @FXML private TextArea descriptionTextArea;
     @FXML private MenuButton categoryMenu;
     @FXML private DatePicker datePicker;
+    @FXML private MenuButton priorityMenu;
 
     public void initialize(){
         // fill MenuButton categoryMenu with categories
@@ -29,7 +31,7 @@ public class NewTaskController {
      * @throws IOException
      */
     public void buttonCancelNewTask(ActionEvent event) throws IOException {
-        DashboardController.getInstance().setCenterContent("tasks");
+        DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
     }
 
     public void buttonNewTask(ActionEvent event) throws  IOException {
@@ -37,14 +39,13 @@ public class NewTaskController {
                 titleTextField.getText(),
                 datePicker.getValue().toString(),
                 descriptionTextArea.getText(),
-                1,
-                null,
+                Integer.parseInt(priorityMenu.getText()),
+                Clock.systemUTC().toString(),
                 categoryMenu.getText()
         ); // method that communicates with DAO to att new task (parameters are FXML parameters). If successful the method return true
 
         if(addTaskSuccessful){
-            TaskService.getCategoriesWithTasks();
-            DashboardController.getInstance().setCenterContent("tasks"); // redirects back to tasks if successful
+            DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
         } else {
             //errormessage to textfield?
         }
@@ -64,5 +65,10 @@ public class NewTaskController {
 
             categoryMenu.getItems().add(menuItem);
         });
+    }
+
+    public void clickPriority(ActionEvent event) throws IOException{
+        MenuItem menuItem = (MenuItem) event.getSource();
+        priorityMenu.setText(menuItem.getText());
     }
 }

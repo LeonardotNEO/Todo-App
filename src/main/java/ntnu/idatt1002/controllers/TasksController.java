@@ -1,10 +1,10 @@
 package ntnu.idatt1002.controllers;
 
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.TaskService;
@@ -16,21 +16,6 @@ import java.util.ArrayList;
 public class TasksController {
 
     @FXML private VBox tasksVBox;
-
-    /**
-     * Get all the users tasks and uses helpermethod addTask to add all tasks to tasks UI
-     * @throws IOException
-     */
-    public void initialize() throws IOException {
-        ArrayList<ntnu.idatt1002.Task> tasks = TaskService.getTasksByCurrentUser();
-        tasks.forEach(t -> {
-            try {
-                addTask(t);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     /**
      *
@@ -50,8 +35,19 @@ public class TasksController {
         taskController.setTaskName(taskObject.getName());
         taskController.setTaskDescription(taskObject.getDescription());
         taskController.setTaskDate(taskObject.getDeadline());
+        taskController.setTaskPriority(taskObject.getPriority());
 
         // adding the task to tasks
         tasksVBox.getChildren().add(task);
+    }
+
+    public void addTasks(ArrayList<Task> tasks){
+        tasks.forEach(t -> {
+            try {
+                addTask(t);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

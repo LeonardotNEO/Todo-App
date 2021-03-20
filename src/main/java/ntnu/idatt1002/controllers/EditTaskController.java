@@ -26,7 +26,7 @@ public class EditTaskController {
      * @throws IOException
      */
     public void buttonCancelEditTask(ActionEvent event) throws IOException {
-        DashboardController.getInstance().setCenterContent("tasks");
+        DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
     }
 
     public void buttonEditTask(ActionEvent event) throws IOException {
