@@ -6,6 +6,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
 
