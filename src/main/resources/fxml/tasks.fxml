@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TasksController">
    <children>
-      <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="750.0">
+      <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0">
                <children>
@@ -19,6 +19,9 @@
                </children>
             </AnchorPane>
          </content>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
       </ScrollPane>
    </children>
 </AnchorPane>
