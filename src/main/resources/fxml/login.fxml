@@ -24,7 +24,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text layoutX="354.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not mad an account yet?" textAlignment="CENTER" wrappingWidth="292.0">
+            <Text layoutX="354.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not made an account yet?" textAlignment="CENTER" wrappingWidth="292.0">
                <font>
                   <Font size="18.0" />
                </font>
