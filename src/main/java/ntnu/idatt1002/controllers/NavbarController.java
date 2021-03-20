@@ -3,6 +3,7 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -20,6 +21,10 @@ public class NavbarController {
     @FXML private Pane notificationCountPane;
     @FXML private Text notificationCountText;
 
+    /**
+     * Initialize method adds notificationHistoryButton and notifications to notificationBell
+     * If there is notifications, the notification bell will show UI on how many
+     */
     public void initialize(){
         // Add button at the top that navigates to notificationHistoryPage
         Button newButton = buttonNotificationHistory;
@@ -36,16 +41,18 @@ public class NavbarController {
         // Load notifications into menuButton
         NotificationService.getNotCheckedNotifications().forEach(notification -> {
             try {
-                Pane element = FXMLLoader.load(getClass().getResource("/fxml/notificationElement.fxml"));
-                element.setId(Integer.toString(notification.hashCode()));
+                // load an empty notificationUI element, and get the controller of it
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/notificationElement.fxml"));
+                Node node = loader.load();
+                NotificationElementController notificationElementController = loader.getController();
 
-                Text title = (Text) element.lookup("#title");
-                title.setText(notification.getTitle());
+                // use the controller to change notification element properties
+                notificationElementController.setTitle(notification.getTitle());
+                notificationElementController.setDescription(notification.getDescription());
+                notificationElementController.setNotificationId(notification.hashCode());
 
-                Label description = (Label) element.lookup("#description");
-                description.setText(notification.getDescription());
-
-                notificationBell.getItems().add(new CustomMenuItem(element));
+                // add notifcationUI element to notificationBell menu
+                notificationBell.getItems().add(new CustomMenuItem(node));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -77,11 +84,6 @@ public class NavbarController {
      */
     public void buttonNotificationHistory(ActionEvent event) throws IOException {
         MainController.getInstance().setMainContent("notificationHistory");
-    }
-
-    // This button is not working like it should be (when clicking MenuButton)
-    public void notificationBellClicked(ActionEvent event) throws IOException {
-        System.out.println("clicked");
     }
 
     /**

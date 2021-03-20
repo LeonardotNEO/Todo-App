@@ -2,15 +2,13 @@ package ntnu.idatt1002.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
 public class MainController {
-    // Variables
-    private static MainController instance;
 
-    // FXML
+    private static MainController instance;
     @FXML private BorderPane pane;
 
     public MainController(){
@@ -32,8 +30,8 @@ public class MainController {
      * @throws IOException
      */
     public void setMainContent(String page) throws IOException {
-        BorderPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
-        pane.setCenter(newContent);
+        Node node =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
+        pane.setCenter(node);
     }
 
     /**
@@ -42,8 +40,8 @@ public class MainController {
      * @throws IOException
      */
     public void setNavbar(String page) throws IOException {
-        AnchorPane newContent =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
-        pane.setTop(newContent);
+        Node node =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
+        pane.setTop(node);
     }
 
     /**

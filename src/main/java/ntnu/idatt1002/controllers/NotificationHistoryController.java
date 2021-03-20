@@ -3,16 +3,9 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import ntnu.idatt1002.Notification;
-import ntnu.idatt1002.dao.NotificationDAO;
-import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.NotificationService;
 
 import java.io.IOException;
@@ -31,6 +24,11 @@ public class NotificationHistoryController {
         addNotificationsToPanel(NotificationService.getNotificationsByUser());
     }
 
+    /**
+     * When newNotificationButton is pressed, add a new notification UI element
+     * @param event
+     * @throws IOException
+     */
     public void newNotification(ActionEvent event) throws IOException {
         Random random = new Random(); // only for testing atm. We should make notification templates generated for different situations
 

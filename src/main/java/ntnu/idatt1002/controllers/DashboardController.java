@@ -99,12 +99,20 @@ public class DashboardController {
         return instance;
     }
 
+    /**
+     * Method that adds sortingOptions to sort MenuButton
+     */
     public void addSortingOptions(){
         //sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate())); <- error from this sorting method
         sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
         //sort.getItems().add(createSortingMenuItem("Sort by date", TaskService.TasksSortedByDate()));
     }
 
+    /**
+     * Loads an empty Tasks UI elements, adds task UI elements to it. Then we we set centercontent of dashboard to tasks.fxml
+     * @param tasks
+     * @throws IOException
+     */
     public void loadTasksPage(ArrayList<Task> tasks) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
         BorderPane borderPane = loader.load();
@@ -115,6 +123,12 @@ public class DashboardController {
         setCenterContent((Node) borderPane);
     }
 
+    /**
+     * Method for creating MenuItem element, and adding an actionevent to it
+     * @param name
+     * @param tasks
+     * @return
+     */
     public MenuItem createSortingMenuItem(String name, ArrayList<Task> tasks){
         MenuItem menuItem = new MenuItem();
         menuItem.setText(name);

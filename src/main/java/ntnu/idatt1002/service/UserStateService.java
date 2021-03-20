@@ -1,6 +1,5 @@
 package ntnu.idatt1002.service;
 
-
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
@@ -14,7 +13,7 @@ public class UserStateService {
 
     /**
      * Method for checking if userState contains an current user
-     * @return
+     * @return true if there currently is a saved user
      */
     public static boolean checkIfUserState(){
         if(UserStateDAO.getUserState() != null){

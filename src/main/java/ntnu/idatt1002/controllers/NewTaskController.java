@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
@@ -19,6 +18,9 @@ public class NewTaskController {
     @FXML private DatePicker datePicker;
     @FXML private MenuButton priorityMenu;
 
+    /**
+     * Initialize method loads categories into categoryMenu when initialized
+     */
     public void initialize(){
         // fill MenuButton categoryMenu with categories
         setCategoryMenu(TaskService.getCategoryNames());
@@ -34,6 +36,11 @@ public class NewTaskController {
         DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
     }
 
+    /**
+     * Method that uses TaskService to add a new task to the current user
+     * @param event
+     * @throws IOException
+     */
     public void buttonNewTask(ActionEvent event) throws  IOException {
         boolean addTaskSuccessful = TaskService.newTask(
                 titleTextField.getText(),
@@ -42,16 +49,20 @@ public class NewTaskController {
                 Integer.parseInt(priorityMenu.getText()),
                 Clock.systemUTC().toString(),
                 categoryMenu.getText()
-        ); // method that communicates with DAO to att new task (parameters are FXML parameters). If successful the method return true
+        );
 
         if(addTaskSuccessful){
             DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
         } else {
-            //errormessage to textfield?
+            //errormessage
         }
 
     }
 
+    /**
+     * Loads categories into categoryMenuButton
+     * @param categories
+     */
     public void setCategoryMenu(ArrayList<String> categories) {
         categories.forEach(category -> {
             MenuItem menuItem = new MenuItem();
@@ -67,6 +78,11 @@ public class NewTaskController {
         });
     }
 
+    /**
+     * When priorityMenuItem is clicked, we change the priorityMenuButton to the selection
+     * @param event
+     * @throws IOException
+     */
     public void clickPriority(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         priorityMenu.setText(menuItem.getText());

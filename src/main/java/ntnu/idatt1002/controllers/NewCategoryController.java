@@ -20,6 +20,7 @@ public class NewCategoryController {
         DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
     }
 
+
     public void buttonNewCategory(ActionEvent event) throws IOException {
         boolean newCategory = true; // communicates with dao. Method for adding new category. Parameters are titleTextField.getText();
 

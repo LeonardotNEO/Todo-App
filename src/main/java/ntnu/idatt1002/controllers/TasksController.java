@@ -5,10 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import ntnu.idatt1002.Task;
-import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.dao.UserStateDAO;
-import ntnu.idatt1002.service.TaskService;
-import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,8 +14,8 @@ public class TasksController {
     @FXML private VBox tasksVBox;
 
     /**
-     *
-     * @param taskObject to create the task page thats added to tasks, we need to taskObject with values
+     * Method for adding a Task UI element to tasksVBox
+     * @param taskObject A task object is turned into a UI element
      * @throws IOException
      */
     public void addTask(ntnu.idatt1002.Task taskObject) throws IOException {
@@ -36,11 +32,16 @@ public class TasksController {
         taskController.setTaskDescription(taskObject.getDescription());
         taskController.setTaskDate(taskObject.getDeadline());
         taskController.setTaskPriority(taskObject.getPriority());
+        taskController.setTaskId(taskObject.hashCode());
 
         // adding the task to tasks
         tasksVBox.getChildren().add(task);
     }
 
+    /**
+     * Uses helpermethod addTask to add an arraylist of tasks
+     * @param tasks
+     */
     public void addTasks(ArrayList<Task> tasks){
         tasks.forEach(t -> {
             try {
