@@ -30,7 +30,7 @@ public class NewTaskController {
     public void buttonNewTask(ActionEvent event) throws  IOException {
         boolean addTaskSuccessful = TaskService.newTask(
                 titleTextField.getText(),
-                datePicker.getAccessibleText(),
+                datePicker.getValue().toString(),
                 descriptionTextArea.getText(),
                 1,
                 null,
