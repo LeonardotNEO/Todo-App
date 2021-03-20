@@ -8,8 +8,7 @@ public class RegisterService {
     public static boolean registerNewUser(String name, String password){
         User newUser = new User(name, password, UserDAO.generateSalt());
         UserDAO.serializeUser(newUser);
-
-        // We need to set userState here via UserStateService
+        UserStateService.setCurrentUser(name);
 
         return true;
     }
