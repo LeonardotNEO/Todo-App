@@ -82,11 +82,9 @@ public class TaskService {
      * @param CategoryName
      * @return
      */
-    public ArrayList<Task> TaskSortedByCategory(String CategoryName){
-        TaskDAO taskdao = new TaskDAO();
+    public static ArrayList<Task> TaskSortedByCategory(String CategoryName){
         ArrayList<Task> usersTasks = getTasksByCurrentUser();
-        ArrayList<Task> tasksSortedByCat = new ArrayList<>();
-        tasksSortedByCat = (ArrayList<Task>) usersTasks.stream().filter(t -> t.getCategory().equals(CategoryName));
+        ArrayList<Task> tasksSortedByCat = (ArrayList<Task>) usersTasks.stream().filter(t -> t.getCategory().equals(CategoryName));
         return tasksSortedByCat;
     }
 
@@ -94,46 +92,20 @@ public class TaskService {
      * Returns Array of all the tasks sorted by their priority.
      * @return
      */
-    public ArrayList<Task> TaskSortedByPriority(){
-        TaskDAO taskDAO = new TaskDAO();
+    public static ArrayList<Task> TaskSortedByPriority(){
         ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> taskSortedByPrio = new ArrayList<>();
-        for(Task t: userTasks){// the large amout of for loops is because we want a sertain sequence. 3 first, 2 second....
-            if(t.getPriority() == 3){
-                taskSortedByPrio.add(t);
-            }
-        }
-
-        for(Task t: userTasks){
-            if(t.getPriority() == 2){
-                taskSortedByPrio.add(t);
-            }
-        }
-
-        for(Task t: userTasks){
-            if(t.getPriority() == 1){
-                taskSortedByPrio.add(t);
-            }
-        }
-
-        for(Task t: userTasks){
-            if(t.getPriority() == 0){
-                taskSortedByPrio.add(t);
-            }
-        }
-        return taskSortedByPrio;
+        Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
+        return userTasks;
     }
 
     /**
      * Returns list of tasks sorted.
      * @return
      */
-    public ArrayList<Task> TasksSortedByDate (){
+    public static ArrayList<Task> TasksSortedByDate (){
         ArrayList<Task> userTasks = getTasksByCurrentUser();
-        TaskDAO taskDAO = new TaskDAO();
         Comparator<Task> Datecomparer = new TaskComparator();
         Collections.sort(userTasks,Datecomparer);
-
 
         return userTasks;
     }

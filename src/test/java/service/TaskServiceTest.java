@@ -23,12 +23,19 @@ public class TaskServiceTest {
         UserStateService.setCurrentUser("Test User");
         assertDoesNotThrow(() -> {
             TaskService.newTask("Hei", "21/02/21", "Hei på deg", 1, null, "Category");
+            TaskService.newTask("Test", "21/02/03", "dsadksajdskajdkasd", 2, "23/4/20", "home");
+            TaskService.newTask("Test1", "21/02/03", "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test2", "21/02/03", "dsadksajdskajdkasd", 2, "23/4/20", "home");
+            TaskService.newTask("Test3", "21/02/03", "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test4", "21/02/03", "dsadksajdskajdkasd", 3, "23/4/20", "home");
+            TaskService.newTask("Test5", "21/02/03", "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test6", "21/02/03", "dsadksajdskajdkasd", 0, "23/4/20", "home");
         });
     }
 
     @AfterAll
     public static void CleanTestData() {
-        // Delete the user & tasks
+        UserDAO.deleteUser("Test User");
     }
 
     @Test
@@ -47,5 +54,13 @@ public class TaskServiceTest {
     public void getCategoryTasksTest() {
         ArrayList<Task> taskList = TaskService.getCategoryWithTasks("Category");
         assertEquals(taskList.get(0).getName(), "Hei");
+    }
+
+    @Test
+    public void prioritySortTest() {
+        ArrayList<Task> list = TaskService.TaskSortedByPriority();
+
+        // Higher number means higher priority.
+        assertTrue(list.get(0).getPriority() >= list.get(list.size() - 1).getPriority());
     }
 }
