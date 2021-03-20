@@ -49,6 +49,7 @@ public class TasksController {
         // use controller to change content of task before adding to to tasks
         taskController.setTaskName(taskObject.getName());
         taskController.setTaskDescription(taskObject.getDescription());
+        taskController.setTaskDate(taskObject.getDeadline());
 
         // adding the task to tasks
         tasksVBox.getChildren().add(task);

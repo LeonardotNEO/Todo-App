@@ -75,6 +75,15 @@ public class DashboardController {
     }
 
     /**
+     * Update center-content of dashboard to Anchorpane pane
+     * @param pane
+     * @throws IOException
+     */
+    public void setCenterContent(AnchorPane pane) throws IOException {
+        borderPane.setCenter(pane);
+    }
+
+    /**
      * Returns an instance of this controller. Makes it possible to edit dashboard page outside of the dashboardController class
      * @return
      */

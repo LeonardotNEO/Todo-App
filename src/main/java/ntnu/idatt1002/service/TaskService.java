@@ -119,6 +119,14 @@ public class TaskService {
         Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUser().getUsername(), id);
         return task;
     }
+
+    /**
+     * Communicates with TaskDAO to delete a task
+     * @param task
+     */
+    public static void deleteTask(Task task){
+        TaskDAO.deleteTask(task);
+    }
 }
 
 
