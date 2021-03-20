@@ -4,6 +4,7 @@ import ntnu.idatt1002.Task;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserService;
 import ntnu.idatt1002.service.UserStateService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -35,7 +36,7 @@ public class TaskServiceTest {
 
     @AfterAll
     public static void CleanTestData() {
-        UserDAO.deleteUser("Test User");
+        UserService.deleteUser();
     }
 
     @Test
