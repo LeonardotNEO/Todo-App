@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
@@ -84,6 +85,23 @@ public class TaskController {
 
     public void setTaskPriority(int priority) {
         taskPriority.setText("Priority: " + priority);
+
+        switch(priority){
+            case 0:
+                taskPriority.setTextFill(Paint.valueOf("white"));
+                break;
+            case 1:
+                taskPriority.setTextFill(Paint.valueOf("yellow"));
+                break;
+            case 2:
+                taskPriority.setTextFill(Paint.valueOf("orange"));
+                break;
+            case 3:
+                taskPriority.setTextFill(Paint.valueOf("red"));
+                break;
+            default:
+        }
+
     }
 
     public void setTaskId(int id){
