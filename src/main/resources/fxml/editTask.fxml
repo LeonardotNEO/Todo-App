@@ -78,6 +78,7 @@
             <Font size="18.0" />
          </font>
          <items>
+            <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="0" />
             <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="1" />
             <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="2" />
             <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="3" />
