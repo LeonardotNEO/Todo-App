@@ -10,7 +10,13 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,13 +30,13 @@ public class TaskServiceTest {
         UserStateService.setCurrentUser("Test User");
         assertDoesNotThrow(() -> {
             TaskService.newTask("Hei", "21/02/21", "Hei på deg", 1, null, "Category");
-            TaskService.newTask("Test", "21/02/03", "dsadksajdskajdkasd", 2, "23/4/20", "home");
-            TaskService.newTask("Test1", "21/02/03", "dsadksajdskajdkasd", 1, "23/4/20", "home");
-            TaskService.newTask("Test2", "21/02/03", "dsadksajdskajdkasd", 2, "23/4/20", "home");
-            TaskService.newTask("Test3", "21/02/03", "dsadksajdskajdkasd", 1, "23/4/20", "home");
-            TaskService.newTask("Test4", "21/02/03", "dsadksajdskajdkasd", 3, "23/4/20", "home");
-            TaskService.newTask("Test5", "21/02/03", "dsadksajdskajdkasd", 1, "23/4/20", "home");
-            TaskService.newTask("Test6", "21/02/03", "dsadksajdskajdkasd", 0, "23/4/20", "home");
+            TaskService.newTask("Test", "21/03/21", "dsadksajdskajdkasd", 2, "23/4/20", "home");
+            TaskService.newTask("Test1", "21/05/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test2", "21/06/21", "dsadksajdskajdkasd", 2, "23/4/20", "home");
+            TaskService.newTask("Test3", "21/10/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test4", "9/10/21", "dsadksajdskajdkasd", 3, "23/4/20", "home");
+            TaskService.newTask("Test5", "1/01/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test6", "11/03/21", "dsadksajdskajdkasd", 0, "23/4/20", "home");
         });
     }
 
@@ -63,5 +69,33 @@ public class TaskServiceTest {
 
         // Higher number means higher priority.
         assertTrue(list.get(0).getPriority() >= list.get(list.size() - 1).getPriority());
+    }
+
+    @Test
+    public void dateSortTest() {
+        ArrayList<Task> list = TaskService.TasksSortedByDate();
+
+        Task early = list.get(0);
+        Task late = list.get(list.size() - 1);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        Date earlyDate = null;
+        Date lateDate = null;
+
+        try {
+            earlyDate = sdf.parse(early.getDeadline());
+            lateDate = sdf.parse(late.getDeadline());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        list.forEach(task -> {
+            System.out.println(task);
+        });
+
+        long earlyMillis = earlyDate.getTime();
+        long lateMillis = lateDate.getTime();
+
+        assertTrue(earlyMillis < lateMillis);
     }
 }

@@ -14,12 +14,11 @@ class TaskComparator implements Comparator<Task>{
 
     @Override
     public int compare(Task o1, Task o2) {
-        String[] task1DateArray = o1.getDeadline().split(".",3);
+        String[] task1DateArray = o1.getDeadline().split("/",3);
         String task1Date = task1DateArray[2]+task1DateArray[1]+task1DateArray[0];
 
-        String[] task2DateArray = o2.getDeadline().split(".",3);
+        String[] task2DateArray = o2.getDeadline().split("/",3);
         String task2Date = task2DateArray[2]+task2DateArray[1]+task2DateArray[0];
-
         if(Long.parseLong(task1Date)<=Long.parseLong(task2Date)){
             return 1;
         }
