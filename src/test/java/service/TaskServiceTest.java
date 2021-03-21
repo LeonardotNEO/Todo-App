@@ -29,20 +29,26 @@ public class TaskServiceTest {
         UserDAO.serializeUser(user);
         UserStateService.setCurrentUser("Test User");
         assertDoesNotThrow(() -> {
-            TaskService.newTask("Hei", "21/02/21", "Hei på deg", 1, null, "Category");
-            TaskService.newTask("Test", "21/03/21", "dsadksajdskajdkasd", 2, "23/4/20", "home");
+            TaskService.newTask("zei", "21/02/21", "Hei på deg", 1, null, "Category");
+            TaskService.newTask("Test10001", "21/03/21", "dsadksajdskajdkasd", 2, "23/4/20", "home");
             TaskService.newTask("Test1", "21/05/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
             TaskService.newTask("Test2", "21/06/21", "dsadksajdskajdkasd", 2, "23/4/20", "home");
-            TaskService.newTask("Test3", "21/10/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test64", "21/10/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
             TaskService.newTask("Test4", "9/10/21", "dsadksajdskajdkasd", 3, "23/4/20", "home");
             TaskService.newTask("Test5", "1/01/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
-            TaskService.newTask("Test6", "11/03/21", "dsadksajdskajdkasd", 0, "23/4/20", "home");
+            TaskService.newTask("Test61001", "11/03/21", "dsadksajdskajdkasd", 0, "23/4/20", "home");
         });
     }
 
     @AfterAll
     public static void CleanTestData() {
         UserService.deleteUser();
+    }
+
+    @Test
+    public void tasksByAlphabetTest(){
+        ArrayList<Task> list = TaskService.TasksSortedByAlphabet();
+        assertTrue(list.get(0).getName().compareTo(list.get(list.size() - 1).getName())<1);
     }
 
     @Test

@@ -24,6 +24,7 @@ class TaskComparator implements Comparator<Task>{
         }
         return -1;
     }
+
 }
 
 
@@ -101,10 +102,22 @@ public class TaskService {
      * Returns list of tasks sorted.
      * @return
      */
-    public static ArrayList<Task> TasksSortedByDate (){
+    public static ArrayList<Task> TasksSortedByDate(){
         ArrayList<Task> userTasks = getTasksByCurrentUser();
         Comparator<Task> Datecomparer = new TaskComparator();
         Collections.sort(userTasks,Datecomparer);
+
+        return userTasks;
+    }
+
+    public static ArrayList<Task> TasksSortedByAlphabet(){
+        ArrayList<Task> userTasks = getTasksByCurrentUser();
+        Collections.sort(userTasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2){
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
 
         return userTasks;
     }
