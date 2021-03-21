@@ -3,14 +3,9 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import ntnu.idatt1002.Notification;
-import ntnu.idatt1002.dao.NotificationDAO;
-import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.NotificationService;
 
 import java.io.IOException;
@@ -25,32 +20,15 @@ public class NotificationHistoryController {
      * At initializing of NotificationHistory.fxml we load in all notifcations of the user
      */
     public void initialize(){
-        ArrayList<Notification> notifications = NotificationService.getNotificationsByUser();
-
-        notifications.forEach(notification -> {
-            Pane pane = null;
-            try {
-                pane = FXMLLoader.load(getClass().getResource("/fxml/notification.fxml"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Label title = (Label) pane.lookup("#title");
-            title.setText(notification.getTitle());
-
-            Label description = (Label) pane.lookup("#description");
-            description.setText(notification.getDescription());
-
-            Label dueDate = (Label) pane.lookup("#dueDate");
-            String[] fullDate = notification.getDateDue().split("[T.]");
-            String date = fullDate[0];
-            String clock = fullDate[1];
-            dueDate.setText("This notification is due at date: " + date + " and time: " + clock);
-
-            notificationsVBox.getChildren().add(0, pane);
-        });
+        // When notificationHistoryPage is loaded, put in notifications to VBox
+        addNotificationsToPanel(NotificationService.getNotificationsByUser());
     }
 
+    /**
+     * When newNotificationButton is pressed, add a new notification UI element
+     * @param event
+     * @throws IOException
+     */
     public void newNotification(ActionEvent event) throws IOException {
         Random random = new Random(); // only for testing atm. We should make notification templates generated for different situations
 
@@ -58,6 +36,39 @@ public class NotificationHistoryController {
             MainController.getInstance().setMainContent("notificationHistory");
             MainController.getInstance().setNavbar("navbar");
         }
+
+    }
+
+    /**
+     * Method for adding notification UI elements to NotificationHistory.fxml
+     * @param notifications
+     */
+    public void addNotificationsToPanel(ArrayList<Notification> notifications){
+        notifications.forEach(notification -> {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/notification.fxml"));
+
+            BorderPane notif = null;
+            try {
+                notif = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            NotificationController notificationController = loader.getController();
+
+            // add properties to notification UI
+            notificationController.setTitle(notification.getTitle());
+            notificationController.setDescription(notification.getDescription());
+
+            String[] fullDate = notification.getDateDue().split("[T.]");
+            String date = fullDate[0];
+            String clock = fullDate[1];
+            notificationController.setDueDate("This notification is due at date: " + date + " and time: " + clock);
+
+            // add notifUI to VBox
+            notificationsVBox.getChildren().add(notif);
+        });
+
 
     }
 

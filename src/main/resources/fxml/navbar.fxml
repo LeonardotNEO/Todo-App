@@ -64,7 +64,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <MenuButton fx:id="notificationBell" mnemonicParsing="false" onAction="#notificationBellClicked" style="-fx-background-color: transparent;">
+                        <MenuButton fx:id="notificationBell" mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
                               <Pane>
                                  <children>

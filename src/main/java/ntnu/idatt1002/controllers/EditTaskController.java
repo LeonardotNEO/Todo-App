@@ -4,11 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
-import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -19,6 +17,7 @@ public class EditTaskController {
     @FXML private TextArea descriptionTextArea;
     @FXML private MenuButton categoryMenu;
     @FXML private DatePicker datePicker;
+    @FXML private MenuButton priorityMenu;
 
     /**
      * cancel button loads the tasks page back into center-content of dashboard
@@ -26,12 +25,17 @@ public class EditTaskController {
      * @throws IOException
      */
     public void buttonCancelEditTask(ActionEvent event) throws IOException {
-        DashboardController.getInstance().setCenterContent("tasks");
+        DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
     }
 
+    /**
+     * when editButton is clicked, we delete the old task and make a new one
+     * @param event
+     * @throws IOException
+     */
     public void buttonEditTask(ActionEvent event) throws IOException {
         // Make new task
-        TaskService.newTask(titleTextField.getText(), datePicker.getValue().toString(), descriptionTextArea.getText(), 0, LocalDate.now().toString(), categoryMenu.getText());
+        TaskService.newTask(titleTextField.getText(), datePicker.getValue().toString(), descriptionTextArea.getText(), Integer.parseInt(priorityMenu.getText()), LocalDate.now().toString(), categoryMenu.getText());
 
         // Delete old one
         TaskService.deleteTask(TaskService.getTaskByCurrentUser(id));
@@ -40,18 +44,20 @@ public class EditTaskController {
         DashboardController.getInstance().setCenterContent("tasks");
     }
 
-    public void setId(int id){
-        this.id = id;
+    /**
+     * When priorityMenuItem is clicked, we change the priorityMenuButton to the selection
+     * @param event
+     * @throws IOException
+     */
+    public void clickPriority(ActionEvent event) throws IOException{
+        MenuItem menuItem = (MenuItem) event.getSource();
+        priorityMenu.setText(menuItem.getText());
     }
 
-    public void setTitleTextField(String title) {
-        this.titleTextField.setText(title);
-    }
-
-    public void setDescriptionTextArea(String description) {
-        this.descriptionTextArea.setText(description);
-    }
-
+    /**
+     * Loads menuItem elements with categorynames into categoryMenuButton
+     * @param categories
+     */
     public void setCategoryMenu(ArrayList<String> categories) {
         categories.forEach(category -> {
             MenuItem menuItem = new MenuItem();
@@ -65,6 +71,18 @@ public class EditTaskController {
 
             categoryMenu.getItems().add(menuItem);
         });
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void setTitleTextField(String title) {
+        this.titleTextField.setText(title);
+    }
+
+    public void setDescriptionTextArea(String description) {
+        this.descriptionTextArea.setText(description);
     }
 
     public void setDatePicker(String date) {

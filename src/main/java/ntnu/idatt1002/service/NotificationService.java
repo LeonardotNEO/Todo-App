@@ -10,14 +10,18 @@ import java.util.ArrayList;
 
 public class NotificationService {
 
+    /**
+     * Communicates with NotificationDAO to fetch notifications for current user
+     * @return
+     */
     public static ArrayList<Notification> getNotificationsByUser(){
         return NotificationDAO.getNotifsByUser(UserStateService.getCurrentUser().getUsername());
     }
 
-    /**public static ArrayList<Notification> getNotificationsSortedDate(){
-
-    }*/
-
+    /**
+     * Get all checked notifications from current user
+     * @return
+     */
     public static ArrayList<Notification> getNotCheckedNotifications(){
         ArrayList<Notification> notificationsChecked = new ArrayList<>();
 
@@ -30,6 +34,12 @@ public class NotificationService {
         return notificationsChecked;
     }
 
+    /**
+     * Communicates with NotificationDAO to add new notification to current user
+     * @param title
+     * @param description
+     * @return
+     */
     public static boolean newNotification(String title, String description){
         Notification notification = new Notification(title, UserStateService.getCurrentUser().getUsername(), description, Clock.systemDefaultZone());
         NotificationDAO.serializeNotif(notification);

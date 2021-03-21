@@ -45,18 +45,18 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Text layoutX="192.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
+      <Text layoutX="192.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <TextArea fx:id="descriptionTextArea" layoutX="294.0" layoutY="207.0" prefHeight="215.0" prefWidth="285.0" promptText="Description">
+      <TextArea fx:id="descriptionTextArea" layoutX="294.0" layoutY="253.0" prefHeight="215.0" prefWidth="285.0" promptText="Description">
          <font>
             <Font size="18.0" />
          </font>
       </TextArea>
-      <DatePicker fx:id="datePicker" layoutX="294.0" layoutY="436.0" prefHeight="20.0" prefWidth="285.0" />
-      <Text layoutX="193.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expire date:">
+      <DatePicker fx:id="datePicker" layoutX="294.0" layoutY="482.0" prefHeight="20.0" prefWidth="285.0" />
+      <Text layoutX="193.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expire date:">
          <font>
             <Font size="18.0" />
          </font>
@@ -72,6 +72,16 @@
          <font>
             <Font size="18.0" />
          </font>
+      </MenuButton>
+      <MenuButton fx:id="priorityMenu" layoutX="293.0" layoutY="207.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="285.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Priority" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="1" />
+            <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="2" />
+            <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="3" />
+         </items>
       </MenuButton>
    </children>
 </AnchorPane>

@@ -1,14 +1,10 @@
 package ntnu.idatt1002.controllers;
 
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.dao.UserStateDAO;
-import ntnu.idatt1002.service.TaskService;
-import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,23 +14,8 @@ public class TasksController {
     @FXML private VBox tasksVBox;
 
     /**
-     * Get all the users tasks and uses helpermethod addTask to add all tasks to tasks UI
-     * @throws IOException
-     */
-    public void initialize() throws IOException {
-        ArrayList<ntnu.idatt1002.Task> tasks = TaskService.getTasksByCurrentUser();
-        tasks.forEach(t -> {
-            try {
-                addTask(t);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    /**
-     *
-     * @param taskObject to create the task page thats added to tasks, we need to taskObject with values
+     * Method for adding a Task UI element to tasksVBox
+     * @param taskObject A task object is turned into a UI element
      * @throws IOException
      */
     public void addTask(ntnu.idatt1002.Task taskObject) throws IOException {
@@ -50,8 +31,24 @@ public class TasksController {
         taskController.setTaskName(taskObject.getName());
         taskController.setTaskDescription(taskObject.getDescription());
         taskController.setTaskDate(taskObject.getDeadline());
+        taskController.setTaskPriority(taskObject.getPriority());
+        taskController.setTaskId(taskObject.hashCode());
 
         // adding the task to tasks
         tasksVBox.getChildren().add(task);
+    }
+
+    /**
+     * Uses helpermethod addTask to add an arraylist of tasks
+     * @param tasks
+     */
+    public void addTasks(ArrayList<Task> tasks){
+        tasks.forEach(t -> {
+            try {
+                addTask(t);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

@@ -3,35 +3,21 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class TaskController {
 
+    private int taskId;
     @FXML private Text taskName;
     @FXML private Text taskDescription;
     @FXML private Label taskDate;
-
-    public void setTaskName(String name){
-        taskName.setText(name);
-    }
-
-    public void setTaskDescription(String description){
-        taskDescription.setText(description);
-    }
-
-    public void setTaskDate(String date){
-        taskDate.setText("This task is due: " + date);
-    }
+    @FXML private Label taskPriority;
 
     /**
      * Get the id of this task (from tasks anchorpane), then we delete the task with this id with TaskService
@@ -39,19 +25,17 @@ public class TaskController {
      * @throws IOException
      */
     public void deleteTask(ActionEvent event) throws IOException {
-        // this tasks id
-        int id = Integer.parseInt(taskName.getParent().getParent().getId());
-
         // this task object
-        Task task = TaskService.getTaskByCurrentUser(id);
+        Task task = TaskService.getTaskByCurrentUser(taskId);
 
         TaskService.deleteTask(task);
 
-        MainController.getInstance().setMainContent("Dashboard");
+        // loads a tasks-page with this users tasks into dashboard
+        DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
     }
 
     /**
-     * updates center-content of dashboard to editTask.fxml and add promp attributes
+     * updates center-content of dashboard to editTask.fxml and adds prompt attributes
      * @param event
      * @throws IOException
      */
@@ -84,6 +68,25 @@ public class TaskController {
 
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(editMenu);
+    }
 
+    public void setTaskName(String name){
+        taskName.setText(name);
+    }
+
+    public void setTaskDescription(String description){
+        taskDescription.setText(description);
+    }
+
+    public void setTaskDate(String date){
+        taskDate.setText("This task is due: " + date);
+    }
+
+    public void setTaskPriority(int priority) {
+        taskPriority.setText("Priority: " + priority);
+    }
+
+    public void setTaskId(int id){
+        this.taskId = id;
     }
 }

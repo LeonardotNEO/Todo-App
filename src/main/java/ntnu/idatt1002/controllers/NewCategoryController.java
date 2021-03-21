@@ -3,6 +3,7 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
 
@@ -16,8 +17,9 @@ public class NewCategoryController {
      * @throws IOException
      */
     public void buttonCancelNewCategory(ActionEvent event) throws IOException {
-        DashboardController.getInstance().setCenterContent("tasks");
+        DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
     }
+
 
     public void buttonNewCategory(ActionEvent event) throws IOException {
         boolean newCategory = true; // communicates with dao. Method for adding new category. Parameters are titleTextField.getText();

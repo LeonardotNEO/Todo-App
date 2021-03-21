@@ -1,29 +1,39 @@
 package ntnu.idatt1002.controllers;
 
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.MenuButton;
-import javafx.scene.layout.Pane;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import ntnu.idatt1002.service.NotificationService;
 
 import java.io.IOException;
 
 public class NotificationElementController {
 
+    private int notificationId;
+    @FXML private Text title;
+    @FXML private Label description;
+
     /**
-     * When notification is checked, it will be removed from notifications in navbar, but stay in notificationsHistory. Then we refresh the page.
+     * When notification is checked, it will be removed from notifications in navbar, but stay in notificationsHistory. Then we refresh the navbar.
      * @param event
      * @throws IOException
      */
     public void checkNotification(ActionEvent event) throws IOException {
-        Button thisElement = (Button) event.getSource();
-        Pane thisPane = (Pane) thisElement.getParent();
-        int idOfElement = Integer.parseInt(thisPane.getId());
-
-        if(NotificationService.checkNotification(idOfElement)){
+        if(NotificationService.checkNotification(notificationId)){
             MainController.getInstance().setNavbar("navbar");
         }
+    }
+
+    public void setTitle(String title){
+        this.title.setText(title);
+    }
+
+    public void setDescription(String description){
+        this.description.setText(description);
+    }
+
+    public void setNotificationId(int id){
+        this.notificationId = id;
     }
 }

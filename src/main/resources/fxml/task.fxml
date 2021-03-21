@@ -40,6 +40,7 @@
                </font>
             </Text>
             <Label fx:id="taskDate" layoutX="14.0" layoutY="78.0" text="Label" textFill="WHITE" />
+            <Label fx:id="taskPriority" layoutX="661.0" layoutY="78.0" prefHeight="17.0" prefWidth="58.0" text="Priority" textFill="WHITE" />
          </children>
       </Pane>
    </children>
