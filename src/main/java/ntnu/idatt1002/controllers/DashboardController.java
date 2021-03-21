@@ -133,9 +133,6 @@ public class DashboardController {
         // update MenuButton sort with newest arraylists<Task>
         updateSortingOptions();
 
-        // load updated list of sortingoptions (with right Arraylists)
-        System.out.println(tasks.size());
-
         setCenterContent((Node) borderPane);
     }
 
