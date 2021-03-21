@@ -35,7 +35,7 @@ public class TasksController {
         taskController.setTaskId(taskObject.hashCode());
 
         // adding the task to tasks
-        tasksVBox.getChildren().add(task);
+        tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);
     }
 
     /**

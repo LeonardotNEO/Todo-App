@@ -44,7 +44,7 @@ public class DashboardController {
         //categoryName.setText();
 
         // add sorting options to MenuButton sort at initializing of Dashboard
-        addSortingOptions();
+
     }
 
     /**
@@ -108,6 +108,15 @@ public class DashboardController {
         //sort.getItems().add(createSortingMenuItem("Sort by date", TaskService.TasksSortedByDate()));
     }
 
+    public void deleteSortingOptions(){
+        sort.getItems().removeAll(sort.getItems());
+    }
+
+    public void updateSortingOptions(){
+        deleteSortingOptions();
+        addSortingOptions();
+    }
+
     /**
      * Loads an empty Tasks UI elements, adds task UI elements to it. Then we we set centercontent of dashboard to tasks.fxml
      * @param tasks
@@ -118,7 +127,14 @@ public class DashboardController {
         BorderPane borderPane = loader.load();
         TasksController tasksController = loader.getController();
 
+        // add tasks to generated taskspage
         tasksController.addTasks(tasks);
+
+        // update MenuButton sort with newest arraylists<Task>
+        updateSortingOptions();
+
+        // load updated list of sortingoptions (with right Arraylists)
+        System.out.println(tasks.size());
 
         setCenterContent((Node) borderPane);
     }
