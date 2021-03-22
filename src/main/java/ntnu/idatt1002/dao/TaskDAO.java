@@ -2,14 +2,16 @@ package ntnu.idatt1002.dao;
 
 import ntnu.idatt1002.Task;
 
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Acces task objects in storage
  */
 public final class TaskDAO {
-    private static final GenericDAO<Task> genericDAO = new GenericDAO<>();
+    private static final String SAVEPATH = "src/main/resources/saves";
     private static final String PREFIX = "task";
+    private static final String FILETYPE = ".ser";
 
     /**
      * Get all tasks stored in user folder
@@ -17,16 +19,40 @@ public final class TaskDAO {
      */
     public static ArrayList<Task> getTasksByUser(String username){
         ArrayList<Task> tasks = new ArrayList<>();
-        for(Object obj : genericDAO.getElementsByUser(username, PREFIX)){
-            tasks.add((Task) obj);
+        File directory = new File(SAVEPATH + "/" + username + "/Categories");
+        String[] categories = directory.list();
+
+        if(categories != null){
+            for(String category : categories){
+                tasks.addAll(getTasksByCategory(username, category));
+            }
         }
+
         return tasks;
     }
 
     /**
-     * Save an {@code ArrayList} of tasks to their owner folder
+     * Get all tasks in a category
+     * @return {@code null} if user or category could not be found
      */
-    public static void saveTasksToUser(ArrayList<Task> tasks){
+    public static ArrayList<Task> getTasksByCategory(String username, String category){
+        ArrayList<Task> tasks = new ArrayList<>();
+        File directory = new File(SAVEPATH + "/" + username + "/Categories/" + category);
+        String[] pathnames = directory.list();
+
+        if(pathnames != null){
+            for(String path : pathnames){
+                tasks.add(deserializeTask(directory.getPath() + "/" + path));
+            }
+        }
+
+        return tasks;
+    }
+
+    /**
+     * Save an {@code ArrayList} of tasks to their respective folders
+     */
+    public static void saveTasks(ArrayList<Task> tasks){
         for(Task task : tasks) {
             serializeTask(task);
         }
@@ -36,25 +62,100 @@ public final class TaskDAO {
      * Save a single task to storage
      */
     public static void serializeTask(Task task){
-        genericDAO.serializeElement(task, PREFIX, task.getUserName(), task.hashCode());
+        String username = task.getUserName();
+        String category = task.getCategory();
+        int taskID = task.hashCode();
+        File file = new File(SAVEPATH + "/" + username + "/Categories/" + category + "/" + PREFIX +
+                taskID + FILETYPE);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(task);
+
+            oos.close();
+            fos.close();
+        }catch(IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
     /**
-     * Get a single task given by ID and owner
+     * Get a single task given by owner, category and ID
+     * @param username which user that owns the task
+     * @param category which category the task belogns to
+     * @param taskID tasks hashcode
+     * @return {@code null} if task could not be found
+     */
+    public static Task deserializeTask(String username, String category, int taskID){
+        String filepath = (SAVEPATH + "/" + username + "/Categories/" + category + "/" + PREFIX +
+                taskID + FILETYPE);
+        return deserializeTask(filepath);
+    }
+
+    /**
+     * Get a single task only by owner and ID, less efective than giving the category as well
      * @param username which user that owns the task
      * @param taskID tasks hashcode
-     * @return {@code null} if user or task could not be found
+     * @return {@code null} if task could not be found
      */
     public static Task deserializeTask(String username, int taskID){
-        return (Task) genericDAO.deserializeElement(username, PREFIX, taskID);
+        File directory = new File(SAVEPATH + "/" + username + "/Categories");
+        String[] categories = directory.list();
+
+        //Scans all categories and all their tasks, looking for a match on the taskID
+        if(categories != null){
+            for(String category : categories){
+                File catDir = new File(directory.getPath() + "/" + category);
+                String[] pathnames = catDir.list();
+
+                if(pathnames != null){
+                    for(String path : pathnames){
+                        if((PREFIX + taskID + FILETYPE).equals(path)){
+                            return deserializeTask(directory.getPath() + "/" + category + "/" + path);
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**
-     * Delete all task for a user
+     * Get a single task by complete filepath
+     * @return {@code null} if task could not be found
+     */
+    public static Task deserializeTask(String filepath){
+        File file = new File(filepath);
+        Task task = null;
+        try{
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            task = (Task) ois.readObject();
+
+            ois.close();
+            fis.close();
+        }catch(IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        return task;
+    }
+
+    /**
+     * Delete all tasks for a user
      * @return {@code false} if one or more could not be deleted
      */
     public static boolean deleteTasksByUser(String username){
         return deleteTasks(getTasksByUser(username));
+    }
+
+    /**
+     * Delete all tasks in a category
+     * @return {@code false} if one or more could not be deleted
+     */
+    public static boolean deleteTasksByCategory(String username, String category){
+        return deleteTasks(getTasksByCategory(username, category));
     }
 
     /**
@@ -76,10 +177,19 @@ public final class TaskDAO {
      * @return {@code false} if task could not be deleted
      */
     public static boolean deleteTask(Task task){
-        return genericDAO.deleteElement(task, PREFIX, task.getUserName(), task.hashCode());
+        String username = task.getUserName();
+        String category = task.getCategory();
+        int taskID = task.hashCode();
+        return deleteTask(SAVEPATH + "/" + username + "/Categories/" + category +
+                "/" + PREFIX + taskID + FILETYPE);
     }
 
+    /**
+     * Delete a single task by filepath
+     * @return {@code false} if task could not be deleted
+     */
     public static boolean deleteTask(String filepath){
-        return genericDAO.deleteElement(filepath);
+        File file = new File(filepath);
+        return file.delete();
     }
 }
