@@ -96,12 +96,12 @@ public final class UserDAO {
      */
     public static boolean deleteUser(String username){
         //Tasks & categories
-        CategoryDAO.deleteCategoriesByUser(username);
+        boolean success = CategoryDAO.deleteCategoriesByUser(username);
         File categoryDir = new File(userDir(username) + "Categories");
-        boolean success = categoryDir.delete();
+        if(!categoryDir.delete()){ success = false; }
 
         //Notifications
-        NotificationDAO.deleteNotifsByUser(username);
+        if(!NotificationDAO.deleteNotifsByUser(username)){ success = false; }
         File notifDir = new File(userDir(username) + "Notifications");
         if(!notifDir.delete()){ success = false; }
 

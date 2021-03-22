@@ -120,14 +120,14 @@ public final class NotificationDAO {
     public static boolean deleteNotif(Notification notif){
         String username = notif.getUsername();
         int notifID = notif.hashCode();
-        return deleteTask(filePath(username, notifID));
+        return deleteNotif(filePath(username, notifID));
     }
 
     /**
      * Delete a single notification by filepath
      * @return {@code false} if file could not be deleted
      */
-    public static boolean deleteTask(String filepath){
+    public static boolean deleteNotif(String filepath){
         File file = new File(filepath);
         return file.delete();
     }
