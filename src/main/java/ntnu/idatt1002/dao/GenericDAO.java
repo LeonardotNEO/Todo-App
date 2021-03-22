@@ -98,4 +98,14 @@ class GenericDAO<T> {
         File file = new File(SAVEPATH + "/" + username + "/" + prefix + uniqueID + FILETYPE);
         return file.delete();
     }
+
+    /**
+     * Delete an element by filename
+     * @param filepath complete filepath
+     * @return {@code false} if element could not be removed
+     */
+    boolean deleteElement(String filepath){
+        File file = new File(filepath);
+        return file.delete();
+    }
 }

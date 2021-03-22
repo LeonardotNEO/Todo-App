@@ -78,4 +78,8 @@ public final class TaskDAO {
     public static boolean deleteTask(Task task){
         return genericDAO.deleteElement(task, PREFIX, task.getUserName(), task.hashCode());
     }
+
+    public static boolean deleteTask(String filepath){
+        return genericDAO.deleteElement(filepath);
+    }
 }
