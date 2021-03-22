@@ -2,52 +2,93 @@ package ntnu.idatt1002.dao;
 
 import ntnu.idatt1002.Notification;
 
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Acces notifications objects in storage
  */
 public final class NotificationDAO {
-    private static final GenericDAO<Notification> genericDAO = new GenericDAO<>();
+    private static final String SAVEPATH = "src/main/resources/saves";
     private static final String PREFIX = "notif";
+    private static final String FILETYPE = ".ser";
 
     /**
-     * Get all notifications stored in user folder
+     * Get all notifs stored in user folder
      * @return {@code null} if user could not be found
      */
     public static ArrayList<Notification> getNotifsByUser(String username){
-        ArrayList<Notification> notifications = new ArrayList<>();
-        for(Object obj : genericDAO.getElementsByUser(username, PREFIX)){
-            notifications.add((Notification) obj);
+        ArrayList<Notification> notifs = new ArrayList<>();
+        File directory = new File(notifsPath(username));
+        String[] pathnames = directory.list();
+
+        if(pathnames != null){
+            for(String path : pathnames){
+                notifs.add(deserializeNotif(directory.getPath() + "/" + path));
+            }
         }
-        return notifications;
+
+        return notifs;
     }
 
     /**
-     * Save an {@code ArrayList} of notifications to their owner folder
+     * Save an {@code ArrayList} of notifications to their respective folders
      */
-    public static void saveNotifsToUser(ArrayList<Notification> notifications){
-        for(Notification notification : notifications) {
-            serializeNotif(notification);
+    public static void saveNotifs(ArrayList<Notification> notifs){
+        for(Notification notif : notifs) {
+            serializeNotif(notif);
         }
     }
 
     /**
-     * Save notification to storage
+     * Save a single notification to storage
      */
-    public static void serializeNotif(Notification notification){
-        genericDAO.serializeElement(notification, PREFIX, notification.getUsername(),
-                notification.hashCode());
+    public static void serializeNotif(Notification notif){
+        String username = notif.getUsername();
+        int notifID = notif.hashCode();
+        File file = new File(filePath(username, notifID));
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(notif);
+
+            oos.close();
+            fos.close();
+        }catch(IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
     /**
-     * Get a single notification given by ID and owner
+     * Get a single notification given by owner and ID
      * @param username which user that owns the notification
-     * @param notifID notification hashcode
-     * @return {@code null} if user or notification could not be found
+     * @param notifID notifications hashcode
+     * @return {@code null} if notification could not be found
      */
     public static Notification deserializeNotif(String username, int notifID){
-        return (Notification) genericDAO.deserializeElement(username, PREFIX, notifID);
+        return deserializeNotif(filePath(username, notifID));
+    }
+
+    /**
+     * Get a single notification by complete filepath
+     * @return {@code null} if notification could not be found
+     */
+    public static Notification deserializeNotif(String filepath){
+        File file = new File(filepath);
+        Notification notif = null;
+        try{
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            notif = (Notification) ois.readObject();
+
+            ois.close();
+            fis.close();
+        }catch(IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        return notif;
     }
 
     /**
@@ -62,10 +103,10 @@ public final class NotificationDAO {
      * Delete an array of notifications
      * @return {@code false} if one or more could not be deleted
      */
-    public static boolean deleteNotifs(ArrayList<Notification> notifications){
+    public static boolean deleteNotifs(ArrayList<Notification> notifs){
         boolean success = true;
-        for(Notification notification : notifications){
-            if(!deleteNotif(notification)){
+        for(Notification notif : notifs){
+            if(!deleteNotif(notif)){
                 success = false;
             }
         }
@@ -74,10 +115,35 @@ public final class NotificationDAO {
 
     /**
      * Delete a single notification
-     * @return {@code false} if notification could not be deleted
+     * @return {@code false} if file could not be deleted
      */
-    public static boolean deleteNotif(Notification notification){
-        return genericDAO.deleteElement(notification, PREFIX, notification.getUsername(),
-                notification.hashCode());
+    public static boolean deleteNotif(Notification notif){
+        String username = notif.getUsername();
+        int notifID = notif.hashCode();
+        return deleteNotif(filePath(username, notifID));
+    }
+
+    /**
+     * Delete a single notification by filepath
+     * @return {@code false} if file could not be deleted
+     */
+    public static boolean deleteNotif(String filepath){
+        File file = new File(filepath);
+        return file.delete();
+    }
+
+    //PRIVATE STRING FUNCTIONS
+    /**
+     * Get notifications directory
+     */
+    private static String notifsPath(String username){
+        return (SAVEPATH + "/" + username + "/Notifications/");
+    }
+
+    /**
+     * Get file path
+     */
+    private static String filePath(String username, int notifID){
+        return (notifsPath(username) + PREFIX + notifID + FILETYPE);
     }
 }

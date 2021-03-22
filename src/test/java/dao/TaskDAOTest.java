@@ -2,70 +2,71 @@ package dao;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.User;
+import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserDAO;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskDAOTest {
-    static User user = new User("olanormann");
-    Task taskA = new Task("Clean room","olanormann","",0,"Bil");
-    int taskID = taskA.hashCode();
+    private final static User userA = new User("olanormann");
+    private final static String categoryA = "Home";
+    private final static Task taskA = new Task("Clean room","olanormann","",0,"Home");
+    private static int taskA_ID;
 
     @BeforeAll
-    public static void setup(){
-        UserDAO.serializeUser(user);
+    static void setup() {
+        UserDAO.serializeUser(userA);
+        CategoryDAO.addCategory("olanormann", categoryA);
+        TaskDAO.serializeTask(taskA);
+        taskA_ID = taskA.hashCode();
     }
 
     @Test
-    public void save_and_get_task_from_user(){
-        TaskDAO.serializeTask(taskA);
-        Task taskB = TaskDAO.deserializeTask("olanormann", taskID);
-
-        assertEquals(taskA, taskB);
-    }
-
-    @Test
-    public void get_all_tasks_from_user(){
-        TaskDAO.serializeTask(taskA);
+    public void _getTasksByUser(){
         ArrayList<Task> tasks = TaskDAO.getTasksByUser("olanormann");
 
-        assertNotNull(tasks);
         assertTrue(tasks.contains(taskA));
     }
 
     @Test
-    public void save_arraylist_of_tasks(){
-        Task taskB = new Task("Throw trash","olanormann","",0,"Bil");
+    public void _saveTasks(){
+        Task taskB = new Task("Do dishes","olanormann","",0,"Home");
+        ArrayList<Task> tasksA = new ArrayList<>();
+        tasksA.add(taskB);
+        TaskDAO.saveTasks(tasksA);
 
-        ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(taskB);
-        int taskBID = taskB.hashCode();
-        TaskDAO.saveTasksToUser(tasks);
+        ArrayList<Task> tasksB = TaskDAO.getTasksByUser("olanormann");
 
-        Task taskC = TaskDAO.deserializeTask("olanormann", taskBID);
-
-        assertEquals(taskB, taskC);
+        assertTrue(tasksB.contains(taskB));
     }
 
-    @Test
-    public void delete_task(){
-        Task taskD = new Task("Do dishes","olanormann","",0,"Home");
-        TaskDAO.serializeTask(taskD);
+    @Nested
+    public class deserialize_task{
+        @Test
+        public void by_username_category_id(){
+            Task taskB = TaskDAO.deserializeTask("olanormann","Home", taskA_ID);
 
-        TaskDAO.deleteTask(taskD);
-        ArrayList<Task> tasks = TaskDAO.getTasksByUser("olanormann");
+            assertEquals(taskA, taskB);
+        }
 
-        assertFalse(tasks.contains(taskD));
+        @Test
+        public void by_username_id(){
+            Task taskB = TaskDAO.deserializeTask("olanormann", taskA_ID);
+
+            assertEquals(taskA, taskB);
+        }
     }
 
     @AfterAll
-    public static void cleanup(){
-        UserDAOTest.cleanup();
+    static void cleanup(){
+        UserDAO.deleteUser("olanormann");
     }
 }

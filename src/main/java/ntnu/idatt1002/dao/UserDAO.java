@@ -44,37 +44,37 @@ public final class UserDAO {
      */
     public static void serializeUser(User user){
         String username = user.getUsername();
-        File directory = new File(SAVEPATH + "/" + username);
-        File file = new File(directory.getPath() + "/" + username + FILETYPE);
+        File directory = new File(userDir(username));
+        File file = new File(filePath(username));
 
-        /* Try to save user to directory. If it fails it may be because the folder is not created.
-        In that instance it will create said folder and try again. */
-        for(int i=0; i<2; i++) {
-            try {
-                FileOutputStream fos = new FileOutputStream(file);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
+        //Make directories if they're not existing
+        if(!directory.exists()){
+            boolean success;
+            success = directory.mkdir() &&
+            new File(directory.getPath() + "/Categories").mkdir() &&
+            new File(directory.getPath() + "/Notifications").mkdir();
 
-                oos.writeObject(user);
-
-                oos.close();
-                fos.close();
-                break;
-            } catch (FileNotFoundException fnfe) {
-                boolean mkdir = directory.mkdir();
-                if (!mkdir) { fnfe.printStackTrace(); }
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
+            if(!success){ System.out.println("Error occured"); }
         }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(user);
+            oos.close();
+            fos.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 
     /**
      * Get user object from storage
-     * @param username case-sensitive username
      * @return {@code null} if error occurs
      */
     public static User deserializeUser(String username){
-        File file = new File(SAVEPATH + "/" + username + "/" + username + FILETYPE);
+        File file = new File(filePath(username));
         User user = null;
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -95,26 +95,25 @@ public final class UserDAO {
      * @return {@code false} if the user folder or some of its elements could not be deleted
      */
     public static boolean deleteUser(String username){
-        File saveDirectory = new File(SAVEPATH + "/" + username);
-        String[] pathnames = saveDirectory.list();
-        boolean success = true;
+        //Tasks & categories
+        boolean success = CategoryDAO.deleteCategoriesByUser(username);
+        File categoryDir = new File(userDir(username) + "Categories");
+        if(!categoryDir.delete()){ success = false; }
 
-        if(pathnames != null){
-            for(String path : pathnames){
-                File file = new File(saveDirectory.getPath() + "/" + path);
-                if(!file.delete()){
-                    success = false;
-                }
-            }
-        }
+        //Notifications
+        if(!NotificationDAO.deleteNotifsByUser(username)){ success = false; }
+        File notifDir = new File(userDir(username) + "Notifications");
+        if(!notifDir.delete()){ success = false; }
 
-        if(!saveDirectory.delete()){
-            success = false;
-        }
+        //User
+        File userDir = new File(userDir(username));
+        File userFile = new File(filePath(username));
+        if(!userFile.delete() || !userDir.delete()){ success = false; }
 
         return success;
     }
 
+    //PASSWORD SALT & HASHING
     /**
      * @return a random salt
      */
@@ -148,5 +147,20 @@ public final class UserDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    //PRIVATE STRING FUNCTIONS
+    /**
+     * Get user directory
+     */
+    private static String userDir(String username){
+        return (SAVEPATH + "/" + username + "/");
+    }
+
+    /**
+     * Get file path
+     */
+    private static String filePath(String username){
+        return (userDir(username) + username + FILETYPE);
     }
 }
