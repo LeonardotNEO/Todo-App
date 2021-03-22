@@ -34,7 +34,7 @@ public final class NotificationDAO {
     /**
      * Save an {@code ArrayList} of notifications to their respective folders
      */
-    public static void saveTasks(ArrayList<Notification> notifs){
+    public static void saveNotifs(ArrayList<Notification> notifs){
         for(Notification notif : notifs) {
             serializeNotif(notif);
         }

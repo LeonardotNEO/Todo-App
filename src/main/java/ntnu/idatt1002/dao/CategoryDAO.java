@@ -27,22 +27,29 @@ public final class CategoryDAO {
     }
 
     /**
+     * Delete all categories for a user
+     * @return {@code false} if any tasks or some the categories could not be deleted
+     */
+    public static boolean deleteCategoriesByUser(String username){
+        boolean success = true;
+        String[] categories = getCategoriesByUser(username);
+
+        for(String category : categories){
+            if(!deleteCategory(username, category)){
+                success = false;
+            }
+        }
+
+        return success;
+    }
+
+    /**
      * Delete a category and all its tasks
      * @return {@code false} if any tasks or the category could not be deleted
      */
     public static boolean deleteCategory(String username, String category){
-        boolean success = true;
         File directory = new File(categoriesPath(username) + category);
-        String[] pathnames = directory.list();
-
-        //Delete contents
-        if(pathnames != null){
-            for(String path : pathnames){
-                if(!TaskDAO.deleteTask(directory.getPath() + path)){
-                    success = false;
-                }
-            }
-        }
+        boolean success = TaskDAO.deleteTasksByCategory(username, category);
 
         if(!directory.delete()){ success = false; }
 

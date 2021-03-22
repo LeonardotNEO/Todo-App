@@ -44,8 +44,8 @@ public final class UserDAO {
      */
     public static void serializeUser(User user){
         String username = user.getUsername();
-        File directory = new File(SAVEPATH + "/" + username);
-        File file = new File(directory.getPath() + "/" + username + FILETYPE);
+        File directory = new File(userDir(username));
+        File file = new File(filePath(username));
 
         /* Try to save user to directory. If it fails it may be because the folder is not created.
         In that instance it will create said folder and try again. */
@@ -70,11 +70,10 @@ public final class UserDAO {
 
     /**
      * Get user object from storage
-     * @param username case-sensitive username
      * @return {@code null} if error occurs
      */
     public static User deserializeUser(String username){
-        File file = new File(SAVEPATH + "/" + username + "/" + username + FILETYPE);
+        File file = new File(filePath(username));
         User user = null;
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -95,22 +94,20 @@ public final class UserDAO {
      * @return {@code false} if the user folder or some of its elements could not be deleted
      */
     public static boolean deleteUser(String username){
-        File saveDirectory = new File(SAVEPATH + "/" + username);
-        String[] pathnames = saveDirectory.list();
-        boolean success = true;
+        //Tasks & categories
+        CategoryDAO.deleteCategoriesByUser(username);
+        File categoryDir = new File(userDir(username) + "Categories");
+        boolean success = categoryDir.delete();
 
-        if(pathnames != null){
-            for(String path : pathnames){
-                File file = new File(saveDirectory.getPath() + "/" + path);
-                if(!file.delete()){
-                    success = false;
-                }
-            }
-        }
+        //Notifications
+        NotificationDAO.deleteNotifsByUser(username);
+        File notifDir = new File(userDir(username) + "Notifications");
+        if(!notifDir.delete()){ success = false; }
 
-        if(!saveDirectory.delete()){
-            success = false;
-        }
+        //User
+        File userDir = new File(userDir(username));
+        File userFile = new File(filePath(username));
+        if(!userFile.delete() || !userDir.delete()){ success = false; }
 
         return success;
     }
@@ -148,5 +145,20 @@ public final class UserDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    //PRIVATE STRING FUNCTIONS
+    /**
+     * Get user directory
+     */
+    private static String userDir(String username){
+        return (SAVEPATH + "/" + username + "/");
+    }
+
+    /**
+     * Get file path
+     */
+    private static String filePath(String username){
+        return (userDir(username) + username + FILETYPE);
     }
 }
