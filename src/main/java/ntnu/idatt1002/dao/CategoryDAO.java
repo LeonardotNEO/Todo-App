@@ -13,7 +13,7 @@ public final class CategoryDAO {
      * @return {@code String[]} of all categories. {@code null} if empty
      */
     public static String[] getCategoriesByUser(String username){
-        File directory = new File(SAVEPATH + "/" + username + "/Categories");
+        File directory = new File(categoriesPath(username));
         return directory.list();
     }
 
@@ -22,7 +22,7 @@ public final class CategoryDAO {
      * @return {@code false} if folder could not be created
      */
     public static boolean addCategory(String username, String category){
-        File directory = new File(SAVEPATH + "/" + username + "/Categories/" + category);
+        File directory = new File(categoriesPath(username) + category);
         return directory.mkdir();
     }
 
@@ -32,7 +32,7 @@ public final class CategoryDAO {
      */
     public static boolean deleteCategory(String username, String category){
         boolean success = true;
-        File directory = new File(SAVEPATH + "/" + username + "/Categories/" + category);
+        File directory = new File(categoriesPath(username) + category);
         String[] pathnames = directory.list();
 
         //Delete contents
@@ -47,5 +47,12 @@ public final class CategoryDAO {
         if(!directory.delete()){ success = false; }
 
         return success;
+    }
+
+    /**
+     * Get categories directory
+     */
+    private static String categoriesPath(String username){
+        return (SAVEPATH + "/" + username + "/Categories/");
     }
 }
