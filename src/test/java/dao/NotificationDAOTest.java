@@ -44,7 +44,6 @@ public class NotificationDAOTest {
         assertTrue(notifsB.contains(notifB));
     }
 
-
     @AfterAll
     static void cleanup(){
         UserDAO.deleteUser("olanormann");
