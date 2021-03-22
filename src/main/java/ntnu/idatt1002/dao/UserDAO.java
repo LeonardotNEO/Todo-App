@@ -47,25 +47,26 @@ public final class UserDAO {
         File directory = new File(userDir(username));
         File file = new File(filePath(username));
 
-        /* Try to save user to directory. If it fails it may be because the folder is not created.
-        In that instance it will create said folder and try again. */
-        for(int i=0; i<2; i++) {
-            try {
-                FileOutputStream fos = new FileOutputStream(file);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
+        //Make directories if they're not existing
+        if(!directory.exists()){
+            boolean success;
+            success = directory.mkdir() &&
+            new File(directory.getPath() + "/Categories").mkdir() &&
+            new File(directory.getPath() + "/Notifications").mkdir();
 
-                oos.writeObject(user);
-
-                oos.close();
-                fos.close();
-                break;
-            } catch (FileNotFoundException fnfe) {
-                boolean mkdir = directory.mkdir();
-                if (!mkdir) { fnfe.printStackTrace(); }
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
+            if(!success){ System.out.println("Error occured"); }
         }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(user);
+            oos.close();
+            fos.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 
     /**
@@ -112,6 +113,7 @@ public final class UserDAO {
         return success;
     }
 
+    //PASSWORD SALT & HASHING
     /**
      * @return a random salt
      */
