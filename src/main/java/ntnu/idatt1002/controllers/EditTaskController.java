@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -41,8 +42,11 @@ public class EditTaskController {
         // Delete old one
         TaskService.deleteTask(TaskService.getTaskByCurrentUser(id));
 
+        // set current category to this tasks category
+        UserStateService.setCurrentUserCategory(categoryMenu.getText());
+
         // navigate back to tasks
-        DashboardController.getInstance().setCenterContent("tasks");
+        DashboardController.getInstance().initialize();
     }
 
     /**
@@ -72,6 +76,8 @@ public class EditTaskController {
 
             categoryMenu.getItems().add(menuItem);
         }
+
+        categoryMenu.setText(UserStateService.getCurrentUserCategory());
     }
 
     public void setId(int id){

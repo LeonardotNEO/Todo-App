@@ -1,8 +1,6 @@
 package ntnu.idatt1002.service;
 import ntnu.idatt1002.Notification;
-import ntnu.idatt1002.controllers.MainController;
 import ntnu.idatt1002.dao.NotificationDAO;
-import ntnu.idatt1002.dao.UserStateDAO;
 
 import java.io.IOException;
 import java.time.Clock;
@@ -15,7 +13,7 @@ public class NotificationService {
      * @return
      */
     public static ArrayList<Notification> getNotificationsByUser(){
-        return NotificationDAO.getNotifsByUser(UserStateService.getCurrentUser().getUsername());
+        return NotificationDAO.getNotifsByUser(UserStateService.getCurrentUserUsername());
     }
 
     /**
@@ -41,7 +39,7 @@ public class NotificationService {
      * @return
      */
     public static boolean newNotification(String title, String description){
-        Notification notification = new Notification(title, UserStateService.getCurrentUser().getUsername(), description, Clock.systemDefaultZone());
+        Notification notification = new Notification(title, UserStateService.getCurrentUserUsername(), description, Clock.systemDefaultZone());
         NotificationDAO.serializeNotif(notification);
         return true;
     }
@@ -53,7 +51,7 @@ public class NotificationService {
      * @throws IOException
      */
     public static boolean checkNotification(int id) throws IOException {
-        Notification notification = NotificationDAO.deserializeNotif(UserStateService.getCurrentUser().getUsername(), id);
+        Notification notification = NotificationDAO.deserializeNotif(UserStateService.getCurrentUserUsername(), id);
         notification.setChecked(true);
         NotificationDAO.serializeNotif(notification);
 

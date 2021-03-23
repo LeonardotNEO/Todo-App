@@ -23,19 +23,55 @@ public class UserStateService {
         }
     }
 
+    public static User getCurrentUser(){
+        return UserDAO.deserializeUser(UserStateService.getCurrentUserUsername());
+    }
+
     /**
-     * Method that return the user stored in userstate.ser savefile
+     * Method that return the string username stored in userstate.ser savefile
      * @return
      */
-    public static User getCurrentUser(){
-        return UserDAO.deserializeUser(UserStateDAO.getUsername());
+    public static String getCurrentUserUsername(){
+        return UserDAO.deserializeUser(UserStateDAO.getUsername()).getUsername();
+    }
+
+    /**
+     * Method that returns the String category stored in userstate.ser savefile
+     * @return
+     */
+    public static String getCurrentUserCategory(){
+        return UserStateDAO.getSelectedCategory();
+    }
+
+    /**
+     * Method that returns the String sorting stored in userstate.ser savefile
+     * @return
+     */
+    public static String getCurrentUserSorting(){
+        return UserStateDAO.getSelectedSort();
     }
 
     /**
      * Set the name of the current user to userstate.ser
      * @param username
      */
-    public static void setCurrentUser(String username){
-        UserStateDAO.setUserState(username, null, null);
+    public static void setCurrentUserUsername(String username){
+        UserStateDAO.setUserState(username, UserStateDAO.getSelectedCategory(), UserStateDAO.getSelectedSort());
+    }
+
+    /**
+     * Set the category of the current user
+     * @param selectedCategory
+     */
+    public static void setCurrentUserCategory(String selectedCategory){
+        UserStateDAO.setUserState(UserStateDAO.getUsername(), selectedCategory, UserStateDAO.getSelectedSort());
+    }
+
+    /**
+     * Set the sorting of the current user
+     * @param selectedSorting
+     */
+    public static void setCurrentUserSorting(String selectedSorting){
+        UserStateDAO.setUserState(UserStateDAO.getUsername(), UserStateDAO.getSelectedCategory(), selectedSorting);
     }
 }

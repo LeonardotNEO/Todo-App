@@ -10,9 +10,9 @@ public class UserService {
      * @return false if user failed to be deleted
      */
     public static boolean deleteUser() {
-        User user = UserStateService.getCurrentUser();
+        String user = UserStateService.getCurrentUserUsername();
         if(user == null) return false;
-        UserStateService.setCurrentUser(null);
-        return UserDAO.deleteUser(user.getUsername());
+        UserStateService.setCurrentUserUsername(null);
+        return UserDAO.deleteUser(user);
     }
 }

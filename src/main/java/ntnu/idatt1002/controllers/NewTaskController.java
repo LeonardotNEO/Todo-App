@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 import java.time.Clock;
@@ -34,7 +35,7 @@ public class NewTaskController {
      * @throws IOException
      */
     public void buttonCancelNewTask(ActionEvent event) throws IOException {
-        DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
+        DashboardController.getInstance().loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
     }
 
     /**
@@ -53,7 +54,8 @@ public class NewTaskController {
         );
 
         if(addTaskSuccessful){
-            DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
+            UserStateService.setCurrentUserCategory(categoryMenu.getText());
+            DashboardController.getInstance().initialize();
         } else {
             //errormessage
         }
@@ -77,6 +79,8 @@ public class NewTaskController {
 
             categoryMenu.getItems().add(menuItem);
         }
+
+        categoryMenu.setText(UserStateService.getCurrentUserCategory());
     }
 
     /**

@@ -27,7 +27,7 @@ public class TaskServiceTest {
     public static void SetupTestData() {
         User user = new User("Test User");
         UserDAO.serializeUser(user);
-        UserStateService.setCurrentUser("Test User");
+        UserStateService.setCurrentUserUsername("Test User");
         assertDoesNotThrow(() -> {
             TaskService.newTask("zei", "21/02/21", "Hei på deg", 1, null, "Category");
             TaskService.newTask("Test10001", "21/03/21", "dsadksajdskajdkasd", 2, "23/4/20", "home");
@@ -55,12 +55,6 @@ public class TaskServiceTest {
     public void tasksByCategoryTest() {
         HashMap<String, ArrayList<Task>> list = TaskService.getCategoriesWithTasks();
         assertEquals("Hei",list.get("Category").get(0).getName());
-    }
-
-    @Test
-    public void getListOfCategoriesTest() {
-        ArrayList<String> categories = TaskService.getCategoryNames();
-        assertTrue(categories.contains("Category"));
     }
 
     @Test
