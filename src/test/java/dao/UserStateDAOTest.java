@@ -1,25 +1,47 @@
 package dao;
 
+import ntnu.idatt1002.User;
+import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class UserStateDAOTest {
-    @Test
-    public void set_and_get_user_state(){
-        UserStateDAO.setUserState("olanormann");
-        String result = UserStateDAO.getUserState();
+    private final static User userA = new User("olanormann");
 
-        assertEquals("olanormann", result);
+    @BeforeAll
+    static void setup(){
+        UserDAO.serializeUser(userA);
+        UserStateDAO.setUserState("olanormann","Home","Alphabetic");
     }
 
     @Test
-    public void set_user_state_to_null_then_get(){
-        UserStateDAO.setUserState(null);
-        String result = UserStateDAO.getUserState();
+    public void _getUsername(){
+        String username = UserStateDAO.getUsername();
 
-        assertNull(result);
+        assertEquals(username, "olanormann");
+    }
+
+    @Test
+    public void _getSelectedCategory(){
+        String selectedCategory = UserStateDAO.getSelectedCategory();
+
+        assertEquals(selectedCategory, "Home");
+    }
+
+    @Test
+    public void _getSelectedSort(){
+        String selectedSort = UserStateDAO.getSelectedSort();
+
+        assertEquals(selectedSort, "Alphabetic");
+    }
+
+    @AfterAll
+    static void cleanup(){
+        UserDAO.deleteUser("olanormann");
+        UserStateDAO.setUserState(null, null, null);
     }
 }

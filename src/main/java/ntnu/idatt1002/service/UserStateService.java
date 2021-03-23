@@ -16,7 +16,7 @@ public class UserStateService {
      * @return true if there currently is a saved user
      */
     public static boolean checkIfUserState(){
-        if(UserStateDAO.getUserState() != null){
+        if(UserStateDAO.getUsername() != null){
             return true;
         } else {
             return false;
@@ -28,7 +28,7 @@ public class UserStateService {
      * @return
      */
     public static User getCurrentUser(){
-        return UserDAO.deserializeUser(UserStateDAO.getUserState());
+        return UserDAO.deserializeUser(UserStateDAO.getUsername());
     }
 
     /**
@@ -36,6 +36,6 @@ public class UserStateService {
      * @param username
      */
     public static void setCurrentUser(String username){
-        UserStateDAO.setUserState(username);
+        UserStateDAO.setUserState(username, null, null);
     }
 }
