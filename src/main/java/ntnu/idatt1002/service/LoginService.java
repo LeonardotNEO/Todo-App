@@ -44,6 +44,9 @@ public class LoginService {
      * @param username
      */
     public static void saveLogin(String username){
-        UserStateDAO.setUserState(username, null, null);
+        UserStateService.setCurrentUserUsername(username);
+        if(CategoryService.getCategoriesCurrentUser().length > 0){
+            UserStateService.setCurrentUserCategory(CategoryService.getCategoriesCurrentUser()[0]);
+        }
     }
 }
