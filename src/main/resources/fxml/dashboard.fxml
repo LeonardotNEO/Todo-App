@@ -51,38 +51,7 @@
                   </Text>
                </children>
             </AnchorPane>
-            <HBox alignment="CENTER_RIGHT" layoutX="500.0" maxWidth="-Infinity" prefHeight="75.0" prefWidth="500.0" spacing="10.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Button id="button1" mnemonicParsing="false" onAction="#buttonNewTask" prefHeight="39.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="New task">
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <MenuButton id="button1" fx:id="sort" mnemonicParsing="false" prefHeight="39.0" prefWidth="148.0" style="-fx-background-color: #001021;" stylesheets="@../css/main.css" text="Sort" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </MenuButton>
-                  <TextField nodeOrientation="LEFT_TO_RIGHT" prefHeight="39.0" prefWidth="185.0" promptText="Search..." style="-fx-background-color: #001021;">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets left="18.0" right="18.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" layoutX="250.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="248.0" spacing="10.0">
+            <HBox fx:id="categoryHBox" alignment="CENTER_LEFT" layoutX="250.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="325.0" spacing="10.0">
                <children>
                   <Text fx:id="categoryName" strokeType="OUTSIDE" strokeWidth="0.0" text="categoryName">
                      <font>
@@ -97,9 +66,48 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Button id="button1" mnemonicParsing="false" onAction="#buttonDeleteCategory" prefHeight="39.0" prefWidth="83.0" styleClass="button2" stylesheets="@../css/main.css" text="Delete">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
                <padding>
                   <Insets left="18.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="taskHBox" alignment="CENTER_RIGHT" layoutX="624.0" maxWidth="-Infinity" prefHeight="75.0" prefWidth="376.0" spacing="10.0" AnchorPane.leftAnchor="624.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button id="button1" mnemonicParsing="false" onAction="#buttonNewTask" prefHeight="39.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="New task">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <MenuButton id="button1" fx:id="sort" mnemonicParsing="false" prefHeight="39.0" prefWidth="86.0" style="-fx-background-color: #001021;" stylesheets="@../css/main.css" text="Sort" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </MenuButton>
+                  <TextField nodeOrientation="LEFT_TO_RIGHT" prefHeight="39.0" prefWidth="111.0" promptText="Search..." style="-fx-background-color: #001021;">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets left="18.0" right="18.0" />
                </padding>
             </HBox>
          </children>
