@@ -1,5 +1,7 @@
 package ntnu.idatt1002.controllers;
 
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -9,12 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
@@ -67,11 +71,18 @@ public class DashboardController {
             Button button = new Button();
 
             button.setText(category);
+
             button.styleProperty().bind(Bindings
                     .when(button.hoverProperty())
                     .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
                     .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: white;")));
             button.cursorProperty().setValue(Cursor.HAND);
+
+            MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.FOLDER_OPEN);
+            icon.fillProperty().setValue(Paint.valueOf("White"));
+            icon.setGlyphSize(25);
+            button.setGraphic(icon);
+
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -111,11 +122,15 @@ public class DashboardController {
                         .when(button.hoverProperty())
                         .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
                         .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;")));
+                MaterialDesignIconView icon = (MaterialDesignIconView) button.getGraphic();
+                icon.setFill(Paint.valueOf("orange"));
             } else {
                 button.styleProperty().bind(Bindings
                         .when(button.hoverProperty())
                         .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
                         .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: white;")));
+                MaterialDesignIconView icon = (MaterialDesignIconView) button.getGraphic();
+                icon.setFill(Paint.valueOf("white"));
             }
 
         });

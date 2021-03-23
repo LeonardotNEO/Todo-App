@@ -21,7 +21,7 @@
       </Text>
       <Button id="button1" layoutX="379.0" layoutY="556.0" mnemonicParsing="false" onAction="#buttonCancelEditTask" prefHeight="39.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Cancel">
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="BAN" />
+            <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
          </graphic>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -29,7 +29,7 @@
       </Button>
       <Button id="button1" layoutX="257.0" layoutY="556.0" mnemonicParsing="false" onAction="#buttonEditTask" prefHeight="39.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Edit task">
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
+            <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
          </graphic>
          <cursor>
             <Cursor fx:constant="HAND" />

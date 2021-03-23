@@ -36,7 +36,7 @@
                               <Font size="20.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="CLIPBOARD" />
+                              <FontAwesomeIconView id="icon" fill="WHITE" glyphName="CLIPBOARD" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -47,7 +47,7 @@
                               <Font size="20.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="WRENCH" />
+                              <FontAwesomeIconView id="icon" fill="WHITE" glyphName="WRENCH" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -58,17 +58,17 @@
                               <Font size="20.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" />
+                              <FontAwesomeIconView id="icon" fill="WHITE" glyphName="SIGN_OUT" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <MenuButton fx:id="notificationBell" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                        <MenuButton id="notificationBell" fx:id="notificationBell" mnemonicParsing="false" stylesheets="@../css/main.css">
                            <graphic>
-                              <Pane>
+                              <Pane id="notificationBell">
                                  <children>
-                                    <FontAwesomeIconView id="button1Icon" fill="WHITE" glyphName="BELL" layoutX="8.0" layoutY="35.0" selectionStart="1" size="35" wrappingWidth="33.0">
+                                    <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BELL" layoutX="8.0" layoutY="35.0" selectionStart="1" size="35" wrappingWidth="33.0">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
