@@ -12,7 +12,7 @@ public class CategoryService {
      * @return
      */
     public static String[] getCategoriesCurrentUser(){
-        String[] categories = CategoryDAO.getCategoriesByUser(UserStateDAO.getUserState());
+        String[] categories = CategoryDAO.getCategoriesByUser(UserStateDAO.getUsername());
         return categories;
     }
 
@@ -21,7 +21,7 @@ public class CategoryService {
      * @param categoryName
      */
     public static void deleteCategoryCurrentUser(String categoryName){
-        CategoryDAO.deleteCategory(UserStateDAO.getUserState(), categoryName);
+        CategoryDAO.deleteCategory(UserStateDAO.getUsername(), categoryName);
     }
 
     /**
@@ -29,6 +29,6 @@ public class CategoryService {
      * @param categoryName
      */
     public static void addCategoryToCurrentUser(String categoryName){
-        CategoryDAO.addCategory(UserStateDAO.getUserState(), categoryName);
+        CategoryDAO.addCategory(UserStateDAO.getUsername(), categoryName);
     }
 }
