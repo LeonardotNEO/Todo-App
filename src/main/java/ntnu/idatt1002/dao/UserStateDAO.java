@@ -3,43 +3,77 @@ package ntnu.idatt1002.dao;
 import java.io.*;
 
 /**
- * Simple class to get or set which user are logged in
+ * Access what state the program is in, like which user is logged in and what category is selected
  */
 public final class UserStateDAO {
     private static final String SAVEFILE = "src/main/resources/saves/userstate.ser";
 
     /**
-     * Returns which user is logged in
-     * @return {@code null} if no user is logged in
+     * Get which user is logged in
+     * @return {@code null} if value is not stored
      */
-    public static String getUserState(){
+    public static String getUsername(){
+        return getUserState(0);
+    }
+
+    /**
+     * Get which category is selected by user
+     * @return {@code null} if value is not stored
+     */
+    public static String getSelectedCategory(){
+        return getUserState(1);
+    }
+
+    /**
+     * Get which sorting method is selected by user
+     * @return {@code null} if value is not stored
+     */
+    public static String getSelectedSort(){
+        return getUserState(2);
+    }
+
+    /**
+     * Returns a saved state
+     * @param index <p>0: username<br>
+     *              1: selectedCategory<br>
+     *              2: selectedSort</p>
+     * @return {@code null} if value is not stored
+     */
+    private static String getUserState(int index){
         File file = new File(SAVEFILE);
-        String userstate = null;
+        String[] userstate = null;
         try{
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            userstate = (String) ois.readObject();
+            userstate = (String[]) ois.readObject();
 
             ois.close();
             fis.close();
         }catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
-        return userstate;
+        if(userstate != null) {
+            return userstate[index];
+        }else{
+            return null;
+        }
     }
 
     /**
-     * Set which user is logged in
-     * @param username the user to log in, or {@code null} to log out current user
+     * Set current state
+     * @param username user currently logged in
+     * @param selectedCategory what category is selected
+     * @param selectedSort what sorting method is selected
      */
-    public static void setUserState(String username){
+    public static void setUserState(String username, String selectedCategory, String selectedSort){
         File file = new File(SAVEFILE);
+        String[] values = {username, selectedCategory, selectedSort};
         try {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            oos.writeObject(username);
+            oos.writeObject(values);
 
             oos.close();
             fos.close();

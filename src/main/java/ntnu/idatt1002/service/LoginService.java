@@ -44,6 +44,6 @@ public class LoginService {
      * @param username
      */
     public static void saveLogin(String username){
-        UserStateDAO.setUserState(username);
+        UserStateDAO.setUserState(username, null, null);
     }
 }
