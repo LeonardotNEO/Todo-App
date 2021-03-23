@@ -62,13 +62,6 @@
          </font>
       </Text>
       <MenuButton fx:id="categoryMenu" layoutX="294.0" layoutY="158.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="285.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Category" textFill="WHITE">
-         <items>
-            <MenuItem mnemonicParsing="false" text="categoryName1" />
-            <MenuItem mnemonicParsing="false" text="categoryname2" />
-            <MenuItem mnemonicParsing="false" text="categoryname3" />
-            <MenuItem mnemonicParsing="false" text="categoryname4" />
-            <MenuItem mnemonicParsing="false" text="categoryname5" />
-         </items>
          <font>
             <Font size="18.0" />
          </font>

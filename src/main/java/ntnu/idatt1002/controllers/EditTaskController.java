@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
@@ -18,6 +19,11 @@ public class EditTaskController {
     @FXML private MenuButton categoryMenu;
     @FXML private DatePicker datePicker;
     @FXML private MenuButton priorityMenu;
+
+    public void initialize(){
+        // When editTask-page is loaded, fill categoriesButton with categories
+        setCategoryMenu(CategoryService.getCategoriesCurrentUser());
+    }
 
     /**
      * cancel button loads the tasks page back into center-content of dashboard
@@ -58,8 +64,8 @@ public class EditTaskController {
      * Loads menuItem elements with categorynames into categoryMenuButton
      * @param categories
      */
-    public void setCategoryMenu(ArrayList<String> categories) {
-        categories.forEach(category -> {
+    public void setCategoryMenu(String[] categories) {
+        for (String category : categories) {
             MenuItem menuItem = new MenuItem();
             menuItem.setText(category);
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -70,7 +76,7 @@ public class EditTaskController {
             });
 
             categoryMenu.getItems().add(menuItem);
-        });
+        }
     }
 
     public void setId(int id){
@@ -88,4 +94,8 @@ public class EditTaskController {
     public void setDatePicker(String date) {
         this.datePicker.setValue(LocalDate.parse(date));
     }
+
+    public void setCategoryMenu(String category) { this.categoryMenu.setText(category); }
+
+    public void setPriorityMenu(String priority) { this.priorityMenu.setText(priority); }
 }

@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
@@ -62,10 +63,16 @@ public class TaskController {
         editTaskController.setDescriptionTextArea(task.getDescription());
 
         // set categories in menuButton
-        editTaskController.setCategoryMenu(TaskService.getCategoryNames());
+        editTaskController.setCategoryMenu(CategoryService.getCategoriesCurrentUser());
+
+        // set category prompt
+        editTaskController.setCategoryMenu(task.getCategory());
 
         // set datepicker prompt
         editTaskController.setDatePicker(task.getDeadline());
+
+        // set priority prompt
+        editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
 
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(editMenu);
