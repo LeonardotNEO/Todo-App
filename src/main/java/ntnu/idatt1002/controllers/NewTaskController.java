@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class NewTaskController {
      */
     public void initialize(){
         // fill MenuButton categoryMenu with categories
-        setCategoryMenu(TaskService.getCategoryNames());
+        setCategoryMenu(CategoryService.getCategoriesCurrentUser());
 
     }
 
@@ -63,8 +64,8 @@ public class NewTaskController {
      * Loads categories into categoryMenuButton
      * @param categories
      */
-    public void setCategoryMenu(ArrayList<String> categories) {
-        categories.forEach(category -> {
+    public void setCategoryMenu(String[] categories) {
+        for (String category : categories) {
             MenuItem menuItem = new MenuItem();
             menuItem.setText(category);
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -75,7 +76,7 @@ public class NewTaskController {
             });
 
             categoryMenu.getItems().add(menuItem);
-        });
+        }
     }
 
     /**

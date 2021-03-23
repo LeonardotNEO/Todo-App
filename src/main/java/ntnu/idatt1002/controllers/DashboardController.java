@@ -1,17 +1,23 @@
 package ntnu.idatt1002.controllers;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 
@@ -27,24 +33,63 @@ public class DashboardController {
     @FXML private VBox categories;
     @FXML private BorderPane borderPane;
     @FXML private MenuButton sort;
+    @FXML private HBox categoryHBox;
+    @FXML private HBox taskHBox;
 
     public DashboardController(){
         instance = this;
     }
 
     /**
-     * When dashboard page is loaded, the center-content will automatically show tasks.fxml
+     * When dashboard page is loaded, the center-content will automatically show tasks.fxml with ALL the users tasks.
+     *
      * @throws IOException
      */
     public void initialize() throws IOException {
         // loads tasks page
         loadTasksPage(TaskService.getTasksByCurrentUser());
 
-        // set currentCategoryName
-        //categoryName.setText();
+        // load categoryBar and taskBar if currentCategory exists in UserState Todo
+        if(CategoryService.getCategoriesCurrentUser().length > 0){
+            categoryName.setText(CategoryService.getCategoriesCurrentUser()[0]);
+            categoryHBox.setVisible(true);
+            taskHBox.setVisible(true);
+        } else {
+            categoryHBox.setVisible(false);
+            taskHBox.setVisible(false);
+        }
 
-        // add sorting options to MenuButton sort at initializing of Dashboard
+        // load categoryButton to categories VBox Todo set currently selected in UserState to hovercolor
+        loadCategoryButtons(CategoryService.getCategoriesCurrentUser());
 
+    }
+
+    /**
+     * Load categoryButtons to categories VBox
+     */
+    public void loadCategoryButtons(String[] categoriesList){
+        for (String category : categoriesList) {
+            Button button = new Button();
+
+            button.setText(category);
+            button.styleProperty().bind(Bindings
+                    .when(button.hoverProperty())
+                    .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
+                    .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: white;")));
+            button.cursorProperty().setValue(Cursor.HAND);
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        loadTasksPage(TaskService.getCategoryWithTasks(category));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            categories.getChildren().add(categories.getChildren().size() - 1, button);
+        }
     }
 
     /**
@@ -61,6 +106,13 @@ public class DashboardController {
      */
     public void buttonEditCategory() throws IOException {
         setCenterContent("editCategory");
+    }
+
+    /**
+     * Delete currently visied category
+     */
+    public void buttonDeleteCategory(){
+        //CategoryService.deleteCategoryCurrentUser(); todo user UserStateService to get currentlySelectedCategory
     }
 
     /**
@@ -103,15 +155,20 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        //sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate())); <- error from this sorting method
+        //sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
         sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
-        //sort.getItems().add(createSortingMenuItem("Sort by date", TaskService.TasksSortedByDate()));
     }
 
+    /**
+     * Delete all sortings options from sortButton
+     */
     public void deleteSortingOptions(){
         sort.getItems().removeAll(sort.getItems());
     }
 
+    /**
+     * Delete all sortings options and add new sortingsOptions
+     */
     public void updateSortingOptions(){
         deleteSortingOptions();
         addSortingOptions();
@@ -119,6 +176,7 @@ public class DashboardController {
 
     /**
      * Loads an empty Tasks UI elements, adds task UI elements to it. Then we we set centercontent of dashboard to tasks.fxml
+     * Use this one instead of setCenterContent directly when showing tasksUI
      * @param tasks
      * @throws IOException
      */

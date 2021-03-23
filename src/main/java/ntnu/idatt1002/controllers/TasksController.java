@@ -43,12 +43,14 @@ public class TasksController {
      * @param tasks
      */
     public void addTasks(ArrayList<Task> tasks){
-        tasks.forEach(t -> {
-            try {
-                addTask(t);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        if(tasks != null){
+            tasks.forEach(t -> {
+                try {
+                    addTask(t);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 }
