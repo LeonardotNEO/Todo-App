@@ -20,11 +20,6 @@ public class EditTaskController {
     @FXML private DatePicker datePicker;
     @FXML private MenuButton priorityMenu;
 
-    public void initialize(){
-        // When editTask-page is loaded, fill categoriesButton with categories
-        setCategoryMenu(CategoryService.getCategoriesCurrentUser());
-    }
-
     /**
      * cancel button loads the tasks page back into center-content of dashboard
      * @param event
