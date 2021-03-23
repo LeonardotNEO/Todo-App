@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 
 import java.io.IOException;
@@ -52,5 +53,13 @@ public class TasksController {
                 }
             });
         }
+    }
+
+    public void tasksIsEmpty(){
+        Text text = new Text();
+        text.setText("Theres no tasks in this category...\nClick on New-Task-button to add a new task!");
+        text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
+
+        tasksVBox.getChildren().add(text);
     }
 }

@@ -185,11 +185,16 @@ public class DashboardController {
         BorderPane borderPane = loader.load();
         TasksController tasksController = loader.getController();
 
-        // add tasks to generated taskspage
-        tasksController.addTasks(tasks);
+        if(tasks == null || tasks.isEmpty()){
+            // if tasks ArrayList is empty
+            tasksController.tasksIsEmpty();
+        } else {
+            // add tasks to generated taskspage
+            tasksController.addTasks(tasks);
 
-        // update MenuButton sort with newest arraylists<Task>
-        updateSortingOptions();
+            // update MenuButton sort with newest arraylists<Task>
+            updateSortingOptions();
+        }
 
         setCenterContent((Node) borderPane);
     }
