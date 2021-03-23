@@ -11,13 +11,13 @@
   -fx-text-fill: white;
 }
 
-#button1:hover{
-  -fx-text-fill: #ffcc00;
+#button1:hover {
+  -fx-text-fill: orange;
   -fx-background-color:  #001021;
 }
 
-#button1Icon:hover{
-  -fx-fill: #ffcc00;
+#button1:hover #icon {
+  -fx-fill: orange;
 }
 
 .button2{
@@ -25,6 +25,14 @@
   -fx-background-radius: 20;
   -fx-font-size: 15;
   -fx-text-fill: white;
+}
+
+#notificationBell {
+  -fx-background-color: transparent;
+}
+
+#notificationBell:hover #icon{
+  -fx-fill: orange;
 }
 
 .button3{
