@@ -93,7 +93,9 @@ public class NavbarController {
      */
     public void buttonLogout(ActionEvent event) throws IOException {
         App.setRoot("login");
-        UserStateService.setCurrentUser(null);
+        UserStateService.setCurrentUserUsername(null);
+        UserStateService.setCurrentUserCategory(null);
+        UserStateService.setCurrentUserSorting(null);
     }
 
 

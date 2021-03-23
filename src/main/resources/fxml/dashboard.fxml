@@ -19,8 +19,13 @@
          <children>
             <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="624.0" prefWidth="250.0" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox fx:id="categories" prefHeight="500.0" prefWidth="250.0" spacing="10.0">
+                  <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0">
                      <children>
+                        <VBox fx:id="categories" prefHeight="0.0" prefWidth="250.0" spacing="10.0">
+                           <padding>
+                              <Insets left="25.0" />
+                           </padding>
+                        </VBox>
                         <Button id="button1" mnemonicParsing="false" onAction="#buttonNewCategory" prefWidth="200.0" styleClass="button1" stylesheets="@../css/main.css" text="New category">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
