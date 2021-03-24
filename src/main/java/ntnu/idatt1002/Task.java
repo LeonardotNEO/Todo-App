@@ -12,7 +12,7 @@ public class Task implements Serializable {
     private String name;
     private String userName;
     private String description = "";
-    private String deadline;
+    private long deadline;
     private int priority;
     private String startDate;
     private String category;
@@ -27,7 +27,7 @@ public class Task implements Serializable {
      * @param startDate
      * @param category
      */
-    public Task(String name, String userName, String description, String deadline, int priority, String startDate, String category) {
+    public Task(String name, String userName, String description, long deadline, int priority, String startDate, String category) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -75,7 +75,7 @@ public class Task implements Serializable {
      * A method to get the field deadline
      * @return the deadline for the task
      */
-    public String getDeadline() {return deadline;}
+    public long getDeadline() {return deadline;}
 
     /**
      * A method to get the field priority
@@ -111,7 +111,7 @@ public class Task implements Serializable {
      * A method to set a new deadline
      * @param deadline
      */
-    public void setDeadline(String deadline) {this.deadline = deadline;}
+    public void setDeadline(long deadline) {this.deadline = deadline;}
 
     /**
      * A method to set a new priority
