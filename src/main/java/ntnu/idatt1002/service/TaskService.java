@@ -122,7 +122,7 @@ public class TaskService {
     }
 
     /**
-     * Returns Array of all the tasks sorted by their alphabetical order.
+     * Returns Array of all the tasks sorted by the alphabetical order of the first letter in them.
      * @return
      */
     public static ArrayList<Task> TasksSortedByAlphabet(){
