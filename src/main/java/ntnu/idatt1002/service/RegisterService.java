@@ -14,7 +14,7 @@ public class RegisterService {
     public static boolean registerNewUser(String name, String password){
         User newUser = new User(name, password, UserDAO.generateSalt());
         UserDAO.serializeUser(newUser);
-        UserStateService.setCurrentUser(name);
+        UserStateService.setCurrentUserUsername(name);
 
         return true;
     }

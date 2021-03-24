@@ -2,6 +2,7 @@ package ntnu.idatt1002.service;
 
 import javafx.scene.control.DatePicker;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.TaskDAO;
 
 import java.time.Instant;
@@ -28,11 +29,27 @@ class TaskComparator implements Comparator<Task>{
 
 
 public class TaskService {
-
     public static boolean newTask(String title, LocalDate deadline, String description, int priority, String startDate, String category) {
         Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, getDeadlineMs(deadline), priority, startDate, category);
         TaskDAO.serializeTask(newTask);
         return true;
+    }
+
+    public static void editCategoryOfTasks(ArrayList<Task> tasks, String newCategory){
+        tasks.forEach(task -> {
+            TaskDAO.deleteTask(task);
+            task.setCategory(newCategory);
+            TaskDAO.serializeTask(task);
+        });
+    }
+
+    /**
+     * Get tasks by category
+     * @param category
+     * @return
+     */
+    public static ArrayList<Task> getTasksByCategory(String category){
+        return TaskDAO.getTasksByCategory(UserStateService.getCurrentUserUsername(), category);
     }
 
     /**
@@ -40,7 +57,7 @@ public class TaskService {
      * @return
      */
     public static ArrayList<Task> getTasksByCurrentUser(){
-        return TaskDAO.getTasksByUser(UserStateService.getCurrentUser().getUsername());
+        return TaskDAO.getTasksByUser(UserStateService.getCurrentUserUsername());
     }
 
     /**
@@ -66,14 +83,6 @@ public class TaskService {
      */
     public static ArrayList<Task> getCategoryWithTasks(String category) {
         return getCategoriesWithTasks().get(category);
-    }
-
-    /**
-     * Returns a list of all the categories the current user got.
-     * @return
-     */
-    public static ArrayList<String> getCategoryNames() {
-        return new ArrayList<>(getCategoriesWithTasks().keySet());
     }
 
     /**
@@ -127,7 +136,7 @@ public class TaskService {
      * @return
      */
     public static Task getTaskByCurrentUser(int id){
-        Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUser().getUsername(), id);
+        Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUserUsername(), id);
         return task;
     }
 

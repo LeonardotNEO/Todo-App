@@ -23,7 +23,7 @@ public class TaskServiceTest {
     public static void SetupTestData() {
         User user = new User("Test User");
         UserDAO.serializeUser(user);
-        UserStateService.setCurrentUser("Test User");
+        UserStateService.setCurrentUserUsername("Test User");
         assertDoesNotThrow(() -> {
             CategoryService.addCategoryToCurrentUser("home");
             CategoryService.addCategoryToCurrentUser("Category");
@@ -53,12 +53,6 @@ public class TaskServiceTest {
     public void tasksByCategoryTest() {
         HashMap<String, ArrayList<Task>> list = TaskService.getCategoriesWithTasks();
         assertEquals("Hei",list.get("Category").get(0).getName());
-    }
-
-    @Test
-    public void getListOfCategoriesTest() {
-        ArrayList<String> categories = TaskService.getCategoryNames();
-        assertTrue(categories.contains("Category"));
     }
 
     @Test

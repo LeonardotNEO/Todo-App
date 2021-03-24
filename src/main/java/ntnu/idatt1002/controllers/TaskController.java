@@ -8,7 +8,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
@@ -32,7 +34,7 @@ public class TaskController {
         TaskService.deleteTask(task);
 
         // loads a tasks-page with this users tasks into dashboard
-        DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
+        DashboardController.getInstance().loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
     }
 
     /**
@@ -62,10 +64,16 @@ public class TaskController {
         editTaskController.setDescriptionTextArea(task.getDescription());
 
         // set categories in menuButton
-        editTaskController.setCategoryMenu(TaskService.getCategoryNames());
+        editTaskController.setCategoryMenu(CategoryService.getCategoriesCurrentUser());
+
+        // set category prompt
+        editTaskController.setCategoryMenu(task.getCategory());
 
         // set datepicker prompt
         editTaskController.setDatePicker(TaskService.transformDeadline(task.getDeadline()));
+
+        // set priority prompt
+        editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
 
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(editMenu);

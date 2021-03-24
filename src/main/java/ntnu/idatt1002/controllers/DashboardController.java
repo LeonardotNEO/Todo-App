@@ -1,5 +1,7 @@
 package ntnu.idatt1002.controllers;
 
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -9,12 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
@@ -41,54 +45,120 @@ public class DashboardController {
     }
 
     /**
-     * When dashboard page is loaded, the center-content will automatically show tasks.fxml with ALL the users tasks.
+     * Intialize method used to load dashboard.
      *
      * @throws IOException
      */
     public void initialize() throws IOException {
         // loads tasks page
-        loadTasksPage(TaskService.getTasksByCurrentUser());
+        loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
 
-        // load categoryBar and taskBar if currentCategory exists in UserState Todo
-        if(CategoryService.getCategoriesCurrentUser().length > 0){
-            categoryName.setText(CategoryService.getCategoriesCurrentUser()[0]);
-            categoryHBox.setVisible(true);
-            taskHBox.setVisible(true);
-        } else {
-            categoryHBox.setVisible(false);
-            taskHBox.setVisible(false);
-        }
+        // load category buttons to categories VBox
+        loadCategoryButtons();
 
-        // load categoryButton to categories VBox Todo set currently selected in UserState to hovercolor
-        loadCategoryButtons(CategoryService.getCategoriesCurrentUser());
-
+        // load categoryBar and taskBar if currentCategory exists in UserState
+        updateCategoryEditDeleteBar();
     }
 
     /**
      * Load categoryButtons to categories VBox
      */
-    public void loadCategoryButtons(String[] categoriesList){
+    public void loadCategoryButtons(){
+        deleteCategoryButtons();
+
+        String[] categoriesList = CategoryService.getCategoriesCurrentUser();
         for (String category : categoriesList) {
             Button button = new Button();
 
             button.setText(category);
+
             button.styleProperty().bind(Bindings
                     .when(button.hoverProperty())
                     .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
                     .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: white;")));
             button.cursorProperty().setValue(Cursor.HAND);
+
+            MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.FOLDER_OPEN);
+            icon.fillProperty().setValue(Paint.valueOf("White"));
+            icon.setGlyphSize(25);
+            button.setGraphic(icon);
+
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     try {
+                        // When this category button is clicked, we loadtaskspage with this category
                         loadTasksPage(TaskService.getCategoryWithTasks(category));
+
+                        // Set currently saved category to this category
+                        UserStateService.setCurrentUserCategory(category);
+
+                        // update categorybutton UI
+                        updateCategoryButtons();
+
+                        // update categoryEditDeleteBar UI
+                        updateCategoryEditDeleteBar();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             });
 
-            categories.getChildren().add(categories.getChildren().size() - 1, button);
+            categories.getChildren().add(categories.getChildren().size(), button);
+        }
+
+        updateCategoryButtons();
+    }
+
+    /**
+     * Method for updating UI of categoryButtons. Currently selected catergory is showed as orange at all times.
+     */
+    public void updateCategoryButtons(){
+        categories.getChildren().forEach(node -> {
+            Button button = (Button) node;
+            if(button.getText().equals(UserStateService.getCurrentUserCategory())){
+                // selected category as defined in UserStateService in set to show color orange
+                button.styleProperty().bind(Bindings
+                        .when(button.hoverProperty())
+                        .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
+                        .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;")));
+                MaterialDesignIconView icon = (MaterialDesignIconView) button.getGraphic();
+                icon.setFill(Paint.valueOf("orange"));
+            } else {
+                button.styleProperty().bind(Bindings
+                        .when(button.hoverProperty())
+                        .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
+                        .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: white;")));
+                MaterialDesignIconView icon = (MaterialDesignIconView) button.getGraphic();
+                icon.setFill(Paint.valueOf("white"));
+            }
+
+        });
+    }
+
+    /**
+     * Delete UI elements of categories VBox
+     */
+    public void deleteCategoryButtons(){
+        categories.getChildren().removeAll(categories.getChildren());
+    }
+
+    /**
+     * Update update category/task edit/delete bar according to UserStateService values
+     */
+    public void updateCategoryEditDeleteBar(){
+        if(UserStateService.getCurrentUserCategory() != null){
+            // set categorytitle to category in savefile
+            categoryName.setText(UserStateService.getCurrentUserCategory());
+
+            // show category and task HBox
+            categoryHBox.setVisible(true);
+            taskHBox.setVisible(true);
+        } else {
+            categoryName.setText("");
+
+            categoryHBox.setVisible(false);
+            taskHBox.setVisible(false);
         }
     }
 
@@ -109,10 +179,21 @@ public class DashboardController {
     }
 
     /**
-     * Delete currently visied category
+     * Delete currently visited category
      */
-    public void buttonDeleteCategory(){
-        //CategoryService.deleteCategoryCurrentUser(); todo user UserStateService to get currentlySelectedCategory
+    public void buttonDeleteCategory() throws IOException {
+        CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUserCategory());
+
+        if(CategoryService.getCategoriesCurrentUser().length >= 1){
+            UserStateService.setCurrentUserCategory(CategoryService.getCategoriesCurrentUser()[0]);
+        } else {
+            UserStateService.setCurrentUserCategory(null);
+        }
+
+        // update content of tasks, catalogVBox and catalog/task-HBox
+        loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUserCategory()));
+        updateCategoryEditDeleteBar();
+        loadCategoryButtons();
     }
 
     /**
@@ -176,7 +257,6 @@ public class DashboardController {
 
     /**
      * Loads an empty Tasks UI elements, adds task UI elements to it. Then we we set centercontent of dashboard to tasks.fxml
-     * Use this one instead of setCenterContent directly when showing tasksUI
      * @param tasks
      * @throws IOException
      */
@@ -185,11 +265,16 @@ public class DashboardController {
         BorderPane borderPane = loader.load();
         TasksController tasksController = loader.getController();
 
-        // add tasks to generated taskspage
-        tasksController.addTasks(tasks);
+        if(tasks == null || tasks.isEmpty()){
+            // if tasks ArrayList is empty
+            tasksController.tasksIsEmpty();
+        } else {
+            // add tasks to generated taskspage
+            tasksController.addTasks(tasks);
 
-        // update MenuButton sort with newest arraylists<Task>
-        updateSortingOptions();
+            // update MenuButton sort with newest arraylists<Task>
+            updateSortingOptions();
+        }
 
         setCenterContent((Node) borderPane);
     }
