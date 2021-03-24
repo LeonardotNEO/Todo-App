@@ -12,7 +12,7 @@ public class DateConverter extends StringConverter<LocalDate> {
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     }
 
-    // This should be checked to be valid
+    // This should be checked to be valid / it throws invalid argument exception if pattern is invalid.
     public DateConverter(String format) {
         dateFormatter = DateTimeFormatter.ofPattern(format);
     }
