@@ -3,6 +3,7 @@ package service;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserService;
 import ntnu.idatt1002.service.UserStateService;
@@ -10,13 +11,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,14 +25,16 @@ public class TaskServiceTest {
         UserDAO.serializeUser(user);
         UserStateService.setCurrentUserUsername("Test User");
         assertDoesNotThrow(() -> {
-            TaskService.newTask("zei", "21/02/21", "Hei på deg", 1, null, "Category");
-            TaskService.newTask("Test10001", "21/03/21", "dsadksajdskajdkasd", 2, "23/4/20", "home");
-            TaskService.newTask("Test1", "21/05/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
-            TaskService.newTask("Test2", "21/06/21", "dsadksajdskajdkasd", 2, "23/4/20", "home");
-            TaskService.newTask("Test64", "21/10/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
-            TaskService.newTask("Test4", "9/10/21", "dsadksajdskajdkasd", 3, "23/4/20", "home");
-            TaskService.newTask("Test5", "1/01/21", "dsadksajdskajdkasd", 1, "23/4/20", "home");
-            TaskService.newTask("Test61001", "11/03/21", "dsadksajdskajdkasd", 0, "23/4/20", "home");
+            CategoryService.addCategoryToCurrentUser("home");
+            CategoryService.addCategoryToCurrentUser("Category");
+            TaskService.newTask("Hei", LocalDate.of(2021, 02, 12), "Hei på deg", 1, null, "Category");
+            TaskService.newTask("Test10001", LocalDate.of(2021, 04, 21), "dsadksajdskajdkasd", 2, "23/4/20", "home");
+            TaskService.newTask("Test1", LocalDate.of(2021, 05, 15), "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test2", LocalDate.of(2021, 02, 21), "dsadksajdskajdkasd", 2, "23/4/20", "home");
+            TaskService.newTask("Test64", LocalDate.of(2021, 06, 21), "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test4", LocalDate.of(2021, 02, 16), "dsadksajdskajdkasd", 3, "23/4/20", "home");
+            TaskService.newTask("Test5", LocalDate.of(2021, 01, 21), "dsadksajdskajdkasd", 1, "23/4/20", "home");
+            TaskService.newTask("Test61001", LocalDate.of(2022, 02, 20), "dsadksajdskajdkasd", 0, "23/4/20", "home");
         });
     }
 
@@ -75,26 +73,8 @@ public class TaskServiceTest {
     public void dateSortTest() {
         ArrayList<Task> list = TaskService.TasksSortedByDate();
 
-        Task early = list.get(0);
-        Task late = list.get(list.size() - 1);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-        Date earlyDate = null;
-        Date lateDate = null;
-
-        try {
-            earlyDate = sdf.parse(early.getDeadline());
-            lateDate = sdf.parse(late.getDeadline());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        list.forEach(task -> {
-            System.out.println(task);
-        });
-
-        long earlyMillis = earlyDate.getTime();
-        long lateMillis = lateDate.getTime();
+        long earlyMillis = list.get(0).getDeadline();
+        long lateMillis = list.get(list.size() - 1).getDeadline();
 
         assertTrue(earlyMillis < lateMillis);
     }

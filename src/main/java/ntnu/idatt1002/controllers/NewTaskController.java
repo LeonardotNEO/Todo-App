@@ -4,12 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.StringConverter;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 import java.time.Clock;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class NewTaskController {
@@ -21,12 +25,15 @@ public class NewTaskController {
     @FXML private MenuButton priorityMenu;
 
     /**
-     * Initialize method loads categories into categoryMenu when initialized
+     * Initialize method loads categories into categoryMenu and changes the date format when initialized
      */
     public void initialize(){
         // fill MenuButton categoryMenu with categories
         setCategoryMenu(CategoryService.getCategoriesCurrentUser());
 
+        // Changes the date format of the datePicker
+        datePicker.setConverter(new DateConverter());
+        datePicker.setPromptText("dd/MM/yyyy");
     }
 
     /**
@@ -46,7 +53,7 @@ public class NewTaskController {
     public void buttonNewTask(ActionEvent event) throws  IOException {
         boolean addTaskSuccessful = TaskService.newTask(
                 titleTextField.getText(),
-                datePicker.getValue().toString(),
+                datePicker.getValue(),
                 descriptionTextArea.getText(),
                 Integer.parseInt(priorityMenu.getText()),
                 Clock.systemUTC().toString(),

@@ -70,7 +70,7 @@ public class TaskController {
         editTaskController.setCategoryMenu(task.getCategory());
 
         // set datepicker prompt
-        editTaskController.setDatePicker(task.getDeadline());
+        editTaskController.setDatePicker(TaskService.transformDeadline(task.getDeadline()));
 
         // set priority prompt
         editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
