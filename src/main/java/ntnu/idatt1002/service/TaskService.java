@@ -1,11 +1,13 @@
 package ntnu.idatt1002.service;
 
+import javafx.scene.control.DatePicker;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 /**
  * Comparator for dates in tasks.
@@ -14,12 +16,9 @@ class TaskComparator implements Comparator<Task>{
 
     @Override
     public int compare(Task o1, Task o2) {
-        String[] task1DateArray = o1.getDeadline().split("/",3);
-        String task1Date = task1DateArray[2]+task1DateArray[1]+task1DateArray[0];
-
-        String[] task2DateArray = o2.getDeadline().split("/",3);
-        String task2Date = task2DateArray[2]+task2DateArray[1]+task2DateArray[0];
-        if(Long.parseLong(task1Date)<=Long.parseLong(task2Date)){
+        long task1Date = o1.getDeadline();
+        long task2Date = o2.getDeadline();
+        if(task1Date > task2Date){
             return 1;
         }
         return -1;
@@ -30,8 +29,8 @@ class TaskComparator implements Comparator<Task>{
 
 public class TaskService {
 
-    public static boolean newTask(String title, String deadline, String description, int priority, String startDate, String category) {
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, deadline, priority, startDate, category);
+    public static boolean newTask(String title, LocalDate deadline, String description, int priority, String startDate, String category) {
+        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, getDeadlineMs(deadline), priority, startDate, category);
         TaskDAO.serializeTask(newTask);
         return true;
     }
@@ -130,6 +129,32 @@ public class TaskService {
     public static Task getTaskByCurrentUser(int id){
         Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUser().getUsername(), id);
         return task;
+    }
+
+    /**
+     * Returns a long representing time in milliseconds since 1/1/1970
+     * @param localdate
+     * @return
+     */
+    public static long getDeadlineMs(LocalDate localdate) {
+        Instant instant = localdate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        return instant.toEpochMilli();
+    }
+
+    /**
+     * Takes a long and turns it into a date in the format dd/MM/yyyy. The ms inserted represents the time since 1/1/1970
+     * @param ms
+     * @return
+     */
+    public static String transformDeadline(long ms) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(ms + 1);
+
+        // Adds a 0 to month/Day if under 9 so the format is always MM
+        String month = calendar.get(Calendar.MONTH) > 9 ? "" + (calendar.get(Calendar.MONTH) + 1) : "0" + (calendar.get(Calendar.MONTH) + 1);
+        String day = calendar.get(Calendar.DAY_OF_MONTH) > 9 ? "" + calendar.get(Calendar.DAY_OF_MONTH) : "0" + calendar.get(Calendar.DAY_OF_MONTH);
+
+        return day+ "/" + month + "/" + calendar.get(Calendar.YEAR);
     }
 
     /**
