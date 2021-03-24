@@ -65,7 +65,7 @@ public class TaskController {
         editTaskController.setCategoryMenu(TaskService.getCategoryNames());
 
         // set datepicker prompt
-        editTaskController.setDatePicker(task.getDeadline());
+        editTaskController.setDatePicker(TaskService.transformDeadline(task.getDeadline()));
 
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(editMenu);

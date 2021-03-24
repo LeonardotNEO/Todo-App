@@ -4,10 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.utils.DateConverter;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class EditTaskController {
@@ -18,6 +21,14 @@ public class EditTaskController {
     @FXML private MenuButton categoryMenu;
     @FXML private DatePicker datePicker;
     @FXML private MenuButton priorityMenu;
+
+    /**
+     * Initialize method loads categories into categoryMenu and changes the date format when initialized
+     */
+    public void initialize(){
+        datePicker.setConverter(new DateConverter());
+        datePicker.setPromptText("dd/MM/yyyy");
+    }
 
     /**
      * cancel button loads the tasks page back into center-content of dashboard
@@ -35,7 +46,7 @@ public class EditTaskController {
      */
     public void buttonEditTask(ActionEvent event) throws IOException {
         // Make new task
-        TaskService.newTask(titleTextField.getText(), datePicker.getValue().toString(), descriptionTextArea.getText(), Integer.parseInt(priorityMenu.getText()), LocalDate.now().toString(), categoryMenu.getText());
+        TaskService.newTask(titleTextField.getText(), datePicker.getValue(), descriptionTextArea.getText(), Integer.parseInt(priorityMenu.getText()), LocalDate.now().toString(), categoryMenu.getText());
 
         // Delete old one
         TaskService.deleteTask(TaskService.getTaskByCurrentUser(id));
@@ -86,6 +97,6 @@ public class EditTaskController {
     }
 
     public void setDatePicker(String date) {
-        this.datePicker.setValue(LocalDate.parse(date));
+        this.datePicker.setValue(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 }

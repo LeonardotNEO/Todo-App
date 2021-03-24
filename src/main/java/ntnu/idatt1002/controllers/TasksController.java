@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.TaskService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class TasksController {
         // use controller to change content of task before adding to to tasks
         taskController.setTaskName(taskObject.getName());
         taskController.setTaskDescription(taskObject.getDescription());
-        taskController.setTaskDate(taskObject.getDeadline());
+        taskController.setTaskDate(TaskService.transformDeadline(taskObject.getDeadline()));
         taskController.setTaskPriority(taskObject.getPriority());
         taskController.setTaskId(taskObject.hashCode());
 
