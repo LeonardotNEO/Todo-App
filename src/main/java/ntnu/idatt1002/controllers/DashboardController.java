@@ -45,7 +45,7 @@ public class DashboardController {
     }
 
     /**
-     * Intialize method used to load dashboard.
+     * The initialize method used to load dashboard.
      *
      * @throws IOException
      */
@@ -111,7 +111,7 @@ public class DashboardController {
     }
 
     /**
-     * Method for updating UI of categoryButtons. Currently selected catergory is showed as orange at all times.
+     * Method for updating UI of categoryButtons. Currently selected category is showed as orange at all times.
      */
     public void updateCategoryButtons(){
         categories.getChildren().forEach(node -> {
@@ -238,17 +238,19 @@ public class DashboardController {
     public void addSortingOptions(){
         //sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
         sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
+        sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
+        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.TasksSortedByAlphabet()));
     }
 
     /**
-     * Delete all sortings options from sortButton
+     * Delete all sorting options from sortButton
      */
     public void deleteSortingOptions(){
         sort.getItems().removeAll(sort.getItems());
     }
 
     /**
-     * Delete all sortings options and add new sortingsOptions
+     * Delete all sorting options and add new sorting options
      */
     public void updateSortingOptions(){
         deleteSortingOptions();
@@ -256,7 +258,7 @@ public class DashboardController {
     }
 
     /**
-     * Loads an empty Tasks UI elements, adds task UI elements to it. Then we we set centercontent of dashboard to tasks.fxml
+     * Loads an empty Tasks UI elements, adds task UI elements to it. Then we set center content of dashboard to tasks.fxml
      * @param tasks
      * @throws IOException
      */
@@ -280,7 +282,7 @@ public class DashboardController {
     }
 
     /**
-     * Method for creating MenuItem element, and adding an actionevent to it
+     * Method for creating MenuItem element, and adding an action event to it
      * @param name
      * @param tasks
      * @return

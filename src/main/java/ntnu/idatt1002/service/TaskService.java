@@ -4,6 +4,7 @@ import javafx.scene.control.DatePicker;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.TaskDAO;
+import ntnu.idatt1002.dao.UserDAO;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -97,29 +98,36 @@ public class TaskService {
     }
 
     /**
-     * Returns Array of all the tasks sorted by their priority.
+     * Returns an Array of all the tasks sorted by their priority.
      * @return
      */
     public static ArrayList<Task> TaskSortedByPriority(){
-        ArrayList<Task> userTasks = getTasksByCurrentUser();
+        //ArrayList<Task> userTasks = getTasksByCurrentUser();
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
         Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
         return userTasks;
     }
 
     /**
-     * Returns list of tasks sorted.
+     * Returns an Array of all the tasks sorted by their date.
      * @return
      */
     public static ArrayList<Task> TasksSortedByDate(){
-        ArrayList<Task> userTasks = getTasksByCurrentUser();
+        //ArrayList<Task> userTasks = getTasksByCurrentUser();
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
         Comparator<Task> Datecomparer = new TaskComparator();
         Collections.sort(userTasks,Datecomparer);
 
         return userTasks;
     }
 
+    /**
+     * Returns an Array of all the tasks sorted by the alphabetical order of the first letter in them.
+     * @return
+     */
     public static ArrayList<Task> TasksSortedByAlphabet(){
-        ArrayList<Task> userTasks = getTasksByCurrentUser();
+        //ArrayList<Task> userTasks = getTasksByCurrentUser();
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2){

@@ -42,7 +42,7 @@ public class TasksController {
     }
 
     /**
-     * Uses helpermethod addTask to add an arraylist of tasks
+     * Uses helper-method addTask to add an arraylist of tasks
      * @param tasks
      */
     public void addTasks(ArrayList<Task> tasks){

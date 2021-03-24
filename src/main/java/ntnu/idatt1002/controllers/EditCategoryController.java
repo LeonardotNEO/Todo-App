@@ -14,7 +14,7 @@ public class EditCategoryController {
     @FXML private TextField titleTextField;
 
     /**
-     * cancel button loads the tasks page back into center-content of dashboard
+     * Cancel button loads the tasks page back into center-content of dashboard
      * @param event
      * @throws IOException
      */

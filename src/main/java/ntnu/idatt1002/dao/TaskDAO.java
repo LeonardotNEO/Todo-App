@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Acces task objects in storage
+ * Access task objects in storage
  */
 public final class TaskDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
@@ -91,7 +91,7 @@ public final class TaskDAO {
     }
 
     /**
-     * Get a single task only by owner and ID, less efective than giving the category as well
+     * Get a single task only by owner and ID, less effective than giving the category as well
      * @param username which user that owns the task
      * @param taskID tasks hashcode
      * @return {@code null} if task could not be found

@@ -23,7 +23,7 @@ public class TaskController {
     @FXML private Label taskPriority;
 
     /**
-     * Get the id of this task (from tasks anchorpane), then we delete the task with this id with TaskService
+     * Get the id of this task (from tasks AnchorPane), then we delete the task with this id with TaskService
      * @param event
      * @throws IOException
      */
@@ -38,7 +38,7 @@ public class TaskController {
     }
 
     /**
-     * updates center-content of dashboard to editTask.fxml and adds prompt attributes
+     * Updates center-content of dashboard to editTask.fxml and adds prompt attributes
      * @param event
      * @throws IOException
      */
@@ -54,7 +54,7 @@ public class TaskController {
         AnchorPane editMenu = loader.load();
         EditTaskController editTaskController = loader.getController();
 
-        // set id of editmenu Anchorpane, so we can fetch id when editing
+        // set id of editMenu AnchorPane, so we can fetch id when editing
         editTaskController.setId(id);
 
         // set title prompt

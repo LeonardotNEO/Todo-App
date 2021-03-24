@@ -60,7 +60,7 @@ public class NavbarController {
     }
 
     /**
-     * Communicate with mainController to updates its main-content to dashboard.fxml when button in navbar is clicked
+     * Communicate with mainController to update its main-content to dashboard.fxml when button in navbar is clicked
      * @param event
      * @throws IOException
      */
@@ -69,7 +69,7 @@ public class NavbarController {
     }
 
     /**
-     * Communicate with mainController to updates its main-content to account.fxml when button in navbar is clicked
+     * Communicate with mainController to update its main-content to account.fxml when button in navbar is clicked
      * @param event
      * @throws IOException
      */
@@ -78,7 +78,7 @@ public class NavbarController {
     }
 
     /**
-     * Communicate with mainController to updates its main-content to notificationHistory.fxml when button in notificationBell-menu is clicked
+     * Communicate with mainController to update its main-content to notificationHistory.fxml when button in notificationBell-menu is clicked
      * @param event
      * @throws IOException
      */
@@ -87,7 +87,7 @@ public class NavbarController {
     }
 
     /**
-     * method for loading login.fxml
+     * Method for loading login.fxml
      * @param event
      * @throws IOException
      */

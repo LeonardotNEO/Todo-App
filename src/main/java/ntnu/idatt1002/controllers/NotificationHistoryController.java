@@ -17,7 +17,7 @@ public class NotificationHistoryController {
     @FXML private VBox notificationsVBox;
 
     /**
-     * At initializing of NotificationHistory.fxml we load in all notifcations of the user
+     * At initializing of NotificationHistory.fxml we load in all notifications of the user
      */
     public void initialize(){
         // When notificationHistoryPage is loaded, put in notifications to VBox
