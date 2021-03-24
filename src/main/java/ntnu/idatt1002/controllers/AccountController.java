@@ -13,7 +13,7 @@ public class AccountController {
 
 
     public void initialize(){
-        // when page is initialized, set textfields to appropraite values (f.eks usernameText.setText())
+        // when page is initialized, set text fields to appropriate values (f.eks usernameText.setText())
         usernameText.setText(UserStateService.getCurrentUserUsername());
     }
 

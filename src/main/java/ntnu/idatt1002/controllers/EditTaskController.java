@@ -34,7 +34,7 @@ public class EditTaskController {
     }
 
     /**
-     * cancel button loads the tasks page back into center-content of dashboard
+     * Cancel button loads the tasks page back into center-content of dashboard
      * @param event
      * @throws IOException
      */
@@ -43,7 +43,7 @@ public class EditTaskController {
     }
 
     /**
-     * when editButton is clicked, we delete the old task and make a new one
+     * When editButton is clicked, we delete the old task and make a new one
      * @param event
      * @throws IOException
      */
@@ -72,7 +72,7 @@ public class EditTaskController {
     }
 
     /**
-     * Loads menuItem elements with categorynames into categoryMenuButton
+     * Loads menuItem elements with categoryNames into categoryMenuButton
      * @param categories
      */
     public void setCategoryMenu(String[] categories) {

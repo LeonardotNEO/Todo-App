@@ -98,7 +98,7 @@ public class TaskService {
     }
 
     /**
-     * Returns Array of all the tasks sorted by their priority.
+     * Returns an Array of all the tasks sorted by their priority.
      * @return
      */
     public static ArrayList<Task> TaskSortedByPriority(){
@@ -109,7 +109,7 @@ public class TaskService {
     }
 
     /**
-     * Returns Array of all the tasks sorted by their date.
+     * Returns an Array of all the tasks sorted by their date.
      * @return
      */
     public static ArrayList<Task> TasksSortedByDate(){
@@ -122,7 +122,7 @@ public class TaskService {
     }
 
     /**
-     * Returns Array of all the tasks sorted by the alphabetical order of the first letter in them.
+     * Returns an Array of all the tasks sorted by the alphabetical order of the first letter in them.
      * @return
      */
     public static ArrayList<Task> TasksSortedByAlphabet(){

@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Acces notifications objects in storage
+ * Access notifications objects in storage
  */
 public final class NotificationDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
@@ -14,7 +14,7 @@ public final class NotificationDAO {
     private static final String FILETYPE = ".ser";
 
     /**
-     * Get all notifs stored in user folder
+     * Get all notifications stored in user folder
      * @return {@code null} if user could not be found
      */
     public static ArrayList<Notification> getNotifsByUser(String username){

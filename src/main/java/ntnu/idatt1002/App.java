@@ -12,7 +12,7 @@ import ntnu.idatt1002.service.UserStateService;
 import java.io.IOException;
 
 /**
- * to-do app main class
+ * To-do app main class
  */
 public class App extends Application {
 
@@ -46,7 +46,7 @@ public class App extends Application {
     }
 
     /**
-     * main method
+     * Main method
      * @param args
      */
     public static void main(String[] args) {
