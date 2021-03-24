@@ -107,7 +107,7 @@ public class TaskService {
     }
 
     /**
-     * Returns list of tasks sorted.
+     * Returns Array of all the tasks sorted by their date.
      * @return
      */
     public static ArrayList<Task> TasksSortedByDate(){
@@ -118,6 +118,10 @@ public class TaskService {
         return userTasks;
     }
 
+    /**
+     * Returns Array of all the tasks sorted by their alphabetical order.
+     * @return
+     */
     public static ArrayList<Task> TasksSortedByAlphabet(){
         ArrayList<Task> userTasks = getTasksByCurrentUser();
         Collections.sort(userTasks, new Comparator<Task>() {
