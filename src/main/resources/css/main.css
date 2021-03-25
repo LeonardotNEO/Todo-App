@@ -1,13 +1,7 @@
-.categoryButton{
-  -fx-background-color:  transparent;
-  -fx-font-size: 18;
-  -fx-text-fill: white;
-}
-
 .button1{
   -fx-background-color:  #001021;
   -fx-background-radius: 5;
-  -fx-font-size: 18;
+  -fx-font-size: 16;
   -fx-text-fill: white;
 }
 
@@ -27,19 +21,30 @@
   -fx-text-fill: white;
 }
 
+.button3{
+  -fx-background-color:  #001021;
+  -fx-background-radius: 20;
+  -fx-font-size: 12;
+  -fx-text-fill: white;
+}
+
+.categoryButton{
+  -fx-background-color:  transparent;
+  -fx-font-size: 18;
+  -fx-text-fill: white;
+}
+
+.navbarButton{
+  -fx-background-color: transparent;
+  -fx-font-size: 16;
+}
+
 #notificationBell {
   -fx-background-color: transparent;
 }
 
 #notificationBell:hover #icon{
   -fx-fill: orange;
-}
-
-.button3{
-  -fx-background-color:  #001021;
-  -fx-background-radius: 20;
-  -fx-font-size: 12;
-  -fx-text-fill: white;
 }
 
 .background-color_1{
