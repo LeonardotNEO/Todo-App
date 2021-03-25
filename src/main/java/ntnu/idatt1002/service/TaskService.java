@@ -181,6 +181,26 @@ public class TaskService {
     public static void deleteTask(Task task){
         TaskDAO.deleteTask(task);
     }
+
+    /**
+     * Method that validates if task input is correct
+     * @param title
+     * @param description
+     * @param deadline
+     * @return an ArrayList of errorcodes. Errorcodes can be used i front end to display an errormessage for each scenario
+     */
+    public static ArrayList<Integer> validateTaskInput(String title, String description, long deadline){
+        ArrayList<Integer> errorsCodes = new ArrayList<>();
+
+        if(title.length() < 0 && title.length() > 30){
+            errorsCodes.add(1);
+        }
+        if(description.length() > 170){
+            errorsCodes.add(2);
+        }
+
+        return errorsCodes;
+    }
 }
 
 
