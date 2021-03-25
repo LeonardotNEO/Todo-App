@@ -3,6 +3,7 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
@@ -52,7 +53,7 @@ public class TaskController {
 
         // Load editTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editTask.fxml"));
-        AnchorPane editMenu = loader.load();
+        Node editMenu = loader.load();
         EditTaskController editTaskController = loader.getController();
 
         // set id of editMenu AnchorPane, so we can fetch id when editing

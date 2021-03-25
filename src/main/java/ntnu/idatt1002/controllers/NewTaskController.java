@@ -1,5 +1,6 @@
 package ntnu.idatt1002.controllers;
 
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,8 +18,12 @@ public class NewTaskController {
     @FXML private TextField titleTextField;
     @FXML private TextArea descriptionTextArea;
     @FXML private MenuButton categoryMenu;
-    @FXML private DatePicker datePicker;
+    @FXML private JFXDatePicker datePicker;
+    @FXML private JFXTimePicker timePicker;
     @FXML private MenuButton priorityMenu;
+    @FXML private JFXCheckBox notification;
+    @FXML private JFXColorPicker color;
+    @FXML private JFXChipView tags;
 
     /**
      * Initialize method loads categories into categoryMenu and changes the date format when initialized

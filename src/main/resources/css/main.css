@@ -6,7 +6,7 @@
 
 .button1{
   -fx-background-color:  #001021;
-  -fx-background-radius: 20;
+  -fx-background-radius: 5;
   -fx-font-size: 18;
   -fx-text-fill: white;
 }
@@ -22,7 +22,7 @@
 
 .button2{
   -fx-background-color:  #001021;
-  -fx-background-radius: 20;
+  -fx-background-radius: 5;
   -fx-font-size: 15;
   -fx-text-fill: white;
 }
