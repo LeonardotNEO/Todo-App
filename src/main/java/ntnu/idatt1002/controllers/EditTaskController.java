@@ -114,6 +114,10 @@ public class EditTaskController {
         this.timePicker.setValue(localTime);
     }
 
+    public void setTimePicker24Hour(boolean time){
+        timePicker.set24HourView(time);
+    }
+
     public void setCategoryMenu(String category) {
         this.categoryMenu.setText(category);
     }

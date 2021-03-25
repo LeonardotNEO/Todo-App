@@ -34,7 +34,10 @@ public class NewTaskController {
 
         // Changes the date format of the datePicker
         datePicker.setConverter(new DateConverter());
-        datePicker.setPromptText("dd/MM/yyyy");
+        datePicker.setPromptText("dd/mm/yyyy");
+
+        // set timepicker to 24 hour mode
+        timePicker.set24HourView(true);
     }
 
     /**
