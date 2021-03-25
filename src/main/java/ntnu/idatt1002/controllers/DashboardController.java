@@ -75,6 +75,8 @@ public class DashboardController {
         for (String s : categoriesRaw) {
             categoriesList.add(s);
         }
+
+        // add premade categories that will always populate categories vbox
         categoriesList.add("Trash bin");
         categoriesList.add("Finished tasks");
 
@@ -83,7 +85,7 @@ public class DashboardController {
             Button button = new Button();
             MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.FOLDER_OPEN);
             if(category.equals("Trash bin")){
-                icon = new MaterialDesignIconView(MaterialDesignIcon.CALENDAR_BLANK);
+                icon = new MaterialDesignIconView(MaterialDesignIcon.DELETE);
             }
             if(category.equals("Finished tasks")){
                 icon = new MaterialDesignIconView(MaterialDesignIcon.CHECK);
@@ -178,13 +180,15 @@ public class DashboardController {
             categoryHBox.setVisible(true);
             taskHBox.setVisible(true);
 
-            // if trashbin or finished task category is selected, we wont show edit/delete button
+            // if trashbin or finished task category is selected, we wont show edit/delete button and taskBar
             if(UserStateService.getCurrentUserCategory().equals("Trash bin") || UserStateService.getCurrentUserCategory().equals("Finished tasks")){
                 buttonEditCategory.setVisible(false);
                 buttonDeleteCategory.setVisible(false);
+                taskHBox.setVisible(false);
             } else {
                 buttonEditCategory.setVisible(true);
                 buttonDeleteCategory.setVisible(true);
+                taskHBox.setVisible(true);
             }
         } else {
             categoryHBox.setVisible(false);
