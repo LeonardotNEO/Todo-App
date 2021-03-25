@@ -15,14 +15,15 @@ public final class NotificationDAO {
 
     /**
      * Get all notifications stored in user folder
-     * @return {@code null} if user could not be found
+     * @param username non case-sensitive username
+     * @return {@code ArrayList} of all notifications
      */
     public static ArrayList<Notification> getNotifsByUser(String username){
         ArrayList<Notification> notifs = new ArrayList<>();
         File directory = new File(notifsPath(username));
         String[] pathnames = directory.list();
 
-        if(pathnames != null){
+        if(pathnames != null && UserDAO.userExists(username)){
             for(String path : pathnames){
                 notifs.add(deserializeNotif(directory.getPath() + "/" + path));
             }
@@ -32,7 +33,8 @@ public final class NotificationDAO {
     }
 
     /**
-     * Save an {@code ArrayList} of notifications to their respective folders
+     * Save a list of noticiations to their respective folders
+     * @param notifs an {@code ArrayList} of notifications
      */
     public static void saveNotifs(ArrayList<Notification> notifs){
         for(Notification notif : notifs) {
@@ -42,6 +44,7 @@ public final class NotificationDAO {
 
     /**
      * Save a single notification to storage
+     * @param notif a Notification object
      */
     public static void serializeNotif(Notification notif){
         String username = notif.getUsername();
@@ -72,11 +75,15 @@ public final class NotificationDAO {
 
     /**
      * Get a single notification by complete filepath
+     * @param filepath String of the filepath starting with "src/"
      * @return {@code null} if notification could not be found
      */
     public static Notification deserializeNotif(String filepath){
         File file = new File(filepath);
         Notification notif = null;
+
+        if(!file.exists()){ return null; }
+
         try{
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -93,6 +100,7 @@ public final class NotificationDAO {
 
     /**
      * Delete all notifications for a user
+     * @param username which user to wipe all notifications from
      * @return {@code false} if one or more could not be deleted
      */
     public static boolean deleteNotifsByUser(String username){
@@ -100,7 +108,8 @@ public final class NotificationDAO {
     }
 
     /**
-     * Delete an array of notifications
+     * Delete a list of notifications
+     * @param notifs an {@code ArrayList} of Notifications
      * @return {@code false} if one or more could not be deleted
      */
     public static boolean deleteNotifs(ArrayList<Notification> notifs){
@@ -115,6 +124,7 @@ public final class NotificationDAO {
 
     /**
      * Delete a single notification
+     * @param notif a Notification object
      * @return {@code false} if file could not be deleted
      */
     public static boolean deleteNotif(Notification notif){
@@ -125,6 +135,7 @@ public final class NotificationDAO {
 
     /**
      * Delete a single notification by filepath
+     * @param filepath String of filepath starting with "src/"
      * @return {@code false} if file could not be deleted
      */
     public static boolean deleteNotif(String filepath){
