@@ -66,9 +66,18 @@ public class TasksController {
         Text text = new Text();
 
         if(UserStateService.getCurrentUserCategory() != null) {
-            text.setText("Theres no tasks in this category...\nClick on New-Task-button to add a new task!");
-            text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
+            switch (UserStateService.getCurrentUserCategory()){
+                case "Trash bin":
+                    text.setText("There are no tasks in trash bin!");
+                    break;
+                case "Finished tasks":
+                    text.setText("There are no finished tasks!");
+                    break;
+                default:
+                    text.setText("Theres no tasks in this category...\nClick on New-Task-button to add a new task!");
+            }
 
+            text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
             tasksVBox.getChildren().add(text);
         } else {
             text.setText("No category is created yet...\nYou need to add a category first, before adding an task!");

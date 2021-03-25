@@ -39,6 +39,8 @@ public class DashboardController {
     @FXML private MenuButton sort;
     @FXML private HBox categoryHBox;
     @FXML private HBox taskHBox;
+    @FXML private Button buttonEditCategory;
+    @FXML private Button buttonDeleteCategory;
 
     public DashboardController(){
         instance = this;
@@ -64,34 +66,50 @@ public class DashboardController {
      * Load categoryButtons to categories VBox
      */
     public void loadCategoryButtons(){
+        // delete old buttons before adding new ones
         deleteCategoryButtons();
 
+        // turn Array of string into arraylist
         String[] categoriesList = CategoryService.getCategoriesCurrentUser();
+
+        // add add categoryButtons for each category to VBox. Set properties of button. and icon.
         for (String category : categoriesList) {
             Button button = new Button();
+            MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.FOLDER_OPEN);
+            if(category.equals("Trash bin")){
+                icon = new MaterialDesignIconView(MaterialDesignIcon.DELETE);
+            }
+            if(category.equals("Finished tasks")){
+                icon = new MaterialDesignIconView(MaterialDesignIcon.CHECK);
+            }
 
             button.setText(category);
-
+            icon.fillProperty().setValue(Paint.valueOf("White"));
+            icon.setGlyphSize(25);
+            button.setGraphic(icon);
             button.styleProperty().bind(Bindings
                     .when(button.hoverProperty())
                     .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
                     .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: white;")));
             button.cursorProperty().setValue(Cursor.HAND);
-
-            MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.FOLDER_OPEN);
-            icon.fillProperty().setValue(Paint.valueOf("White"));
-            icon.setGlyphSize(25);
-            button.setGraphic(icon);
-
+            MaterialDesignIconView finalIcon = icon;
+            button.setOnMouseEntered(e -> {
+                finalIcon.setFill(Paint.valueOf("orange"));
+            });
+            button.setOnMouseExited(e -> {
+                if(!category.equals(UserStateService.getCurrentUserCategory())){
+                    finalIcon.setFill(Paint.valueOf("white"));
+                }
+            });
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     try {
-                        // When this category button is clicked, we loadtaskspage with this category
-                        loadTasksPage(TaskService.getCategoryWithTasks(category));
-
                         // Set currently saved category to this category
                         UserStateService.setCurrentUserCategory(category);
+
+                        // When this category button is clicked, we loadtaskspage with this category
+                        loadTasksPage(TaskService.getCategoryWithTasks(category));
 
                         // update categorybutton UI
                         updateCategoryButtons();
@@ -132,7 +150,6 @@ public class DashboardController {
                 MaterialDesignIconView icon = (MaterialDesignIconView) button.getGraphic();
                 icon.setFill(Paint.valueOf("white"));
             }
-
         });
     }
 
@@ -154,9 +171,18 @@ public class DashboardController {
             // show category and task HBox
             categoryHBox.setVisible(true);
             taskHBox.setVisible(true);
-        } else {
-            categoryName.setText("");
 
+            // if trashbin or finished task category is selected, we wont show edit/delete button and taskBar
+            if(UserStateService.getCurrentUserCategory().equals("Trash bin") || UserStateService.getCurrentUserCategory().equals("Finished tasks")){
+                buttonEditCategory.setVisible(false);
+                buttonDeleteCategory.setVisible(false);
+                taskHBox.setVisible(false);
+            } else {
+                buttonEditCategory.setVisible(true);
+                buttonDeleteCategory.setVisible(true);
+                taskHBox.setVisible(true);
+            }
+        } else {
             categoryHBox.setVisible(false);
             taskHBox.setVisible(false);
         }
@@ -236,7 +262,6 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        //sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
         sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
         sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
         sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.TasksSortedByAlphabet()));
@@ -273,10 +298,10 @@ public class DashboardController {
         } else {
             // add tasks to generated taskspage
             tasksController.addTasks(tasks);
-
-            // update MenuButton sort with newest arraylists<Task>
-            updateSortingOptions();
         }
+
+        // update MenuButton sort with newest arraylists<Task>
+        updateSortingOptions();
 
         setCenterContent((Node) borderPane);
     }

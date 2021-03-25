@@ -3,6 +3,7 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
@@ -11,6 +12,7 @@ import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.utils.DateConverter;
 
 import java.io.IOException;
 
@@ -21,6 +23,15 @@ public class TaskController {
     @FXML private Text taskDescription;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
+
+    /**
+     * When finishTaskButton is clicked, task is moved to finished tasks folder
+     * @param event
+     * @throws IOException
+     */
+    public void finishTask(ActionEvent event) throws IOException {
+
+    }
 
     /**
      * Get the id of this task (from tasks AnchorPane), then we delete the task with this id with TaskService
@@ -51,7 +62,7 @@ public class TaskController {
 
         // Load editTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editTask.fxml"));
-        AnchorPane editMenu = loader.load();
+        Node editMenu = loader.load();
         EditTaskController editTaskController = loader.getController();
 
         // set id of editMenu AnchorPane, so we can fetch id when editing
@@ -69,8 +80,9 @@ public class TaskController {
         // set category prompt
         editTaskController.setCategoryMenu(task.getCategory());
 
-        // set datepicker prompt
+        // set datepicker prompt and DateConverter
         editTaskController.setDatePicker(TaskService.transformDeadline(task.getDeadline()));
+        editTaskController.setDatePicker(new DateConverter());
 
         // set priority prompt
         editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));

@@ -56,6 +56,13 @@
             <version>2.0.26-9.1.2</version>
         </dependency>
 
+        <!-- JFoeniX -->
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -77,6 +84,19 @@
                 <version>0.0.3</version>
                 <configuration>
                     <mainClass>ntnu.idatt1002.App</mainClass>
+                    <options>
+                        <option> --add-opens </option>
+                        <option> java.base/java.lang.reflect=com.jfoenix </option>
+                        <option> --add-opens </option>
+                        <option> javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix </option>
+                        <option> --add-exports </option>
+                        <option> javafx.base/com.sun.javafx.binding=com.jfoenix </option>
+                        <option> --add-exports </option>
+                        <option> javafx.graphics/com.sun.javafx.stage=com.jfoenix </option>
+                        <option> --add-exports </option>
+                        <option> javafx.base/com.sun.javafx.event=com.jfoenix </option>
+                    </options>
+                    <commandlineArgs>-Xmx1024m</commandlineArgs>
                 </configuration>
             </plugin>
 

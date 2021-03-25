@@ -1,10 +1,10 @@
 package ntnu.idatt1002.controllers;
 
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.StringConverter;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.utils.DateConverter;
@@ -12,17 +12,18 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 import java.time.Clock;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class NewTaskController {
 
     @FXML private TextField titleTextField;
     @FXML private TextArea descriptionTextArea;
     @FXML private MenuButton categoryMenu;
-    @FXML private DatePicker datePicker;
+    @FXML private JFXDatePicker datePicker;
+    @FXML private JFXTimePicker timePicker;
     @FXML private MenuButton priorityMenu;
+    @FXML private JFXCheckBox notification;
+    @FXML private JFXColorPicker color;
+    @FXML private JFXChipView tags;
 
     /**
      * Initialize method loads categories into categoryMenu and changes the date format when initialized
