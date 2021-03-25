@@ -41,7 +41,7 @@ public class EditCategoryController {
             // Load dashboard into maincontent
             DashboardController.getInstance().initialize();
         } else {
-            errorMessage.setText("Title need to be between 0 and 30 characters");
+            errorMessage.setText("Title need to be between 0 and 24 characters");
         }
 
     }

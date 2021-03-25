@@ -36,7 +36,7 @@ public class CategoryService {
      * @return
      */
     public static boolean validateCategoryTitleSyntax(String categoryTitle){
-        if(categoryTitle.length() > 0 && categoryTitle.length() < 30){
+        if(categoryTitle.length() > 0 && categoryTitle.length() < 24){
             return true;
         } else {
             return false;

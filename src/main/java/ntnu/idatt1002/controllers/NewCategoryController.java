@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ntnu.idatt1002.service.CategoryService;
-import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class NewCategoryController {
             UserStateService.setCurrentUserCategory(categoryTitle);
             DashboardController.getInstance().initialize();
         } else {
-            errorMessage.setText("Title need to be between 0 and 30 characters");
+            errorMessage.setText("Title need to be between 0 and 24 characters");
         }
     }
 }

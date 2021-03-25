@@ -19,7 +19,7 @@
          <left>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="WHITE" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 30;" text="ToDo" textAlignment="CENTER" wrappingWidth="237.9830722808838">
+                  <Text fill="WHITE" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 45;" text="ToDo" textAlignment="CENTER" wrappingWidth="237.9830722808838">
                      <font>
                         <Font size="30.0" />
                      </font>
