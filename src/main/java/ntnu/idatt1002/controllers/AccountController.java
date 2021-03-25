@@ -7,14 +7,18 @@ import ntnu.idatt1002.service.UserStateService;
 
 public class AccountController {
 
-    @FXML private Text usernameText;
-    @FXML private Text dashboardsText;
-    @FXML private Text dateCreatedText;
+    @FXML private Text username;
+    @FXML private Text dateCreated;
+    @FXML private Text taskCount;
+    @FXML private Text categoryCount;
 
 
     public void initialize(){
-        // when page is initialized, set text fields to appropriate values (f.eks usernameText.setText())
-        usernameText.setText(UserStateService.getCurrentUserUsername());
+        // when page is initialized, set text fields to appropriate values
+        username.setText(UserStateService.getCurrentUserUsername());
+        dateCreated.setText("");
+        taskCount.setText("");
+        categoryCount.setText("");
     }
 
     /**
