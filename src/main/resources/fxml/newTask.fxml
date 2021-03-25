@@ -19,49 +19,34 @@
 
 <BorderPane prefHeight="625.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewTaskController">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="625.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="425.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="329.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New task">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Text>
-            <Text layoutX="219.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
+            <Text layoutX="148.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Due time">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text layoutX="167.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+            <Text layoutX="144.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task color" wrappingWidth="72.2802734375">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text layoutX="179.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Due time">
+            <Text layoutX="180.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" wrappingWidth="36.2802734375">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text layoutX="171.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task color" wrappingWidth="84.2802734375">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <Text layoutX="207.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" wrappingWidth="36.2802734375">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <TextField fx:id="titleTextField" layoutX="268.0" layoutY="57.0" prefHeight="5.0" prefWidth="300.0" promptText="Title">
+            <TextField fx:id="titleTextField" layoutX="225.0" prefHeight="5.0" prefWidth="300.0" promptText="Title">
                <font>
                   <Font size="16.0" />
                </font>
             </TextField>
-            <MenuButton fx:id="categoryMenu" layoutX="268.0" layoutY="101.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Category" textFill="WHITE">
+            <MenuButton fx:id="categoryMenu" layoutX="224.0" layoutY="44.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Category" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </MenuButton>
-            <MenuButton fx:id="priorityMenu" layoutX="268.0" layoutY="145.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Priority" textFill="WHITE">
+            <MenuButton fx:id="priorityMenu" layoutX="225.0" layoutY="87.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Priority" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -72,35 +57,52 @@
                   <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="3" />
                </items>
             </MenuButton>
-            <TextArea fx:id="descriptionTextArea" layoutX="268.0" layoutY="189.0" prefHeight="119.0" prefWidth="300.0" promptText="Description">
+            <TextArea fx:id="descriptionTextArea" layoutX="224.0" layoutY="134.0" prefHeight="86.0" prefWidth="300.0" promptText="Description">
                <font>
                   <Font size="16.0" />
                </font>
             </TextArea>
-            <JFXDatePicker fx:id="datePicker" defaultColor="#001021" layoutX="267.0" layoutY="324.0" prefHeight="28.0" prefWidth="140.0" promptText="Date" />
-            <JFXTimePicker fx:id="timePicker" defaultColor="#001021" layoutX="428.0" layoutY="324.0" prefWidth="140.0" promptText="Time" />
-            <JFXColorPicker fx:id="color" layoutX="268.0" layoutY="368.0">
+            <JFXDatePicker fx:id="datePicker" defaultColor="#001021" layoutX="224.0" layoutY="227.0" prefHeight="28.0" prefWidth="140.0" promptText="Date" />
+            <JFXTimePicker fx:id="timePicker" defaultColor="#001021" layoutX="385.0" layoutY="227.0" prefWidth="140.0" promptText="Time" />
+            <JFXColorPicker fx:id="color" layoutX="224.0" layoutY="267.0">
                <value>
                   <Color green="0.062745101749897" blue="0.12941177189350128" />
                </value>
             </JFXColorPicker>
-            <JFXChipView fx:id="tags" layoutX="268.0" layoutY="404.0" prefHeight="63.0" prefWidth="221.0" style="-fx-border-color: grey; -fx-background-color: white; -fx-border-radius: 3; -fx-pref-width: 300;" />
-            <JFXCheckBox fx:id="notification" checkedColor="#001021" layoutX="268.0" layoutY="516.0" text="Notifications">
+            <JFXChipView fx:id="tags" layoutX="224.0" layoutY="304.0" prefHeight="65.0" prefWidth="221.0" style="-fx-border-color: grey; -fx-background-color: white; -fx-border-radius: 3; -fx-pref-width: 300; -fx-pref-height: 75;" />
+            <JFXCheckBox fx:id="notification" checkedColor="#001021" layoutX="225.0" layoutY="386.0" text="Notifications">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXCheckBox>
-            <JFXButton id="button1" layoutX="255.0" layoutY="550.0" onAction="#buttonNewTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="New task">
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <AnchorPane maxWidth="-Infinity" prefHeight="100.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="321.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New task">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane maxWidth="-Infinity" prefHeight="100.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton id="button1" layoutX="255.0" layoutY="32.0" onAction="#buttonNewTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="New task">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
                </graphic>
             </JFXButton>
-            <JFXButton id="button1" layoutX="380.0" layoutY="550.0" onAction="#buttonCancelNewTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Cancel">
+            <JFXButton id="button1" layoutX="380.0" layoutY="32.0" onAction="#buttonCancelNewTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Cancel">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
                </graphic>
             </JFXButton>
          </children>
       </AnchorPane>
-   </center>
+   </bottom>
 </BorderPane>
