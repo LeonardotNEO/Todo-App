@@ -11,6 +11,7 @@ import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.utils.DateConverter;
 
 import java.io.IOException;
 
@@ -69,8 +70,9 @@ public class TaskController {
         // set category prompt
         editTaskController.setCategoryMenu(task.getCategory());
 
-        // set datepicker prompt
+        // set datepicker prompt and DateConverter
         editTaskController.setDatePicker(TaskService.transformDeadline(task.getDeadline()));
+        editTaskController.setDatePicker(new DateConverter());
 
         // set priority prompt
         editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
