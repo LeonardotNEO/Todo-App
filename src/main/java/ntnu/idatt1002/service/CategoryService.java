@@ -29,4 +29,17 @@ public class CategoryService {
     public static void addCategoryToCurrentUser(String categoryName){
         CategoryDAO.addCategory(UserStateDAO.getUsername(), categoryName);
     }
+
+    /**
+     * Validate syntax of categoryTitle. Must be a length of more than 0 and less than 30.
+     * @param categoryTitle
+     * @return
+     */
+    public static boolean validateCategoryTitleSyntax(String categoryTitle){
+        if(categoryTitle.length() > 0 && categoryTitle.length() < 24){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
