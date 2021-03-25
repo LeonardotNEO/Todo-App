@@ -10,7 +10,7 @@ public final class UserStateDAO {
 
     /**
      * Get which user is logged in
-     * @return {@code null} if value is not stored
+     * @return String of username, {@code null} if value is not stored
      */
     public static String getUsername(){
         return getUserState(0);
@@ -18,7 +18,7 @@ public final class UserStateDAO {
 
     /**
      * Get which category is selected by user
-     * @return {@code null} if value is not stored
+     * @return String of selected category, {@code null} if value is not stored
      */
     public static String getSelectedCategory(){
         return getUserState(1);
@@ -26,7 +26,7 @@ public final class UserStateDAO {
 
     /**
      * Get which sorting method is selected by user
-     * @return {@code null} if value is not stored
+     * @return String of selected sorting, {@code null} if value is not stored
      */
     public static String getSelectedSort(){
         return getUserState(2);
@@ -37,7 +37,7 @@ public final class UserStateDAO {
      * @param index <p>0: username<br>
      *              1: selectedCategory<br>
      *              2: selectedSort</p>
-     * @return {@code null} if value is not stored
+     * @return String with chosen value, {@code null} if value is not stored
      */
     private static String getUserState(int index){
         File file = new File(SAVEFILE);
@@ -53,7 +53,7 @@ public final class UserStateDAO {
         }catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
-        if(userstate != null) {
+        if(userstate != null && index >= 0 && index <= 2) {
             return userstate[index];
         }else{
             return null;
@@ -84,6 +84,7 @@ public final class UserStateDAO {
 
     /**
      * Check if user state file exists
+     * @return true or false
      */
     public static boolean fileExists(){
         File file = new File(SAVEFILE);

@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskDAOTest {
     private final static User userA = new User("olanormann");
@@ -62,6 +61,24 @@ public class TaskDAOTest {
             Task taskB = TaskDAO.deserializeTask("olanormann", taskA_ID);
 
             assertEquals(taskA, taskB);
+        }
+    }
+
+    @Nested
+    public class file_not_existing{
+        @Test
+        public void username(){
+            assertNull(TaskDAO.deserializeTask("josephjoestar", "Home", taskA_ID));
+        }
+
+        @Test
+        public void category(){
+            assertNull(TaskDAO.deserializeTask("olanormann","Work", taskA_ID));
+        }
+
+        @Test
+        public void task(){
+            assertNull(TaskDAO.deserializeTask("olanormann","Home", 1234));
         }
     }
 

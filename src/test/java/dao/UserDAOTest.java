@@ -33,6 +33,11 @@ public class UserDAOTest {
         assertEquals(userA, userB);
     }
 
+    @Test
+    public void get_user_that_does_not_exist(){
+        assertNull(UserDAO.deserializeUser("josephjoestar"));
+    }
+
     @Nested
     public class salt_and_hashing{
         @Test

@@ -57,6 +57,21 @@ public final class CategoryDAO {
     }
 
     /**
+     * Check if given username and category inside it exists
+     * @param username non case-sensitive username
+     * @param category category in user storage
+     * @return true or false
+     */
+    static boolean catExists(String username, String category){
+        if(UserDAO.userExists(username)){
+            File catDir = new File(categoriesPath(username) + category);
+            return catDir.exists();
+        }else{
+            return false;
+        }
+    }
+
+    /**
      * Get categories directory
      */
     private static String categoriesPath(String username){
