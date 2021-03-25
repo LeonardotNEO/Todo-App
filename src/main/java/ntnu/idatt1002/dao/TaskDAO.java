@@ -89,7 +89,7 @@ public final class TaskDAO {
      * @param username which user that owns the task
      * @param category which category the task belogns to
      * @param taskID tasks hashcode
-     * @return Task object, will be {@code null} if it could not be found
+     * @return Task object, or {@code null} if it could not be found
      */
     public static Task deserializeTask(String username, String category, int taskID){
         return deserializeTask(filePath(username, category, taskID));

@@ -16,7 +16,7 @@ public final class NotificationDAO {
     /**
      * Get all notifications stored in user folder
      * @param username non case-sensitive username
-     * @return {@code ArrayList} of all notifications
+     * @return {@code ArrayList} of all notifications, if user could not be found the list will be empty
      */
     public static ArrayList<Notification> getNotifsByUser(String username){
         ArrayList<Notification> notifs = new ArrayList<>();
