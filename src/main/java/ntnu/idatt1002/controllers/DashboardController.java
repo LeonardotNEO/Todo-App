@@ -69,16 +69,8 @@ public class DashboardController {
         // delete old buttons before adding new ones
         deleteCategoryButtons();
 
-        // turn Array of string into arraylist and add trashCategory and FinishedTasksCategory
-        String[] categoriesRaw = CategoryService.getCategoriesCurrentUser();
-        ArrayList<String> categoriesList = new ArrayList<>();
-        for (String s : categoriesRaw) {
-            categoriesList.add(s);
-        }
-
-        // add premade categories that will always populate categories vbox
-        categoriesList.add("Trash bin");
-        categoriesList.add("Finished tasks");
+        // turn Array of string into arraylist
+        String[] categoriesList = CategoryService.getCategoriesCurrentUser();
 
         // add add categoryButtons for each category to VBox. Set properties of button. and icon.
         for (String category : categoriesList) {

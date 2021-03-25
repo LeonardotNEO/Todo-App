@@ -15,6 +15,8 @@ public class RegisterService {
         User newUser = new User(name, password, UserDAO.generateSalt());
         UserDAO.serializeUser(newUser);
         UserStateService.setCurrentUserUsername(name);
+        CategoryService.addCategoryToCurrentUser("Trash bin");
+        CategoryService.addCategoryToCurrentUser("Finished tasks");
 
         return true;
     }
