@@ -69,11 +69,8 @@ public class DashboardController {
         // delete old buttons before adding new ones
         deleteCategoryButtons();
 
-        // turn Array of string into arraylist
-        String[] categoriesList = CategoryService.getCategoriesCurrentUser();
-
-        // add add categoryButtons for each category to VBox. Set properties of button. and icon.
-        for (String category : categoriesList) {
+        // add categoryButtons for each category to VBox. Set properties of button. and icon.
+        for (String category : CategoryService.getArrayListCategoriesOrganized()) {
             Button button = new Button();
             MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.FOLDER_OPEN);
             if(category.equals("Trash bin")){

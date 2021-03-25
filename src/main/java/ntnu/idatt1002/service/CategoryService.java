@@ -3,6 +3,8 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
 
+import java.util.ArrayList;
+
 public class CategoryService {
 
     /**
@@ -41,5 +43,22 @@ public class CategoryService {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Method that takes an Array of category-strings, turns it into an array and adds "Trash bin" and "Finished tasks" the the bottom
+     * @return
+     */
+    public static ArrayList<String> getArrayListCategoriesOrganized(){
+        ArrayList<String> categoriesList = new ArrayList<>();
+        for (String s : getCategoriesCurrentUser()) {
+            if(!s.equals("Trash bin") && !s.equals("Finished tasks")){
+                categoriesList.add(s);
+            }
+        }
+        categoriesList.add("Trash bin");
+        categoriesList.add("Finished tasks");
+
+        return categoriesList;
     }
 }
