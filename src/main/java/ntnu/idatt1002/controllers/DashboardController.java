@@ -81,6 +81,10 @@ public class DashboardController {
             MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.FOLDER_OPEN);
             icon.fillProperty().setValue(Paint.valueOf("White"));
             icon.setGlyphSize(25);
+            button.setOnMouseEntered(e -> {
+                icon.setFill(Paint.valueOf("orange"));
+            });
+
             button.setGraphic(icon);
 
             button.setOnAction(new EventHandler<ActionEvent>() {
@@ -132,7 +136,6 @@ public class DashboardController {
                 MaterialDesignIconView icon = (MaterialDesignIconView) button.getGraphic();
                 icon.setFill(Paint.valueOf("white"));
             }
-
         });
     }
 
@@ -236,7 +239,6 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        //sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
         sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
         sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
         sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.TasksSortedByAlphabet()));
