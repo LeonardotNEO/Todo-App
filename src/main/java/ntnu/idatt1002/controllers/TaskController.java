@@ -25,6 +25,15 @@ public class TaskController {
     @FXML private Label taskPriority;
 
     /**
+     * When finishTaskButton is clicked, task is moved to finished tasks folder
+     * @param event
+     * @throws IOException
+     */
+    public void finishTask(ActionEvent event) throws IOException {
+
+    }
+
+    /**
      * Get the id of this task (from tasks AnchorPane), then we delete the task with this id with TaskService
      * @param event
      * @throws IOException
