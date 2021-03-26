@@ -89,13 +89,6 @@ public class User implements Serializable {
         this.salt = salt;
     }
 
-<<<<<<< src/main/java/ntnu/idatt1002/User.java
-    /**
-     * A equals method which compares a objects content with this user-object
-     * @param o
-     * @return
-     */
-=======
     public long getDateCreated() {
         return dateCreated;
     }
@@ -104,7 +97,11 @@ public class User implements Serializable {
         this.dateCreated = dateCreated;
     }
 
->>>>>>> src/main/java/ntnu/idatt1002/User.java
+    /** // Hvor skal dette?
+     * A equals method which compares a objects content with this user-object
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

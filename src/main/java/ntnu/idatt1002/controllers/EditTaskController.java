@@ -179,7 +179,7 @@ public class EditTaskController {
      * A method to set the color
      * @param color
      */
-    public void SetColor(String color){
+    public void setColor(String color){
         this.color.setValue(Color.valueOf(color));
     }
 
