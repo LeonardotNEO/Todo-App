@@ -3,6 +3,9 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 
+/**
+ * A class which provides some necessary features for the registration of the application
+ */
 public class RegisterService {
 
     /**

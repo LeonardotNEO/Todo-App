@@ -4,6 +4,9 @@ import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
 
+/**
+ * A class which provides some necessary features for the login of teh application
+ */
 public class LoginService {
 
     /**

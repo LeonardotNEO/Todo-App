@@ -29,6 +29,9 @@ class TaskComparator implements Comparator<Task>{
 }
 
 
+/**
+ * A class which provides some necessary features which utilises task-data
+ */
 public class TaskService {
     public static boolean newTask(String title, LocalDate deadline, String description, int priority, String startDate, String category) {
         Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, getDeadlineMs(deadline), priority, startDate, category);
@@ -36,6 +39,11 @@ public class TaskService {
         return true;
     }
 
+    /**
+     * A method to change the category assigned to the task
+     * @param tasks
+     * @param newCategory
+     */
     public static void editCategoryOfTasks(ArrayList<Task> tasks, String newCategory){
         tasks.forEach(task -> {
             TaskDAO.deleteTask(task);
