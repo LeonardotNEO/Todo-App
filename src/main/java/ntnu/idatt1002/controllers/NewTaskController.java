@@ -13,6 +13,9 @@ import ntnu.idatt1002.service.UserStateService;
 import java.io.IOException;
 import java.time.Clock;
 
+/**
+ * A class which contains the buttons related to the creation of a new task
+ */
 public class NewTaskController {
 
     @FXML private TextField titleTextField;

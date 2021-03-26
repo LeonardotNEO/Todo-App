@@ -3,6 +3,9 @@ package ntnu.idatt1002.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * A class which contains the methods related to a notification
+ */
 public class NotificationController {
 
     @FXML private Label title;

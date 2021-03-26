@@ -16,6 +16,9 @@ import ntnu.idatt1002.utils.DateConverter;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the buttons related to a singular task
+ */
 public class TaskController {
 
     private int taskId;

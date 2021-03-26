@@ -10,6 +10,9 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the buttons related to editing a category
+ */
 public class EditCategoryController {
 
     @FXML private TextField titleTextField;

@@ -28,6 +28,9 @@ import ntnu.idatt1002.service.UserStateService;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * A class which contains the buttons related to the dashboard page of the application
+ */
 public class DashboardController {
     //VARIABLES
     private static DashboardController instance;

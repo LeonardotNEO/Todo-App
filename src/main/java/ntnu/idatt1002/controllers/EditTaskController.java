@@ -18,6 +18,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * A class which contains the buttons related to editing a task
+ */
 public class EditTaskController {
 
     private int id;

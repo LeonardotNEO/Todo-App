@@ -10,6 +10,9 @@ import ntnu.idatt1002.service.RegisterService;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the buttons related to the register page of the application
+ */
 public class RegisterController {
 
     @FXML Label errorMessageLabel;

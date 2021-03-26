@@ -14,6 +14,9 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the buttons related to the navigation bar
+ */
 public class NavbarController {
 
     @FXML private MenuButton notificationBell;

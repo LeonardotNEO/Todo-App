@@ -8,6 +8,9 @@ import ntnu.idatt1002.service.NotificationService;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the methods related to checking off notifications
+ */
 public class NotificationElementController {
 
     private int notificationId;
