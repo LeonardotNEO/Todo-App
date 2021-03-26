@@ -30,9 +30,10 @@ public class RegisterService {
             UserStateService.setCurrentUserRememberMe("false");
         }
 
-        // Add empty categories to user
-        CategoryService.addCategoryToCurrentUser("Trash bin");
-        CategoryService.addCategoryToCurrentUser("Finished tasks");
+        // Add premade categories to user
+        for (String premadeCategory : CategoryService.getPremadeCategories()) {
+            CategoryService.addCategoryToCurrentUser(premadeCategory);
+        }
 
         return true;
     }

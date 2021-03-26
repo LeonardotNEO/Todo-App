@@ -3,7 +3,6 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -85,5 +84,9 @@ public class CategoryService {
         }
 
         return categoriesList;
+    }
+
+    public static String[] getPremadeCategories(){
+        return premadeCategories;
     }
 }
