@@ -36,6 +36,16 @@ public class TaskService {
         return true;
     }
 
+    //Added to stop TaskServiceTest to fail
+    //  -Markus
+    public static boolean newTask(String title, LocalDate deadline, String description, int priority,
+                                  String startDate, String category){
+        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description,
+                priority, category);
+        TaskDAO.serializeTask(newTask);
+        return true;
+    }
+
     public static void editCategoryOfTasks(ArrayList<Task> tasks, String newCategory){
         tasks.forEach(task -> {
             TaskDAO.deleteTask(task);

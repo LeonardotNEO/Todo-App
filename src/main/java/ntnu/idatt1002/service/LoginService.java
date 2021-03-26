@@ -52,9 +52,9 @@ public class LoginService {
         }
 
         if(rememberMe) {
-            UserStateService.setCurrentUserRememberMe("true");
+            UserStateService.setCurrentUserRememberMe(true);
         } else {
-            UserStateService.setCurrentUserRememberMe("false");
+            UserStateService.setCurrentUserRememberMe(false);
         }
     }
 
@@ -65,6 +65,6 @@ public class LoginService {
         UserStateService.setCurrentUserUsername(null);
         UserStateService.setCurrentUserCategory(null);
         UserStateService.setCurrentUserSorting(null);
-        UserStateService.setCurrentUserRememberMe(null);
+        UserStateService.setCurrentUserRememberMe(false);
     }
 }
