@@ -51,12 +51,16 @@ public class UserStateService {
         return UserStateDAO.getSelectedSort();
     }
 
+    public static String getCurrentUserRememberMe(){
+        return UserStateDAO.getRememberMe();
+    }
+
     /**
      * Set the name of the current user to userstate.ser
      * @param username
      */
     public static void setCurrentUserUsername(String username){
-        UserStateDAO.setUserState(username, UserStateDAO.getSelectedCategory(), UserStateDAO.getSelectedSort());
+        UserStateDAO.setUserState(username, UserStateDAO.getSelectedCategory(), UserStateDAO.getSelectedSort(), UserStateDAO.getRememberMe());
     }
 
     /**
@@ -64,7 +68,7 @@ public class UserStateService {
      * @param selectedCategory
      */
     public static void setCurrentUserCategory(String selectedCategory){
-        UserStateDAO.setUserState(UserStateDAO.getUsername(), selectedCategory, UserStateDAO.getSelectedSort());
+        UserStateDAO.setUserState(UserStateDAO.getUsername(), selectedCategory, UserStateDAO.getSelectedSort(), UserStateDAO.getRememberMe());
     }
 
     /**
@@ -72,6 +76,14 @@ public class UserStateService {
      * @param selectedSorting
      */
     public static void setCurrentUserSorting(String selectedSorting){
-        UserStateDAO.setUserState(UserStateDAO.getUsername(), UserStateDAO.getSelectedCategory(), selectedSorting);
+        UserStateDAO.setUserState(UserStateDAO.getUsername(), UserStateDAO.getSelectedCategory(), selectedSorting, UserStateDAO.getRememberMe());
+    }
+
+    /**
+     * Set the remember me value of user
+     * @param rememberMe
+     */
+    public static void setCurrentUserRememberMe(String rememberMe){
+        UserStateDAO.setUserState(UserStateDAO.getUsername(), UserStateDAO.getSelectedCategory(), UserStateDAO.getSelectedSort(), rememberMe);
     }
 }

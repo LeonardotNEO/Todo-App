@@ -49,43 +49,46 @@ public class TaskController {
     }
 
     /**
-     * Updates center-content of dashboard to editTask.fxml and adds prompt attributes
+     * Updates center-content of dashboard to editTask.fxml and adds prompt attributes from task selected
      * @param event
      * @throws IOException
      */
     public void editTask(ActionEvent event) throws IOException{
-        // this tasks id
-        int id = Integer.parseInt(taskName.getParent().getParent().getId());
-
-        // this task object
-        Task task = TaskService.getTaskByCurrentUser(id);
-
         // Load editTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editTask.fxml"));
         Node editMenu = loader.load();
         EditTaskController editTaskController = loader.getController();
 
         // set id of editMenu AnchorPane, so we can fetch id when editing
-        editTaskController.setId(id);
+        editTaskController.setId(taskId);
+
+        // this task object
+        Task task = TaskService.getTaskByCurrentUser(taskId);
 
         // set title prompt
         editTaskController.setTitleTextField(task.getName());
-
         // set description prompt
         editTaskController.setDescriptionTextArea(task.getDescription());
-
+        // set location prompt
+        editTaskController.setLocation(task.getLocation());
         // set categories in menuButton
-        editTaskController.setCategoryMenu(CategoryService.getCategoriesCurrentUser());
-
+        editTaskController.setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
         // set category prompt
         editTaskController.setCategoryMenu(task.getCategory());
-
         // set datepicker prompt and DateConverter
         editTaskController.setDatePicker(TaskService.transformDeadline(task.getDeadline()));
         editTaskController.setDatePicker(new DateConverter());
-
+        // set timePicker
+        // Todo set timepicker
+        editTaskController.setTimePicker24Hour(true);
         // set priority prompt
         editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
+        // set notification boolean
+        editTaskController.setNotification(task.getNotification());
+        // set color
+        editTaskController.setColor(task.getColor());
+        // set tags
+        editTaskController.setTags(task.getTags());
 
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(editMenu);

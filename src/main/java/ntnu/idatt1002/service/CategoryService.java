@@ -4,8 +4,11 @@ import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CategoryService {
+
+    private static String[] premadeCategories = {"Trash bin", "Finished tasks"};
 
     /**
      * Get categories by current user
@@ -14,6 +17,24 @@ public class CategoryService {
     public static String[] getCategoriesCurrentUser(){
         String[] categories = CategoryDAO.getCategoriesByUser(UserStateDAO.getUsername());
         return categories;
+    }
+
+    /**
+     * Method for getting all categories without the premades one defined in premadeCategories objectvariable
+     * @return
+     */
+    public static ArrayList<String> getCategoriesCurrentUserWithoutPremades(){
+        ArrayList<String> categoriesWithoutPremades = new ArrayList<>();
+
+        for (String s : getCategoriesCurrentUser()) {
+            boolean result = Arrays.stream(premadeCategories).anyMatch(s::contains);
+
+            if(!result){
+                categoriesWithoutPremades.add(s);
+            }
+        }
+
+        return categoriesWithoutPremades;
     }
 
     /**
@@ -56,9 +77,16 @@ public class CategoryService {
                 categoriesList.add(s);
             }
         }
-        categoriesList.add("Trash bin");
-        categoriesList.add("Finished tasks");
+
+        // add premades at the bottom
+        for (String premadeCategory : premadeCategories) {
+            categoriesList.add(premadeCategory);
+        }
 
         return categoriesList;
+    }
+
+    public static String[] getPremadeCategories(){
+        return premadeCategories;
     }
 }

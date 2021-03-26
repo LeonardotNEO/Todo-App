@@ -1,12 +1,18 @@
 package ntnu.idatt1002;
 
+import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.utils.DateConverter;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class User implements Serializable {
     private String username;
     private String password;
     private byte[] salt;
+    private long dateCreated;
 
     public User(){}
 
@@ -18,6 +24,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.salt = salt;
+        this.dateCreated = TaskService.getDeadlineMs(LocalDate.now());
     }
 
     public String getUsername() {
@@ -42,6 +49,14 @@ public class User implements Serializable {
 
     public void setSalt(byte[] salt) {
         this.salt = salt;
+    }
+
+    public long getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(long dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     @Override

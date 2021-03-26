@@ -21,17 +21,17 @@
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="425.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="148.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Due time">
+            <Text layoutX="146.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Due time">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text layoutX="144.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task color" wrappingWidth="72.2802734375">
+            <Text layoutX="142.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task color" wrappingWidth="72.2802734375">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text layoutX="180.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" wrappingWidth="36.2802734375">
+            <Text layoutX="178.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" wrappingWidth="36.2802734375">
                <font>
                   <Font size="16.0" />
                </font>
@@ -41,12 +41,12 @@
                   <Font size="16.0" />
                </font>
             </TextField>
-            <MenuButton fx:id="categoryMenu" layoutX="224.0" layoutY="44.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Category" textFill="WHITE">
+            <MenuButton fx:id="categoryMenu" layoutX="226.0" layoutY="144.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Category" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </MenuButton>
-            <MenuButton fx:id="priorityMenu" layoutX="225.0" layoutY="87.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Priority" textFill="WHITE">
+            <MenuButton fx:id="priorityMenu" layoutX="227.0" layoutY="187.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Priority" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -57,24 +57,29 @@
                   <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="3" />
                </items>
             </MenuButton>
-            <TextArea fx:id="descriptionTextArea" layoutX="224.0" layoutY="134.0" prefHeight="86.0" prefWidth="300.0" promptText="Description">
+            <TextArea fx:id="descriptionTextArea" layoutX="224.0" layoutY="43.0" prefHeight="50.0" prefWidth="300.0" promptText="Description">
                <font>
                   <Font size="16.0" />
                </font>
             </TextArea>
-            <JFXDatePicker fx:id="datePicker" defaultColor="#001021" layoutX="224.0" layoutY="227.0" prefHeight="28.0" prefWidth="140.0" promptText="Date" />
-            <JFXTimePicker fx:id="timePicker" defaultColor="#001021" layoutX="385.0" layoutY="227.0" prefWidth="140.0" promptText="Time" />
-            <JFXColorPicker fx:id="color" layoutX="224.0" layoutY="267.0">
+            <JFXDatePicker fx:id="datePicker" defaultColor="#001021" layoutX="222.0" layoutY="238.0" prefHeight="28.0" prefWidth="140.0" promptText="Date" />
+            <JFXTimePicker fx:id="timePicker" defaultColor="#001021" layoutX="376.0" layoutY="238.0" prefWidth="140.0" promptText="Time" />
+            <JFXColorPicker fx:id="color" layoutX="222.0" layoutY="278.0">
                <value>
                   <Color green="0.062745101749897" blue="0.12941177189350128" />
                </value>
             </JFXColorPicker>
-            <JFXChipView fx:id="tags" layoutX="224.0" layoutY="304.0" prefHeight="65.0" prefWidth="221.0" style="-fx-border-color: grey; -fx-background-color: white; -fx-border-radius: 3; -fx-pref-width: 300; -fx-pref-height: 75;" />
-            <JFXCheckBox fx:id="notification" checkedColor="#001021" layoutX="225.0" layoutY="386.0" text="Notifications">
+            <JFXChipView fx:id="tags" layoutX="224.0" layoutY="314.0" prefHeight="65.0" prefWidth="221.0" style="-fx-border-color: grey; -fx-background-color: white; -fx-border-radius: 3; -fx-pref-width: 300; -fx-pref-height: 75;" />
+            <JFXCheckBox fx:id="notification" checkedColor="#001021" layoutX="224.0" layoutY="392.0" text="Notifications">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXCheckBox>
+            <TextField fx:id="locationTextField" layoutX="224.0" layoutY="99.0" prefHeight="5.0" prefWidth="300.0" promptText="Location">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
          </children>
       </AnchorPane>
    </center>

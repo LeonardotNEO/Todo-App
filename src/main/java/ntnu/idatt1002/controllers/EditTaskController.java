@@ -14,6 +14,7 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class EditTaskController {
     @FXML private JFXCheckBox notification;
     @FXML private JFXColorPicker color;
     @FXML private JFXChipView tags;
+    @FXML private TextField locationTextField;
 
     /**
      * Cancel button loads the tasks page back into center-content of dashboard
@@ -46,8 +48,24 @@ public class EditTaskController {
      * @throws IOException
      */
     public void buttonEditTask(ActionEvent event) throws IOException {
+        ArrayList<String> tagsList = new ArrayList<>();
+        tags.getChips().forEach(tag -> {
+            System.out.println(tag.toString());
+        });
+
         // Make new task
-        TaskService.newTask(titleTextField.getText(), datePicker.getValue(), descriptionTextArea.getText(), Integer.parseInt(priorityMenu.getText()), LocalDate.now().toString(), categoryMenu.getText());
+        TaskService.newTask(
+                titleTextField.getText(),
+                datePicker.getValue(),
+                descriptionTextArea.getText(),
+                Integer.parseInt(priorityMenu.getText()),
+                TaskService.getDeadlineMs(LocalDate.now()),
+                categoryMenu.getText(),
+                color.getValue().toString(),
+                locationTextField.getText(),
+                notification.isSelected(),
+                tagsList
+                );
 
         // Delete old one
         TaskService.deleteTask(TaskService.getTaskByCurrentUser(id));
@@ -73,7 +91,7 @@ public class EditTaskController {
      * Loads menuItem elements with categoryNames into categoryMenuButton
      * @param categories
      */
-    public void setCategoryMenu(String[] categories) {
+    public void setCategoryMenu(ArrayList<String> categories) {
         for (String category : categories) {
             MenuItem menuItem = new MenuItem();
             menuItem.setText(category);
@@ -114,6 +132,10 @@ public class EditTaskController {
         this.timePicker.setValue(localTime);
     }
 
+    public void setTimePicker24Hour(boolean time){
+        timePicker.set24HourView(time);
+    }
+
     public void setCategoryMenu(String category) {
         this.categoryMenu.setText(category);
     }
@@ -122,7 +144,7 @@ public class EditTaskController {
         this.priorityMenu.setText(priority);
     }
 
-    public void SetColor(String color){
+    public void setColor(String color){
         this.color.setValue(Color.valueOf(color));
     }
 
@@ -132,5 +154,9 @@ public class EditTaskController {
 
     public void setNotification(boolean notification){
         this.notification.setSelected(notification);
+    }
+
+    public void setLocation(String locationText){
+        this.locationTextField.setText(locationText);
     }
 }
