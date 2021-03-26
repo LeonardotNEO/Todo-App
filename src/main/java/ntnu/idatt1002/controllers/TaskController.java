@@ -16,6 +16,9 @@ import ntnu.idatt1002.utils.DateConverter;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the buttons related to a singular task
+ */
 public class TaskController {
 
     private int taskId;
@@ -94,18 +97,34 @@ public class TaskController {
         DashboardController.getInstance().setCenterContent(editMenu);
     }
 
+    /**
+     * A method to set the name of the task
+     * @param name
+     */
     public void setTaskName(String name){
         taskName.setText(name);
     }
 
+    /**
+     * A method to set the description for the task
+     * @param description
+     */
     public void setTaskDescription(String description){
         taskDescription.setText(description);
     }
 
+    /**
+     * A method to set the due date for the task
+     * @param date
+     */
     public void setTaskDate(String date){
         taskDate.setText("This task is due: " + date);
     }
 
+    /**
+     * A method to set the priority of the task
+     * @param priority
+     */
     public void setTaskPriority(int priority) {
         taskPriority.setText("Priority: " + priority);
 
@@ -127,6 +146,10 @@ public class TaskController {
 
     }
 
+    /**
+     * A method to set the id of the task
+     * @param id
+     */
     public void setTaskId(int id){
         this.taskId = id;
     }

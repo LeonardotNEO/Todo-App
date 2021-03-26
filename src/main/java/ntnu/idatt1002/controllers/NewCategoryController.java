@@ -9,6 +9,9 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the buttons related to the creation of a new category
+ */
 public class NewCategoryController {
 
     @FXML private TextField titleTextField;

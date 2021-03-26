@@ -12,6 +12,9 @@ import ntnu.idatt1002.service.UserStateService;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * A class which contains the methods related to the task page
+ */
 public class TasksController {
 
     @FXML private VBox tasksVBox;

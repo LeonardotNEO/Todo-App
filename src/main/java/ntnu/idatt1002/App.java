@@ -19,6 +19,11 @@ public class App extends Application {
 
     private static Scene scene;
 
+    /**
+     * A method to start the program
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         // Load custom font, Roboto

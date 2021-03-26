@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.time.Clock;
 import java.util.ArrayList;
 
+/**
+ * A class which provides some necessary features which utilises notification-data
+ */
 public class NotificationService {
 
     /**

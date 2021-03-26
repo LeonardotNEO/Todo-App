@@ -3,6 +3,9 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 
+/**
+ * A class which provides some necessary features for the login of teh application
+ */
 public class LoginService {
 
     /**
