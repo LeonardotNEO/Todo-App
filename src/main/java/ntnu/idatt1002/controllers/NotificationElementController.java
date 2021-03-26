@@ -25,14 +25,26 @@ public class NotificationElementController {
         }
     }
 
+    /**
+     * A method to set a title
+     * @param title
+     */
     public void setTitle(String title){
         this.title.setText(title);
     }
 
+    /**
+     * A method to set a description
+     * @param description
+     */
     public void setDescription(String description){
         this.description.setText(description);
     }
 
+    /**
+     * A method to set a notification id
+     * @param id
+     */
     public void setNotificationId(int id){
         this.notificationId = id;
     }
