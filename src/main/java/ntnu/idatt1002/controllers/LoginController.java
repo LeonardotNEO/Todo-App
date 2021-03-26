@@ -1,5 +1,6 @@
 package ntnu.idatt1002.controllers;
 
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ public class LoginController {
     @FXML Label errorMessageLabel;
     @FXML TextField usernameField;
     @FXML TextField passwordField;
+    @FXML JFXCheckBox rememberMe;
 
     /**
      * Loads login page to stage
@@ -41,7 +43,7 @@ public class LoginController {
             boolean login = LoginService.checkIfLoginValid(usernameField.getText(), passwordField.getText());
 
             if(login){
-                LoginService.saveLogin(usernameField.getText());
+                LoginService.saveLogin(usernameField.getText(), rememberMe.isSelected());
                 App.setRoot("main");
             } else {
                 errorMessage += "Username or password is wrong";

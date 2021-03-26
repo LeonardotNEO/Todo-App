@@ -1,5 +1,6 @@
 package ntnu.idatt1002.controllers;
 
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,6 +17,7 @@ public class RegisterController {
     @FXML TextField usernameField;
     @FXML TextField passwordField;
     @FXML TextField repeatPasswordField;
+    @FXML JFXCheckBox rememberMe;
 
     /**
      * Method that register a new user
@@ -37,11 +39,11 @@ public class RegisterController {
 
 
         if(errorMessage.isEmpty()){
-            boolean userSuccesfullyRegistered = RegisterService.registerNewUser(usernameField.getText(), passwordField.getText());
+            boolean userSuccesfullyRegistered = RegisterService.registerNewUser(usernameField.getText(), passwordField.getText(), rememberMe.isSelected());
 
             if(userSuccesfullyRegistered){
                 App.setRoot("main");
-                LoginService.saveLogin(usernameField.getText());
+                LoginService.saveLogin(usernameField.getText(), rememberMe.isSelected());
             } else {
                 errorMessage += "Error in saving user to storage! \n";
             }
