@@ -26,7 +26,7 @@ public class App extends Application {
 
         // create userstate.ser if it doesnt exist
         if(!UserStateDAO.fileExists()){
-            UserStateDAO.setUserState(null, null, null, null);
+            UserStateDAO.setUserState(null, null, null, false);
         }
 
         // check if userState contains a saved user, loads login if not
@@ -51,7 +51,7 @@ public class App extends Application {
      */
     public void stop(){
         if(UserStateService.checkIfUserState()){
-            if(UserStateService.getCurrentUserRememberMe().equals("false")){
+            if(!UserStateService.getCurrentUserRememberMe()){
                 LoginService.logOut();
             }
         }
