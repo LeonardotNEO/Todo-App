@@ -1,6 +1,7 @@
 package ntnu.idatt1002;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -12,10 +13,15 @@ public class Task implements Serializable {
     private String name;
     private String userName;
     private String description = "";
-    private long deadline;
     private int priority;
-    private String startDate;
+    private long startDate;
+    private long deadline;
     private String category;
+    private String color;
+    private String location;
+    private boolean notifications;
+    private ArrayList<String> tags;
+
 
     /**
      * A constructor for the class Task. Use when there is a deadline and start date for task.
@@ -27,7 +33,7 @@ public class Task implements Serializable {
      * @param startDate
      * @param category
      */
-    public Task(String name, String userName, String description, long deadline, int priority, String startDate, String category) {
+    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -35,6 +41,10 @@ public class Task implements Serializable {
         this.priority = priority;
         this.startDate = startDate;
         this.category = category;
+        this.color = color;
+        this.location = location;
+        this.notifications = notifications;
+        this.tags = tags;
     }
 
     /**
@@ -87,13 +97,31 @@ public class Task implements Serializable {
      * A method to get the field start date
      * @return the startDate of the task
      */
-    public String getStartDate() {return startDate;}
+    public long getStartDate() {return startDate;}
 
     /**A method to get the field category
      *
      * @return the category of the task
      */
     public String getCategory() {return category;}
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public boolean getNotification(){return notifications; }
+
+    public boolean isNotifications() {
+        return notifications;
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
 
     /**
      * A method to set a new name for the task
@@ -123,13 +151,29 @@ public class Task implements Serializable {
      * A method to set a new start date.
      * @param startDate
      */
-    public void setStartDate(String startDate) {this.startDate = startDate;}
+    public void setStartDate(long startDate) {this.startDate = startDate;}
 
     /**
      * A method to set a new category.
      * @param category
      */
     public void setCategory(String category) {this.category = category;}
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setNotifications(boolean notifications) {
+        this.notifications = notifications;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
 
     /**
      * Checks to see if all fields in the object up for comparison is equal to the fields in Task.

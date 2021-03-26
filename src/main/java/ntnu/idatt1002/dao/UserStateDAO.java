@@ -33,10 +33,19 @@ public final class UserStateDAO {
     }
 
     /**
+     * Get if rememberMe is true or false
+     * @return true or false, {@code null} if value is not stored
+     */
+    public static boolean getRememberMe(){
+        return Boolean.parseBoolean(getUserState(3));
+    }
+
+    /**
      * Returns a saved state
      * @param index <p>0: username<br>
      *              1: selectedCategory<br>
-     *              2: selectedSort</p>
+     *              2: selectedSort<br>
+     *              3: rememberMe</p>
      * @return String with chosen value, {@code null} if value is not stored
      */
     private static String getUserState(int index){
@@ -53,7 +62,7 @@ public final class UserStateDAO {
         }catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
-        if(userstate != null && index >= 0 && index <= 2) {
+        if(userstate != null && index >= 0 && index <= 3) {
             return userstate[index];
         }else{
             return null;
@@ -65,10 +74,12 @@ public final class UserStateDAO {
      * @param username user currently logged in
      * @param selectedCategory what category is selected
      * @param selectedSort what sorting method is selected
+     * @param rememberMe if user will be remembered to next start up
      */
-    public static void setUserState(String username, String selectedCategory, String selectedSort){
+    public static void setUserState(String username, String selectedCategory, String selectedSort,
+                                    boolean rememberMe){
         File file = new File(SAVEFILE);
-        String[] values = {username, selectedCategory, selectedSort};
+        String[] values = {username, selectedCategory, selectedSort, String.valueOf(rememberMe)};
         try {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

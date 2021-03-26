@@ -2,7 +2,6 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
-import ntnu.idatt1002.dao.UserStateDAO;
 
 /**
  * A class which provides some necessary features for the login of teh application
@@ -46,10 +45,29 @@ public class LoginService {
      * When logged in, save user-information to userState savefile
      * @param username
      */
-    public static void saveLogin(String username){
+    public static void saveLogin(String username, boolean rememberMe){
+        // Set UserState
         UserStateService.setCurrentUserUsername(username);
+
+        // Set selectedCategory to the first one
         if(CategoryService.getCategoriesCurrentUser().length > 0){
             UserStateService.setCurrentUserCategory(CategoryService.getCategoriesCurrentUser()[0]);
         }
+
+        if(rememberMe) {
+            UserStateService.setCurrentUserRememberMe(true);
+        } else {
+            UserStateService.setCurrentUserRememberMe(false);
+        }
+    }
+
+    /**
+     * Sets userstate to null
+     */
+    public static void logOut(){
+        UserStateService.setCurrentUserUsername(null);
+        UserStateService.setCurrentUserCategory(null);
+        UserStateService.setCurrentUserSorting(null);
+        UserStateService.setCurrentUserRememberMe(false);
     }
 }

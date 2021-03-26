@@ -7,6 +7,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import ntnu.idatt1002.dao.UserStateDAO;
+import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class App extends Application {
 
         // create userstate.ser if it doesnt exist
         if(!UserStateDAO.fileExists()){
-            UserStateDAO.setUserState(null, null, null);
+            UserStateDAO.setUserState(null, null, null, false);
         }
 
         // check if userState contains a saved user, loads login if not
@@ -48,6 +49,17 @@ public class App extends Application {
         stage.setHeight(820);
         stage.setWidth(1020);
         stage.show();
+    }
+
+    /**
+     * When application is stopped (not by logout button), we check if UserState is false, if it is we logOut()
+     */
+    public void stop(){
+        if(UserStateService.checkIfUserState()){
+            if(!UserStateService.getCurrentUserRememberMe()){
+                LoginService.logOut();
+            }
+        }
     }
 
     /**

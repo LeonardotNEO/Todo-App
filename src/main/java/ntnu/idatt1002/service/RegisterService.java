@@ -3,9 +3,9 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 
-/**
- * A class which provides some necessary features for the registration of the application
- */
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class RegisterService {
 
     /**
@@ -14,12 +14,22 @@ public class RegisterService {
      * @param password
      * @return
      */
-    public static boolean registerNewUser(String name, String password){
+    public static boolean registerNewUser(String name, String password, boolean rememberMe){
         User newUser = new User(name, password, UserDAO.generateSalt());
+
+        // Update savefiles to include this new user
         UserDAO.serializeUser(newUser);
+
+        // Set current user to this username
         UserStateService.setCurrentUserUsername(name);
-        CategoryService.addCategoryToCurrentUser("Trash bin");
-        CategoryService.addCategoryToCurrentUser("Finished tasks");
+
+        // Update UserState to rember if user want to be remembered
+        UserStateService.setCurrentUserRememberMe(rememberMe);
+
+        // Add premade categories to user
+        for (String premadeCategory : CategoryService.getPremadeCategories()) {
+            CategoryService.addCategoryToCurrentUser(premadeCategory);
+        }
 
         return true;
     }

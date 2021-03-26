@@ -1,6 +1,11 @@
 package ntnu.idatt1002;
 
+import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.utils.DateConverter;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -11,6 +16,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private byte[] salt;
+    private long dateCreated;
 
     public User(){}
 
@@ -32,6 +38,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.salt = salt;
+        this.dateCreated = TaskService.getDeadlineMs(LocalDate.now());
     }
 
     /**
@@ -82,11 +89,22 @@ public class User implements Serializable {
         this.salt = salt;
     }
 
+<<<<<<< src/main/java/ntnu/idatt1002/User.java
     /**
      * A equals method which compares a objects content with this user-object
      * @param o
      * @return
      */
+=======
+    public long getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(long dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+>>>>>>> src/main/java/ntnu/idatt1002/User.java
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

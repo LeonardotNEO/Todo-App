@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.App;
+import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.service.UserStateService;
 
@@ -96,9 +97,7 @@ public class NavbarController {
      */
     public void buttonLogout(ActionEvent event) throws IOException {
         App.setRoot("login");
-        UserStateService.setCurrentUserUsername(null);
-        UserStateService.setCurrentUserCategory(null);
-        UserStateService.setCurrentUserSorting(null);
+        LoginService.logOut();
     }
 
 

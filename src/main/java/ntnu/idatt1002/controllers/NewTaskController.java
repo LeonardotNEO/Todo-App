@@ -11,7 +11,8 @@ import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
-import java.time.Clock;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * A class which contains the buttons related to the creation of a new task
@@ -19,6 +20,7 @@ import java.time.Clock;
 public class NewTaskController {
 
     @FXML private TextField titleTextField;
+    @FXML private TextField locationTextField;
     @FXML private TextArea descriptionTextArea;
     @FXML private MenuButton categoryMenu;
     @FXML private JFXDatePicker datePicker;
@@ -33,11 +35,14 @@ public class NewTaskController {
      */
     public void initialize(){
         // fill MenuButton categoryMenu with categories
-        setCategoryMenu(CategoryService.getCategoriesCurrentUser());
+        setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
 
         // Changes the date format of the datePicker
         datePicker.setConverter(new DateConverter());
-        datePicker.setPromptText("dd/MM/yyyy");
+        datePicker.setPromptText("dd/mm/yyyy");
+
+        // set timepicker to 24 hour mode
+        timePicker.set24HourView(true);
     }
 
     /**
@@ -55,13 +60,22 @@ public class NewTaskController {
      * @throws IOException
      */
     public void buttonNewTask(ActionEvent event) throws  IOException {
+        ArrayList<String> tagsList = new ArrayList<>();
+        tags.getChips().forEach(tag -> {
+            tagsList.add(tag.toString());
+        });
+
         boolean addTaskSuccessful = TaskService.newTask(
                 titleTextField.getText(),
                 datePicker.getValue(),
                 descriptionTextArea.getText(),
                 Integer.parseInt(priorityMenu.getText()),
-                Clock.systemUTC().toString(),
-                categoryMenu.getText()
+                TaskService.getDeadlineMs(LocalDate.now()),
+                categoryMenu.getText(),
+                color.getValue().toString(),
+                locationTextField.getText(),
+                notification.isSelected(),
+                tagsList
         );
 
         if(addTaskSuccessful){
@@ -77,7 +91,7 @@ public class NewTaskController {
      * Loads categories into categoryMenuButton
      * @param categories
      */
-    public void setCategoryMenu(String[] categories) {
+    public void setCategoryMenu(ArrayList<String> categories) {
         for (String category : categories) {
             MenuItem menuItem = new MenuItem();
             menuItem.setText(category);

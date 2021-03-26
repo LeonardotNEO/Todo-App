@@ -15,7 +15,7 @@ public class UserStateDAOTest {
     @BeforeAll
     static void setup(){
         UserDAO.serializeUser(userA);
-        UserStateDAO.setUserState("olanormann","Home","Alphabetic");
+        UserStateDAO.setUserState("olanormann", "Home", "Alphabetic", false);
     }
 
     @Test
@@ -42,6 +42,6 @@ public class UserStateDAOTest {
     @AfterAll
     static void cleanup(){
         UserDAO.deleteUser("olanormann");
-        UserStateDAO.setUserState(null, null, null);
+        UserStateDAO.setUserState(null, null, null, false);
     }
 }
