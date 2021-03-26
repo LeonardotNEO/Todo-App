@@ -113,6 +113,8 @@ public class Task implements Serializable {
         return location;
     }
 
+    public boolean getNotification(){return notifications; }
+
     public boolean isNotifications() {
         return notifications;
     }

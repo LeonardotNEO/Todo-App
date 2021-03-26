@@ -64,6 +64,11 @@
                         <Font size="18.0" />
                      </font>
                   </PasswordField>
+                  <JFXCheckBox fx:id="rememberMe" checkedColor="#001021" layoutX="17.0" layoutY="139.0" text="Remember me" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXCheckBox>
                   <Button id="button1" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="173.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" styleClass="button1" stylesheets="@../css/main.css" text="Login" textFill="WHITE">
                      <font>
                         <Font name="Microsoft JhengHei" size="14.0" />
@@ -72,11 +77,6 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <JFXCheckBox fx:id="rememberMe" checkedColor="#001021" layoutX="17.0" layoutY="139.0" text="Remember me" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </JFXCheckBox>
                </children>
             </AnchorPane>
             <Label fx:id="errorMessageLabel" alignment="TOP_LEFT" layoutX="14.0" layoutY="235.0" prefHeight="86.0" prefWidth="297.0" textFill="RED" wrapText="true">

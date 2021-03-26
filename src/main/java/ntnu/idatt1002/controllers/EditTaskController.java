@@ -91,7 +91,7 @@ public class EditTaskController {
      * Loads menuItem elements with categoryNames into categoryMenuButton
      * @param categories
      */
-    public void setCategoryMenu(String[] categories) {
+    public void setCategoryMenu(ArrayList<String> categories) {
         for (String category : categories) {
             MenuItem menuItem = new MenuItem();
             menuItem.setText(category);
@@ -144,7 +144,7 @@ public class EditTaskController {
         this.priorityMenu.setText(priority);
     }
 
-    public void SetColor(String color){
+    public void setColor(String color){
         this.color.setValue(Color.valueOf(color));
     }
 
@@ -154,5 +154,9 @@ public class EditTaskController {
 
     public void setNotification(boolean notification){
         this.notification.setSelected(notification);
+    }
+
+    public void setLocation(String locationText){
+        this.locationTextField.setText(locationText);
     }
 }

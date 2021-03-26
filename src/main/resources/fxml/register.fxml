@@ -47,13 +47,13 @@
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="325.0">
          <children>
-            <Label fx:id="errorMessageLabel" alignment="TOP_LEFT" layoutY="305.0" prefHeight="94.0" prefWidth="325.0" textFill="RED" wrapText="true">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
             <AnchorPane prefHeight="300.0" prefWidth="325.0" style="-fx-background-radius: 10;" styleClass="background-color_3" stylesheets="@../css/main.css">
                <children>
+                  <TextField fx:id="usernameField" layoutX="17.0" layoutY="14.0" prefHeight="49.0" prefWidth="292.0" promptText="Username">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
                   <PasswordField fx:id="passwordField" layoutX="17.0" layoutY="75.0" prefHeight="49.0" prefWidth="292.0" promptText="Password">
                      <font>
                         <Font size="18.0" />
@@ -77,13 +77,13 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <TextField fx:id="usernameField" layoutX="17.0" layoutY="14.0" prefHeight="49.0" prefWidth="292.0" promptText="Username">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
                </children>
             </AnchorPane>
+            <Label fx:id="errorMessageLabel" alignment="TOP_LEFT" layoutY="305.0" prefHeight="94.0" prefWidth="325.0" textFill="RED" wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </center>

@@ -53,7 +53,6 @@ public class App extends Application {
         if(UserStateService.checkIfUserState()){
             if(UserStateService.getCurrentUserRememberMe().equals("false")){
                 LoginService.logOut();
-                System.out.println("hello");
             }
         }
     }

@@ -67,25 +67,28 @@ public class TaskController {
 
         // set title prompt
         editTaskController.setTitleTextField(task.getName());
-
         // set description prompt
         editTaskController.setDescriptionTextArea(task.getDescription());
-
+        // set location prompt
+        editTaskController.setLocation(task.getLocation());
         // set categories in menuButton
-        editTaskController.setCategoryMenu(CategoryService.getCategoriesCurrentUser());
-
+        editTaskController.setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
         // set category prompt
         editTaskController.setCategoryMenu(task.getCategory());
-
         // set datepicker prompt and DateConverter
         editTaskController.setDatePicker(TaskService.transformDeadline(task.getDeadline()));
         editTaskController.setDatePicker(new DateConverter());
-
         // set timePicker
+        // Todo set timepicker
         editTaskController.setTimePicker24Hour(true);
-
         // set priority prompt
         editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
+        // set notification boolean
+        editTaskController.setNotification(task.getNotification());
+        // set color
+        editTaskController.setColor(task.getColor());
+        // set tags
+        editTaskController.setTags(task.getTags());
 
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(editMenu);
