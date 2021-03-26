@@ -14,6 +14,7 @@ public class Notification implements Serializable {
     private String username;
     private String description;
     private boolean checked;
+    private boolean active;
     private String dateActive;
     private String dateDue;
 
@@ -39,6 +40,7 @@ public class Notification implements Serializable {
     public Boolean getChecked() { return checked; }
     public String getDateActive() { return dateActive; }
     public String getDateDue() { return dateDue; }
+    public boolean getActive() { return active; }
 
     //SET
     public void setTitle(String title) {
@@ -53,6 +55,9 @@ public class Notification implements Serializable {
     public void setChecked(Boolean value) { this.checked = value; }
     public void setDateDue(String day, String month, String year, String hour, String minute) {
         dateDue = year + "-" + month + "-" + day + "T" + hour + ":" + minute;
+    }
+    public void setActive(boolean active){
+        this.active = active;
     }
 
     @Override

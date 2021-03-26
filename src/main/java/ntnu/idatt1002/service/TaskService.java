@@ -30,8 +30,8 @@ class TaskComparator implements Comparator<Task>{
 
 
 public class TaskService {
-    public static boolean newTask(String title, LocalDate deadline, String description, int priority, String startDate, String category) {
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, getDeadlineMs(deadline), priority, startDate, category);
+    public static boolean newTask(String title, LocalDate deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
+        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, getDeadlineMs(deadline), priority, startDate, category, color, location, notifications, tags);
         TaskDAO.serializeTask(newTask);
         return true;
     }
