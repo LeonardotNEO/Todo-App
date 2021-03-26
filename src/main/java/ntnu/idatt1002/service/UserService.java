@@ -13,6 +13,9 @@ public class UserService {
         String user = UserStateService.getCurrentUserUsername();
         if(user == null) return false;
         UserStateService.setCurrentUserUsername(null);
+        UserStateService.setCurrentUserRememberMe(false);
+        UserStateService.setCurrentUserSorting(null);
+        UserStateService.setCurrentUserCategory(null);
         return UserDAO.deleteUser(user);
     }
 }
