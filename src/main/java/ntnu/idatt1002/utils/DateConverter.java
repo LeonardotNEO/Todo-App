@@ -12,14 +12,14 @@ public class DateConverter extends StringConverter<LocalDate> {
     DateTimeFormatter dateFormatter;
 
     /**
-     * A method which sets the format of the DateConverter to (dd/MM/yyyy)
+     * A constructor which sets the format of the DateConverter to (dd/MM/yyyy)
      */
     public DateConverter () {
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     }
 
     /**
-     * A method to set the format for the date converter
+     * A constructor which sets the format for the date converter
      * @param format
      */
     // This should be checked to be valid / it throws invalid argument exception if pattern is invalid.
