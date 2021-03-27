@@ -52,7 +52,7 @@ public class NewTaskController {
      * @throws IOException
      */
     public void buttonCancelNewTask(ActionEvent event) throws IOException {
-        DashboardController.getInstance().loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
+        DashboardController.getInstance().initialize();
     }
 
     /**
