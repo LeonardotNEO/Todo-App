@@ -69,7 +69,7 @@ public final class TaskDAO {
     public static void serializeTask(Task task){
         String username = task.getUserName();
         String category = task.getCategory();
-        int taskID = task.hashCode();
+        long taskID = task.getId();
         File file = new File(filePath(username, category, taskID));
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -222,7 +222,7 @@ public final class TaskDAO {
     /**
      * Get file path
      */
-    private static String filePath(String username, String category, int taskID){
+    private static String filePath(String username, String category, long taskID){
         return (categoryPath(username, category) + PREFIX + taskID + FILETYPE);
     }
 }
