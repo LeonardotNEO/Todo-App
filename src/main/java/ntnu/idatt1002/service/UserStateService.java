@@ -51,7 +51,7 @@ public class UserStateService {
         return UserStateDAO.getSelectedSort();
     }
 
-    public static String getCurrentUserRememberMe(){
+    public static boolean getCurrentUserRememberMe(){
         return UserStateDAO.getRememberMe();
     }
 
@@ -83,7 +83,7 @@ public class UserStateService {
      * Set the remember me value of user
      * @param rememberMe
      */
-    public static void setCurrentUserRememberMe(String rememberMe){
+    public static void setCurrentUserRememberMe(boolean rememberMe){
         UserStateDAO.setUserState(UserStateDAO.getUsername(), UserStateDAO.getSelectedCategory(), UserStateDAO.getSelectedSort(), rememberMe);
     }
 }

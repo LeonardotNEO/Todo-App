@@ -34,17 +34,17 @@ public final class UserStateDAO {
 
     /**
      * Get if rememberMe is true or false
-     * @return String of true or false, {@code null} if value is not stored
+     * @return true or false, {@code null} if value is not stored
      */
-    public static String getRememberMe(){
-        return getUserState(3);
+    public static boolean getRememberMe(){
+        return Boolean.parseBoolean(getUserState(3));
     }
 
     /**
      * Returns a saved state
      * @param index <p>0: username<br>
      *              1: selectedCategory<br>
-     *              2: selectedSort</p>
+     *              2: selectedSort<br>
      *              3: rememberMe</p>
      * @return String with chosen value, {@code null} if value is not stored
      */
@@ -74,10 +74,12 @@ public final class UserStateDAO {
      * @param username user currently logged in
      * @param selectedCategory what category is selected
      * @param selectedSort what sorting method is selected
+     * @param rememberMe if user will be remembered to next start up
      */
-    public static void setUserState(String username, String selectedCategory, String selectedSort, String rememberMe){
+    public static void setUserState(String username, String selectedCategory, String selectedSort,
+                                    boolean rememberMe){
         File file = new File(SAVEFILE);
-        String[] values = {username, selectedCategory, selectedSort, rememberMe};
+        String[] values = {username, selectedCategory, selectedSort, String.valueOf(rememberMe)};
         try {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

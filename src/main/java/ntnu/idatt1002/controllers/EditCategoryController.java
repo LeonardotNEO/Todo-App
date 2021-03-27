@@ -10,6 +10,9 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the buttons related to editing a category
+ */
 public class EditCategoryController {
 
     @FXML private TextField titleTextField;
@@ -24,6 +27,12 @@ public class EditCategoryController {
         DashboardController.getInstance().loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
     }
 
+    /**
+     * Edit category button allows one to edit a category which is already created, by recreating a new one with the
+     * changes in its place
+     * @param event
+     * @throws IOException
+     */
     public void buttonEditCategory(ActionEvent event) throws IOException {
         if(CategoryService.validateCategoryTitleSyntax(titleTextField.getText())){
             // Make new category
@@ -38,7 +47,7 @@ public class EditCategoryController {
             // Set current category to new one
             UserStateService.setCurrentUserCategory(titleTextField.getText());
 
-            // Load dashboard into maincontent
+            // Load dashboard into mainContent
             DashboardController.getInstance().initialize();
         } else {
             errorMessage.setText("Title need to be between 0 and 24 characters");

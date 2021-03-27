@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A class which contains the methods related to the notification history page of the application
+ */
 public class NotificationHistoryController {
 
     @FXML private VBox notificationsVBox;
