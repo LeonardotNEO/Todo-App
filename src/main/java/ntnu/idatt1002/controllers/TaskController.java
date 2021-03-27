@@ -6,13 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
 
 import java.io.IOException;
@@ -28,6 +31,7 @@ public class TaskController {
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
     @FXML private Pane background;
+    @FXML private HBox toolsHBox;
 
     /**
      * When finishTaskButton is clicked, task is moved to finished tasks folder
@@ -154,6 +158,20 @@ public class TaskController {
     }
 
     public void setTaskColor(String backgroundColor){
-        background.setStyle("-fx-background-color: " + backgroundColor + ";");
+        background.setStyle("-fx-background-color: " + backgroundColor + "; -fx-background-radius:  5 15 5 5;");
+
+        if(ColorUtil.isVisibilityRatingOverThreshold(backgroundColor)){
+            taskDescription.setFill(Paint.valueOf("white"));
+            taskDate.setTextFill(Paint.valueOf("white"));
+            taskPriority.setTextFill(Paint.valueOf("white"));
+            taskName.setFill(Paint.valueOf("white"));
+            toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
+        } else {
+            taskDescription.setFill(Paint.valueOf("black"));
+            taskDate.setTextFill(Paint.valueOf("black"));
+            taskPriority.setTextFill(Paint.valueOf("black"));
+            taskName.setFill(Paint.valueOf("black"));
+            toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
+        }
     }
 }

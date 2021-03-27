@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 
@@ -72,7 +73,7 @@ public class NewTaskController {
                 Integer.parseInt(priorityMenu.getText()),
                 TaskService.getDeadlineMs(LocalDate.now()),
                 categoryMenu.getText(),
-                getCorrectColorFormat(),
+                color.getValue().toString(),
                 locationTextField.getText(),
                 notification.isSelected(),
                 tagsList
@@ -116,10 +117,5 @@ public class NewTaskController {
     public void clickPriority(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         priorityMenu.setText(menuItem.getText());
-    }
-
-    public String getCorrectColorFormat(){
-        String newColorString = color.getValue().toString().replace("0x", "#");
-        return newColorString;
     }
 }
