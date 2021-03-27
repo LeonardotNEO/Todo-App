@@ -1,14 +1,10 @@
 package ntnu.idatt1002.service;
 
-import javafx.scene.control.DatePicker;
 import ntnu.idatt1002.Task;
-import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.dao.UserDAO;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.util.*;
 
 /**
@@ -33,8 +29,8 @@ class TaskComparator implements Comparator<Task>{
  * A class which provides some necessary features which utilises task-data
  */
 public class TaskService {
-    public static boolean newTask(String title, LocalDate deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, getDeadlineMs(deadline), priority, startDate, category, color, location, notifications, tags);
+    public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
+        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, deadline, priority, startDate, category, color, location, notifications, tags);
         TaskDAO.serializeTask(newTask);
         return true;
     }
@@ -171,8 +167,18 @@ public class TaskService {
      * @param localdate
      * @return
      */
-    public static long getDeadlineMs(LocalDate localdate) {
+    public static long getAsMs(LocalDate localdate) {
         Instant instant = localdate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        return instant.toEpochMilli();
+    }
+
+    /**
+     * Returns a long representing time in milliseconds since 1/1/1970
+     * @param localDateTime
+     * @return
+     */
+    public static long getAsMs(LocalDateTime localDateTime) {
+        Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
         return instant.toEpochMilli();
     }
 
@@ -183,13 +189,29 @@ public class TaskService {
      */
     public static String transformDeadline(long ms) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(ms + 1);
+        calendar.setTimeInMillis(ms);
 
-        // Adds a 0 to month/Day if under 9 so the format is always MM
-        String month = calendar.get(Calendar.MONTH) > 9 ? "" + (calendar.get(Calendar.MONTH) + 1) : "0" + (calendar.get(Calendar.MONTH) + 1);
-        String day = calendar.get(Calendar.DAY_OF_MONTH) > 9 ? "" + calendar.get(Calendar.DAY_OF_MONTH) : "0" + calendar.get(Calendar.DAY_OF_MONTH);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String date1 = format.format(calendar.getTime());
+        return date1;
+    }
 
-        return day+ "/" + month + "/" + calendar.get(Calendar.YEAR);
+    public static String getDate(long ms) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(ms);
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String date1 = format.format(calendar.getTime());
+
+        return date1;
+    }
+
+    public static LocalTime getClock(long ms) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(ms);
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+        String date1 = format.format(calendar.getTime());
+        return Instant.ofEpochMilli(ms).atZone(ZoneId.systemDefault()).toLocalTime();
     }
 
     /**
