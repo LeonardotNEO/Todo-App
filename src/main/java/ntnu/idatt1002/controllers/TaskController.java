@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
@@ -23,6 +24,7 @@ public class TaskController {
     @FXML private Text taskDescription;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
+    @FXML private Pane background;
 
     /**
      * When finishTaskButton is clicked, task is moved to finished tasks folder
@@ -130,5 +132,9 @@ public class TaskController {
 
     public void setTaskId(long id){
         this.taskId = id;
+    }
+
+    public void setTaskColor(String backgroundColor){
+        background.setStyle("-fx-background-color: " + backgroundColor + ";");
     }
 }

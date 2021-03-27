@@ -36,6 +36,7 @@ public class TasksController {
         taskController.setTaskDate(TaskService.transformDeadline(taskObject.getDeadline()));
         taskController.setTaskPriority(taskObject.getPriority());
         taskController.setTaskId(taskObject.getId());
+        taskController.setTaskColor(taskObject.getColor());
 
         // adding the task to tasks
         tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);

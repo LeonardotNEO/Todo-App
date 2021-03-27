@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="100.0" prefWidth="582.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
    <children>
-      <Pane prefHeight="100.0" prefWidth="725.0" style="-fx-background-color: #001021;">
+      <Pane fx:id="background" prefHeight="100.0" prefWidth="725.0" style="-fx-background-color: #001021;">
          <children>
             <Text fx:id="taskName" fill="ORANGE" layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="task_name">
                <font>

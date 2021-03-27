@@ -69,7 +69,7 @@ public class NewTaskController {
                 Integer.parseInt(priorityMenu.getText()),
                 TaskService.getDeadlineMs(LocalDate.now()),
                 categoryMenu.getText(),
-                color.getValue().toString(),
+                getCorrectColorFormat(),
                 locationTextField.getText(),
                 notification.isSelected(),
                 tagsList
@@ -113,5 +113,10 @@ public class NewTaskController {
     public void clickPriority(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         priorityMenu.setText(menuItem.getText());
+    }
+
+    public String getCorrectColorFormat(){
+        String newColorString = color.getValue().toString().replace("0x", "#");
+        return newColorString;
     }
 }

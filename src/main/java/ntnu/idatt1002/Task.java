@@ -49,10 +49,9 @@ public class Task implements Serializable {
         this.tags = tags;
 
         Random random = new Random();
-        String hashCodeString = Integer.toString(this.hashCode());
+        String hashCodeString = Integer.toString(Math.abs(this.hashCode()));
         String randomString = Integer.toString(Math.abs(random.nextInt()));
-        String combinationString = hashCodeString + randomString;
-        this.id = Long.parseLong(combinationString);
+        this.id = Long.parseLong(hashCodeString + randomString);
     }
 
     /**
