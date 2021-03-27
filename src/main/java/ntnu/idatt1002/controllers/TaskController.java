@@ -29,8 +29,9 @@ public class TaskController {
      * @param event
      * @throws IOException
      */
-    public void finishTask(ActionEvent event) throws IOException {
-
+    public void buttonFinishTask(ActionEvent event) throws IOException{
+        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks");
+        DashboardController.getInstance().initialize();
     }
 
     /**
