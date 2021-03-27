@@ -67,10 +67,10 @@ public class NewTaskController {
 
         boolean addTaskSuccessful = TaskService.newTask(
                 titleTextField.getText(),
-                datePicker.getValue(),
+                TaskService.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
                 descriptionTextArea.getText(),
                 Integer.parseInt(priorityMenu.getText()),
-                TaskService.getDeadlineMs(LocalDate.now()),
+                TaskService.getAsMs(LocalDate.now()),
                 categoryMenu.getText(),
                 color.getValue().toString(),
                 locationTextField.getText(),
