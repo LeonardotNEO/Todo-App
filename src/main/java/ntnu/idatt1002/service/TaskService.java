@@ -11,23 +11,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
-/**
- * Comparator for dates in tasks.
- */
-class TaskComparator implements Comparator<Task>{
-
-    @Override
-    public int compare(Task o1, Task o2) {
-        long task1Date = o1.getDeadline();
-        long task2Date = o2.getDeadline();
-        if(task1Date > task2Date){
-            return 1;
-        }
-        return -1;
-    }
-
-}
-
 
 /**
  * A class which provides some necessary features which utilises task-data
@@ -133,18 +116,26 @@ public class TaskService {
     public static ArrayList<Task> TasksSortedByDate(){
         //ArrayList<Task> userTasks = getTasksByCurrentUser();
         ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
-        Comparator<Task> Datecomparer = new TaskComparator();
-        Collections.sort(userTasks,Datecomparer);
+        Collections.sort(userTasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                long task1Date = o1.getDeadline();
+                long task2Date = o2.getDeadline();
+                if(task1Date > task2Date){
+                    return 1;
+                }
+                return -1;
+            }
+        });
 
         return userTasks;
     }
 
     /**
-     * Returns an Array of all the tasks sorted by the alphabetical order of the first letter in them.
+     * Returns an ArrayList of all the tasks sorted by the alphabetical order of the first letter in them.
      * @return
      */
     public static ArrayList<Task> TasksSortedByAlphabet(){
-        //ArrayList<Task> userTasks = getTasksByCurrentUser();
         ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
@@ -154,6 +145,23 @@ public class TaskService {
         });
 
         return userTasks;
+    }
+
+    /**
+     * Returns an ArrayLists of Tasks that have a name that contains the a given string.
+     * @param DesiredName
+     * @return
+     */
+    public static ArrayList<Task> TasksFoundWithSearchBox(String DesiredName){
+        ArrayList<Task> userTasks = getTasksByCurrentUser();
+        ArrayList<Task> CompatableTasks = new ArrayList<>();
+
+        for(Task t: userTasks){
+            if(t.getName().contains(DesiredName)){
+                CompatableTasks.add(t);
+            }
+        }
+        return CompatableTasks;
     }
 
     /**
