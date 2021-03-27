@@ -11,6 +11,9 @@ import ntnu.idatt1002.service.LoginService;
 
 import java.io.IOException;
 
+/**
+ * A class which contains the buttons related to the login page of the application
+ */
 public class LoginController {
 
     @FXML Label errorMessageLabel;

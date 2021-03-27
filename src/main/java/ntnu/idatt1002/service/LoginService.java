@@ -3,6 +3,9 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 
+/**
+ * A class which provides some necessary features for the login of teh application
+ */
 public class LoginService {
 
     /**
@@ -52,9 +55,9 @@ public class LoginService {
         }
 
         if(rememberMe) {
-            UserStateService.setCurrentUserRememberMe("true");
+            UserStateService.setCurrentUserRememberMe(true);
         } else {
-            UserStateService.setCurrentUserRememberMe("false");
+            UserStateService.setCurrentUserRememberMe(false);
         }
     }
 
@@ -65,6 +68,6 @@ public class LoginService {
         UserStateService.setCurrentUserUsername(null);
         UserStateService.setCurrentUserCategory(null);
         UserStateService.setCurrentUserSorting(null);
-        UserStateService.setCurrentUserRememberMe(null);
+        UserStateService.setCurrentUserRememberMe(false);
     }
 }

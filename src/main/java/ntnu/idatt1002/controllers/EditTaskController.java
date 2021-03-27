@@ -19,6 +19,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * A class which contains the buttons related to editing a task
+ */
 public class EditTaskController {
 
     private long id;
@@ -112,22 +115,42 @@ public class EditTaskController {
         this.id = id;
     }
 
+    /**
+     * A method to set a title in a text field
+     * @param title
+     */
     public void setTitleTextField(String title) {
         this.titleTextField.setText(title);
     }
 
+    /**
+     * A method to set a description in a text field
+     * @param description
+     */
     public void setDescriptionTextArea(String description) {
         this.descriptionTextArea.setText(description);
     }
 
+    /**
+     * A method to set a date
+     * @param date
+     */
     public void setDatePicker(String date) {
         this.datePicker.setValue(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
+    /**
+     * A method to set the converter for the date one uses.
+     * @param dateConverter
+     */
     public void setDatePicker(DateConverter dateConverter) {
         this.datePicker.setConverter(dateConverter);
     }
 
+    /**
+     * A method to set a specific time (hours : minutes)
+     * @param localTime
+     */
     public void setTimePicker(LocalTime localTime) {
         this.timePicker.setValue(localTime);
     }
@@ -140,18 +163,34 @@ public class EditTaskController {
         this.categoryMenu.setText(category);
     }
 
+    /**
+     * A method to set a priority to the priority menu
+     * @param priority
+     */
     public void setPriorityMenu(String priority) {
         this.priorityMenu.setText(priority);
     }
 
+    /**
+     * A method to set the color
+     * @param color
+     */
     public void setColor(String color){
         this.color.setValue(Color.valueOf(color));
     }
 
+    /**
+     * A method to set tags
+     * @param tags
+     */
     public void setTags(ArrayList<String> tags){
         this.tags.getChips().addAll(tags);
     }
 
+    /**
+     * A method to set notification
+     * @param notification
+     */
     public void setNotification(boolean notification){
         this.notification.setSelected(notification);
     }

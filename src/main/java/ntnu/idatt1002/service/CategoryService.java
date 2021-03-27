@@ -6,6 +6,9 @@ import ntnu.idatt1002.dao.UserStateDAO;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * A class which provides some necessary features which utilises category-data
+ */
 public class CategoryService {
 
     private static String[] premadeCategories = {"Trash bin", "Finished tasks"};

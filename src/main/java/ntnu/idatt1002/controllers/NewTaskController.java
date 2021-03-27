@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * A class which contains the buttons related to the creation of a new task
+ */
 public class NewTaskController {
 
     @FXML private TextField titleTextField;

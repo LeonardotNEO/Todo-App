@@ -6,6 +6,9 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
+/**
+ * A class which contains the basic methods related to the javafx layout for the application
+ */
 public class MainController {
 
     private static MainController instance;

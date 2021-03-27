@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.service.UserStateService;
 
+/**
+ * A class which contains the buttons related to a user account
+ */
 public class AccountController {
 
     @FXML private Text username;
