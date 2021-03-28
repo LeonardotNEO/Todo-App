@@ -11,7 +11,8 @@ cache:
 build:
   stage: build
   only:
-    - GitlabTest
+    - master
+    - merge_requests
   script:
     - echo "BUILDING PROJECT"
     - mvn clean compile
@@ -20,7 +21,8 @@ build:
 test:
   stage: test
   only:
-    - GitlabTest
+    - master
+    - merge_requests
   script:
     - echo "RUNNING TESTS"
     - mvn clean test -e
