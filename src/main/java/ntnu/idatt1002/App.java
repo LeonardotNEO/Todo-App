@@ -44,10 +44,9 @@ public class App extends Application {
         // fill stage with the scene choosen above. Set properties of the stage.
         stage.setScene(scene);
         stage.setTitle("ToDo-App");
-        stage.setMinHeight(820);
+        stage.setMinHeight(640);
         stage.setMinWidth(1020);
-        stage.setHeight(820);
-        stage.setWidth(1020);
+        stage.setMaximized(true);
         stage.show();
     }
 

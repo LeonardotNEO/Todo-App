@@ -26,7 +26,7 @@
             </Text>
             <Label fx:id="taskDate" layoutX="14.0" layoutY="78.0" text="date" textFill="WHITE" />
             <Label fx:id="taskPriority" layoutX="661.0" layoutY="78.0" prefHeight="17.0" prefWidth="58.0" text="Priority" textFill="WHITE" />
-            <HBox fx:id="toolsHBox" alignment="CENTER_RIGHT" layoutX="624.0" layoutY="-1.0" prefHeight="33.0" prefWidth="101.0" style="-fx-background-color: white;">
+            <HBox fx:id="toolsHBox" alignment="CENTER_RIGHT" layoutX="625.0" layoutY="-1.0" prefHeight="33.0" prefWidth="101.0" style="-fx-background-color: white;">
                <children>
                   <Button mnemonicParsing="false" onAction="#buttonFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                      <graphic>
@@ -44,7 +44,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deleteTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
+                  <Button mnemonicParsing="false" onAction="#deleteTask" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <FontAwesomeIconView fill="RED" glyphName="TRASH" size="18" />
                      </graphic>

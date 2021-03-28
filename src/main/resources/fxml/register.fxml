@@ -13,11 +13,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.RegisterController">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.RegisterController">
    <bottom>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="button1" layoutX="354.0" layoutY="47.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" styleClass="button1" stylesheets="@../css/main.css" text="Back to login" textFill="WHITE">
+            <Button id="button1" layoutX="354.0" layoutY="6.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" styleClass="button1" stylesheets="@../css/main.css" text="Back to login" textFill="WHITE">
                <font>
                   <Font name="Microsoft JhengHei" size="14.0" />
                </font>
@@ -79,7 +79,7 @@
                   </Button>
                </children>
             </AnchorPane>
-            <Label fx:id="errorMessageLabel" alignment="TOP_LEFT" layoutY="305.0" prefHeight="94.0" prefWidth="325.0" textFill="RED" wrapText="true">
+            <Label fx:id="errorMessageLabel" alignment="TOP_LEFT" layoutY="305.0" prefHeight="43.0" prefWidth="325.0" textFill="RED" wrapText="true">
                <font>
                   <Font size="15.0" />
                </font>
