@@ -1,9 +1,12 @@
 package ntnu.idatt1002.dao;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Static class to store actions in a user log file
@@ -38,7 +41,33 @@ public final class UserLogDAO {
         writeEntry(username, "Task marked as done: " + title);
     }
 
-    public static String[] getLog(String username){
+    /**
+     * Get full user log
+     * @param username the user to get the log from
+     * @return a {@code String[]} of each log entry, empty array if user could not be found
+     */
+    public static String[] getFullLog(String username){
+        ArrayList<String> lines = new ArrayList<>();
+
+        if(UserDAO.userExists(username)) {
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath(username)));
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    lines.add(line);
+                }
+
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+
+        return lines.toArray(new String[0]);
+    }
+
+    public static UserLog getUserLog(String username){
+        String[] fullLog = getFullLog(username);
         return null;
     }
 
@@ -48,17 +77,20 @@ public final class UserLogDAO {
      * @param entry String containing datetime, entry type and entry message
      */
     private static void writeEntry(String username, String entry){
-        //Get current datetime and format
-        LocalDateTime datetime = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String formatDatetime = datetime.format(format);
+        if(UserDAO.userExists(username)) {
+            //Get current datetime and format
+            LocalDateTime datetime = LocalDateTime.now();
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            String formatDatetime = datetime.format(format);
 
-        try {
-            FileWriter fileWriter = new FileWriter(filePath(username));
-            fileWriter.write(formatDatetime + " - " + entry + ".\n");
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            //Write to file
+            try {
+                FileWriter fileWriter = new FileWriter(filePath(username));
+                fileWriter.write(formatDatetime + " - " + entry + ".\n");
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
