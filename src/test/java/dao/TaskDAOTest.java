@@ -5,11 +5,13 @@ import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.service.TaskService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,15 +19,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TaskDAOTest {
     private final static User userA = new User("olanormann");
     private final static String categoryA = "Home";
-    private final static Task taskA = new Task("Clean room","olanormann","",0,"Home");
-    private static int taskA_ID;
+    private final static Task taskA = new Task("Clean room", "olanormann", "", 1, 1, 1, "Home", "", "", false,null);
+
+    private static long taskA_ID;
 
     @BeforeAll
     public static void setup() {
         UserDAO.serializeUser(userA);
         CategoryDAO.addCategory("olanormann", categoryA);
         TaskDAO.serializeTask(taskA);
-        taskA_ID = taskA.hashCode();
+        taskA_ID = taskA.getId();
     }
 
     @Test
