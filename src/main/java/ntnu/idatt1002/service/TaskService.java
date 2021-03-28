@@ -163,58 +163,6 @@ public class TaskService {
     }
 
     /**
-     * Returns a long representing time in milliseconds since 1/1/1970
-     * @param localdate
-     * @return
-     */
-    public static long getAsMs(LocalDate localdate) {
-        Instant instant = localdate.atStartOfDay(ZoneId.systemDefault()).toInstant();
-        return instant.toEpochMilli();
-    }
-
-    /**
-     * Returns a long representing time in milliseconds since 1/1/1970
-     * @param localDateTime
-     * @return
-     */
-    public static long getAsMs(LocalDateTime localDateTime) {
-        Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
-        return instant.toEpochMilli();
-    }
-
-    /**
-     * Takes a long and turns it into a date in the format dd/MM/yyyy. The ms inserted represents the time since 1/1/1970
-     * @param ms
-     * @return
-     */
-    public static String transformDeadline(long ms) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(ms);
-
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String date1 = format.format(calendar.getTime());
-        return date1;
-    }
-
-    public static String getDate(long ms) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(ms);
-
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String date1 = format.format(calendar.getTime());
-
-        return date1;
-    }
-
-    public static LocalTime getClock(long ms) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(ms);
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm");
-        String date1 = format.format(calendar.getTime());
-        return Instant.ofEpochMilli(ms).atZone(ZoneId.systemDefault()).toLocalTime();
-    }
-
-    /**
      * Communicates with TaskDAO to delete a task
      * @param task
      */
