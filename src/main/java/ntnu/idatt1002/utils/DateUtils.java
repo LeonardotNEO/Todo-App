@@ -4,8 +4,25 @@ import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.Calendar;
 
-public final class DateUtils {
+/* This could be added in some settings page. Ofc more could be added but i think these are enough.
+Allowed dates:
+- dd/MM/yyyy   // 22/02/2021
+- dd/MMM/yyyy  // 22/Mar/2021
 
+- MM/dd/yyyy // 02/22/2021
+- MMM/dd/yyyy // Mar/22/2021
+
+Date splitters:
+- " "
+- "/"
+- "-"
+
+Allowed clocks:q
+- hh:mm   // 22:30
+- HH:mm a // 10:30 PM
+*/
+
+public final class DateUtils {
     // Private constructor to stop instantiation and overwrite the default constructor.
     private DateUtils () {
         throw new UnsupportedOperationException();
@@ -55,9 +72,7 @@ public final class DateUtils {
         calendar.setTimeInMillis(ms);
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String date1 = format.format(calendar.getTime());
-
-        return date1;
+        return format.format(calendar.getTime());
     }
 
     /**
@@ -65,11 +80,10 @@ public final class DateUtils {
      * @param ms
      * @return
      */
-    public static LocalTime getFormattedTime(long ms) {
+    public static String getFormattedTime(long ms) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(ms);
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm");
-        String date1 = format.format(calendar.getTime());
-        return Instant.ofEpochMilli(ms).atZone(ZoneId.systemDefault()).toLocalTime();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(calendar.getTime());
     }
 }
