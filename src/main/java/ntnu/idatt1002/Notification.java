@@ -2,12 +2,10 @@ package ntnu.idatt1002;
 
 import java.io.Serializable;
 import java.time.Clock;
-import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Placeholder class to get DAO to work
- * @author Markus
+ * Class representing a notification
  */
 public class Notification implements Serializable {
     private String title;
