@@ -106,7 +106,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
                 <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
+                    <systemPropertyVariables>
+                        <config_properties>config.test.properties</config_properties>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
