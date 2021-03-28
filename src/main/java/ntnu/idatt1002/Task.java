@@ -231,8 +231,8 @@ public class Task implements Serializable {
 
     public long generateId(){
         Random random = new Random();
-        String hashCodeString = Integer.toString(random.nextInt(1000));
-        String randomString = Long.toString(Math.abs(random.nextInt()));
+        String hashCodeString = Long.toString(Math.abs(this.hashCode()));
+        String randomString = Long.toString(Math.abs(random.nextInt(1000)));
         String finalString = hashCodeString + randomString;
         long finalLong = Long.parseLong(finalString);
         return finalLong;
