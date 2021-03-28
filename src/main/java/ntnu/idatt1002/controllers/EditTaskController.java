@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class EditTaskController {
 
-    private int id;
+    private long id;
     @FXML private TextField titleTextField;
     @FXML private TextArea descriptionTextArea;
     @FXML private MenuButton categoryMenu;
@@ -42,7 +42,7 @@ public class EditTaskController {
      * @throws IOException
      */
     public void buttonCancelEditTask(ActionEvent event) throws IOException {
-        DashboardController.getInstance().loadTasksPage(TaskService.getTasksByCurrentUser());
+        DashboardController.getInstance().initialize();
     }
 
     /**
@@ -111,11 +111,7 @@ public class EditTaskController {
         categoryMenu.setText(UserStateService.getCurrentUserCategory());
     }
 
-    /**
-     * A method to set a Id
-     * @param id
-     */
-    public void setId(int id){
+    public void setId(long id){
         this.id = id;
     }
 

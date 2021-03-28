@@ -36,7 +36,16 @@
 
 .navbarButton{
   -fx-background-color: transparent;
-  -fx-font-size: 16;
+  -fx-font-size: 18;
+}
+
+#navbarButton:hover {
+  -fx-text-fill: orange;
+  -fx-background-color:  transparent;
+}
+
+#navbarButton:hover #icon {
+  -fx-fill: orange;
 }
 
 #notificationBell {

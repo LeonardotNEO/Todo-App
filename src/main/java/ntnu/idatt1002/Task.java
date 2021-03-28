@@ -1,8 +1,11 @@
 package ntnu.idatt1002;
 
+import ntnu.idatt1002.utils.ColorUtil;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * The class Task represents a task.
@@ -10,6 +13,7 @@ import java.util.Objects;
  * The class also provides hashCode and a equals method as well as a toString method.
  */
 public class Task implements Serializable {
+    private long id;
     private String name;
     private String userName;
     private String description = "";
@@ -41,10 +45,11 @@ public class Task implements Serializable {
         this.priority = priority;
         this.startDate = startDate;
         this.category = category;
-        this.color = color;
+        this.color = ColorUtil.getCorrectColorFormat(color);
         this.location = location;
         this.notifications = notifications;
         this.tags = tags;
+        this.id = generateId();
     }
 
     /**
@@ -117,6 +122,10 @@ public class Task implements Serializable {
 
     public boolean isNotifications() {
         return notifications;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public ArrayList<String> getTags() {
@@ -218,5 +227,14 @@ public class Task implements Serializable {
                 ", startDate='" + startDate + '\'' +
                 ", category='" + category + '\'' +
                 '}';
+    }
+
+    public long generateId(){
+        Random random = new Random();
+        String hashCodeString = Long.toString(Math.abs(this.hashCode()));
+        String randomString = Long.toString(Math.abs(random.nextInt()));
+        String finalString = hashCodeString + randomString;
+        long finalLong = Long.parseUnsignedLong(finalString);
+        return finalLong;
     }
 }
