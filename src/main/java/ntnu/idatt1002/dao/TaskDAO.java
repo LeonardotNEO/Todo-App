@@ -69,7 +69,7 @@ public final class TaskDAO {
     public static void serializeTask(Task task){
         String username = task.getUserName();
         String category = task.getCategory();
-        int taskID = task.hashCode();
+        long taskID = task.getId();
         File file = new File(filePath(username, category, taskID));
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -91,7 +91,7 @@ public final class TaskDAO {
      * @param taskID tasks hashcode
      * @return Task object, or {@code null} if it could not be found
      */
-    public static Task deserializeTask(String username, String category, int taskID){
+    public static Task deserializeTask(String username, String category, long taskID){
         return deserializeTask(filePath(username, category, taskID));
     }
 
@@ -101,7 +101,7 @@ public final class TaskDAO {
      * @param taskID tasks hashcode
      * @return Task object, {@code null} if task object could not be found
      */
-    public static Task deserializeTask(String username, int taskID){
+    public static Task deserializeTask(String username, long taskID){
         File directory = new File(categoriesPath(username));
         String[] categories = directory.list();
 
@@ -190,7 +190,7 @@ public final class TaskDAO {
     public static boolean deleteTask(Task task){
         String username = task.getUserName();
         String category = task.getCategory();
-        int taskID = task.hashCode();
+        long taskID = task.getId();
         return deleteTask(filePath(username, category, taskID));
     }
 
@@ -222,7 +222,7 @@ public final class TaskDAO {
     /**
      * Get file path
      */
-    private static String filePath(String username, String category, int taskID){
+    private static String filePath(String username, String category, long taskID){
         return (categoryPath(username, category) + PREFIX + taskID + FILETYPE);
     }
 }

@@ -21,7 +21,7 @@ import java.io.IOException;
  */
 public class TaskController {
 
-    private int taskId;
+    private long taskId;
     @FXML private Text taskName;
     @FXML private Text taskDescription;
     @FXML private Label taskDate;
@@ -147,11 +147,7 @@ public class TaskController {
 
     }
 
-    /**
-     * A method to set the id of the task
-     * @param id
-     */
-    public void setTaskId(int id){
+    public void setTaskId(long id){
         this.taskId = id;
     }
 }

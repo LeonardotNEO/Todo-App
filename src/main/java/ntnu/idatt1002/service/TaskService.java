@@ -173,7 +173,7 @@ public class TaskService {
      * @param id
      * @return
      */
-    public static Task getTaskByCurrentUser(int id){
+    public static Task getTaskByCurrentUser(long id){
         Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUserUsername(), id);
         return task;
     }
