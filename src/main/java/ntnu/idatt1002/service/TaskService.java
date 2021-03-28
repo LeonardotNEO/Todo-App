@@ -1,14 +1,10 @@
 package ntnu.idatt1002.service;
 
-import javafx.scene.control.DatePicker;
 import ntnu.idatt1002.Task;
-import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.dao.UserDAO;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.util.*;
 
 
@@ -16,8 +12,8 @@ import java.util.*;
  * A class which provides some necessary features which utilises task-data
  */
 public class TaskService {
-    public static boolean newTask(String title, LocalDate deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, getDeadlineMs(deadline), priority, startDate, category, color, location, notifications, tags);
+    public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
+        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, deadline, priority, startDate, category, color, location, notifications, tags);
         TaskDAO.serializeTask(newTask);
         return true;
     }
@@ -176,32 +172,6 @@ public class TaskService {
     public static Task getTaskByCurrentUser(long id){
         Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUserUsername(), id);
         return task;
-    }
-
-    /**
-     * Returns a long representing time in milliseconds since 1/1/1970
-     * @param localdate
-     * @return
-     */
-    public static long getDeadlineMs(LocalDate localdate) {
-        Instant instant = localdate.atStartOfDay(ZoneId.systemDefault()).toInstant();
-        return instant.toEpochMilli();
-    }
-
-    /**
-     * Takes a long and turns it into a date in the format dd/MM/yyyy. The ms inserted represents the time since 1/1/1970
-     * @param ms
-     * @return
-     */
-    public static String transformDeadline(long ms) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(ms + 1);
-
-        // Adds a 0 to month/Day if under 9 so the format is always MM
-        String month = calendar.get(Calendar.MONTH) > 9 ? "" + (calendar.get(Calendar.MONTH) + 1) : "0" + (calendar.get(Calendar.MONTH) + 1);
-        String day = calendar.get(Calendar.DAY_OF_MONTH) > 9 ? "" + calendar.get(Calendar.DAY_OF_MONTH) : "0" + calendar.get(Calendar.DAY_OF_MONTH);
-
-        return day+ "/" + month + "/" + calendar.get(Calendar.YEAR);
     }
 
     /**

@@ -6,18 +6,19 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.utils.DateUtils;
+import ntnu.idatt1002.utils.TimeConverter;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A class which contains the buttons related to editing a task
@@ -59,10 +60,10 @@ public class EditTaskController {
         // Make new task
         TaskService.newTask(
                 titleTextField.getText(),
-                datePicker.getValue(),
+                DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
                 descriptionTextArea.getText(),
                 Integer.parseInt(priorityMenu.getText()),
-                TaskService.getDeadlineMs(LocalDate.now()),
+                DateUtils.getAsMs(LocalDate.now()),
                 categoryMenu.getText(),
                 color.getValue().toString(),
                 locationTextField.getText(),
@@ -148,11 +149,19 @@ public class EditTaskController {
     }
 
     /**
-     * A method to set a specific time (hours : minutes)
-     * @param localTime
+     * A method to set a time
+     * @param clock
      */
-    public void setTimePicker(LocalTime localTime) {
-        this.timePicker.setValue(localTime);
+    public void setTimePicker(String clock) {
+        this.timePicker.setValue(LocalTime.parse(clock, DateTimeFormatter.ofPattern("HH:mm")));
+    }
+
+    /**
+     * A method to set the converter for the time that is beeing used.
+     * @param timeConverter
+     */
+    public void setTimePicker(TimeConverter timeConverter) {
+        this.timePicker.setConverter(timeConverter);
     }
 
     public void setTimePicker24Hour(boolean time){

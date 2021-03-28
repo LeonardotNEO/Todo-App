@@ -17,8 +17,11 @@ import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
+import ntnu.idatt1002.utils.DateUtils;
+import ntnu.idatt1002.utils.TimeConverter;
 
 import java.io.IOException;
+import java.time.LocalTime;
 
 /**
  * A class which contains the buttons related to a singular task
@@ -86,10 +89,12 @@ public class TaskController {
         // set category prompt
         editTaskController.setCategoryMenu(task.getCategory());
         // set datepicker prompt and DateConverter
-        editTaskController.setDatePicker(TaskService.transformDeadline(task.getDeadline()));
+        editTaskController.setDatePicker(DateUtils.getFormattedDate(task.getDeadline()));
         editTaskController.setDatePicker(new DateConverter());
         // set timePicker
         // Todo set timepicker
+        editTaskController.setTimePicker(DateUtils.getFormattedTime(task.getDeadline()));
+        editTaskController.setTimePicker(new TimeConverter());
         editTaskController.setTimePicker24Hour(true);
         // set priority prompt
         editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));

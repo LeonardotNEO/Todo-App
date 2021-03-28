@@ -10,6 +10,7 @@ import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -68,10 +69,10 @@ public class NewTaskController {
 
         boolean addTaskSuccessful = TaskService.newTask(
                 titleTextField.getText(),
-                datePicker.getValue(),
+                DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
                 descriptionTextArea.getText(),
                 Integer.parseInt(priorityMenu.getText()),
-                TaskService.getDeadlineMs(LocalDate.now()),
+                DateUtils.getAsMs(LocalDate.now()),
                 categoryMenu.getText(),
                 color.getValue().toString(),
                 locationTextField.getText(),

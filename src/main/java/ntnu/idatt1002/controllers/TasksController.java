@@ -8,6 +8,7 @@ import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class TasksController {
         // use controller to change content of task before adding to to tasks
         taskController.setTaskName(taskObject.getName());
         taskController.setTaskDescription(taskObject.getDescription());
-        taskController.setTaskDate(TaskService.transformDeadline(taskObject.getDeadline()));
+        taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
         taskController.setTaskPriority(taskObject.getPriority());
         taskController.setTaskId(taskObject.getId());
         taskController.setTaskColor(taskObject.getColor());

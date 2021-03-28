@@ -1,8 +1,7 @@
 package ntnu.idatt1002;
 
-import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.TaskService;
-import ntnu.idatt1002.utils.DateConverter;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -38,7 +37,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.salt = salt;
-        this.dateCreated = TaskService.getDeadlineMs(LocalDate.now());
+        this.dateCreated = DateUtils.getAsMs(LocalDate.now());
     }
 
     /**
