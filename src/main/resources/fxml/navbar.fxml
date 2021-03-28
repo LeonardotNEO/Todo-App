@@ -19,7 +19,7 @@
          <left>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="WHITE" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 45;" text="ToDo" textAlignment="CENTER" wrappingWidth="237.9830722808838">
+                  <Text fill="WHITE" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 55;" text="ToDo" textAlignment="CENTER" wrappingWidth="237.9830722808838">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -32,7 +32,7 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" layoutX="282.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="623.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button id="button1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="140.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Dashboard" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="140.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Dashboard" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -43,7 +43,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="button1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonAccount" prefHeight="47.0" prefWidth="116.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Account" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonAccount" prefHeight="47.0" prefWidth="116.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Account" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -54,7 +54,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="button1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="50.0" prefWidth="108.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Log out" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="47.0" prefWidth="108.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Log out" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -76,7 +76,7 @@
                                     </FontAwesomeIconView>
                                     <Pane fx:id="notificationCountPane">
                                        <children>
-                                          <Circle fill="DODGERBLUE" layoutX="13.0" layoutY="11.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fill="#c92020" layoutX="13.0" layoutY="11.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
                                           <Text fx:id="notificationCountText" layoutX="9.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
                                        </children>
                                     </Pane>

@@ -39,10 +39,14 @@ public class TaskService {
      */
     public static void editCategoryOfTasks(ArrayList<Task> tasks, String newCategory){
         tasks.forEach(task -> {
-            TaskDAO.deleteTask(task);
-            task.setCategory(newCategory);
-            TaskDAO.serializeTask(task);
+            editCategoryOfTask(task, newCategory);
         });
+    }
+
+    public static void editCategoryOfTask(Task task, String newCategory){
+        TaskDAO.deleteTask(task);
+        task.setCategory(newCategory);
+        TaskDAO.serializeTask(task);
     }
 
     /**
