@@ -13,7 +13,7 @@ public class UserStateDAOTest {
     private final static User userA = new User("olanormann");
 
     @BeforeAll
-    static void setup(){
+    public static void setup(){
         UserDAO.serializeUser(userA);
         UserStateDAO.setUserState("olanormann", "Home", "Alphabetic", false);
     }
@@ -40,7 +40,7 @@ public class UserStateDAOTest {
     }
 
     @AfterAll
-    static void cleanup(){
+    public static void cleanup(){
         UserDAO.deleteUser("olanormann");
         UserStateDAO.setUserState(null, null, null, false);
     }

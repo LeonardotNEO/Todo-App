@@ -20,7 +20,7 @@ public class NotificationDAOTest {
             Clock.systemDefaultZone());
 
     @BeforeAll
-    static void setup(){
+    public static void setup(){
         UserDAO.serializeUser(userA);
         NotificationDAO.serializeNotif(notifA);
     }
@@ -59,7 +59,7 @@ public class NotificationDAOTest {
     }
 
     @AfterAll
-    static void cleanup(){
+    public static void cleanup(){
         UserDAO.deleteUser("olanormann");
     }
 }

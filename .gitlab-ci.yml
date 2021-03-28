@@ -1,0 +1,28 @@
+image: maven:latest
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - /root/.m2/repository/
+
+build:
+  stage: build
+  only:
+    - master
+    - merge_requests
+  script:
+    - echo "BUILDING PROJECT"
+    - mvn clean compile
+
+
+test:
+  stage: test
+  only:
+    - master
+    - merge_requests
+  script:
+    - echo "RUNNING TESTS"
+    - mvn clean test -e

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserServiceTest {
 
     @Test
-    public void DeleteUserTest() {
+    public static void DeleteUserTest() {
         // Create a new user, save and serialize it
         User user = new User("Test");
         UserDAO.serializeUser(user);
@@ -22,7 +22,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void DeleteUserWithoutAUserInState() {
+    public static void DeleteUserWithoutAUserInState() {
         assertFalse(UserService.deleteUser());
     }
 }
