@@ -13,6 +13,7 @@ public final class UserLogDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
     private static final String FILENAME = "userlog.txt";
 
+    //ADD ENTRY
     public static void setUserRegistration(String username){
         writeEntry(username, "User created");
     }
@@ -35,6 +36,10 @@ public final class UserLogDAO {
 
     public static void setTaskDone(String username, String title){
         writeEntry(username, "Task marked as done: " + title);
+    }
+
+    public static String[] getLog(String username){
+        return null;
     }
 
     /**
