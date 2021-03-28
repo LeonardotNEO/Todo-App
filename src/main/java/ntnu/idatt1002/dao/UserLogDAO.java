@@ -59,6 +59,7 @@ public final class UserLogDAO {
                     lines.add(line);
                 }
 
+                bufferedReader.close();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }

@@ -52,6 +52,12 @@ public class UserLogTest {
             String[] categoryRemoved = userLog.getCategoryRemoved();
             assertTrue(Arrays.stream(categoryRemoved).allMatch(str -> str.contains("Category removed")));
         }
+
+        @Test
+        public void _getTaskAdded(){
+            String[] taskAdded = userLog.getTaskAdded();
+            assertTrue(Arrays.stream(taskAdded).allMatch(str -> str.contains("Task created")));
+        }
     }
 
     @AfterAll
