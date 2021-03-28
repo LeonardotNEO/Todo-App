@@ -1,5 +1,7 @@
 package ntnu.idatt1002.dao;
 
+import ntnu.idatt1002.User;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -7,6 +9,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Static class to store actions in a user log file
@@ -66,9 +70,34 @@ public final class UserLogDAO {
         return lines.toArray(new String[0]);
     }
 
+    /**
+     * Get a UserLog object containing the full user log split into entry types
+     * @param username the user to get the log file from
+     * @return a {@code UserLog} object, or {@code null} if user does not exist
+     */
     public static UserLog getUserLog(String username){
-        String[] fullLog = getFullLog(username);
-        return null;
+        if(UserDAO.userExists(username)) {
+            String[] fullLog = getFullLog(username);
+            String userCreation = fullLog[0];
+            String[] categoryAdded = filterArray(fullLog, "Category created");
+            String[] categoryRemoved = filterArray(fullLog, "Category removed");
+            String[] taskAdded = filterArray(fullLog, "Task created");
+            String[] taskRemoved = filterArray(fullLog, "Task removed");
+            String[] taskDone = filterArray(fullLog, "Task marked as done");
+
+            return new UserLog(username, userCreation, categoryAdded, categoryRemoved, taskAdded,
+                    taskRemoved, taskDone);
+        }else{ return null; }
+    }
+
+    /**
+     * Given a full user log and a string to filter each entry, returns entries that match
+     * @param fullLog a String[] from calling getFullLog()
+     * @param filter keyword to filter the entries
+     * @return a String[] containing all entries with matching filter
+     */
+    private static String[] filterArray(String[] fullLog, String filter){
+        return Arrays.stream(fullLog).filter(str -> str.contains(filter)).toArray(String[]::new);
     }
 
     /**
