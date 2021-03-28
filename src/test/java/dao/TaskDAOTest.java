@@ -21,7 +21,7 @@ public class TaskDAOTest {
     private static int taskA_ID;
 
     @BeforeAll
-    static void setup() {
+    public static void setup() {
         UserDAO.serializeUser(userA);
         CategoryDAO.addCategory("olanormann", categoryA);
         TaskDAO.serializeTask(taskA);
@@ -83,7 +83,7 @@ public class TaskDAOTest {
     }
 
     @AfterAll
-    static void cleanup(){
+    public static void cleanup(){
         UserDAO.deleteUser("olanormann");
     }
 }

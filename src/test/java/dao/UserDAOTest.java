@@ -15,7 +15,7 @@ public class UserDAOTest {
     private final static User userA = new User("olanormann");
 
     @BeforeAll
-    static void setup(){
+    public static void setup(){
         UserDAO.serializeUser(userA);
     }
 
@@ -88,7 +88,7 @@ public class UserDAOTest {
     }
 
     @AfterAll
-    static void cleanup(){
+    public static void cleanup(){
         UserDAO.deleteUser("olanormann");
     }
 }
