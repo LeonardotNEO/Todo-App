@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
@@ -52,7 +53,7 @@ public class NewTaskController {
      * @throws IOException
      */
     public void buttonCancelNewTask(ActionEvent event) throws IOException {
-        DashboardController.getInstance().loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
+        DashboardController.getInstance().initialize();
     }
 
     /**

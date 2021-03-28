@@ -14,7 +14,7 @@ public class CategoryDAOTest {
     private final static String categoryA = "Work";
 
     @BeforeAll
-    static void setup() {
+    public static void setup() {
         UserDAO.serializeUser(userA);
         boolean success = CategoryDAO.addCategory("olanormann", categoryA);
         if(!success){ System.out.println("Error occured"); }
@@ -28,7 +28,7 @@ public class CategoryDAOTest {
     }
 
     @Nested
-    class file_not_existing{
+    public class file_not_existing{
         @Test
         public void username(){
             assertNull(CategoryDAO.getCategoriesByUser("josephjoestar"));
@@ -41,7 +41,7 @@ public class CategoryDAOTest {
     }
 
     @AfterAll
-    static void cleanup(){
+    public static void cleanup(){
         UserDAO.deleteUser("olanormann");
     }
 }

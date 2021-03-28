@@ -39,7 +39,8 @@ public class TasksController {
         taskController.setTaskDescription(taskObject.getDescription());
         taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
         taskController.setTaskPriority(taskObject.getPriority());
-        taskController.setTaskId(taskObject.hashCode());
+        taskController.setTaskId(taskObject.getId());
+        taskController.setTaskColor(taskObject.getColor());
 
         // adding the task to tasks
         tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);
@@ -89,5 +90,15 @@ public class TasksController {
 
             tasksVBox.getChildren().add(text);
         }
+    }
+
+    /**
+     * Method for displaying UI in tasks when we are using searchbar
+     */
+    public void tasksIsEmptySearch(){
+        Text text = new Text();
+        text.setText("No task matching your search!");
+        text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
+        tasksVBox.getChildren().add(text);
     }
 }

@@ -88,7 +88,7 @@
                         <Insets />
                      </HBox.margin>
                   </MenuButton>
-                  <TextField nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="111.0" promptText="Search..." styleClass="button1" stylesheets="@../css/main.css">
+                  <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="111.0" promptText="Search..." styleClass="button1" stylesheets="@../css/main.css">
                      <font>
                         <Font size="16.0" />
                      </font>

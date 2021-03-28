@@ -35,10 +35,14 @@ public class TaskService {
      */
     public static void editCategoryOfTasks(ArrayList<Task> tasks, String newCategory){
         tasks.forEach(task -> {
-            TaskDAO.deleteTask(task);
-            task.setCategory(newCategory);
-            TaskDAO.serializeTask(task);
+            editCategoryOfTask(task, newCategory);
         });
+    }
+
+    public static void editCategoryOfTask(Task task, String newCategory){
+        TaskDAO.deleteTask(task);
+        task.setCategory(newCategory);
+        TaskDAO.serializeTask(task);
     }
 
     /**
@@ -153,7 +157,7 @@ public class TaskService {
         ArrayList<Task> CompatableTasks = new ArrayList<>();
 
         for(Task t: userTasks){
-            if(t.getName().contains(DesiredName)){
+            if(t.getName().toLowerCase().contains(DesiredName.toLowerCase())){
                 CompatableTasks.add(t);
             }
         }
@@ -165,7 +169,7 @@ public class TaskService {
      * @param id
      * @return
      */
-    public static Task getTaskByCurrentUser(int id){
+    public static Task getTaskByCurrentUser(long id){
         Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUserUsername(), id);
         return task;
     }
