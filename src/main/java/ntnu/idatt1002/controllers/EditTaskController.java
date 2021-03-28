@@ -10,12 +10,14 @@ import ntnu.idatt1002.service.TaskService;
 
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A class which contains the buttons related to editing a task
@@ -57,10 +59,10 @@ public class EditTaskController {
         // Make new task
         TaskService.newTask(
                 titleTextField.getText(),
-                TaskService.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
+                DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
                 descriptionTextArea.getText(),
                 Integer.parseInt(priorityMenu.getText()),
-                TaskService.getAsMs(LocalDate.now()),
+                DateUtils.getAsMs(LocalDate.now()),
                 categoryMenu.getText(),
                 color.getValue().toString(),
                 locationTextField.getText(),

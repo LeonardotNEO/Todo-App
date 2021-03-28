@@ -13,6 +13,7 @@ import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateConverter;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -80,11 +81,11 @@ public class TaskController {
         // set category prompt
         editTaskController.setCategoryMenu(task.getCategory());
         // set datepicker prompt and DateConverter
-        editTaskController.setDatePicker(TaskService.getDate(task.getDeadline()));
+        editTaskController.setDatePicker(DateUtils.getFormattedDate(task.getDeadline()));
         editTaskController.setDatePicker(new DateConverter());
         // set timePicker
         // Todo set timepicker
-        editTaskController.setTimePicker(TaskService.getClock(task.getDeadline()));
+        editTaskController.setTimePicker(DateUtils.getFormattedTime(task.getDeadline()));
         editTaskController.setTimePicker24Hour(true);
         // set priority prompt
         editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
