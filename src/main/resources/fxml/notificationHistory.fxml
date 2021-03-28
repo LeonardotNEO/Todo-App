@@ -22,9 +22,9 @@
       </AnchorPane>
    </center>
    <top>
-      <AnchorPane maxWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxWidth="-Infinity" prefHeight="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notification history" textAlignment="CENTER">
+            <Text layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notification history" textAlignment="CENTER">
                <font>
                   <Font size="26.0" />
                </font>
