@@ -1,7 +1,5 @@
 package ntnu.idatt1002.dao;
 
-import ntnu.idatt1002.User;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * Static class to store actions in a user log file
@@ -114,7 +111,7 @@ public final class UserLogDAO {
 
             //Write to file
             try {
-                FileWriter fileWriter = new FileWriter(filePath(username));
+                FileWriter fileWriter = new FileWriter(filePath(username), true);
                 fileWriter.write(formatDatetime + " - " + entry + ".\n");
                 fileWriter.close();
             } catch (IOException e) {
