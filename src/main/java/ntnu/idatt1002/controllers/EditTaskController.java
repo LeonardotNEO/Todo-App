@@ -11,6 +11,7 @@ import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
+import ntnu.idatt1002.utils.TimeConverter;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -152,11 +153,19 @@ public class EditTaskController {
     }
 
     /**
-     * A method to set a specific time (hours : minutes)
-     * @param localTime
+     * A method to set a time
+     * @param clock
      */
-    public void setTimePicker(LocalTime localTime) {
-        this.timePicker.setValue(localTime);
+    public void setTimePicker(String clock) {
+        this.timePicker.setValue(LocalTime.parse(clock, DateTimeFormatter.ofPattern("HH:mm")));
+    }
+
+    /**
+     * A method to set the converter for the time that is beeing used.
+     * @param timeConverter
+     */
+    public void setTimePicker(TimeConverter timeConverter) {
+        this.timePicker.setConverter(timeConverter);
     }
 
     public void setTimePicker24Hour(boolean time){

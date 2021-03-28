@@ -14,6 +14,7 @@ import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.utils.DateUtils;
+import ntnu.idatt1002.utils.TimeConverter;
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -86,6 +87,7 @@ public class TaskController {
         // set timePicker
         // Todo set timepicker
         editTaskController.setTimePicker(DateUtils.getFormattedTime(task.getDeadline()));
+        editTaskController.setTimePicker(new TimeConverter());
         editTaskController.setTimePicker24Hour(true);
         // set priority prompt
         editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
