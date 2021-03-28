@@ -157,7 +157,7 @@ public class TaskService {
         ArrayList<Task> CompatableTasks = new ArrayList<>();
 
         for(Task t: userTasks){
-            if(t.getName().contains(DesiredName)){
+            if(t.getName().toLowerCase().contains(DesiredName.toLowerCase())){
                 CompatableTasks.add(t);
             }
         }

@@ -10,11 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -44,6 +40,7 @@ public class DashboardController {
     @FXML private HBox taskHBox;
     @FXML private Button buttonEditCategory;
     @FXML private Button buttonDeleteCategory;
+    @FXML private TextField searchField;
 
     public DashboardController(){
         instance = this;
@@ -63,6 +60,9 @@ public class DashboardController {
 
         // load categoryBar and taskBar if currentCategory exists in UserState
         updateCategoryEditDeleteBar();
+
+        // initialize searchbar
+        initializeSearchbar();
     }
 
     /**
@@ -293,8 +293,12 @@ public class DashboardController {
         TasksController tasksController = loader.getController();
 
         if(tasks == null || tasks.isEmpty()){
-            // if tasks ArrayList is empty
-            tasksController.tasksIsEmpty();
+            // we differentiate between getting empty task arraylist when loading normally og using searchbar
+            if(!searchField.getText().isEmpty()){
+                tasksController.tasksIsEmptySearch();
+            } else {
+                tasksController.tasksIsEmpty();
+            }
         } else {
             // add tasks to generated taskspage
             tasksController.addTasks(tasks);
@@ -327,5 +331,18 @@ public class DashboardController {
         });
 
         return menuItem;
+    }
+
+    /**
+     * Method for initializing searchbar with listener (searchbar is updating everytime something is typed)
+     */
+    public void initializeSearchbar(){
+        searchField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+            try {
+                loadTasksPage(TaskService.TasksFoundWithSearchBox(newValue));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
     }
 }
