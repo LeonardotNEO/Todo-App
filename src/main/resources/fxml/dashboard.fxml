@@ -22,9 +22,12 @@
                <children>
                   <VBox prefWidth="250.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;">
+                        <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" styleClass="scroll-bar" stylesheets="@../css/main.css">
                            <content>
-                              <VBox fx:id="categories" prefWidth="215.0" spacing="10.0" />
+                              <VBox fx:id="categories" prefWidth="215.0" spacing="10.0">
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding></VBox>
                            </content>
                         </ScrollPane>
                         <JFXButton id="button1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewCategory" prefHeight="35.0" prefWidth="200.0" style="-fx-min-height: 35;" styleClass="button1" stylesheets="@../css/main.css" text="New category">
@@ -40,7 +43,7 @@
                         </JFXButton>
                      </children>
                      <padding>
-                        <Insets left="15.0" top="15.0" />
+                        <Insets left="15.0" />
                      </padding>
                   </VBox>
                </children>
