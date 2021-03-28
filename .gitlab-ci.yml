@@ -1,9 +1,11 @@
-java:
+image: maven:latest
+
+stages:
+  - test
+
+test:
   stage: test
+
   script:
-    - mvn verify
-  artifacts:
-    when: always
-    reports:
-      junit:
-        - target/surefire-reports/TEST-*.xml
+    - echo "RUNNING TESTS"
+    - mvn clean test
