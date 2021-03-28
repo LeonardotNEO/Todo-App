@@ -90,4 +90,14 @@ public class TasksController {
             tasksVBox.getChildren().add(text);
         }
     }
+
+    /**
+     * Method for displaying UI in tasks when we are using searchbar
+     */
+    public void tasksIsEmptySearch(){
+        Text text = new Text();
+        text.setText("No task matching your search!");
+        text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
+        tasksVBox.getChildren().add(text);
+    }
 }
