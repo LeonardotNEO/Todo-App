@@ -41,7 +41,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#deleteTask" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
+            <Button mnemonicParsing="false" onAction="#clickDeleteButton" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" size="18" />
                </graphic>

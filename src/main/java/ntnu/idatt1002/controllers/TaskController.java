@@ -4,6 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -11,6 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
@@ -36,6 +44,12 @@ public class TaskController {
     @FXML private Pane background;
     @FXML private HBox toolsHBox;
 
+    @FXML private Button noButton;
+    @FXML private Button yesButton;
+    @FXML private CheckBox checkBox;
+    @FXML private Text confirmQuestion;
+    @FXML private Text extraText;
+
     /**
      * When finishTaskButton is clicked, task is moved to finished tasks folder
      * @param event
@@ -46,9 +60,46 @@ public class TaskController {
         DashboardController.getInstance().initialize();
     }
 
+    public void clickDeleteButton(ActionEvent event) throws IOException {
+        ConfirmationController.display(this);
+
+/*
+        AnchorPane root;
+        Popup popup = new Popup();
+        root = FXMLLoader.load(getClass().getResource("/fxml/confirmation.fxml"));
+        popup.getContent().add(root);
+        popup.setAutoHide(true);
+        popup.show(App.getStage());
+*/
+    }
+    /*
+    @FXML
+    void dontShowAgain(ActionEvent event) {
+        // save option to user file if ticked
+        checkBox.setSelected(true);
+    }
+
+    @FXML
+    void noOption(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    void yesOption(ActionEvent event) {
+        try {
+            this.deleteTask();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+    */
+
     /**
      * Get the id of this task (from tasks AnchorPane), then we delete the task with this id with TaskService
-     * @param event
      * @throws IOException
      */
     public void deleteTask(ActionEvent event) throws IOException {
