@@ -119,8 +119,16 @@ public final class UserDAO {
 
         //User
         File userDir = new File(userDir(username));
-        File userFile = new File(filePath(username));
-        if(!userFile.delete() || !userDir.delete()){ success = false; }
+        String[] filenames = userDir.list();
+
+        if(filenames != null){
+            for(String filename : filenames){
+                File file = new File(userDir(username) + filename);
+                if(!file.delete()){ success = false; }
+            }
+        }
+
+        if(!userDir.delete()){ success = false; }
 
         return success;
     }

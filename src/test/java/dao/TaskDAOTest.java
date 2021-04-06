@@ -5,13 +5,11 @@ import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserDAO;
-import ntnu.idatt1002.service.TaskService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
