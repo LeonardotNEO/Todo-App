@@ -1,10 +1,15 @@
 package ntnu.idatt1002.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
@@ -19,6 +24,15 @@ import java.util.ArrayList;
 public class TasksController {
 
     @FXML private VBox tasksVBox;
+    @FXML private ScrollPane scrollpane;
+
+
+    /**
+     * Method that runs when this controller is initialized
+     */
+    public void initialize(){
+        addTasksVBoxListener();
+    }
 
     /**
      * Method for adding a Task UI element to tasksVBox
@@ -100,5 +114,17 @@ public class TasksController {
         text.setText("No task matching your search!");
         text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
         tasksVBox.getChildren().add(text);
+    }
+
+    /**
+     * Adds a listener to scrollpane that makes the width of tasksVBox change when scrollpane size changes
+     */
+    public void addTasksVBoxListener(){
+        scrollpane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                tasksVBox.setPrefWidth(scrollpane.getWidth() - 15);
+            }
+        });
     }
 }

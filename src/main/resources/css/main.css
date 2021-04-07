@@ -132,3 +132,8 @@
   -fx-background-color: linear-gradient(#f5f1f1, #dfeadf);
 }
 
+.overview-navbar {
+  -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+  -fx-background-color: #00254d;
+}
+
