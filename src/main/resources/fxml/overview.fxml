@@ -36,7 +36,7 @@
    <center>
       <AnchorPane fx:id="content" prefHeight="276.0" prefWidth="800.0" stylesheets="@../css/main.css" BorderPane.alignment="CENTER">
          <children>
-            <HBox fx:id="simpleView" layoutX="14.0" layoutY="12.0" spacing="10.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
+            <HBox fx:id="simpleView" layoutX="14.0" layoutY="12.0" spacing="20.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
                <children>
                   <AnchorPane prefWidth="1000.0">
                      <children>
@@ -45,30 +45,47 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane fx:id="dueThisWeek" layoutY="37.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                        <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
-                              <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="245.0" spacing="10.0" />
-                           </content></ScrollPane>
+                              <VBox fx:id="dueThisWeek" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
+                           </content>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding></ScrollPane>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefWidth="1000.0">
                      <children>
-                        <Text layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks due in the next 7 days">
+                        <Text layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks due next 7 days">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane fx:id="dueNext7Days" layoutY="37.0" prefHeight="303.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                           <content>
+                              <VBox fx:id="dueNext7Days" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
+                           </content>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefWidth="1000.0">
                      <children>
-                        <Text layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks due this month">
+                        <Text layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks due in this month">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane fx:id="dueThisMonth" layoutY="37.0" prefHeight="303.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                           <content>
+                              <VBox fx:id="dueThisMonth" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
+                           </content>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
                </children>

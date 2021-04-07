@@ -8,10 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import ntnu.idatt1002.Task;
-import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 
@@ -31,7 +28,7 @@ public class TasksController {
      * Method that runs when this controller is initialized
      */
     public void initialize(){
-        addTasksVBoxListener();
+        addScrollpaneListener();
     }
 
     /**
@@ -119,7 +116,7 @@ public class TasksController {
     /**
      * Adds a listener to scrollpane that makes the width of tasksVBox change when scrollpane size changes
      */
-    public void addTasksVBoxListener(){
+    public void addScrollpaneListener(){
         scrollpane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {

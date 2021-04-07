@@ -73,7 +73,8 @@ public class TaskController {
         // load the task part of newEditTaskController
         newEditTaskController.initializeEditTask(TaskService.getTaskByCurrentUser(taskId));
 
-        // set dashboard content to editMenu
+        // set mainControllers maincontent to dashboard and set dashboard to editpage
+        MainController.getInstance().setMainContent("dashboard");
         DashboardController.getInstance().setCenterContent(editMenu);
     }
 
