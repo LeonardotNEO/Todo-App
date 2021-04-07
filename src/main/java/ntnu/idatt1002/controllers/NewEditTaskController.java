@@ -56,6 +56,7 @@ public class NewEditTaskController {
         timePicker.set24HourView(true);
 
         // set onAction of button
+        button.setText("New task");
         button.setOnAction(event -> {
             try {
                 buttonNewTask();
@@ -109,7 +110,8 @@ public class NewEditTaskController {
         // set tags
         setTags(task.getTags());
 
-        // set onAction of button
+        // set onAction of button and button text
+        button.setText("Edit task");
         button.setOnAction(event -> {
             try {
                 buttonEditTask(task);
