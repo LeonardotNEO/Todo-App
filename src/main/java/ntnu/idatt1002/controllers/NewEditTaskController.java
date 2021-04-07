@@ -6,8 +6,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
-
+import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
@@ -18,15 +21,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
- * A class which contains the buttons related to editing a task
+ * A class which contains the buttons related to the creation of a new task
  */
-public class EditTaskController {
+public class NewEditTaskController {
 
-    private long id;
+    @FXML private Text header;
     @FXML private TextField titleTextField;
+    @FXML private TextField locationTextField;
     @FXML private TextArea descriptionTextArea;
     @FXML private MenuButton categoryMenu;
     @FXML private JFXDatePicker datePicker;
@@ -35,24 +38,147 @@ public class EditTaskController {
     @FXML private JFXCheckBox notification;
     @FXML private JFXColorPicker color;
     @FXML private JFXChipView tags;
-    @FXML private TextField locationTextField;
     @FXML private Label errorMessage;
+    @FXML private Button button;
+
+    /**
+     * Method used for initializing new task page
+     */
+    public void initializeNewTask(){
+        // fill MenuButton categoryMenu with categories
+        setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
+
+        // Changes the date format of the datePicker
+        datePicker.setConverter(new DateConverter());
+        datePicker.setPromptText("dd/mm/yyyy");
+
+        // set timepicker to 24 hour mode
+        timePicker.set24HourView(true);
+
+        // set onAction of button
+        button.setOnAction(event -> {
+            try {
+                buttonNewTask();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // set header
+        header.setText("New task");
+    }
+
+    /**
+     * Method for initializing edit task page
+     * @param task the task thats going to be edited
+     */
+    public void initializeEditTask(Task task){
+        // set title prompt
+        setTitleTextField(task.getName());
+
+        // set description prompt
+        setDescriptionTextArea(task.getDescription());
+
+        // set location prompt
+        setLocation(task.getLocation());
+
+        // set categories in menuButton
+        setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
+
+        // set category prompt
+        setCategoryMenu(task.getCategory());
+
+        // set datepicker prompt and DateConverter
+        setDatePicker(DateUtils.getFormattedDate(task.getDeadline()));
+        setDatePicker(new DateConverter());
+
+        // set timePicker
+        setTimePicker(DateUtils.getFormattedTime(task.getDeadline()));
+        setTimePicker(new TimeConverter());
+        setTimePicker24Hour(true);
+
+        // set priority prompt
+        setPriorityMenu(Integer.toString(task.getPriority()));
+
+        // set notification boolean
+        setNotification(task.getNotification());
+
+        // set color
+        setColor(task.getColor());
+
+        // set tags
+        setTags(task.getTags());
+
+        // set onAction of button
+        button.setOnAction(event -> {
+            try {
+                buttonEditTask(task);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // set header
+        header.setText("Edit task");
+    }
 
     /**
      * Cancel button loads the tasks page back into center-content of dashboard
      * @param event
      * @throws IOException
      */
-    public void buttonCancelEditTask(ActionEvent event) throws IOException {
+    public void buttonCancelTask(ActionEvent event) throws IOException {
         DashboardController.getInstance().initialize();
     }
 
     /**
-     * When editButton is clicked, we delete the old task and make a new one
-     * @param event
+     * Method that uses TaskService to add a new task to the current user
      * @throws IOException
      */
-    public void buttonEditTask(ActionEvent event) throws IOException {
+    public void buttonNewTask() throws  IOException {
+        // check if there is any errorcodes
+        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText());
+
+        if(errorCodes.size() == 0){
+            // get all the input tags and put them in a list
+            ArrayList<String> tagsList = new ArrayList<>();
+            tags.getChips().forEach(tag -> {
+                tagsList.add(tag.toString());
+            });
+
+            // try to add serialize a new task
+            boolean addTaskSuccessful = TaskService.newTask(
+                    titleTextField.getText(),
+                    DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
+                    descriptionTextArea.getText(),
+                    Integer.parseInt(priorityMenu.getText()),
+                    DateUtils.getAsMs(LocalDate.now()),
+                    categoryMenu.getText(),
+                    color.getValue().toString(),
+                    locationTextField.getText(),
+                    notification.isSelected(),
+                    tagsList
+            );
+
+            // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
+            if(addTaskSuccessful){
+                // set current category to this tasks category
+                UserStateService.setCurrentUserCategory(categoryMenu.getText());
+
+                // navigate back to tasks
+                DashboardController.getInstance().initialize();
+            }
+        } else {
+            errorMessage.setText(TaskService.getErrorMessageString(errorCodes));
+        }
+
+    }
+
+    /**
+     * When editButton is clicked, we delete the old task and make a new one
+     * @throws IOException
+     */
+    public void buttonEditTask(Task task) throws IOException {
         // check if there is any errorcodes
         ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText());
 
@@ -78,7 +204,7 @@ public class EditTaskController {
             );
 
             // Delete old one
-            TaskService.deleteTask(TaskService.getTaskByCurrentUser(id));
+            TaskService.deleteTask(TaskService.getTaskByCurrentUser(task.getId()));
 
             if(newTaskSuccesfull){
                 // set current category to this tasks category
@@ -93,17 +219,7 @@ public class EditTaskController {
     }
 
     /**
-     * When priorityMenuItem is clicked, we change the priorityMenuButton to the selection
-     * @param event
-     * @throws IOException
-     */
-    public void clickPriority(ActionEvent event) throws IOException{
-        MenuItem menuItem = (MenuItem) event.getSource();
-        priorityMenu.setText(menuItem.getText());
-    }
-
-    /**
-     * Loads menuItem elements with categoryNames into categoryMenuButton
+     * Loads categories into categoryMenuButton
      * @param categories
      */
     public void setCategoryMenu(ArrayList<String> categories) {
@@ -123,8 +239,14 @@ public class EditTaskController {
         categoryMenu.setText(UserStateService.getCurrentUserCategory());
     }
 
-    public void setId(long id){
-        this.id = id;
+    /**
+     * When priorityMenuItem is clicked, we change the priorityMenuButton to the selection
+     * @param event
+     * @throws IOException
+     */
+    public void clickPriority(ActionEvent event) throws IOException{
+        MenuItem menuItem = (MenuItem) event.getSource();
+        priorityMenu.setText(menuItem.getText());
     }
 
     /**

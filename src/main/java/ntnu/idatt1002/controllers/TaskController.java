@@ -66,42 +66,12 @@ public class TaskController {
      */
     public void editTask(ActionEvent event) throws IOException{
         // Load editTask page. get fxml variable and controller variable
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editTask.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
         Node editMenu = loader.load();
-        EditTaskController editTaskController = loader.getController();
+        NewEditTaskController newEditTaskController = loader.getController();
 
-        // set id of editMenu AnchorPane, so we can fetch id when editing
-        editTaskController.setId(taskId);
-
-        // this task object
-        Task task = TaskService.getTaskByCurrentUser(taskId);
-
-        // set title prompt
-        editTaskController.setTitleTextField(task.getName());
-        // set description prompt
-        editTaskController.setDescriptionTextArea(task.getDescription());
-        // set location prompt
-        editTaskController.setLocation(task.getLocation());
-        // set categories in menuButton
-        editTaskController.setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
-        // set category prompt
-        editTaskController.setCategoryMenu(task.getCategory());
-        // set datepicker prompt and DateConverter
-        editTaskController.setDatePicker(DateUtils.getFormattedDate(task.getDeadline()));
-        editTaskController.setDatePicker(new DateConverter());
-        // set timePicker
-        // Todo set timepicker
-        editTaskController.setTimePicker(DateUtils.getFormattedTime(task.getDeadline()));
-        editTaskController.setTimePicker(new TimeConverter());
-        editTaskController.setTimePicker24Hour(true);
-        // set priority prompt
-        editTaskController.setPriorityMenu(Integer.toString(task.getPriority()));
-        // set notification boolean
-        editTaskController.setNotification(task.getNotification());
-        // set color
-        editTaskController.setColor(task.getColor());
-        // set tags
-        editTaskController.setTags(task.getTags());
+        // load the task part of newEditTaskController
+        newEditTaskController.initializeEditTask(TaskService.getTaskByCurrentUser(taskId));
 
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(editMenu);
