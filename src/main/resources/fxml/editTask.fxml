@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="625.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewTaskController">
+<BorderPane prefHeight="625.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.EditTaskController">
    <top>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
@@ -34,12 +34,12 @@
    <bottom>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton id="button1" layoutX="255.0" layoutY="8.0" onAction="#buttonNewTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Edit task">
+            <JFXButton id="button1" layoutX="255.0" layoutY="8.0" onAction="#buttonEditTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Edit task">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
                </graphic>
             </JFXButton>
-            <JFXButton id="button1" layoutX="380.0" layoutY="8.0" onAction="#buttonCancelNewTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Cancel">
+            <JFXButton id="button1" layoutX="380.0" layoutY="8.0" onAction="#buttonCancelEditTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Cancel">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
                </graphic>
