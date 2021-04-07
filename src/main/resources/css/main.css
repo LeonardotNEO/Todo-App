@@ -119,3 +119,16 @@
   -fx-background-radius : 2.0em;
 }
 
+.simple-advanced-button {
+  -fx-background-color: transparent;
+}
+
+.simple-advanced-button:hover {
+  -fx-underline: true;
+}
+
+.simple-advanced-background {
+  -fx-background-radius: 20;
+  -fx-background-color: linear-gradient(#f5f1f1, #dfeadf);
+}
+

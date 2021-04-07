@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
@@ -32,14 +33,18 @@ public class NewEditTaskController {
     @FXML private TextField locationTextField;
     @FXML private TextArea descriptionTextArea;
     @FXML private MenuButton categoryMenu;
+    @FXML private HBox timeBox;
     @FXML private JFXDatePicker datePicker;
     @FXML private JFXTimePicker timePicker;
     @FXML private MenuButton priorityMenu;
     @FXML private JFXCheckBox notification;
+    @FXML private HBox colorBox;
     @FXML private JFXColorPicker color;
+    @FXML private HBox tagsBox;
     @FXML private JFXChipView tags;
     @FXML private Label errorMessage;
     @FXML private Button button;
+
 
     /**
      * Method used for initializing new task page
@@ -141,6 +146,13 @@ public class NewEditTaskController {
         // check if there is any errorcodes
         ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText());
 
+        // if errorCodes contains 3 (no selected priority), we set priority to 0 and remove this errorcode (because we solved it)
+        if(errorCodes.contains(3)){
+            priorityMenu.setText("0");
+            Integer numberThree = 3;
+            errorCodes.remove(numberThree);
+        }
+
         if(errorCodes.size() == 0){
             // get all the input tags and put them in a list
             ArrayList<String> tagsList = new ArrayList<>();
@@ -218,6 +230,38 @@ public class NewEditTaskController {
         } else {
             errorMessage.setText(TaskService.getErrorMessageString(errorCodes));
         }
+    }
+
+    /**
+     * Method for setting some nodes false, to simply interface
+     */
+    public void buttonSimpleTemplate() {
+        descriptionTextArea.setVisible(false);
+        descriptionTextArea.setManaged(false);
+        locationTextField.setVisible(false);
+        locationTextField.setManaged(false);
+        priorityMenu.setVisible(false);
+        priorityMenu.setManaged(false);
+        colorBox.setVisible(false);
+        colorBox.setManaged(false);
+        tagsBox.setVisible(false);
+        tagsBox.setManaged(false);
+    }
+
+    /**
+     * Method for activating nodes, to show more functionality
+     */
+    public void buttonAdvancedTemplate() {
+        descriptionTextArea.setVisible(true);
+        descriptionTextArea.setManaged(true);
+        locationTextField.setVisible(true);
+        locationTextField.setManaged(true);
+        priorityMenu.setVisible(true);
+        priorityMenu.setManaged(true);
+        colorBox.setVisible(true);
+        colorBox.setManaged(true);
+        tagsBox.setVisible(true);
+        tagsBox.setManaged(true);
     }
 
     /**
