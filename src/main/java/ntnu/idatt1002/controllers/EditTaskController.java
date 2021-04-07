@@ -53,8 +53,10 @@ public class EditTaskController {
      * @throws IOException
      */
     public void buttonEditTask(ActionEvent event) throws IOException {
+        // convert the data from datePicker and timePicker into ms
+        long deadlineTime = DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute()));
         // check if there is any errorcodes
-        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText());
+        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
 
         if(errorCodes.size() == 0){
             // get all the input tags and put them in a list
@@ -66,7 +68,7 @@ public class EditTaskController {
             // Make new task
             boolean newTaskSuccesfull = TaskService.newTask(
                     titleTextField.getText(),
-                    DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
+                    deadlineTime,
                     descriptionTextArea.getText(),
                     Integer.parseInt(priorityMenu.getText()),
                     DateUtils.getAsMs(LocalDate.now()),
