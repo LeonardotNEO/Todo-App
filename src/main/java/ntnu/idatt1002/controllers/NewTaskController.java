@@ -31,6 +31,7 @@ public class NewTaskController {
     @FXML private JFXCheckBox notification;
     @FXML private JFXColorPicker color;
     @FXML private JFXChipView tags;
+    @FXML private Label errorMessage;
 
     /**
      * Initialize method loads categories into categoryMenu and changes the date format when initialized
@@ -62,29 +63,40 @@ public class NewTaskController {
      * @throws IOException
      */
     public void buttonNewTask(ActionEvent event) throws  IOException {
-        ArrayList<String> tagsList = new ArrayList<>();
-        tags.getChips().forEach(tag -> {
-            tagsList.add(tag.toString());
-        });
+        // check if there is any errorcodes
+        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText());
 
-        boolean addTaskSuccessful = TaskService.newTask(
-                titleTextField.getText(),
-                DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
-                descriptionTextArea.getText(),
-                Integer.parseInt(priorityMenu.getText()),
-                DateUtils.getAsMs(LocalDate.now()),
-                categoryMenu.getText(),
-                color.getValue().toString(),
-                locationTextField.getText(),
-                notification.isSelected(),
-                tagsList
-        );
+        if(errorCodes.size() == 0){
+            // get all the input tags and put them in a list
+            ArrayList<String> tagsList = new ArrayList<>();
+            tags.getChips().forEach(tag -> {
+                tagsList.add(tag.toString());
+            });
 
-        if(addTaskSuccessful){
-            UserStateService.setCurrentUserCategory(categoryMenu.getText());
-            DashboardController.getInstance().initialize();
+            // try to add serialize a new task
+            boolean addTaskSuccessful = TaskService.newTask(
+                    titleTextField.getText(),
+                    DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
+                    descriptionTextArea.getText(),
+                    Integer.parseInt(priorityMenu.getText()),
+                    DateUtils.getAsMs(LocalDate.now()),
+                    categoryMenu.getText(),
+                    color.getValue().toString(),
+                    locationTextField.getText(),
+                    notification.isSelected(),
+                    tagsList
+            );
+
+            // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
+            if(addTaskSuccessful){
+                // set current category to this tasks category
+                UserStateService.setCurrentUserCategory(categoryMenu.getText());
+
+                // navigate back to tasks
+                DashboardController.getInstance().initialize();
+            }
         } else {
-            //errormessage
+            errorMessage.setText(TaskService.getErrorMessageString(errorCodes));
         }
 
     }

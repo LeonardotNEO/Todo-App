@@ -36,6 +36,7 @@ public class EditTaskController {
     @FXML private JFXColorPicker color;
     @FXML private JFXChipView tags;
     @FXML private TextField locationTextField;
+    @FXML private Label errorMessage;
 
     /**
      * Cancel button loads the tasks page back into center-content of dashboard
@@ -52,33 +53,43 @@ public class EditTaskController {
      * @throws IOException
      */
     public void buttonEditTask(ActionEvent event) throws IOException {
-        ArrayList<String> tagsList = new ArrayList<>();
-        tags.getChips().forEach(tag -> {
-            System.out.println(tag.toString());
-        });
+        // check if there is any errorcodes
+        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText());
 
-        // Make new task
-        TaskService.newTask(
-                titleTextField.getText(),
-                DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
-                descriptionTextArea.getText(),
-                Integer.parseInt(priorityMenu.getText()),
-                DateUtils.getAsMs(LocalDate.now()),
-                categoryMenu.getText(),
-                color.getValue().toString(),
-                locationTextField.getText(),
-                notification.isSelected(),
-                tagsList
-                );
+        if(errorCodes.size() == 0){
+            // get all the input tags and put them in a list
+            ArrayList<String> tagsList = new ArrayList<>();
+            tags.getChips().forEach(tag -> {
+                System.out.println(tag.toString());
+            });
 
-        // Delete old one
-        TaskService.deleteTask(TaskService.getTaskByCurrentUser(id));
+            // Make new task
+            boolean newTaskSuccesfull = TaskService.newTask(
+                    titleTextField.getText(),
+                    DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
+                    descriptionTextArea.getText(),
+                    Integer.parseInt(priorityMenu.getText()),
+                    DateUtils.getAsMs(LocalDate.now()),
+                    categoryMenu.getText(),
+                    color.getValue().toString(),
+                    locationTextField.getText(),
+                    notification.isSelected(),
+                    tagsList
+            );
 
-        // set current category to this tasks category
-        UserStateService.setCurrentUserCategory(categoryMenu.getText());
+            // Delete old one
+            TaskService.deleteTask(TaskService.getTaskByCurrentUser(id));
 
-        // navigate back to tasks
-        DashboardController.getInstance().initialize();
+            if(newTaskSuccesfull){
+                // set current category to this tasks category
+                UserStateService.setCurrentUserCategory(categoryMenu.getText());
+
+                // navigate back to tasks
+                DashboardController.getInstance().initialize();
+            }
+        } else {
+            errorMessage.setText(TaskService.getErrorMessageString(errorCodes));
+        }
     }
 
     /**

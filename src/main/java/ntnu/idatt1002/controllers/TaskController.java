@@ -52,13 +52,11 @@ public class TaskController {
      * @throws IOException
      */
     public void deleteTask(ActionEvent event) throws IOException {
-        // this task object
-        Task task = TaskService.getTaskByCurrentUser(taskId);
+        // update category of task to trash bin
+        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
 
-        TaskService.deleteTask(task);
-
-        // loads a tasks-page with this users tasks into dashboard
-        DashboardController.getInstance().loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
+        // update dashboard
+        DashboardController.getInstance().initialize();
     }
 
     /**

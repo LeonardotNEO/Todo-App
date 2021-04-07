@@ -186,20 +186,46 @@ public class TaskService {
      * Method that validates if task input is correct
      * @param title
      * @param description
-     * @param deadline
      * @return an ArrayList of errorcodes. Errorcodes can be used i front end to display an errormessage for each scenario
      */
-    public static ArrayList<Integer> validateTaskInput(String title, String description, long deadline){
+    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority){
         ArrayList<Integer> errorsCodes = new ArrayList<>();
 
-        if(title.length() < 0 && title.length() > 30){
+        if(title.length() < 1 || title.length() > 30){
             errorsCodes.add(1);
         }
         if(description.length() > 170){
             errorsCodes.add(2);
         }
+        try{
+            Integer.parseInt(priority);
+        } catch (NumberFormatException nfe) {
+            errorsCodes.add(3);
+        }
 
         return errorsCodes;
+    }
+
+    public static String getErrorMessageString(ArrayList<Integer> errorCodes){
+        String errorMessageDisplayString = "";
+
+        for(Integer errorCode : errorCodes){
+            switch (errorCode){
+                case 1:
+                    errorMessageDisplayString += "- Title must be between 0 and 30 characters \n";
+                    break;
+                case 2:
+                    errorMessageDisplayString += "- Description must be between cant be more than 170 characters \n";
+                    break;
+                case 3:
+                    errorMessageDisplayString += "- Priority must be choosen \n";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return errorMessageDisplayString;
     }
 }
 
