@@ -144,7 +144,13 @@ public class NewEditTaskController {
      */
     public void buttonNewTask() throws  IOException {
         // convert the data from datePicker and timePicker into ms
-        long deadlineTime = DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute()));
+        if(timePicker.getValue() == null) {
+            timePicker.setValue(LocalTime.now());
+        }
+        if(datePicker.getValue() == null) {
+            datePicker.setValue(LocalDate.now());
+        }
+        long deadlineTime = DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
         // check if there is any errorcodes
         ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
 
