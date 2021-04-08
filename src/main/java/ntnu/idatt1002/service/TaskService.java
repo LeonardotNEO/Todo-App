@@ -202,7 +202,9 @@ public class TaskService {
         } catch (NumberFormatException nfe) {
             errorsCodes.add(3);
         }
-        if(deadlineTime < new Date().getTime()) {
+        if(deadlineTime == 0) {
+            errorsCodes.add(5);
+        } else if(deadlineTime < new Date().getTime()) {
             errorsCodes.add(4);
         }
 
@@ -225,6 +227,8 @@ public class TaskService {
                     break;
                 case 4:
                     errorMessageDisplayString += "- Deadline cannot be in the past. Please choose a date in the future";
+                case 5:
+                    errorMessageDisplayString += "- Please select a date";
                 default:
                     break;
             }

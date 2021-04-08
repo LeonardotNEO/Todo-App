@@ -143,14 +143,13 @@ public class NewEditTaskController {
      * @throws IOException
      */
     public void buttonNewTask() throws  IOException {
-        // convert the data from datePicker and timePicker into ms
-        if(timePicker.getValue() == null) {
-            timePicker.setValue(LocalTime.now());
-        }
-        if(datePicker.getValue() == null) {
-            datePicker.setValue(LocalDate.now());
-        }
-        long deadlineTime = DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
+
+        // If no input in timePicker set it to the current time
+        if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
+
+        // convert the data from datePicker and timePicker into ms. Set to 0l if datePicker returns null
+        long deadlineTime = datePicker.getValue() == null ? 0l : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
+
         // check if there is any errorcodes
         ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
 
@@ -201,8 +200,13 @@ public class NewEditTaskController {
      * @throws IOException
      */
     public void buttonEditTask(Task task) throws IOException {
-    // convert the data from datePicker and timePicker into ms
-        long deadlineTime = DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute()));
+
+        // If no input in timePicker set it to current time
+        if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
+
+        // convert the data from datePicker and timePicker into ms. Set to 0l if datePicker returns null
+        long deadlineTime = datePicker.getValue() == null ? 0l : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
+
         // check if there is any errorcodes
         ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
 
