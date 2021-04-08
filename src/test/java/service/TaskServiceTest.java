@@ -74,6 +74,13 @@ public class TaskServiceTest {
     }
 
     @Test
+    public void tasksByDateIntervalTest() {
+        long start = DateUtils.getAsMs(LocalDate.of(2021, 02, 12)) - 100;
+        long end = DateUtils.getAsMs(LocalDate.of(2021, 02, 12)) + 100;
+        assertEquals("Hei", TaskService.getTaskByDateInterval(start, end).get(0).getName());
+    }
+
+    @Test
     public void dateSortTest() {
         UserStateService.setCurrentUserCategory("home");
         ArrayList<Task> list = TaskService.TasksSortedByDate();
