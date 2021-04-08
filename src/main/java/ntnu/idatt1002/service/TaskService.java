@@ -148,6 +148,25 @@ public class TaskService {
     }
 
     /**
+     * Method that retuns a list of tasks between a specific set of dates
+     * @param tasks
+     * @param start
+     * @param stop
+     * @return
+     */
+    public static ArrayList<Task> getTasksBetweenDates(ArrayList<Task> tasks, long start, long stop){
+        ArrayList<Task> tasksBetweenDates = new ArrayList<>();
+
+        for(Task task : tasks){
+            if(task.getDeadline() >= start && task.getDeadline() <= stop){
+                tasksBetweenDates.add(task);
+            }
+        }
+
+        return tasksBetweenDates;
+    }
+
+    /**
      * Returns an ArrayLists of Tasks that have a name that contains the a given string.
      * @param DesiredName
      * @return
