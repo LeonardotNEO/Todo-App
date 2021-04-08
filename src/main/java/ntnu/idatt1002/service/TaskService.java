@@ -56,6 +56,23 @@ public class TaskService {
     }
 
     /**
+     * Method for getting tasks based on if the task does not contain a specific set of categories
+     * @param tasks
+     * @param categories
+     * @return
+     */
+    public static ArrayList<Task> getTasksExcludingCategories(ArrayList<Task> tasks, ArrayList<String> categories){
+        ArrayList<Task> tasksExludingCategories = new ArrayList<>();
+        tasks.forEach(task -> {
+            if(!categories.contains(task.getCategory())){
+                tasksExludingCategories.add(task);
+            }
+        });
+
+        return tasksExludingCategories;
+    }
+
+    /**
      * Get all tasks for the user currently logged inn
      * @return
      */

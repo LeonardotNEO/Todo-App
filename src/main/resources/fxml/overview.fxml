@@ -96,32 +96,7 @@
             </HBox>
             <AnchorPane fx:id="calenderView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox prefHeight="36.0" prefWidth="166.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#buttonChangeMonthLeft" prefHeight="33.0" prefWidth="0.0" style="-fx-background-color: transparent;" textFill="#0a20ae">
-                           <graphic>
-                              <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_LEFT" selectionFill="BLACK" size="25" />
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" text="month" wrappingWidth="151.1953125">
-                           <font>
-                              <Font size="22.0" />
-                           </font>
-                        </Text>
-                        <Button mnemonicParsing="false" onAction="#buttonChangeMonthRight" prefHeight="25.0" prefWidth="38.0" style="-fx-background-color: transparent;" textFill="#0a20ae">
-                           <graphic>
-                              <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_RIGHT" selectionFill="BLACK" size="25" wrappingWidth="22.428571701049805" />
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <GridPane fx:id="calenderViewGrid" hgap="5.0" layoutX="10.0" layoutY="28.0" prefHeight="336.0" prefWidth="780.0" vgap="5.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.0">
+                  <GridPane fx:id="calenderViewGrid" hgap="5.0" layoutX="10.0" layoutY="28.0" prefHeight="336.0" prefWidth="780.0" vgap="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -186,6 +161,31 @@
                         </Text>
                      </children>
                   </GridPane>
+                  <HBox layoutY="10.0" prefHeight="36.0" prefWidth="166.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#buttonChangeMonthLeft" prefHeight="33.0" prefWidth="0.0" style="-fx-background-color: transparent;" textFill="#0a20ae">
+                           <graphic>
+                              <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_LEFT" selectionFill="BLACK" size="25" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" text="month" wrappingWidth="151.1953125">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Text>
+                        <Button mnemonicParsing="false" onAction="#buttonChangeMonthRight" prefHeight="25.0" prefWidth="38.0" style="-fx-background-color: transparent;" textFill="#0a20ae">
+                           <graphic>
+                              <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_RIGHT" selectionFill="BLACK" size="25" wrappingWidth="22.428571701049805" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </children></AnchorPane>
