@@ -188,7 +188,7 @@ public class TaskService {
      * @param description
      * @return an ArrayList of errorcodes. Errorcodes can be used i front end to display an errormessage for each scenario
      */
-    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority){
+    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority, long deadlineTime){
         ArrayList<Integer> errorsCodes = new ArrayList<>();
 
         if(title.length() < 1 || title.length() > 30){
@@ -201,6 +201,11 @@ public class TaskService {
             Integer.parseInt(priority);
         } catch (NumberFormatException nfe) {
             errorsCodes.add(3);
+        }
+        if(deadlineTime == 0) {
+            errorsCodes.add(5);
+        } else if(deadlineTime < new Date().getTime()) {
+            errorsCodes.add(4);
         }
 
         return errorsCodes;
@@ -220,6 +225,10 @@ public class TaskService {
                 case 3:
                     errorMessageDisplayString += "- Priority must be choosen \n";
                     break;
+                case 4:
+                    errorMessageDisplayString += "- Deadline cannot be in the past. Please choose a date in the future";
+                case 5:
+                    errorMessageDisplayString += "- Please select a date";
                 default:
                     break;
             }

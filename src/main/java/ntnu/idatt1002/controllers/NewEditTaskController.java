@@ -143,8 +143,15 @@ public class NewEditTaskController {
      * @throws IOException
      */
     public void buttonNewTask() throws  IOException {
+
+        // If no input in timePicker set it to the current time
+        if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
+
+        // convert the data from datePicker and timePicker into ms. Set to 0l if datePicker returns null
+        long deadlineTime = datePicker.getValue() == null ? 0l : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
+
         // check if there is any errorcodes
-        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText());
+        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
 
         // if errorCodes contains 3 (no selected priority), we set priority to 0 and remove this errorcode (because we solved it)
         if(errorCodes.contains(3)){
@@ -193,8 +200,15 @@ public class NewEditTaskController {
      * @throws IOException
      */
     public void buttonEditTask(Task task) throws IOException {
+
+        // If no input in timePicker set it to current time
+        if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
+
+        // convert the data from datePicker and timePicker into ms. Set to 0l if datePicker returns null
+        long deadlineTime = datePicker.getValue() == null ? 0l : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
+
         // check if there is any errorcodes
-        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText());
+        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
 
         if(errorCodes.size() == 0){
             // get all the input tags and put them in a list
@@ -206,7 +220,7 @@ public class NewEditTaskController {
             // Make new task
             boolean newTaskSuccesfull = TaskService.newTask(
                     titleTextField.getText(),
-                    DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
+                    deadlineTime,
                     descriptionTextArea.getText(),
                     Integer.parseInt(priorityMenu.getText()),
                     DateUtils.getAsMs(LocalDate.now()),
