@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.utils.DateUtils;
@@ -77,15 +78,13 @@ public class OverviewController {
     /**
      * Method used for loading CalenderView
      */
-    public void initializeCalenderView(){
+    public void initializeCalenderView() throws IOException {
         // display this node
         displayNode("calenderView");
 
         // Time now
         LocalDateTime currentDate = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth());
-
-        int startWeek = currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
-        int currentWeek = -1;
+        int currentWeek = currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
         int daysInMonth = YearMonth.of(currentDate.getYear(), currentDate.getMonthValue()).lengthOfMonth();
         int row = 1;
 
@@ -100,19 +99,26 @@ public class OverviewController {
         }};
 
         for(int i = 0; i < daysInMonth; i++){
-            System.out.println(currentDate.getDayOfWeek().getValue());
+            // Loads calenderElement page and get the controller
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calenderElement.fxml"));
+            AnchorPane calenderElement = loader.load();
+            CalenderElementController calenderElementController = loader.getController();
+            calenderElementController.display(Integer.toString(currentDate.get(ChronoField.DAY_OF_MONTH)), new ArrayList<Task>());
 
-            calenderView.add(new Text("Day: " + currentDate.get(ChronoField.DAY_OF_MONTH)), daysColumns.get(currentDate.getDayOfWeek().toString()), row);
+            calenderView.add(calenderElement, daysColumns.get(currentDate.getDayOfWeek().toString()), row);
 
+            // Add week text
             if(currentWeek != currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR)){
                 currentWeek = currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
                 calenderView.add(new Text("week: " + currentWeek), 0,row);
             }
 
+            // new row
             if(currentDate.getDayOfWeek().getValue() == 7){
                 row++;
             }
 
+            // increment currendate by one day
             currentDate = currentDate.plusDays(1);
         }
     }
