@@ -193,7 +193,16 @@ public class DashboardController {
      * @throws IOException
      */
     public void buttonNewTask() throws IOException {
-        setCenterContent("newTask");
+        // Load newEditTask page. get fxml variable and controller variable
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
+        Node node = loader.load();
+        NewEditTaskController newEditTaskController = loader.getController();
+
+        // load the task part of newEditTaskController
+        newEditTaskController.initializeNewTask();
+
+        // set dashboard content to editMenu
+        setCenterContent(node);
     }
 
     /**
