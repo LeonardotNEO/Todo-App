@@ -40,7 +40,7 @@ public class UserLogTest {
     }
 
     @Nested
-    class array_results {
+    public class array_results {
         @Test
         public void _getCategoryAdded() {
             String[] categoryAdded = userLog.getCategoryAdded();
