@@ -3,9 +3,12 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 
+import javax.swing.*;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -162,6 +165,19 @@ public class TaskService {
             }
         }
         return CompatableTasks;
+    }
+
+    /**
+     * Finds all tasks withing a given interval
+     * @param start interval start time in ms
+     * @param end interval end time in ms
+     * @return Lists of all tasks within the given interval
+     */
+    public static ArrayList<Task> getTaskByDateInterval(long start, long end) {
+        ArrayList<Task> userTasks = getTasksByCurrentUser();
+        return userTasks.stream()
+                .filter(t -> t.getDeadline() > start && t.getDeadline() < end)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
