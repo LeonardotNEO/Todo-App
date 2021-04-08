@@ -107,14 +107,14 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-  -fx-background-color :#00254d;
+  -fx-background-color : #006fe6;
   -fx-background-insets : 2.0, 0.0, 0.0;
   -fx-background-radius : 2.0em;
 }
 
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-  -fx-background-color :#001021;
+  -fx-background-color : #3396ff;
   -fx-background-insets : 2.0, 0.0, 0.0;
   -fx-background-radius : 2.0em;
 }

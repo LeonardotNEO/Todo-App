@@ -8,13 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.utils.DateUtils;
@@ -25,17 +22,19 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.temporal.*;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.HashMap;
 
 public class OverviewController {
 
+    private LocalDateTime currentDate;
     @FXML private VBox dueThisWeek;
     @FXML private VBox dueNext7Days;
     @FXML private VBox dueThisMonth;
     @FXML private ScrollPane scrollpane;
 
-    @FXML private GridPane calenderView;
+    @FXML private AnchorPane calenderView;
+    @FXML private GridPane calenderViewGrid;
+    @FXML private Text month;
 
     @FXML private AnchorPane content;
 
@@ -45,6 +44,7 @@ public class OverviewController {
      */
     public void initialize() throws IOException {
         initializeSimpleView();
+        currentDate = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth());
     }
 
     /**
@@ -81,16 +81,31 @@ public class OverviewController {
     /**
      * Method used for loading CalenderView
      */
-    public void initializeCalenderView() throws IOException {
+    public void initializeCalenderView(int plusMinus) throws IOException {
         // display this node
         displayNode("calenderView");
 
-        // Time now
-        LocalDateTime currentDate = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth());
-        int currentWeek = currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
-        int daysInMonth = YearMonth.of(currentDate.getYear(), currentDate.getMonthValue()).lengthOfMonth();
+        // remove elements from grid before adding new ones
+        removeGridFromCalenderView();
+
+        // if 1 or 2 is specificed in the arguments for the method, go a month forward or backward
+        if(plusMinus == 1){
+            currentDate = this.currentDate.plusMonths(1);
+        }
+        if(plusMinus == 2){
+            currentDate = this.currentDate.minusMonths(1);
+        }
+
+        LocalDateTime currentTimeThisPage = currentDate;
+        int currentWeek = currentTimeThisPage.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+        int daysInMonth = YearMonth.of(currentTimeThisPage.getYear(), currentTimeThisPage.getMonthValue()).lengthOfMonth();
         int row = 1;
 
+        // change current month text
+        month.setText(currentTimeThisPage.getMonth().toString());
+        month.setTextAlignment(TextAlignment.CENTER);
+
+        // each day represent a number
         HashMap<String, Integer> daysColumns = new HashMap<>() {{
             put("MONDAY", 1);
             put("TUESDAY", 2);
@@ -101,33 +116,34 @@ public class OverviewController {
             put("SUNDAY", 7);
         }};
 
+        // ui elements to grid
         for(int i = 0; i < daysInMonth; i++){
             // Loads calenderElement page and get the controller
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calenderElement.fxml"));
             AnchorPane calenderElement = loader.load();
             CalenderElementController calenderElementController = loader.getController();
-            calenderElementController.display(Integer.toString(currentDate.get(ChronoField.DAY_OF_MONTH)), TaskService.getTasksByDate(TaskService.getTasksByCurrentUser(), DateUtils.getAsMs(currentDate)));
+            calenderElementController.display(Integer.toString(currentTimeThisPage.get(ChronoField.DAY_OF_MONTH)), TaskService.getTasksByDate(TaskService.getTasksByCurrentUser(), DateUtils.getAsMs(currentTimeThisPage)));
 
-            calenderView.add(calenderElement, daysColumns.get(currentDate.getDayOfWeek().toString()), row);
+            calenderViewGrid.add(calenderElement, daysColumns.get(currentTimeThisPage.getDayOfWeek().toString()), row);
 
-            // Add week text
-            if(currentWeek != currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR)){
-                currentWeek = currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+            // Add week text at grid left column
+            if(currentWeek != currentTimeThisPage.get(ChronoField.ALIGNED_WEEK_OF_YEAR)){
+                currentWeek = currentTimeThisPage.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
 
-                Text weekText = new Text("week: " + currentWeek);
+                Text weekText = new Text(Integer.toString(currentWeek));
                 weekText.setTextAlignment(TextAlignment.CENTER);
                 weekText.setFont(new Font("System", 16));
 
-                calenderView.add(weekText, 0,row);
+                calenderViewGrid.add(weekText, 0,row);
             }
 
-            // new row
-            if(currentDate.getDayOfWeek().getValue() == 7){
+            // add critera for jumping to new row
+            if(currentTimeThisPage.getDayOfWeek().getValue() == 7){
                 row++;
             }
 
             // increment currendate by one day
-            currentDate = currentDate.plusDays(1);
+            currentTimeThisPage = currentTimeThisPage.plusDays(1);
         }
     }
 
@@ -144,7 +160,15 @@ public class OverviewController {
      * @throws IOException
      */
     public void buttonCalenderView() throws IOException {
-        initializeCalenderView();
+        initializeCalenderView(0);
+    }
+
+    public void buttonChangeMonthRight() throws IOException {
+        initializeCalenderView(1);
+    }
+
+    public void buttonChangeMonthLeft() throws IOException {
+        initializeCalenderView(2);
     }
 
     /**
@@ -195,6 +219,21 @@ public class OverviewController {
         dueThisWeek.getChildren().removeAll(dueThisWeek.getChildren());
         dueNext7Days.getChildren().removeAll(dueNext7Days.getChildren());
         dueThisMonth.getChildren().removeAll(dueThisMonth.getChildren());
+    }
+
+    /**
+     * Remove grid elements from calenerViewGrid, we dont remove the elements that have tags (the day of the week headers)
+     */
+    public void removeGridFromCalenderView(){
+        ArrayList<Node> nodesToRemove = new ArrayList<>();
+
+        calenderViewGrid.getChildren().forEach(node -> {
+            if(node.getId() == null){
+                nodesToRemove.add(node);
+            }
+        });
+
+        calenderViewGrid.getChildren().removeAll(nodesToRemove);
     }
 
     /**

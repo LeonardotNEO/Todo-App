@@ -7,13 +7,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.CalenderElementController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #e0e0e0;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.CalenderElementController">
    <children>
       <Text fx:id="dateText" layoutX="3.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="2.0">
          <font>
             <Font size="14.0" />
          </font></Text>
-      <ScrollPane layoutX="5.0" layoutY="21.0" prefHeight="19.0" prefWidth="100.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="22.0">
+      <ScrollPane layoutY="21.0" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #e0e0e0; -fx-background: #e0e0e0; -fx-background-radius: 10 10 0 0; -fx-border-radius: 10 10 0 0;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="17.0">
          <content>
             <HBox fx:id="tasksHBox" spacing="5.0">
                <padding>

@@ -174,7 +174,7 @@ public class TaskService {
             LocalDate dateInput = Instant.ofEpochMilli(datelong).atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate dateTask = Instant.ofEpochMilli(task.getDeadline()).atZone(ZoneId.systemDefault()).toLocalDate();
 
-            if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth()){
+            if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth() && dateInput.getMonthValue() == dateTask.getMonthValue() && dateInput.getYear() == dateTask.getYear()){
                 tasksByDate.add(task);
             }
         }
