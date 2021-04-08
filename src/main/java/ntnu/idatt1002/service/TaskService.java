@@ -2,6 +2,7 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -164,6 +165,21 @@ public class TaskService {
         }
 
         return tasksBetweenDates;
+    }
+
+    public static ArrayList<Task> getTasksByDate(ArrayList<Task> tasks, long datelong){
+        ArrayList<Task> tasksByDate = new ArrayList<>();
+
+        for(Task task : tasks){
+            LocalDate dateInput = Instant.ofEpochMilli(datelong).atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateTask = Instant.ofEpochMilli(task.getDeadline()).atZone(ZoneId.systemDefault()).toLocalDate();
+
+            if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth()){
+                tasksByDate.add(task);
+            }
+        }
+
+        return tasksByDate;
     }
 
     /**

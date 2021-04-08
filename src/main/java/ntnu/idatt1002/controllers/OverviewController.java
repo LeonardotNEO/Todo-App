@@ -10,7 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
@@ -103,14 +106,19 @@ public class OverviewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calenderElement.fxml"));
             AnchorPane calenderElement = loader.load();
             CalenderElementController calenderElementController = loader.getController();
-            calenderElementController.display(Integer.toString(currentDate.get(ChronoField.DAY_OF_MONTH)), new ArrayList<Task>());
+            calenderElementController.display(Integer.toString(currentDate.get(ChronoField.DAY_OF_MONTH)), TaskService.getTasksByDate(TaskService.getTasksByCurrentUser(), DateUtils.getAsMs(currentDate)));
 
             calenderView.add(calenderElement, daysColumns.get(currentDate.getDayOfWeek().toString()), row);
 
             // Add week text
             if(currentWeek != currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR)){
                 currentWeek = currentDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
-                calenderView.add(new Text("week: " + currentWeek), 0,row);
+
+                Text weekText = new Text("week: " + currentWeek);
+                weekText.setTextAlignment(TextAlignment.CENTER);
+                weekText.setFont(new Font("System", 16));
+
+                calenderView.add(weekText, 0,row);
             }
 
             // new row
