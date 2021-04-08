@@ -30,7 +30,7 @@
          <right>
             <AnchorPane maxHeight="-Infinity" prefHeight="100.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER_RIGHT" layoutX="282.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="623.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
+                  <HBox alignment="CENTER_RIGHT" layoutX="282.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="760.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="140.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Dashboard" textFill="WHITE">
                            <font>
@@ -38,6 +38,17 @@
                            </font>
                            <graphic>
                               <FontAwesomeIconView id="icon" fill="WHITE" glyphName="CLIPBOARD" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonOverview" prefHeight="47.0" prefWidth="138.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Overview" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView id="icon" fill="WHITE" glyphName="CALENDAR_ALT" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />

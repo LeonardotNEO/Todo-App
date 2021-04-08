@@ -73,7 +73,8 @@ public class TaskController {
         // load the task part of newEditTaskController
         newEditTaskController.initializeEditTask(TaskService.getTaskByCurrentUser(taskId));
 
-        // set dashboard content to editMenu
+        // set mainControllers maincontent to dashboard and set dashboard to editpage
+        MainController.getInstance().setMainContent("dashboard");
         DashboardController.getInstance().setCenterContent(editMenu);
     }
 
@@ -131,7 +132,7 @@ public class TaskController {
     }
 
     public void setTaskColor(String backgroundColor){
-        background.setStyle("-fx-background-color: " + backgroundColor + "; -fx-background-radius:  5 15 5 5;");
+        background.setStyle("-fx-background-color: " + backgroundColor + "; -fx-background-radius:  5 20 5 5;");
 
         if(ColorUtil.isVisibilityRatingOverThreshold(backgroundColor)){
             taskDescription.setFill(Paint.valueOf("white"));

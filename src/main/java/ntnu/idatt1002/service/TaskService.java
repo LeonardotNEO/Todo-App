@@ -2,6 +2,7 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
+import ntnu.idatt1002.utils.DateUtils;
 
 import javax.swing.*;
 import java.lang.reflect.Array;
@@ -55,6 +56,23 @@ public class TaskService {
      */
     public static ArrayList<Task> getTasksByCategory(String category){
         return TaskDAO.getTasksByCategory(UserStateService.getCurrentUserUsername(), category);
+    }
+
+    /**
+     * Method for getting tasks based on if the task does not contain a specific set of categories
+     * @param tasks
+     * @param categories
+     * @return
+     */
+    public static ArrayList<Task> getTasksExcludingCategories(ArrayList<Task> tasks, ArrayList<String> categories){
+        ArrayList<Task> tasksExludingCategories = new ArrayList<>();
+        tasks.forEach(task -> {
+            if(!categories.contains(task.getCategory())){
+                tasksExludingCategories.add(task);
+            }
+        });
+
+        return tasksExludingCategories;
     }
 
     /**
@@ -148,6 +166,40 @@ public class TaskService {
         });
 
         return userTasks;
+    }
+
+    /**
+     * Method that retuns a list of tasks between a specific set of dates
+     * @param tasks
+     * @param start
+     * @param stop
+     * @return
+     */
+    public static ArrayList<Task> getTasksBetweenDates(ArrayList<Task> tasks, long start, long stop){
+        ArrayList<Task> tasksBetweenDates = new ArrayList<>();
+
+        for(Task task : tasks){
+            if(task.getDeadline() >= start && task.getDeadline() <= stop){
+                tasksBetweenDates.add(task);
+            }
+        }
+
+        return tasksBetweenDates;
+    }
+
+    public static ArrayList<Task> getTasksByDate(ArrayList<Task> tasks, long datelong){
+        ArrayList<Task> tasksByDate = new ArrayList<>();
+
+        for(Task task : tasks){
+            LocalDate dateInput = Instant.ofEpochMilli(datelong).atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateTask = Instant.ofEpochMilli(task.getDeadline()).atZone(ZoneId.systemDefault()).toLocalDate();
+
+            if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth() && dateInput.getMonthValue() == dateTask.getMonthValue() && dateInput.getYear() == dateTask.getYear()){
+                tasksByDate.add(task);
+            }
+        }
+
+        return tasksByDate;
     }
 
     /**
