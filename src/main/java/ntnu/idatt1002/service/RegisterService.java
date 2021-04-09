@@ -22,8 +22,8 @@ public class RegisterService {
         // Set current user to this username
         UserStateService.setCurrentUserUsername(name);
 
-        // Update UserState to remember if user want to be remembered
-        UserStateService.setCurrentUserRememberMe(rememberMe);
+        // Update UserState to rember if user want to be remembered
+        UserStateService.getCurrentUser().setRememberMe(rememberMe);
 
         // Add premade categories to user
         for (String premadeCategory : CategoryService.getPremadeCategories()) {

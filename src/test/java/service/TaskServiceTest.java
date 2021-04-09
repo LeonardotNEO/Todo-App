@@ -48,7 +48,7 @@ public class TaskServiceTest {
 
     @Test
     public void tasksByAlphabetTest(){
-        UserStateService.setCurrentUserCategory("home");
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.TasksSortedByAlphabet();
         assertTrue(list.get(0).getName().compareTo(list.get(list.size() - 1).getName())<1);
     }
@@ -67,7 +67,7 @@ public class TaskServiceTest {
 
     @Test
     public void prioritySortTest() {
-        UserStateService.setCurrentUserCategory("home");
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.TaskSortedByPriority();
 
         // Higher number means higher priority.
@@ -88,7 +88,7 @@ public class TaskServiceTest {
 
     @Test
     public void dateSortTest() {
-        UserStateService.setCurrentUserCategory("home");
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.TasksSortedByDate();
 
         long earlyMillis = list.get(0).getDeadline();

@@ -54,14 +54,10 @@ public class LoginService {
 
         // Set selectedCategory to the first one
         if(CategoryService.getCategoriesCurrentUser().length > 0){
-            UserStateService.setCurrentUserCategory(CategoryService.getCategoriesCurrentUser()[0]);
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUser()[0]);
         }
 
-        if(rememberMe) {
-            UserStateService.setCurrentUserRememberMe(true);
-        } else {
-            UserStateService.setCurrentUserRememberMe(false);
-        }
+        UserStateService.getCurrentUser().setRememberMe(rememberMe);
     }
 
     /**
@@ -69,9 +65,6 @@ public class LoginService {
      */
     public static void logOut(){
         UserStateService.setCurrentUserUsername(null);
-        UserStateService.setCurrentUserCategory(null);
-        UserStateService.setCurrentUserSorting(null);
-        UserStateService.setCurrentUserRememberMe(false);
     }
 
     /**
