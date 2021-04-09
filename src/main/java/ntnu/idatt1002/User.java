@@ -1,8 +1,6 @@
 package ntnu.idatt1002;
 
-import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserService;
-import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
@@ -12,6 +10,8 @@ import java.util.Objects;
 /**
  * A class which functions as a user of the application
  * This class contains the basic method of any given user
+ *
+ * Setters methods automatically changes the savefile of this userobject
  */
 public class User implements Serializable {
     private String username;
@@ -49,6 +49,21 @@ public class User implements Serializable {
     }
 
     /**
+     * Constructor for copying an user object
+     * @param user
+     */
+    public User(User user) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.salt = user.getSalt();
+        this.dateCreated = user.getDateCreated();
+        this.currentlySelectedCategory = user.getCurrentlySelectedCategory();
+        this.currentlySelectedSort = user.currentlySelectedSort;
+        this.rememberMe = user.isRememberMe();
+        this.theme = user.getTheme();
+    }
+
+    /**
      * A method to get the username
      * @return username
      */
@@ -61,8 +76,10 @@ public class User implements Serializable {
      * @param username
      */
     public void setUsername(String username) {
+        User userBeforeChanges = new User(this);
         this.username = username;
-        UserService.editUser(UserStateService.getCurrentUser(), this);
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     /**
@@ -78,8 +95,10 @@ public class User implements Serializable {
      * @param password
      */
     public void setPassword(String password) {
+        User userBeforeChanges = new User(this);
         this.password = password;
-        UserService.editUser(UserStateService.getCurrentUser(), this);
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     /**
@@ -95,8 +114,10 @@ public class User implements Serializable {
      * @param salt
      */
     public void setSalt(byte[] salt) {
+        User userBeforeChanges = new User(this);
         this.salt = salt;
-        UserService.editUser(UserStateService.getCurrentUser(), this);
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     public long getDateCreated() {
@@ -108,8 +129,10 @@ public class User implements Serializable {
     }
 
     public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
+        User userBeforeChanges = new User(this);
         this.currentlySelectedCategory = currentlySelectedCategory;
-        UserService.editUser(UserStateService.getCurrentUser(), this);
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     public String getCurrentlySelectedSort() {
@@ -117,8 +140,10 @@ public class User implements Serializable {
     }
 
     public void setCurrentlySelectedSort(String currentlySelectedSort) {
+        User userBeforeChanges = new User(this);
         this.currentlySelectedSort = currentlySelectedSort;
-        UserService.editUser(UserStateService.getCurrentUser(), this);
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     public boolean isRememberMe() {
@@ -126,8 +151,10 @@ public class User implements Serializable {
     }
 
     public void setRememberMe(boolean rememberMe) {
+        User userBeforeChanges = new User(this);
         this.rememberMe = rememberMe;
-        UserService.editUser(UserStateService.getCurrentUser(), this);
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     public String getTheme() {
@@ -135,8 +162,10 @@ public class User implements Serializable {
     }
 
     public void setTheme(String theme) {
+        User userBeforeChanges = new User(this);
         this.theme = theme;
-        UserService.editUser(UserStateService.getCurrentUser(), this);
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     /** // Hvor skal dette?
@@ -160,4 +189,5 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(username);
     }
+
 }
