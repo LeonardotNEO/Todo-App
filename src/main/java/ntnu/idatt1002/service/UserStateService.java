@@ -6,8 +6,6 @@ import ntnu.idatt1002.dao.UserStateDAO;
 
 /**
  * Class communicates with UserStateDAO to fetch current userData.
- * When player logs inn, userstate.ser is updated. This makes it possible to skip login if user did not log out last time.
- * When player logs out, userstate.ser is set to null.
  */
 public class UserStateService {
 
