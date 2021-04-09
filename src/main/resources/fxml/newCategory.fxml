@@ -34,12 +34,12 @@
    <bottom>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton layoutX="245.0" layoutY="8.0" onAction="#buttonNewCategory" prefHeight="37.0" prefWidth="139.0" styleClass="button1" text="New category">
+            <JFXButton layoutX="245.0" layoutY="8.0" onAction="#buttonNewCategory" prefHeight="37.0" prefWidth="139.0" styleClass="button1" stylesheets="@../css/main.css" text="New category">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="391.0" layoutY="8.0" onAction="#buttonCancelNewCategory" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
+            <JFXButton layoutX="391.0" layoutY="8.0" onAction="#buttonCancelNewCategory" prefHeight="37.0" prefWidth="115.0" styleClass="button1" stylesheets="@../css/main.css" text="Cancel">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
                </graphic>
