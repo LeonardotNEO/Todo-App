@@ -17,7 +17,7 @@
    <bottom>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="button1" layoutX="354.0" layoutY="6.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" styleClass="button1" stylesheets="@../css/themeBlue.css" text="Back to login" textFill="WHITE">
+            <Button id="button1" layoutX="354.0" layoutY="6.0" mnemonicParsing="false" onAction="#buttonLogin" prefHeight="39.0" prefWidth="292.0" styleClass="button1" stylesheets="@../css/main.css" text="Back to login" textFill="WHITE">
                <font>
                   <Font name="Microsoft JhengHei" size="14.0" />
                </font>
@@ -47,7 +47,7 @@
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="325.0">
          <children>
-            <AnchorPane prefHeight="300.0" prefWidth="325.0" style="-fx-background-radius: 10;" styleClass="background-color_3" stylesheets="@../css/themeBlue.css">
+            <AnchorPane prefHeight="300.0" prefWidth="325.0" style="-fx-background-radius: 10;" styleClass="background-color_3" stylesheets="@../css/main.css">
                <children>
                   <TextField fx:id="usernameField" layoutX="17.0" layoutY="14.0" prefHeight="49.0" prefWidth="292.0" promptText="Username">
                      <font>
@@ -69,7 +69,7 @@
                         <Font size="16.0" />
                      </font>
                   </JFXCheckBox>
-                  <Button id="button1" layoutX="17.0" layoutY="247.0" mnemonicParsing="false" onAction="#buttonRegister" prefHeight="39.0" prefWidth="292.0" styleClass="button1" stylesheets="@../css/themeBlue.css" text="Register" textFill="WHITE">
+                  <Button id="button1" layoutX="17.0" layoutY="247.0" mnemonicParsing="false" onAction="#buttonRegister" prefHeight="39.0" prefWidth="292.0" styleClass="button1" stylesheets="@../css/main.css" text="Register" textFill="WHITE">
                      <font>
                         <Font name="Microsoft JhengHei" size="14.0" />
                      </font>
