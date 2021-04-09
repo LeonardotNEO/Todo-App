@@ -54,13 +54,10 @@ public class AccountController {
      * @param event
      */
     public void confirmEditUser(ActionEvent event){
-        User user = UserStateService.getCurrentUser();
         String errorMessageString = "";
 
         // username
-        if(RegisterService.checkIfUsernameValid(editUsername.getText()) || UserStateService.getCurrentUserUsername().equals(editUsername.getText())){
-            user.setUsername(editUsername.getText());
-        } else {
+        if(!RegisterService.checkIfUsernameValid(editUsername.getText()) && !UserStateService.getCurrentUserUsername().equals(editUsername.getText())){
             errorMessageString += "That username is not available \n";
         }
         if(!RegisterService.checkIfUsernameValidSyntax(editUsername.getText())){
@@ -68,9 +65,7 @@ public class AccountController {
         }
 
         // password
-        if(RegisterService.checkIfPasswordValidSyntax(editPassword.getText(), editRepeatPassword.getText())){
-            user.setPassword(editPassword.getText());
-        } else {
+        if(!RegisterService.checkIfPasswordValidSyntax(editPassword.getText(), editRepeatPassword.getText())){
             errorMessageString += "Password length must be more than 6 characters \n";
         }
         if (!RegisterService.checkIfPasswordValid(editPassword.getText(), editRepeatPassword.getText())){
@@ -78,9 +73,18 @@ public class AccountController {
         }
 
         if(errorMessageString.isEmpty()){
-            UserService.editUser(UserStateService.getCurrentUser(),user);
-            errorMessage.setText("Account successfully edited!");
-            errorMessage.setTextFill(Paint.valueOf("green"));
+            User user = UserStateService.getCurrentUser();
+            user.setUsername(editUsername.getText());
+            user.setPassword(editPassword.getText());
+
+            if(UserService.editUser(UserStateService.getCurrentUser(),user)){
+                errorMessage.setText("Account successfully edited!");
+                errorMessage.setTextFill(Paint.valueOf("green"));
+            } else {
+                errorMessage.setText("Something went wrong!");
+                errorMessage.setTextFill(Paint.valueOf("red"));
+            }
+
         } else {
             errorMessage.setText(errorMessageString);
             errorMessage.setTextFill(Paint.valueOf("red"));

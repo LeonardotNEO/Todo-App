@@ -37,7 +37,7 @@ public class UserService {
      */
     public static boolean editUser(User oldUser, User newUser){
         // check if new users username already exists
-        if(RegisterService.checkIfUsernameValid(newUser.getUsername())){
+        if(RegisterService.checkIfUsernameValid(newUser.getUsername()) || UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){
             // create new user
             UserDAO.serializeUser(newUser);
 
@@ -64,8 +64,11 @@ public class UserService {
             });
             NotificationDAO.saveNotifs(notifications);
 
+
             // delete old user
-            UserDAO.deleteUser(oldUser.getUsername());
+            if(!UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){
+                UserDAO.deleteUser(oldUser.getUsername());
+            }
 
             // update UserStateService
             UserStateService.setCurrentUserUsername(newUser.getUsername());
