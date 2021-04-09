@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import ntnu.idatt1002.controllers.MainController;
 import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.UserStateService;
@@ -36,7 +37,7 @@ public class App extends Application {
 
         // check if userState contains a saved user, loads login if not
         if(UserStateService.checkIfUserState()){
-            scene = new Scene(loadFXML("main"));
+            LoginService.login(UserStateService.getCurrentUser(), true);
         } else {
             scene = new Scene(loadFXML("login"));
         }
@@ -84,8 +85,17 @@ public class App extends Application {
      * @return
      * @throws IOException
      */
-    private static Parent loadFXML(String fxml) throws IOException{
+    public static Parent loadFXML(String fxml) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
-        return fxmlLoader.load();
+        Parent parent = fxmlLoader.load();
+        return parent;
+    }
+
+    /**
+     * Method for fetching the scene
+     * @return
+     */
+    public static Scene getCurrentScene(){
+        return scene;
     }
 }

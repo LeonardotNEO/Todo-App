@@ -28,9 +28,9 @@
    <top>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox layoutX="451.0" layoutY="10.0" prefHeight="30.0" prefWidth="171.0" styleClass="simple-advanced-background" stylesheets="@../css/main.css">
+            <HBox layoutX="451.0" layoutY="10.0" prefHeight="30.0" prefWidth="171.0" styleClass="simple-advanced-background" stylesheets="@../css/themeBlue.css">
                <children>
-                  <Button mnemonicParsing="false" onAction="#buttonSimpleTemplate" styleClass="simple-advanced-button" stylesheets="@../css/main.css" text="Simple">
+                  <Button mnemonicParsing="false" onAction="#buttonSimpleTemplate" styleClass="simple-advanced-button" stylesheets="@../css/themeBlue.css" text="Simple">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
@@ -49,7 +49,7 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" onAction="#buttonAdvancedTemplate" prefHeight="2.0" prefWidth="82.0" styleClass="simple-advanced-button" stylesheets="@../css/main.css" text="Advanced">
+                  <Button mnemonicParsing="false" onAction="#buttonAdvancedTemplate" prefHeight="2.0" prefWidth="82.0" styleClass="simple-advanced-button" stylesheets="@../css/themeBlue.css" text="Advanced">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
@@ -73,12 +73,12 @@
    <bottom>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="button" layoutX="255.0" layoutY="8.0" prefHeight="37.0" prefWidth="115.0" styleClass="button1" stylesheets="@../css/main.css" text="New task">
+            <JFXButton fx:id="button" layoutX="255.0" layoutY="8.0" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="New task">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="380.0" layoutY="8.0" onAction="#buttonCancelTask" prefHeight="37.0" prefWidth="115.0" styleClass="button1" stylesheets="@../css/main.css" text="Cancel">
+            <JFXButton layoutX="380.0" layoutY="8.0" onAction="#buttonCancelTask" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
                </graphic>
@@ -108,12 +108,12 @@
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <MenuButton fx:id="categoryMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Category" textFill="WHITE">
+                        <MenuButton fx:id="categoryMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" text="Category" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </MenuButton>
-                        <MenuButton fx:id="priorityMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Priority" textFill="WHITE">
+                        <MenuButton fx:id="priorityMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" text="Priority" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>

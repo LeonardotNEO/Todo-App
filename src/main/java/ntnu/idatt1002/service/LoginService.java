@@ -1,7 +1,10 @@
 package ntnu.idatt1002.service;
 
+import ntnu.idatt1002.App;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
+
+import java.io.IOException;
 
 /**
  * A class which provides some necessary features for the login of teh application
@@ -69,5 +72,18 @@ public class LoginService {
         UserStateService.setCurrentUserCategory(null);
         UserStateService.setCurrentUserSorting(null);
         UserStateService.setCurrentUserRememberMe(false);
+    }
+
+    /**
+     * Method for logging the user in
+     * @param username
+     * @param rememberMe
+     * @throws IOException
+     */
+    public static void login(String username, boolean rememberMe) throws IOException {
+        LoginService.saveLogin(username, rememberMe);
+        App.setRoot("main");
+
+        System.out.println(App.getCurrentScene());
     }
 }
