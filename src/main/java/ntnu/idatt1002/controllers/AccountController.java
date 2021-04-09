@@ -177,4 +177,8 @@ public class AccountController {
         UserStateService.getCurrentUser().setTheme("themeBrown");
         App.updateThemeCurrentUser();
     }
+    public void buttonPurpleTheme(){
+        UserStateService.getCurrentUser().setTheme("themePurple");
+        App.updateThemeCurrentUser();
+    }
 }

@@ -110,6 +110,11 @@
                               <Font size="16.0" />
                            </font>
                         </JFXButton>
+                        <JFXButton onAction="#buttonPurpleTheme" prefWidth="100.0" style="-fx-background-color: #660066;" text="Purple" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </HBox>
                </children>
