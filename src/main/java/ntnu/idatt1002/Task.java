@@ -184,6 +184,10 @@ public class Task implements Serializable {
         this.tags = tags;
     }
 
+    public void setUserName(String username) {
+        this.userName = username;
+    }
+
     /**
      * Checks to see if all fields in the object up for comparison is equal to the fields in Task.
      * @param o
