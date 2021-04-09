@@ -30,8 +30,11 @@ public class RegisterController {
     public void buttonRegister(ActionEvent event) throws IOException {
         String errorMessage = "";
 
+        if(!RegisterService.checkIfUsernameValidSyntax(usernameField.getText())){
+            errorMessage += "Username must be more than 0 characters \n";
+        }
         if(!RegisterService.checkIfUsernameValid(usernameField.getText())){
-            errorMessage += "Username must be more than 3 characters \n";
+            errorMessage += "Username already exists, choose another username \n";
         }
 
         if (!RegisterService.checkIfPasswordValid(passwordField.getText(), repeatPasswordField.getText())){

@@ -57,8 +57,9 @@ public class NewEditTaskController {
         datePicker.setConverter(new DateConverter());
         datePicker.setPromptText("dd/mm/yyyy");
 
-        // set timepicker to 24 hour mode
-        timePicker.set24HourView(true);
+        // set timePicker
+        setTimePicker(new TimeConverter());
+        setTimePicker24Hour(true);
 
         // set onAction of button
         button.setText("New task");

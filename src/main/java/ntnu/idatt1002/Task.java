@@ -184,8 +184,8 @@ public class Task implements Serializable {
         this.tags = tags;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String username) {
+        this.userName = username;
     }
 
     /**

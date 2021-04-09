@@ -67,11 +67,28 @@ public class RegisterService {
      * @param username
      * @return
      */
-    public static boolean checkIfUsernameValid(String username){
-        if(username.length() > 3){
+    public static boolean checkIfUsernameValidSyntax(String username){
+        if(username.length() > 0){
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Method for checking if user already exists
+     * @param username
+     * @return
+     */
+    public static boolean checkIfUsernameValid(String username){
+        boolean result = true;
+
+        for(User user : UserDAO.getUsers()){
+            if(user.getUsername().equals(username)){
+                result = false;
+            }
+        }
+
+        return result;
     }
 }
