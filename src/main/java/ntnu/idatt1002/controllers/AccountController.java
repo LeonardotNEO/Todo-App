@@ -6,6 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -15,6 +17,8 @@ import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.*;
 import ntnu.idatt1002.utils.DateUtils;
+
+import java.io.IOException;
 
 /**
  * A class which contains the buttons related to a user account
@@ -140,4 +144,12 @@ public class AccountController {
         }
     }
 
+    /**
+     * Press confirm button if enter is pressed
+     */
+    public void onKeyPressed(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            confirmEditUser(new ActionEvent());
+        }
+    }
 }

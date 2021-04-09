@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
@@ -53,5 +55,18 @@ public class EditCategoryController {
             errorMessage.setText("Title need to be between 0 and 24 characters");
         }
 
+    }
+
+    /**
+     * Press edit button if enter is pressed
+     */
+    public void onKeyPressed(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            try {
+                buttonEditCategory(new ActionEvent());
+            }catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
     }
 }
