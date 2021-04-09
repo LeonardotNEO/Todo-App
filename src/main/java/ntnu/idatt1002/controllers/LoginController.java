@@ -44,11 +44,10 @@ public class LoginController {
         }
 
         if(errorMessage.isEmpty()){
-            boolean login = LoginService.checkIfLoginValid(usernameField.getText(), passwordField.getText());
+            boolean loginValid = LoginService.checkIfLoginValid(usernameField.getText(), passwordField.getText());
 
-            if(login){
-                LoginService.saveLogin(usernameField.getText(), rememberMe.isSelected());
-                App.setRoot("main");
+            if(loginValid){
+                LoginService.login(usernameField.getText(), rememberMe.isSelected());
             } else {
                 errorMessage += "Username or password is wrong";
             }

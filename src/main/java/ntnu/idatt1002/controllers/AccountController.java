@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import ntnu.idatt1002.App;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.*;
@@ -151,5 +152,33 @@ public class AccountController {
         if(event.getCode().equals(KeyCode.ENTER)){
             confirmEditUser(new ActionEvent());
         }
+    }
+
+    /**
+     * Change the users theme in their user settings variables, and then update UI
+     */
+    public void buttonBlueTheme(){
+        UserStateService.getCurrentUser().setTheme("themeBlue");
+        App.updateThemeCurrentUser();
+    }
+    public void buttonGreenTheme(){
+        UserStateService.getCurrentUser().setTheme("themeGreen");
+        App.updateThemeCurrentUser();
+    }
+    public void buttonRedTheme(){
+        UserStateService.getCurrentUser().setTheme("themeRed");
+        App.updateThemeCurrentUser();
+    }
+    public void buttonPinkTheme(){
+        UserStateService.getCurrentUser().setTheme("themePink");
+        App.updateThemeCurrentUser();
+    }
+    public void buttonBrownTheme(){
+        UserStateService.getCurrentUser().setTheme("themeBrown");
+        App.updateThemeCurrentUser();
+    }
+    public void buttonPurpleTheme(){
+        UserStateService.getCurrentUser().setTheme("themePurple");
+        App.updateThemeCurrentUser();
     }
 }
