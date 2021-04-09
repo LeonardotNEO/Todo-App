@@ -281,6 +281,10 @@ public class NewEditTaskController {
         tagsBox.setManaged(true);
     }
 
+    public void buttonAttachFiles(ActionEvent event){
+
+    }
+
     /**
      * Loads categories into categoryMenuButton
      * @param categories
