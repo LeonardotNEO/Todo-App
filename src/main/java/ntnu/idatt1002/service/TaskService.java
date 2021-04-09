@@ -2,11 +2,8 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.utils.DateUtils;
+import ntnu.idatt1002.dao.UserLogDAO;
 
-import javax.swing.*;
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,8 +14,10 @@ import java.util.stream.Collectors;
  */
 public class TaskService {
     public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, deadline, priority, startDate, category, color, location, notifications, tags);
+        String username = UserStateService.getCurrentUser().getUsername();
+        Task newTask = new Task(title, username, description, deadline, priority, startDate, category, color, location, notifications, tags);
         TaskDAO.serializeTask(newTask);
+        UserLogDAO.setTaskAdded(username, title);
         return true;
     }
 
@@ -47,6 +46,7 @@ public class TaskService {
         TaskDAO.deleteTask(task);
         task.setCategory(newCategory);
         TaskDAO.serializeTask(task);
+        UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
 
     /**
@@ -248,6 +248,7 @@ public class TaskService {
      */
     public static void deleteTask(Task task){
         TaskDAO.deleteTask(task);
+        UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
     }
 
     /**

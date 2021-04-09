@@ -38,8 +38,8 @@ public final class UserLogDAO {
         writeEntry(username, "Task removed: " + title);
     }
 
-    public static void setTaskDone(String username, String title){
-        writeEntry(username, "Task marked as done: " + title);
+    public static void setTaskMoved(String username, String category){
+        writeEntry(username, "Task moved to: " + category);
     }
 
     /**
@@ -81,7 +81,7 @@ public final class UserLogDAO {
             String[] categoryRemoved = filterArray(fullLog, "Category removed");
             String[] taskAdded = filterArray(fullLog, "Task created");
             String[] taskRemoved = filterArray(fullLog, "Task removed");
-            String[] taskDone = filterArray(fullLog, "Task marked as done");
+            String[] taskDone = filterArray(fullLog, "Task moved to");
 
             return new UserLog(username, userCreation, categoryAdded, categoryRemoved, taskAdded,
                     taskRemoved, taskDone);
