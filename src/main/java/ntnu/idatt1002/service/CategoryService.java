@@ -1,6 +1,7 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.dao.CategoryDAO;
+import ntnu.idatt1002.dao.UserLogDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
 
 import java.util.ArrayList;
@@ -45,7 +46,9 @@ public class CategoryService {
      * @param categoryName
      */
     public static void deleteCategoryCurrentUser(String categoryName){
-        CategoryDAO.deleteCategory(UserStateDAO.getUsername(), categoryName);
+        String username = UserStateDAO.getUsername();
+        CategoryDAO.deleteCategory(username, categoryName);
+        UserLogDAO.setCategoryRemoved(username, categoryName);
     }
 
     /**
@@ -53,7 +56,9 @@ public class CategoryService {
      * @param categoryName
      */
     public static void addCategoryToCurrentUser(String categoryName){
-        CategoryDAO.addCategory(UserStateDAO.getUsername(), categoryName);
+        String username = UserStateDAO.getUsername();
+        CategoryDAO.addCategory(username, categoryName);
+        UserLogDAO.setCategoryAdded(username, categoryName);
     }
 
     /**

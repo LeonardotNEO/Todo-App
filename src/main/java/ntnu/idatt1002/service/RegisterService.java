@@ -2,9 +2,7 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import ntnu.idatt1002.dao.UserLogDAO;
 
 public class RegisterService {
 
@@ -19,11 +17,12 @@ public class RegisterService {
 
         // Update savefiles to include this new user
         UserDAO.serializeUser(newUser);
+        UserLogDAO.setUserRegistration(name);
 
         // Set current user to this username
         UserStateService.setCurrentUserUsername(name);
 
-        // Update UserState to rember if user want to be remembered
+        // Update UserState to remember if user want to be remembered
         UserStateService.setCurrentUserRememberMe(rememberMe);
 
         // Add premade categories to user
