@@ -23,9 +23,6 @@ public class UserService {
         String user = UserStateService.getCurrentUserUsername();
         if(user == null) return false;
         UserStateService.setCurrentUserUsername(null);
-        UserStateService.setCurrentUserRememberMe(false);
-        UserStateService.setCurrentUserSorting(null);
-        UserStateService.setCurrentUserCategory(null);
         return UserDAO.deleteUser(user);
     }
 
@@ -40,9 +37,6 @@ public class UserService {
         if(RegisterService.checkIfUsernameValid(newUser.getUsername()) || UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){
             // create new user
             UserDAO.serializeUser(newUser);
-
-            // date created
-            newUser.setDateCreated(oldUser.getDateCreated());
 
             // transfer categories
             String[] categories = CategoryDAO.getCategoriesByUser(oldUser.getUsername());

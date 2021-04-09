@@ -55,7 +55,7 @@ public class App extends Application {
      */
     public void stop(){
         if(UserStateService.checkIfUserState()){
-            if(!UserStateService.getCurrentUserRememberMe()){
+            if(!UserStateService.getCurrentUser().isRememberMe()){
                 LoginService.logOut();
             }
         }

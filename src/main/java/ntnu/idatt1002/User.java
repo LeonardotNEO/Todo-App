@@ -1,6 +1,6 @@
 package ntnu.idatt1002;
 
-import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserService;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
@@ -10,12 +10,20 @@ import java.util.Objects;
 /**
  * A class which functions as a user of the application
  * This class contains the basic method of any given user
+ *
+ * Setters methods automatically changes the savefile of this userobject
  */
 public class User implements Serializable {
     private String username;
     private String password;
     private byte[] salt;
     private long dateCreated;
+
+    // settings
+    String currentlySelectedCategory = "";
+    String currentlySelectedSort = "";
+    boolean rememberMe = false;
+    String theme = "";
 
     public User(){}
 
@@ -41,6 +49,21 @@ public class User implements Serializable {
     }
 
     /**
+     * Constructor for copying an user object
+     * @param user
+     */
+    public User(User user) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.salt = user.getSalt();
+        this.dateCreated = user.getDateCreated();
+        this.currentlySelectedCategory = user.getCurrentlySelectedCategory();
+        this.currentlySelectedSort = user.currentlySelectedSort;
+        this.rememberMe = user.isRememberMe();
+        this.theme = user.getTheme();
+    }
+
+    /**
      * A method to get the username
      * @return username
      */
@@ -53,7 +76,10 @@ public class User implements Serializable {
      * @param username
      */
     public void setUsername(String username) {
+        User userBeforeChanges = new User(this);
         this.username = username;
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     /**
@@ -69,7 +95,10 @@ public class User implements Serializable {
      * @param password
      */
     public void setPassword(String password) {
+        User userBeforeChanges = new User(this);
         this.password = password;
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     /**
@@ -85,15 +114,58 @@ public class User implements Serializable {
      * @param salt
      */
     public void setSalt(byte[] salt) {
+        User userBeforeChanges = new User(this);
         this.salt = salt;
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     public long getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(long dateCreated) {
-        this.dateCreated = dateCreated;
+    public String getCurrentlySelectedCategory() {
+        return currentlySelectedCategory;
+    }
+
+    public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
+        User userBeforeChanges = new User(this);
+        this.currentlySelectedCategory = currentlySelectedCategory;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public String getCurrentlySelectedSort() {
+        return currentlySelectedSort;
+    }
+
+    public void setCurrentlySelectedSort(String currentlySelectedSort) {
+        User userBeforeChanges = new User(this);
+        this.currentlySelectedSort = currentlySelectedSort;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        User userBeforeChanges = new User(this);
+        this.rememberMe = rememberMe;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        User userBeforeChanges = new User(this);
+        this.theme = theme;
+
+        UserService.editUser(userBeforeChanges, this);
     }
 
     /** // Hvor skal dette?
@@ -117,4 +189,5 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(username);
     }
+
 }
