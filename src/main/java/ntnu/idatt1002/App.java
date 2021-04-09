@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import ntnu.idatt1002.controllers.MainController;
 import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.UserStateService;
@@ -38,6 +39,7 @@ public class App extends Application {
         // check if userState contains a saved user, loads login if not
         if(UserStateService.checkIfUserState()){
             scene = new Scene(loadFXML("main"));
+            LoginService.login(UserStateService.getCurrentUser().getUsername(), true);
         } else {
             scene = new Scene(loadFXML("login"));
         }
@@ -56,7 +58,7 @@ public class App extends Application {
      */
     public void stop(){
         if(UserStateService.checkIfUserState()){
-            if(!UserStateService.getCurrentUserRememberMe()){
+            if(!UserStateService.getCurrentUser().isRememberMe()){
                 LoginService.logOut();
             }
         }
@@ -70,9 +72,7 @@ public class App extends Application {
      * Main method
      * @param args
      */
-    public static void main(String[] args) {
-        launch();
-    }
+    public static void main(String[] args) {launch();}
 
     /**
      * Method that uses loadFXML method to load fxml file to the scene
@@ -89,9 +89,33 @@ public class App extends Application {
      * @return
      * @throws IOException
      */
-    private static Parent loadFXML(String fxml) throws IOException{
+    public static Parent loadFXML(String fxml) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
-        return fxmlLoader.load();
+        Parent parent = fxmlLoader.load();
+        return parent;
     }
 
+    /**
+     * Method used for adding a theme to app
+     * @param theme
+     */
+    public static void addTheme(String theme){
+        scene.getStylesheets().removeAll(scene.getStylesheets());
+        scene.getStylesheets().add(App.class.getResource("/css/" + theme + ".css").toExternalForm());
+    }
+
+    /**
+     * Method for updating the theme according to current user
+     */
+    public static void updateThemeCurrentUser(){
+        addTheme(UserStateService.getCurrentUser().getTheme());
+    }
+
+    /**
+     * Method for fetching the scene
+     * @return
+     */
+    public static Scene getCurrentScene(){
+        return scene;
+    }
 }

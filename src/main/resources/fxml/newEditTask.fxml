@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXChipView?>
+<?import com.jfoenix.controls.JFXColorPicker?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane onKeyPressed="#onKeyPressed" prefHeight="625.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewEditTaskController">
+   <top>
+      <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutX="451.0" layoutY="10.0" prefHeight="30.0" prefWidth="171.0" styleClass="simple-advanced-background" stylesheets="@../css/themeBlue.css">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#buttonSimpleTemplate" styleClass="simple-advanced-button" stylesheets="@../css/themeBlue.css" text="Simple">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/">
+                     <HBox.margin>
+                        <Insets top="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Button mnemonicParsing="false" onAction="#buttonAdvancedTemplate" prefHeight="2.0" prefWidth="82.0" styleClass="simple-advanced-button" stylesheets="@../css/themeBlue.css" text="Advanced">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <Text fx:id="header" layoutX="325.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Header">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="button" layoutX="255.0" layoutY="8.0" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="New task">
+               <graphic>
+                  <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
+               </graphic>
+            </JFXButton>
+            <JFXButton layoutX="380.0" layoutY="8.0" onAction="#buttonCancelTask" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
+               <graphic>
+                  <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <center>
+      <ScrollPane maxHeight="500.0" maxWidth="750.0" prefHeight="200.0" prefWidth="750.0" style="-fx-border-color: transparent; -fx-background-color: transparent;" BorderPane.alignment="CENTER">
+         <content>
+            <AnchorPane>
+               <children>
+                  <VBox alignment="CENTER" layoutX="66.0" layoutY="2.0" prefWidth="600.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField fx:id="titleTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Title">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <TextArea fx:id="descriptionTextArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="301.0" promptText="Description" wrapText="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextArea>
+                        <TextField fx:id="locationTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Location">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <MenuButton fx:id="categoryMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" text="Category" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </MenuButton>
+                        <MenuButton fx:id="priorityMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" text="Priority" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="0" />
+                              <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="1" />
+                              <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="2" />
+                              <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="3" />
+                           </items>
+                        </MenuButton>
+                        <HBox fx:id="timeBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="525.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due time">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <JFXDatePicker fx:id="datePicker" defaultColor="#001021" prefHeight="28.0" prefWidth="140.0" promptText="Date" />
+                              <JFXTimePicker fx:id="timePicker" defaultColor="#001021" prefWidth="140.0" promptText="Time" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="75.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="colorBox" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task color" wrappingWidth="72.2802734375">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <JFXColorPicker fx:id="color">
+                                 <value>
+                                    <Color green="0.062745101749897" blue="0.12941177189350128" />
+                                 </value>
+                              </JFXColorPicker>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="68.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="tagsBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="600.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" wrappingWidth="36.2802734375">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                              <JFXChipView fx:id="tags" prefHeight="16.0" prefWidth="264.0" style="-fx-border-color: grey; -fx-background-color: white; -fx-border-radius: 3; -fx-pref-width: 300; -fx-pref-height: 75;" />
+                           </children>
+                           <padding>
+                              <Insets left="115.0" />
+                           </padding>
+                        </HBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" spacing="10.0">
+                           <children>
+                              <JFXButton fx:id="buttonAttachFiles" onAction="#buttonAttachFiles" prefHeight="37.0" prefWidth="118.0" styleClass="button1" text="Attach files">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="31.0" text="Button">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </HBox>
+                        <JFXCheckBox fx:id="notification" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" text="Notifications">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </JFXCheckBox>
+                        <Label fx:id="errorMessage" alignment="TOP_LEFT" maxHeight="100.0" textFill="RED" wrapText="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </ScrollPane>
+   </center>
+</BorderPane>

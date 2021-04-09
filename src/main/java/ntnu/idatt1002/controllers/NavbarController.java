@@ -82,6 +82,15 @@ public class NavbarController {
     }
 
     /**
+     * Communicate with mainController to update its main-content to overview.fxml when buttin in navbar is clicked
+     * @param event
+     * @throws IOException
+     */
+    public void buttonOverview(ActionEvent event) throws IOException {
+        MainController.getInstance().setMainContent("overview");
+    }
+
+    /**
      * Communicate with mainController to update its main-content to notificationHistory.fxml when button in notificationBell-menu is clicked
      * @param event
      * @throws IOException

@@ -26,7 +26,7 @@ public class UserLogTest {
         UserLogDAO.setCategoryAdded(username, "Home");
         UserLogDAO.setTaskAdded(username, "Clean bedroom");
         UserLogDAO.setTaskAdded(username, "Do dishes");
-        UserLogDAO.setTaskDone(username, "Do dishes");
+        UserLogDAO.setTaskMoved(username, "Done");
         UserLogDAO.setCategoryRemoved(username, "Home");
         UserLogDAO.setTaskRemoved(username, "Clean bedroom");
 

@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.UserStateService;
 
@@ -36,10 +38,23 @@ public class NewCategoryController {
 
         if(CategoryService.validateCategoryTitleSyntax(categoryTitle)){
             CategoryService.addCategoryToCurrentUser(categoryTitle);
-            UserStateService.setCurrentUserCategory(categoryTitle);
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle);
             DashboardController.getInstance().initialize();
         } else {
             errorMessage.setText("Title need to be between 0 and 24 characters");
+        }
+    }
+
+    /**
+     * Press new category button if enter is pressed
+     */
+    public void onKeyPressed(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            try {
+                buttonNewCategory(new ActionEvent());
+            }catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
     }
 }

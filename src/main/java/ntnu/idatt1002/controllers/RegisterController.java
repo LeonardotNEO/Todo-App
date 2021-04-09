@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.RegisterService;
@@ -30,8 +32,11 @@ public class RegisterController {
     public void buttonRegister(ActionEvent event) throws IOException {
         String errorMessage = "";
 
+        if(!RegisterService.checkIfUsernameValidSyntax(usernameField.getText())){
+            errorMessage += "Username must be more than 0 characters \n";
+        }
         if(!RegisterService.checkIfUsernameValid(usernameField.getText())){
-            errorMessage += "Username must be more than 3 characters \n";
+            errorMessage += "Username already exists, choose another username \n";
         }
 
         if (!RegisterService.checkIfPasswordValid(passwordField.getText(), repeatPasswordField.getText())){
@@ -45,8 +50,7 @@ public class RegisterController {
             boolean userSuccesfullyRegistered = RegisterService.registerNewUser(usernameField.getText(), passwordField.getText(), rememberMe.isSelected());
 
             if(userSuccesfullyRegistered){
-                App.setRoot("main");
-                LoginService.saveLogin(usernameField.getText(), rememberMe.isSelected());
+                LoginService.login(usernameField.getText(), rememberMe.isSelected());
             } else {
                 errorMessage += "Error in saving user to storage! \n";
             }
@@ -62,5 +66,18 @@ public class RegisterController {
      */
     public void buttonLogin(ActionEvent event) throws IOException {
         App.setRoot("login");
+    }
+
+    /**
+     * Press register button if enter is pressed
+     */
+    public void onKeyPressed(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            try {
+                buttonRegister(new ActionEvent());
+            }catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
     }
 }

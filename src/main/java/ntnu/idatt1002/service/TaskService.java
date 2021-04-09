@@ -2,10 +2,11 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
+import ntnu.idatt1002.dao.UserLogDAO;
 
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -13,8 +14,10 @@ import java.util.*;
  */
 public class TaskService {
     public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, deadline, priority, startDate, category, color, location, notifications, tags);
+        String username = UserStateService.getCurrentUser().getUsername();
+        Task newTask = new Task(title, username, description, deadline, priority, startDate, category, color, location, notifications, tags);
         TaskDAO.serializeTask(newTask);
+        UserLogDAO.setTaskAdded(username, title);
         return true;
     }
 
@@ -43,6 +46,7 @@ public class TaskService {
         TaskDAO.deleteTask(task);
         task.setCategory(newCategory);
         TaskDAO.serializeTask(task);
+        UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
 
     /**
@@ -52,6 +56,23 @@ public class TaskService {
      */
     public static ArrayList<Task> getTasksByCategory(String category){
         return TaskDAO.getTasksByCategory(UserStateService.getCurrentUserUsername(), category);
+    }
+
+    /**
+     * Method for getting tasks based on if the task does not contain a specific set of categories
+     * @param tasks
+     * @param categories
+     * @return
+     */
+    public static ArrayList<Task> getTasksExcludingCategories(ArrayList<Task> tasks, ArrayList<String> categories){
+        ArrayList<Task> tasksExludingCategories = new ArrayList<>();
+        tasks.forEach(task -> {
+            if(!categories.contains(task.getCategory())){
+                tasksExludingCategories.add(task);
+            }
+        });
+
+        return tasksExludingCategories;
     }
 
     /**
@@ -104,7 +125,7 @@ public class TaskService {
      */
     public static ArrayList<Task> TaskSortedByPriority(){
         //ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
         return userTasks;
     }
@@ -115,7 +136,7 @@ public class TaskService {
      */
     public static ArrayList<Task> TasksSortedByDate(){
         //ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
@@ -136,7 +157,7 @@ public class TaskService {
      * @return
      */
     public static ArrayList<Task> TasksSortedByAlphabet(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2){
@@ -145,6 +166,40 @@ public class TaskService {
         });
 
         return userTasks;
+    }
+
+    /**
+     * Method that retuns a list of tasks between a specific set of dates
+     * @param tasks
+     * @param start
+     * @param stop
+     * @return
+     */
+    public static ArrayList<Task> getTasksBetweenDates(ArrayList<Task> tasks, long start, long stop){
+        ArrayList<Task> tasksBetweenDates = new ArrayList<>();
+
+        for(Task task : tasks){
+            if(task.getDeadline() >= start && task.getDeadline() <= stop){
+                tasksBetweenDates.add(task);
+            }
+        }
+
+        return tasksBetweenDates;
+    }
+
+    public static ArrayList<Task> getTasksByDate(ArrayList<Task> tasks, long datelong){
+        ArrayList<Task> tasksByDate = new ArrayList<>();
+
+        for(Task task : tasks){
+            LocalDate dateInput = Instant.ofEpochMilli(datelong).atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateTask = Instant.ofEpochMilli(task.getDeadline()).atZone(ZoneId.systemDefault()).toLocalDate();
+
+            if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth() && dateInput.getMonthValue() == dateTask.getMonthValue() && dateInput.getYear() == dateTask.getYear()){
+                tasksByDate.add(task);
+            }
+        }
+
+        return tasksByDate;
     }
 
     /**
@@ -165,6 +220,19 @@ public class TaskService {
     }
 
     /**
+     * Finds all tasks withing a given interval
+     * @param start interval start time in ms
+     * @param end interval end time in ms
+     * @return Lists of all tasks within the given interval
+     */
+    public static ArrayList<Task> getTaskByDateInterval(long start, long end) {
+        ArrayList<Task> userTasks = getTasksByCurrentUser();
+        return userTasks.stream()
+                .filter(t -> t.getDeadline() > start && t.getDeadline() < end)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * Uses TaskDAO and UserStateDAO to get task by id for current user
      * @param id
      * @return
@@ -180,6 +248,7 @@ public class TaskService {
      */
     public static void deleteTask(Task task){
         TaskDAO.deleteTask(task);
+        UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
     }
 
     /**
@@ -188,7 +257,7 @@ public class TaskService {
      * @param description
      * @return an ArrayList of errorcodes. Errorcodes can be used i front end to display an errormessage for each scenario
      */
-    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority){
+    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority, long deadlineTime){
         ArrayList<Integer> errorsCodes = new ArrayList<>();
 
         if(title.length() < 1 || title.length() > 30){
@@ -201,6 +270,11 @@ public class TaskService {
             Integer.parseInt(priority);
         } catch (NumberFormatException nfe) {
             errorsCodes.add(3);
+        }
+        if(deadlineTime == 0) {
+            errorsCodes.add(5);
+        } else if(deadlineTime < new Date().getTime()) {
+            errorsCodes.add(4);
         }
 
         return errorsCodes;
@@ -220,6 +294,10 @@ public class TaskService {
                 case 3:
                     errorMessageDisplayString += "- Priority must be choosen \n";
                     break;
+                case 4:
+                    errorMessageDisplayString += "- Deadline cannot be in the past. Please choose a date in the future";
+                case 5:
+                    errorMessageDisplayString += "- Please select a date";
                 default:
                     break;
             }

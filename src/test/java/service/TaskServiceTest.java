@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,7 +48,7 @@ public class TaskServiceTest {
 
     @Test
     public void tasksByAlphabetTest(){
-        UserStateService.setCurrentUserCategory("home");
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.TasksSortedByAlphabet();
         assertTrue(list.get(0).getName().compareTo(list.get(list.size() - 1).getName())<1);
     }
@@ -66,7 +67,7 @@ public class TaskServiceTest {
 
     @Test
     public void prioritySortTest() {
-        UserStateService.setCurrentUserCategory("home");
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.TaskSortedByPriority();
 
         // Higher number means higher priority.
@@ -74,13 +75,31 @@ public class TaskServiceTest {
     }
 
     @Test
+    public void tasksByDateIntervalTest() {
+        long start = DateUtils.getAsMs(LocalDate.of(2021, 02, 12)) - 100;
+        long end = DateUtils.getAsMs(LocalDate.of(2021, 02, 12)) + 100;
+
+        // Test if we have found the correct task
+        assertEquals("Hei", TaskService.getTaskByDateInterval(start, end).get(0).getName());
+
+        // Check that we only found one task
+        assertEquals(1, TaskService.getTaskByDateInterval(start, end).size());
+    }
+
+    @Test
     public void dateSortTest() {
-        UserStateService.setCurrentUserCategory("home");
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.TasksSortedByDate();
 
         long earlyMillis = list.get(0).getDeadline();
         long lateMillis = list.get(list.size() - 1).getDeadline();
 
         assertTrue(earlyMillis < lateMillis);
+    }
+
+    @Test
+    public void taskBetweenDates(){
+        ArrayList<Task> taskList = TaskService.getCategoryWithTasks("home");
+        assertTrue(TaskService.getTasksBetweenDates(taskList, DateUtils.getAsMs(LocalDate.of(2021, 1, 1)), DateUtils.getAsMs(LocalDate.of(2021,7,5))).size() == 6);
     }
 }

@@ -41,7 +41,7 @@ public class EditTaskController {
     @FXML private JFXChipView tags;
     @FXML private TextField locationTextField;
     @FXML private Label errorMessage;
-    @FXML private Button chosenFileButton = new Button("Attach a file");
+    @FXML private Button buttonAttachFiles;
     private FileChooser fileChooser = new FileChooser();
     private File selectedFile;
 
@@ -70,7 +70,7 @@ public class EditTaskController {
                 System.out.println(tag.toString());
             });
 
-            chosenFileButton.setOnAction(g -> {File selectedFile = fileChooser.showOpenDialog(App.getStage());});
+            buttonAttachFiles.setOnAction(g -> {File selectedFile = fileChooser.showOpenDialog(App.getStage());});
 
             // Make new task
             boolean newTaskSuccesfull = TaskService.newTask(
@@ -101,8 +101,8 @@ public class EditTaskController {
         }
     }
 
-    public void chosenFileButton() {
-        chosenFileButton.setOnAction(g -> {File selectedFile = fileChooser.showOpenDialog(App.getStage());});
+    public void buttonAttachFiles() {
+        File selectedFile = fileChooser.showOpenDialog(App.getStage());
     }
 
     /**
