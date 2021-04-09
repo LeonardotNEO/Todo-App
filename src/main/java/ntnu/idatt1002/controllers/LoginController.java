@@ -5,7 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.service.LoginService;
 
@@ -54,5 +55,18 @@ public class LoginController {
         }
 
         errorMessageLabel.setText(errorMessage);
+    }
+
+    /**
+     * Press login button if enter is pressed
+     */
+    public void onKeyPressed(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            try {
+                buttonLogin(new ActionEvent());
+            }catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
     }
 }
