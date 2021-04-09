@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.RegisterService;
@@ -65,5 +67,18 @@ public class RegisterController {
      */
     public void buttonLogin(ActionEvent event) throws IOException {
         App.setRoot("login");
+    }
+
+    /**
+     * Press register button if enter is pressed
+     */
+    public void onKeyPressed(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            try {
+                buttonRegister(new ActionEvent());
+            }catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
     }
 }
