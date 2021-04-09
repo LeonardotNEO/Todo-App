@@ -174,6 +174,31 @@
                               <Insets left="115.0" />
                            </padding>
                         </HBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" spacing="10.0">
+                           <children>
+                              <JFXButton fx:id="buttonAttachFiles" onAction="#buttonAttachFiles" prefHeight="37.0" prefWidth="118.0" styleClass="button1" text="Attach files">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="31.0" text="Button">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </HBox>
                         <JFXCheckBox fx:id="notification" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" text="Notifications">
                            <font>
                               <Font size="16.0" />
