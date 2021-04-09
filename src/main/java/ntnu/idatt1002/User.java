@@ -62,6 +62,7 @@ public class User implements Serializable {
      */
     public void setUsername(String username) {
         this.username = username;
+        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     /**
@@ -78,6 +79,7 @@ public class User implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     /**
@@ -94,15 +96,11 @@ public class User implements Serializable {
      */
     public void setSalt(byte[] salt) {
         this.salt = salt;
+        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     public long getDateCreated() {
         return dateCreated;
-    }
-
-    public void setDateCreated(long dateCreated) {
-        this.dateCreated = dateCreated;
-        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     public String getCurrentlySelectedCategory() {

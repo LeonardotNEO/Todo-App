@@ -73,18 +73,11 @@ public class AccountController {
         }
 
         if(errorMessageString.isEmpty()){
-            User user = UserStateService.getCurrentUser();
-            user.setUsername(editUsername.getText());
-            user.setPassword(editPassword.getText());
+            UserStateService.getCurrentUser().setUsername(editUsername.getText());
+            UserStateService.getCurrentUser().setPassword(editPassword.getText());
 
-            if(UserService.editUser(UserStateService.getCurrentUser(),user)){
-                errorMessage.setText("Account successfully edited!");
-                errorMessage.setTextFill(Paint.valueOf("green"));
-            } else {
-                errorMessage.setText("Something went wrong!");
-                errorMessage.setTextFill(Paint.valueOf("red"));
-            }
-
+            errorMessage.setText("Account successfully edited!");
+            errorMessage.setTextFill(Paint.valueOf("green"));
         } else {
             errorMessage.setText(errorMessageString);
             errorMessage.setTextFill(Paint.valueOf("red"));

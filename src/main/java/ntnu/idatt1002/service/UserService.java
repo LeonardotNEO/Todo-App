@@ -38,9 +38,6 @@ public class UserService {
             // create new user
             UserDAO.serializeUser(newUser);
 
-            // date created
-            newUser.setDateCreated(oldUser.getDateCreated());
-
             // transfer categories
             String[] categories = CategoryDAO.getCategoriesByUser(oldUser.getUsername());
             for(String category : categories){
