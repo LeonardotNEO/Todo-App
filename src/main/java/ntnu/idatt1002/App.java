@@ -18,6 +18,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage stage;
 
     /**
      * A method to start the program
@@ -60,6 +61,10 @@ public class App extends Application {
             }
         }
     }
+
+    public void initialize() {stage = new Stage();}
+
+    public static Stage getStage() {return stage;}
 
     /**
      * Main method

@@ -20,6 +20,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javafx.stage.FileChooser;
+import java.io.File;
+import ntnu.idatt1002.App;
+
 /**
  * A class which contains the buttons related to editing a task
  */
@@ -37,6 +41,9 @@ public class EditTaskController {
     @FXML private JFXChipView tags;
     @FXML private TextField locationTextField;
     @FXML private Label errorMessage;
+    @FXML private Button chosenFileButton = new Button("Attach a file");
+    private FileChooser fileChooser = new FileChooser();
+    private File selectedFile;
 
     /**
      * Cancel button loads the tasks page back into center-content of dashboard
@@ -62,6 +69,8 @@ public class EditTaskController {
             tags.getChips().forEach(tag -> {
                 System.out.println(tag.toString());
             });
+
+            chosenFileButton.setOnAction(g -> {File selectedFile = fileChooser.showOpenDialog(App.getStage());});
 
             // Make new task
             boolean newTaskSuccesfull = TaskService.newTask(
@@ -90,6 +99,10 @@ public class EditTaskController {
         } else {
             errorMessage.setText(TaskService.getErrorMessageString(errorCodes));
         }
+    }
+
+    public void chosenFileButton() {
+        chosenFileButton.setOnAction(g -> {File selectedFile = fileChooser.showOpenDialog(App.getStage());});
     }
 
     /**
