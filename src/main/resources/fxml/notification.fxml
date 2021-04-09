@@ -7,7 +7,7 @@
 
 <BorderPane prefHeight="100.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NotificationController">
    <center>
-      <AnchorPane fx:id="notificationPane1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="747.0" styleClass="background-color_1" stylesheets="@../css/main.css" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="notificationPane1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="747.0" styleClass="background-color_1" stylesheets="@../css/themeBlue.css" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="title" layoutX="5.0" layoutY="1.0" text="title" textFill="WHITE" wrapText="true">
                <font>

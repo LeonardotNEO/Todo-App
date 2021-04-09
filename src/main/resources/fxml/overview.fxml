@@ -15,17 +15,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="800.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.OverviewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.OverviewController">
    <top>
       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="800.0" styleClass="overview-navbar" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="54.0" prefWidth="322.0" spacing="10.0">
                <children>
-                  <Button id="button1" mnemonicParsing="false" onAction="#buttonSimpleView" styleClass="button1" text="Simple view">
+                  <Button mnemonicParsing="false" onAction="#buttonSimpleView" styleClass="button1" text="Simple view">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button id="button1" mnemonicParsing="false" onAction="#buttonCalenderView" styleClass="button1" text="Calender view">
+                  <Button mnemonicParsing="false" onAction="#buttonCalenderView" styleClass="button1" text="Calender view">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
@@ -38,7 +38,7 @@
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane fx:id="content" prefHeight="276.0" prefWidth="800.0" stylesheets="@../css/main.css" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="content" prefHeight="276.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
             <HBox fx:id="simpleView" layoutX="14.0" layoutY="12.0" spacing="20.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
                <children>
@@ -49,7 +49,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/themeBlue.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueThisWeek" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
@@ -65,7 +65,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/themeBlue.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueNext7Days" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
@@ -82,7 +82,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/themeBlue.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueThisMonth" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
@@ -163,9 +163,9 @@
                   </GridPane>
                   <HBox alignment="CENTER" layoutX="317.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="166.0" AnchorPane.leftAnchor="317.0" AnchorPane.rightAnchor="317.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#buttonChangeMonthLeft" prefHeight="33.0" prefWidth="0.0" style="-fx-background-color: transparent;" textFill="#0a20ae">
+                        <Button mnemonicParsing="false" onAction="#buttonChangeMonthLeft" prefHeight="33.0" prefWidth="0.0" style="-fx-background-color: transparent;" styleClass="overview-arrows" textFill="#0a20ae">
                            <graphic>
-                              <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_LEFT" selectionFill="BLACK" size="25" />
+                              <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_LEFT" size="25" styleClass="overview-arrows" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -176,9 +176,9 @@
                               <Font size="22.0" />
                            </font>
                         </Text>
-                        <Button mnemonicParsing="false" onAction="#buttonChangeMonthRight" prefHeight="25.0" prefWidth="38.0" style="-fx-background-color: transparent;" textFill="#0a20ae">
+                        <Button mnemonicParsing="false" onAction="#buttonChangeMonthRight" prefHeight="25.0" prefWidth="38.0" style="-fx-background-color: transparent;" styleClass="overview-arrows" textFill="#0a20ae">
                            <graphic>
-                              <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_RIGHT" selectionFill="BLACK" size="25" wrappingWidth="22.428571701049805" />
+                              <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_RIGHT" selectionFill="BLACK" size="25" styleClass="overview-arrows" wrappingWidth="22.428571701049805" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />

@@ -1,0 +1,89 @@
+.button1{
+  -fx-background-color:  #660011;
+  -fx-background-radius: 5;
+  -fx-font-size: 16;
+  -fx-text-fill: white;
+}
+
+.button1:visited {
+  -fx-text-fill: white;
+}
+
+.button1:hover {
+  -fx-text-fill: orange;
+  -fx-background-color:  #660011;
+}
+
+.button1:hover #icon {
+  -fx-fill: orange;
+}
+
+.categoryButton{
+  -fx-background-color:  transparent;
+  -fx-font-size: 18;
+  -fx-text-fill: white;
+}
+
+.navbarButton{
+  -fx-background-color: transparent;
+  -fx-font-size: 18;
+}
+
+.navbarButton:focused {
+  -fx-text-fill: white;
+  -fx-font-size: 18;
+}
+
+#navbarButton:hover {
+  -fx-text-fill: orange;
+  -fx-background-color:  transparent;
+}
+
+#navbarButton:hover #icon {
+  -fx-fill: orange;
+}
+
+#notificationBell {
+  -fx-background-color: transparent;
+}
+
+#notificationBell:hover #icon{
+  -fx-fill: orange;
+}
+
+.background-color_1{
+  -fx-background-color: #660011;
+}
+
+.background-color_2{
+  -fx-background-color: #800015;
+}
+
+.background-color_3{
+  -fx-background-color:  #99001a;
+}
+
+.simple-advanced-button {
+  -fx-background-color: transparent;
+}
+
+.simple-advanced-button:hover {
+  -fx-underline: true;
+}
+
+.simple-advanced-background {
+  -fx-background-radius: 20;
+  -fx-background-color: linear-gradient(#f5f1f1, #dfeadf);
+}
+
+.overview-navbar {
+  -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+  -fx-background-color: #800015;
+}
+
+.overview-scrollpanes {
+  -fx-background-color: #e2eae2;
+  -fx-background: transparent;
+  -fx-background-radius: 10 0 0 0;
+}
+
