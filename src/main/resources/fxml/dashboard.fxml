@@ -22,7 +22,7 @@
                <children>
                   <VBox prefWidth="250.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" styleClass="scroll-bar" stylesheets="@../css/main.css">
+                        <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" stylesheets="@../css/category_scrollbar.css">
                            <content>
                               <VBox fx:id="categories" prefWidth="215.0" spacing="10.0">
                                  <padding>
