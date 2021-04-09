@@ -5,6 +5,10 @@
   -fx-text-fill: white;
 }
 
+.button1:focused {
+  -fx-text-fill: white;
+}
+
 .button1:hover {
   -fx-text-fill: orange;
   -fx-background-color:  #001021;

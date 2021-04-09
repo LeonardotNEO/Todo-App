@@ -1,5 +1,5 @@
 .button1{
-  -fx-background-color:  #660011;
+  -fx-background-color:  #ff99aa;
   -fx-background-radius: 5;
   -fx-font-size: 16;
   -fx-text-fill: white;
@@ -11,7 +11,7 @@
 
 .button1:hover {
   -fx-text-fill: orange;
-  -fx-background-color:  #660011;
+  -fx-background-color:  #ff99aa;
 }
 
 .button1:hover #icon {
@@ -47,15 +47,15 @@
 }
 
 .background-color_1{
-  -fx-background-color: #660011;
+  -fx-background-color: #ff99aa;
 }
 
 .background-color_2{
-  -fx-background-color: #800015;
+  -fx-background-color: #ffb3bf;
 }
 
 .background-color_3{
-  -fx-background-color:  #99001a;
+  -fx-background-color:  #ffc0cb;
 }
 
 .simple-advanced-button {
@@ -73,7 +73,7 @@
 
 .overview-navbar {
   -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
-  -fx-background-color: #800015;
+  -fx-background-color: #ffb3bf;
 }
 
 .overview-scrollpanes {

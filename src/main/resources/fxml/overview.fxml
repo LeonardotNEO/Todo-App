@@ -94,7 +94,7 @@
                   </AnchorPane>
                </children>
             </HBox>
-            <AnchorPane fx:id="calenderView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="calenderView" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane fx:id="calenderViewGrid" hgap="5.0" layoutX="10.0" layoutY="28.0" prefHeight="336.0" prefWidth="780.0" vgap="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.0">
                     <columnConstraints>

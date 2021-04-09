@@ -76,7 +76,6 @@ public class LoginService {
     public static void login(String username, boolean rememberMe) throws IOException {
         LoginService.saveLogin(username, rememberMe);
         App.setRoot("main");
-
-        System.out.println(App.getCurrentScene());
+        App.updateThemeCurrentUser();
     }
 }
