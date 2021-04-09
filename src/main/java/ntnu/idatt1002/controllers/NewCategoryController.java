@@ -36,7 +36,7 @@ public class NewCategoryController {
 
         if(CategoryService.validateCategoryTitleSyntax(categoryTitle)){
             CategoryService.addCategoryToCurrentUser(categoryTitle);
-            UserStateService.setCurrentUserCategory(categoryTitle);
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle);
             DashboardController.getInstance().initialize();
         } else {
             errorMessage.setText("Title need to be between 0 and 24 characters");

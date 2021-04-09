@@ -1,6 +1,7 @@
 package ntnu.idatt1002;
 
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserService;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
@@ -16,6 +17,12 @@ public class User implements Serializable {
     private String password;
     private byte[] salt;
     private long dateCreated;
+
+    // settings
+    String currentlySelectedCategory = "";
+    String currentlySelectedSort = "";
+    boolean rememberMe = false;
+    String theme = "";
 
     public User(){}
 
@@ -94,6 +101,40 @@ public class User implements Serializable {
 
     public void setDateCreated(long dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getCurrentlySelectedCategory() {
+        return currentlySelectedCategory;
+    }
+
+    public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
+        this.currentlySelectedCategory = currentlySelectedCategory;
+
+        UserService.
+    }
+
+    public String getCurrentlySelectedSort() {
+        return currentlySelectedSort;
+    }
+
+    public void setCurrentlySelectedSort(String currentlySelectedSort) {
+        this.currentlySelectedSort = currentlySelectedSort;
+    }
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
     /** // Hvor skal dette?

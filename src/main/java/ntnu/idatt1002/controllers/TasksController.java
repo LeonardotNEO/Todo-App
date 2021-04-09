@@ -81,7 +81,7 @@ public class TasksController {
     public void tasksIsEmpty(){
         Text text = new Text();
 
-        if(UserStateService.getCurrentUserCategory() != null) {
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null) {
             switch (UserStateService.getCurrentUserCategory()){
                 case "Trash bin":
                     text.setText("There are no tasks in trash bin!");

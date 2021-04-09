@@ -45,8 +45,8 @@ public class RegisterController {
             boolean userSuccesfullyRegistered = RegisterService.registerNewUser(usernameField.getText(), passwordField.getText(), rememberMe.isSelected());
 
             if(userSuccesfullyRegistered){
-                App.setRoot("main");
                 LoginService.saveLogin(usernameField.getText(), rememberMe.isSelected());
+                App.setRoot("main");
             } else {
                 errorMessage += "Error in saving user to storage! \n";
             }

@@ -53,7 +53,8 @@ public class DashboardController {
      */
     public void initialize() throws IOException {
         // loads tasks page
-        loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
+        System.out.println(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+        loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
 
         // load category buttons to categories VBox
         loadCategoryButtons();
@@ -97,7 +98,7 @@ public class DashboardController {
                 finalIcon.setFill(Paint.valueOf("orange"));
             });
             button.setOnMouseExited(e -> {
-                if(!category.equals(UserStateService.getCurrentUserCategory())){
+                if(!category.equals(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
                     finalIcon.setFill(Paint.valueOf("white"));
                 }
             });
@@ -106,7 +107,7 @@ public class DashboardController {
                 public void handle(ActionEvent event) {
                     try {
                         // Set currently saved category to this category
-                        UserStateService.setCurrentUserCategory(category);
+                        UserStateService.getCurrentUser().setCurrentlySelectedCategory(category);
 
                         // When this category button is clicked, we loadtaskspage with this category
                         loadTasksPage(TaskService.getCategoryWithTasks(category));
@@ -134,7 +135,7 @@ public class DashboardController {
     public void updateCategoryButtons(){
         categories.getChildren().forEach(node -> {
             Button button = (Button) node;
-            if(button.getText().equals(UserStateService.getCurrentUserCategory())){
+            if(button.getText().equals(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
                 // selected category as defined in UserStateService in set to show color orange
                 button.styleProperty().bind(Bindings
                         .when(button.hoverProperty())
@@ -164,16 +165,16 @@ public class DashboardController {
      * Update update category/task edit/delete bar according to UserStateService values
      */
     public void updateCategoryEditDeleteBar(){
-        if(UserStateService.getCurrentUserCategory() != null){
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
             // set categorytitle to category in savefile
-            categoryName.setText(UserStateService.getCurrentUserCategory());
+            categoryName.setText(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
 
             // show category and task HBox
             categoryHBox.setVisible(true);
             taskHBox.setVisible(true);
 
             // if trashbin or finished task category is selected, we wont show edit/delete button and taskBar
-            if(UserStateService.getCurrentUserCategory().equals("Trash bin") || UserStateService.getCurrentUserCategory().equals("Finished tasks")){
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Trash bin") || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Finished tasks")){
                 buttonEditCategory.setVisible(false);
                 buttonDeleteCategory.setVisible(false);
                 taskHBox.setVisible(false);
@@ -217,16 +218,16 @@ public class DashboardController {
      * Delete currently visited category
      */
     public void buttonDeleteCategory() throws IOException {
-        CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUserCategory());
+        CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
 
         if(CategoryService.getCategoriesCurrentUser().length >= 1){
-            UserStateService.setCurrentUserCategory(CategoryService.getCategoriesCurrentUser()[0]);
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUser()[0]);
         } else {
-            UserStateService.setCurrentUserCategory(null);
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(null);
         }
 
         // update content of tasks, catalogVBox and catalog/task-HBox
-        loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUserCategory()));
+        loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
         updateCategoryEditDeleteBar();
         loadCategoryButtons();
     }

@@ -184,7 +184,7 @@ public class NewEditTaskController {
             // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
             if(addTaskSuccessful){
                 // set current category to this tasks category
-                UserStateService.setCurrentUserCategory(categoryMenu.getText());
+                UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryMenu.getText());
 
                 // navigate back to tasks
                 DashboardController.getInstance().initialize();
@@ -236,7 +236,7 @@ public class NewEditTaskController {
 
             if(newTaskSuccesfull){
                 // set current category to this tasks category
-                UserStateService.setCurrentUserCategory(categoryMenu.getText());
+                UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryMenu.getText());
 
                 // navigate back to tasks
                 DashboardController.getInstance().initialize();
@@ -296,7 +296,7 @@ public class NewEditTaskController {
             categoryMenu.getItems().add(menuItem);
         }
 
-        categoryMenu.setText(UserStateService.getCurrentUserCategory());
+        categoryMenu.setText(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
     }
 
     /**

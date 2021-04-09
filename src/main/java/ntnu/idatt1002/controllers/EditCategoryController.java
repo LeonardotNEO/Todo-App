@@ -45,7 +45,7 @@ public class EditCategoryController {
             CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUserCategory());
 
             // Set current category to new one
-            UserStateService.setCurrentUserCategory(titleTextField.getText());
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(titleTextField.getText());
 
             // Load dashboard into mainContent
             DashboardController.getInstance().initialize();
