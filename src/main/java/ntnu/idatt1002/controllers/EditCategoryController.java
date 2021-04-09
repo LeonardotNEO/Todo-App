@@ -24,7 +24,7 @@ public class EditCategoryController {
      * @throws IOException
      */
     public void buttonCancelEditCategory(ActionEvent event) throws IOException {
-        DashboardController.getInstance().loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUserCategory()));
+        DashboardController.getInstance().loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
     }
 
     /**
@@ -39,10 +39,10 @@ public class EditCategoryController {
             CategoryService.addCategoryToCurrentUser(titleTextField.getText());
 
             // Move tasks in old category to new category
-            TaskService.editCategoryOfTasks(TaskService.getTasksByCategory(UserStateService.getCurrentUserCategory()), titleTextField.getText());
+            TaskService.editCategoryOfTasks(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()), titleTextField.getText());
 
             // Delete old category
-            CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUserCategory());
+            CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
 
             // Set current category to new one
             UserStateService.getCurrentUser().setCurrentlySelectedCategory(titleTextField.getText());

@@ -125,7 +125,7 @@ public class TaskService {
      */
     public static ArrayList<Task> TaskSortedByPriority(){
         //ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
         return userTasks;
     }
@@ -136,7 +136,7 @@ public class TaskService {
      */
     public static ArrayList<Task> TasksSortedByDate(){
         //ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
@@ -157,7 +157,7 @@ public class TaskService {
      * @return
      */
     public static ArrayList<Task> TasksSortedByAlphabet(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2){

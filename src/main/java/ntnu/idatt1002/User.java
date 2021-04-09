@@ -2,6 +2,7 @@ package ntnu.idatt1002;
 
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserService;
+import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
@@ -101,6 +102,7 @@ public class User implements Serializable {
 
     public void setDateCreated(long dateCreated) {
         this.dateCreated = dateCreated;
+        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     public String getCurrentlySelectedCategory() {
@@ -109,8 +111,7 @@ public class User implements Serializable {
 
     public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
         this.currentlySelectedCategory = currentlySelectedCategory;
-
-        UserService.
+        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     public String getCurrentlySelectedSort() {
@@ -119,6 +120,7 @@ public class User implements Serializable {
 
     public void setCurrentlySelectedSort(String currentlySelectedSort) {
         this.currentlySelectedSort = currentlySelectedSort;
+        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     public boolean isRememberMe() {
@@ -127,6 +129,7 @@ public class User implements Serializable {
 
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
+        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     public String getTheme() {
@@ -135,6 +138,7 @@ public class User implements Serializable {
 
     public void setTheme(String theme) {
         this.theme = theme;
+        UserService.editUser(UserStateService.getCurrentUser(), this);
     }
 
     /** // Hvor skal dette?
