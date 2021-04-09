@@ -5,7 +5,7 @@
   -fx-text-fill: white;
 }
 
-.button1:focused {
+.button1:visited {
   -fx-text-fill: white;
 }
 
@@ -26,6 +26,11 @@
 
 .navbarButton{
   -fx-background-color: transparent;
+  -fx-font-size: 18;
+}
+
+.navbarButton:focused {
+  -fx-text-fill: white;
   -fx-font-size: 18;
 }
 
