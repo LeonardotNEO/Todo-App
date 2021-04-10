@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -27,6 +28,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class which contains the buttons related to the creation of a new task
@@ -50,6 +52,8 @@ public class NewEditTaskController {
     @FXML private Label errorMessage;
     @FXML private Button button;
     @FXML private Button buttonAttachFiles;
+    @FXML private HBox hboxForFiles;
+    @FXML private Text attachedFiles = new Text();
     FileChooser fileChooser = new FileChooser();
     private File selectedFiles;
 
@@ -203,8 +207,12 @@ public class NewEditTaskController {
         }
     }
 
-    public void buttonAttachFiles() {
-        File selectedFiles = fileChooser.showOpenDialog(App.getStage());
+    public void buttonAttachFiles(Task task) {
+        selectedFiles = fileChooser.showOpenDialog(App.getStage());
+        attachedFiles.setText(selectedFiles.getAbsolutePath());
+        //selectedFiles = fileChooser.showOpenMultipleDialog(App.getStage());
+        //attachedFiles.setText(selectedFiles.toString());
+        hboxForFiles.getChildren().add(attachedFiles);
     }
 
     /**
