@@ -39,7 +39,9 @@ public class NewEditTaskController {
     @FXML private JFXDatePicker datePicker;
     @FXML private JFXTimePicker timePicker;
     @FXML private MenuButton priorityMenu;
-    @FXML private JFXCheckBox notification;
+    @FXML private JFXCheckBox notification1Hour;
+    @FXML private JFXCheckBox notification24Hours;
+    @FXML private JFXCheckBox notification7Days;
     @FXML private HBox colorBox;
     @FXML private JFXColorPicker color;
     @FXML private HBox tagsBox;
@@ -52,20 +54,23 @@ public class NewEditTaskController {
      * Method used for initializing new task page
      */
     public void initializeNewTask(){
+        // show simple template first
+        buttonSimpleTemplate();
+
         // fill MenuButton categoryMenu with categories
         setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
 
         // Changes the date format of the datePicker
-        datePicker.setConverter(new DateConverter());
-        datePicker.setPromptText("dd/mm/yyyy");
+        this.datePicker.setConverter(new DateConverter());
+        this.datePicker.setPromptText("dd/mm/yyyy");
 
         // set timePicker
-        setTimePicker(new TimeConverter());
-        setTimePicker24Hour(true);
+        this.timePicker.setConverter(new TimeConverter());
+        this.timePicker.set24HourView(true);
 
         // set onAction of button
-        button.setText("New task");
-        button.setOnAction(event -> {
+        this.button.setText("New task");
+        this.button.setOnAction(event -> {
             try {
                 buttonNewTask();
             } catch (IOException e) {
@@ -74,7 +79,7 @@ public class NewEditTaskController {
         });
 
         // set header
-        header.setText("New task");
+        this.header.setText("New task");
     }
 
     /**
@@ -82,41 +87,46 @@ public class NewEditTaskController {
      * @param task the task thats going to be edited
      */
     public void initializeEditTask(Task task){
+        // when editing, we want to show advanced template
+        buttonAdvancedTemplate();
+
         // set title prompt
-        setTitleTextField(task.getName());
+        this.titleTextField.setText(task.getName());
 
         // set description prompt
-        setDescriptionTextArea(task.getDescription());
+        this.descriptionTextArea.setText(task.getDescription());
 
         // set location prompt
-        setLocation(task.getLocation());
+        this.locationTextField.setText(task.getLocation());
 
         // set categories in menuButton
         setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
 
         // set category prompt
-        setCategoryMenu(task.getCategory());
+        this.categoryMenu.setText(task.getCategory());
 
         // set datepicker prompt and DateConverter
-        setDatePicker(DateUtils.getFormattedDate(task.getDeadline()));
-        setDatePicker(new DateConverter());
+        this.datePicker.setValue(LocalDate.parse(DateUtils.getFormattedDate(task.getDeadline()), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        this.datePicker.setConverter(new DateConverter());
 
         // set timePicker
-        setTimePicker(DateUtils.getFormattedTime(task.getDeadline()));
-        setTimePicker(new TimeConverter());
-        setTimePicker24Hour(true);
+        this.timePicker.setValue(LocalTime.parse(DateUtils.getFormattedTime(task.getDeadline()), DateTimeFormatter.ofPattern("HH:mm")));
+        this.timePicker.setConverter(new TimeConverter());
+        this.timePicker.set24HourView(true);
 
         // set priority prompt
-        setPriorityMenu(Integer.toString(task.getPriority()));
+        this.priorityMenu.setText(Integer.toString(task.getPriority()));
 
-        // set notification boolean
-        setNotification(task.getNotification());
+        // set notification booleans
+        this.notification1Hour.setSelected(task.isNotification1Hour());
+        this.notification24Hours.setSelected(task.isNotification24Hours());
+        this.notification7Days.setSelected(task.isNotification7Days());
 
         // set color
-        setColor(task.getColor());
+        this.color.setValue(Color.valueOf(task.getColor()));
 
         // set tags
-        setTags(task.getTags());
+        this.tags.getChips().addAll(task.getTags());
 
         // set onAction of button and button text
         button.setText("Edit task");
@@ -180,7 +190,9 @@ public class NewEditTaskController {
                     categoryMenu.getText(),
                     color.getValue().toString(),
                     locationTextField.getText(),
-                    notification.isSelected(),
+                    notification1Hour.isSelected(),
+                    notification24Hours.isSelected(),
+                    notification7Days.isSelected(),
                     tagsList
             );
 
@@ -230,7 +242,9 @@ public class NewEditTaskController {
                     categoryMenu.getText(),
                     color.getValue().toString(),
                     locationTextField.getText(),
-                    notification.isSelected(),
+                    notification1Hour.isSelected(),
+                    notification24Hours.isSelected(),
+                    notification7Days.isSelected(),
                     tagsList
             );
 
@@ -250,7 +264,7 @@ public class NewEditTaskController {
     }
 
     /**
-     * Method for setting some nodes false, to simply interface
+     * Method for setting some nodes false, to simplify interface
      */
     public void buttonSimpleTemplate() {
         descriptionTextArea.setVisible(false);
@@ -314,98 +328,6 @@ public class NewEditTaskController {
     public void clickPriority(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         priorityMenu.setText(menuItem.getText());
-    }
-
-    /**
-     * A method to set a title in a text field
-     * @param title
-     */
-    public void setTitleTextField(String title) {
-        this.titleTextField.setText(title);
-    }
-
-    /**
-     * A method to set a description in a text field
-     * @param description
-     */
-    public void setDescriptionTextArea(String description) {
-        this.descriptionTextArea.setText(description);
-    }
-
-    /**
-     * A method to set a date
-     * @param date
-     */
-    public void setDatePicker(String date) {
-        this.datePicker.setValue(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-    }
-
-    /**
-     * A method to set the converter for the date one uses.
-     * @param dateConverter
-     */
-    public void setDatePicker(DateConverter dateConverter) {
-        this.datePicker.setConverter(dateConverter);
-    }
-
-    /**
-     * A method to set a time
-     * @param clock
-     */
-    public void setTimePicker(String clock) {
-        this.timePicker.setValue(LocalTime.parse(clock, DateTimeFormatter.ofPattern("HH:mm")));
-    }
-
-    /**
-     * A method to set the converter for the time that is beeing used.
-     * @param timeConverter
-     */
-    public void setTimePicker(TimeConverter timeConverter) {
-        this.timePicker.setConverter(timeConverter);
-    }
-
-    public void setTimePicker24Hour(boolean time){
-        timePicker.set24HourView(time);
-    }
-
-    public void setCategoryMenu(String category) {
-        this.categoryMenu.setText(category);
-    }
-
-    /**
-     * A method to set a priority to the priority menu
-     * @param priority
-     */
-    public void setPriorityMenu(String priority) {
-        this.priorityMenu.setText(priority);
-    }
-
-    /**
-     * A method to set the color
-     * @param color
-     */
-    public void setColor(String color){
-        this.color.setValue(Color.valueOf(color));
-    }
-
-    /**
-     * A method to set tags
-     * @param tags
-     */
-    public void setTags(ArrayList<String> tags){
-        this.tags.getChips().addAll(tags);
-    }
-
-    /**
-     * A method to set notification
-     * @param notification
-     */
-    public void setNotification(boolean notification){
-        this.notification.setSelected(notification);
-    }
-
-    public void setLocation(String locationText){
-        this.locationTextField.setText(locationText);
     }
 
     /**

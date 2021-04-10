@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import ntnu.idatt1002.controllers.MainController;
 import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.LoginService;
+import ntnu.idatt1002.service.UpdateService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage stage;
 
     /**
      * A method to start the program
@@ -27,6 +29,9 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        // set stage objectvariable
+        this.stage = stage;
+
         // Load custom font, Roboto
         Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Roboto/Roboto-Light.ttf"), 14);
 
@@ -34,6 +39,9 @@ public class App extends Application {
         if(!UserStateDAO.fileExists()){
             UserStateDAO.setUserState(null, null, null, false);
         }
+
+        // Start timer for checking for updates every 5 seconds
+        UpdateService.start();
 
         // check if userState contains a saved user, loads login if not
         if(UserStateService.checkIfUserState()){
@@ -114,5 +122,13 @@ public class App extends Application {
      */
     public static Scene getCurrentScene(){
         return scene;
+    }
+
+    /**
+     * Method for fetching the stage
+     * @return
+     */
+    public static Stage getStage() {
+        return stage;
     }
 }
