@@ -10,6 +10,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
@@ -19,6 +21,7 @@ import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 import ntnu.idatt1002.utils.TimeConverter;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -46,6 +49,9 @@ public class NewEditTaskController {
     @FXML private JFXChipView tags;
     @FXML private Label errorMessage;
     @FXML private Button button;
+    @FXML private Button buttonAttachFiles;
+    FileChooser fileChooser = new FileChooser();
+    private File selectedFiles;
 
 
     /**
@@ -195,7 +201,10 @@ public class NewEditTaskController {
         } else {
             errorMessage.setText(TaskService.getErrorMessageString(errorCodes));
         }
+    }
 
+    public void buttonAttachFiles() {
+        File selectedFiles = fileChooser.showOpenDialog(App.getStage());
     }
 
     /**
