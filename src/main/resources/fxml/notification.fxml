@@ -14,7 +14,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="description" alignment="TOP_LEFT" layoutX="5.0" layoutY="27.0" prefHeight="47.0" prefWidth="738.0" text="description" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="27.0">
+      <Label fx:id="description" alignment="TOP_LEFT" layoutX="5.0" layoutY="27.0" prefHeight="47.0" text="description" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="27.0">
          <font>
             <Font size="15.0" />
          </font>
