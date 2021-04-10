@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -76,7 +75,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <MenuButton id="notificationBell" fx:id="notificationBell" mnemonicParsing="false" stylesheets="@../css/themeBlue.css">
+                        <Button id="notificationBell" mnemonicParsing="false" onAction="#buttonNotificationMenuPopup" stylesheets="@../css/themeBlue.css">
                            <graphic>
                               <Pane id="notificationBell">
                                  <children>
@@ -94,7 +93,7 @@
                                  </children>
                               </Pane>
                            </graphic>
-                        </MenuButton>
+                        </Button>
                      </children>
                      <padding>
                         <Insets right="20.0" />
@@ -104,16 +103,5 @@
             </AnchorPane>
          </right>
       </BorderPane>
-      <Button fx:id="buttonNotificationHistory" layoutX="-277.0" layoutY="50.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buttonNotificationHistory" prefHeight="39.0" style="-fx-background-radius: 4;" styleClass="background-color_1" stylesheets="@../css/themeBlue.css" text="Notification history" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="18" />
-         </graphic>
-      </Button>
    </children>
 </AnchorPane>
