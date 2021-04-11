@@ -21,17 +21,16 @@ public final class UserDAO {
      * @return an {@code ArrayList} of {@code User} objects
      */
     public static ArrayList<User> getUsers(){
-        ArrayList<User> users = new ArrayList<>(16);
+        ArrayList<User> users = new ArrayList<>();
         File saveDirectory = new File(SAVEPATH);
 
-        //Filter away files
-        FilenameFilter filter = (directory1, name) -> !name.endsWith(".ser") && !name.contains(".gitkeep");
-        String[] pathnames = saveDirectory.list(filter);
+        //Get directories within user folder
+        File[] dirPaths = saveDirectory.listFiles((File::isDirectory));
 
-        //Remaining files should be user folders
-        if(pathnames != null){
-            for(String path : pathnames){
-                User user = deserializeUser(path);
+        //Deserialize all users in array
+        if(dirPaths != null){
+            for(File path : dirPaths){
+                User user = deserialize(path.getPath());
                 users.add(user);
             }
         }
@@ -43,94 +42,36 @@ public final class UserDAO {
      * Save user to storage. Will overwrite if equal user already is stored.
      * @param user {@code User} object
      */
-    public static void serializeUser(User user){
+    public static void serialize(User user){
         String username = user.getUsername();
-        File directory = new File(userDir(username));
-        File file = new File(filePath(username));
+        File userDir = new File(userDir(username));
 
-        //Make directories if they're not existing
-        if(!directory.exists()){
-            boolean success;
-            success = directory.mkdir() &&
-            new File(directory.getPath() + "/Categories").mkdir() &&
-            new File(directory.getPath() + "/Notifications").mkdir();
-
-            if(!success){ System.out.println("Error occured"); }
+        //Make directories if the user is new
+        if(!userDir.exists()){
+            boolean result = userDir.mkdir();
         }
 
-        //Write to file
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(user);
-
-            oos.close();
-            fos.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-
+        GenericDAO.serialize(user, filePath(username));
     }
 
     /**
      * Get user object from storage.
-     * @param username non case-sensitive username
-     * @return User object with given username, {@code null} if user could not be found.
+     * @return {@code User} object, {@code null} if user could not be found.
      */
-    public static User deserializeUser(String username){
-        File file = new File(filePath(username));
+    public static User deserialize(String username){
         User user = null;
-
-        if(!file.exists()){
-            return null;
-        }
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            user = (User) ois.readObject();
-
-            ois.close();
-            fis.close();
-        }catch(IOException | ClassNotFoundException e){
-            e.printStackTrace();
+        if(userExists(username)){
+            user = (User) GenericDAO.deserialize(filePath(username));
         }
         return user;
     }
 
     /**
      * Delete a user and all its files.
-     * @param username non case-sensitive username
      * @return {@code false} if the user folder or some of its elements could not be deleted
      */
     public static boolean deleteUser(String username){
-        if(!userExists(username)){ return false; }
-
-        //Tasks & categories
-        boolean success = CategoryDAO.deleteCategoriesByUser(username);
-        File categoryDir = new File(userDir(username) + "Categories");
-        if(!categoryDir.delete()){ success = false; }
-
-        //Notifications
-        if(!NotificationDAO.deleteNotifsByUser(username)){ success = false; }
-        File notifDir = new File(userDir(username) + "Notifications");
-        if(!notifDir.delete()){ success = false; }
-
-        //User
-        File userDir = new File(userDir(username));
-        String[] filenames = userDir.list();
-
-        if(filenames != null){
-            for(String filename : filenames){
-                File file = new File(userDir(username) + filename);
-                if(!file.delete()){ success = false; }
-            }
-        }
-
-        if(!userDir.delete()){ success = false; }
-
-        return success;
+        return false;
     }
 
     /**
@@ -181,7 +122,7 @@ public final class UserDAO {
         }
     }
 
-    //PRIVATE STRING FUNCTIONS
+    //PRIVATE FUNCTIONS
     /**
      * Get user directory
      */
