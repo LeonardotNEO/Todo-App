@@ -123,7 +123,9 @@ public class Task implements Serializable {
      *
      * @return the category of the task
      */
-    public String getCategory() {return category;}
+    public String getCategory() {
+        return category;
+    }
 
     public String getColor() {
         return color;
@@ -139,6 +141,10 @@ public class Task implements Serializable {
 
     public ArrayList<String> getTags() {
         return tags;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**

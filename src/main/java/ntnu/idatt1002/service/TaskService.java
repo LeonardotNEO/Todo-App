@@ -13,11 +13,10 @@ import java.util.stream.Collectors;
  * A class which provides some necessary features which utilises task-data
  */
 public class TaskService {
-    public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days ,ArrayList<String> tags) {
+    public static boolean newTask(Task newTask) {
         String username = UserStateService.getCurrentUser().getUsername();
-        Task newTask = new Task(title, username, description, deadline, priority, startDate, category, color, location, notification1Hour, notification24Hours, notification7Days, tags);
         TaskDAO.serializeTask(newTask);
-        UserLogDAO.setTaskAdded(username, title);
+        UserLogDAO.setTaskAdded(username, newTask.getName());
         return true;
     }
 
@@ -25,7 +24,8 @@ public class TaskService {
      * Method for editing task. This will override Previous task object variables
      * @param task
      */
-    public static void editTask(Task task){
+    public static void editTask(Task task, long taskId){
+        task.setId(taskId);
         TaskDAO.serializeTask(task);
     }
 

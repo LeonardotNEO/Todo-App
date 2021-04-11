@@ -1,5 +1,14 @@
+* {
+  -fx-color-1: #660011;
+  -fx-color-2: #800015;
+  -fx-color-3: #99001a;
+  -fx-color-4: orange;
+}
+
+/* GENERAL */
+
 .button1{
-  -fx-background-color:  #660011;
+  -fx-background-color:  -fx-color-1;
   -fx-background-radius: 5;
   -fx-font-size: 16;
   -fx-text-fill: white;
@@ -10,19 +19,54 @@
 }
 
 .button1:hover {
-  -fx-text-fill: orange;
-  -fx-background-color:  #660011;
+  -fx-text-fill: -fx-color-4;
+  -fx-background-color:  -fx-color-1;
 }
 
 .button1:hover #icon {
-  -fx-fill: orange;
+  -fx-fill: -fx-color-4;
 }
+
+.background-color_1{
+  -fx-background-color: -fx-color-1;
+}
+
+.background-color_2{
+  -fx-background-color: -fx-color-2;
+}
+
+.background-color_3{
+  -fx-background-color: -fx-color-3;
+}
+
+/* DASHBOARD */
 
 .categoryButton{
   -fx-background-color:  transparent;
   -fx-font-size: 18;
   -fx-text-fill: white;
 }
+
+.categoryButton:hover {
+  -fx-text-fill: -fx-color-4;
+}
+
+.categoryButton:hover #icon{
+  -fx-fill: -fx-color-4;
+}
+
+.categoryButton-selected {
+  -fx-background-color:  transparent;
+  -fx-font-size: 18;
+  -fx-text-fill: -fx-color-4;
+}
+
+.categoryButton-selected #icon {
+  -fx-fill: -fx-color-4;
+}
+
+
+/* NAVBAR */
 
 .navbarButton{
   -fx-background-color: transparent;
@@ -35,12 +79,12 @@
 }
 
 #navbarButton:hover {
-  -fx-text-fill: orange;
+  -fx-text-fill: -fx-color-4;
   -fx-background-color:  transparent;
 }
 
 #navbarButton:hover #icon {
-  -fx-fill: orange;
+  -fx-fill: -fx-color-4;
 }
 
 #notificationBell {
@@ -48,20 +92,10 @@
 }
 
 #notificationBell:hover #icon{
-  -fx-fill: orange;
+  -fx-fill: -fx-color-4;
 }
 
-.background-color_1{
-  -fx-background-color: #660011;
-}
-
-.background-color_2{
-  -fx-background-color: #800015;
-}
-
-.background-color_3{
-  -fx-background-color:  #99001a;
-}
+/* OVERVIEW PAGE */
 
 .simple-advanced-button {
   -fx-background-color: transparent;
@@ -78,7 +112,7 @@
 
 .overview-navbar {
   -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
-  -fx-background-color: #800015;
+  -fx-background-color: -fx-color-2;
 }
 
 .overview-scrollpanes {
@@ -86,4 +120,10 @@
   -fx-background: transparent;
   -fx-background-radius: 10 0 0 0;
 }
+
+.overview-arrows {
+  -fx-fill: -fx-color-1;
+}
+
+
 

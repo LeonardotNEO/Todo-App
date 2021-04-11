@@ -156,58 +156,7 @@ public class NewEditTaskController {
      * @throws IOException
      */
     public void buttonNewTask() throws  IOException {
-
-        // If no input in timePicker set it to the current time
-        if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
-
-        // convert the data from datePicker and timePicker into ms. Set to 0l if datePicker returns null
-        long deadlineTime = datePicker.getValue() == null ? 0l : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
-
-        // check if there is any errorcodes
-        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
-
-        // if errorCodes contains 3 (no selected priority), we set priority to 0 and remove this errorcode (because we solved it)
-        if(errorCodes.contains(3)){
-            priorityMenu.setText("0");
-            Integer numberThree = 3;
-            errorCodes.remove(numberThree);
-        }
-
-        if(errorCodes.size() == 0){
-            // get all the input tags and put them in a list
-            ArrayList<String> tagsList = new ArrayList<>();
-            tags.getChips().forEach(tag -> {
-                tagsList.add(tag.toString());
-            });
-
-            // try to add serialize a new task
-            boolean addTaskSuccessful = TaskService.newTask(
-                    titleTextField.getText(),
-                    DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour(), timePicker.getValue().getMinute())),
-                    descriptionTextArea.getText(),
-                    Integer.parseInt(priorityMenu.getText()),
-                    DateUtils.getAsMs(LocalDate.now()),
-                    categoryMenu.getText(),
-                    color.getValue().toString(),
-                    locationTextField.getText(),
-                    notification1Hour.isSelected(),
-                    notification24Hours.isSelected(),
-                    notification7Days.isSelected(),
-                    tagsList
-            );
-
-            // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
-            if(addTaskSuccessful){
-                // set current category to this tasks category
-                UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryMenu.getText());
-
-                // navigate back to tasks
-                DashboardController.getInstance().initialize();
-            }
-        } else {
-            errorMessage.setText(TaskService.getErrorMessageString(errorCodes));
-        }
-
+        addEditTask(null);
     }
 
     /**
@@ -215,6 +164,16 @@ public class NewEditTaskController {
      * @throws IOException
      */
     public void buttonEditTask(Task task) throws IOException {
+        addEditTask(task);
+    }
+
+    /**
+     * Method used for adding a new task or editing. When adding a new task, the task is created. When editing, the task with same id will be overridden.
+     * @throws IOException
+     */
+    public void addEditTask(Task oldTask) throws IOException {
+        // result
+        boolean result = false;
 
         // If no input in timePicker set it to current time
         if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
@@ -225,6 +184,12 @@ public class NewEditTaskController {
         // check if there is any errorcodes
         ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
 
+        // handling if priority is set to empty
+        if(errorCodes.contains(3)){
+            priorityMenu.setText("0");
+            errorCodes.remove(Integer.valueOf(3));
+        }
+
         if(errorCodes.size() == 0){
             // get all the input tags and put them in a list
             ArrayList<String> tagsList = new ArrayList<>();
@@ -232,11 +197,12 @@ public class NewEditTaskController {
                 System.out.println(tag.toString());
             });
 
-            // Make new task
-            boolean newTaskSuccesfull = TaskService.newTask(
+            // task
+            Task newTask = new Task(
                     titleTextField.getText(),
-                    deadlineTime,
+                    UserStateService.getCurrentUser().getUsername(),
                     descriptionTextArea.getText(),
+                    deadlineTime,
                     Integer.parseInt(priorityMenu.getText()),
                     DateUtils.getAsMs(LocalDate.now()),
                     categoryMenu.getText(),
@@ -246,12 +212,24 @@ public class NewEditTaskController {
                     notification24Hours.isSelected(),
                     notification7Days.isSelected(),
                     tagsList
-            );
+                    );
 
-            // Delete old one
-            TaskService.deleteTask(TaskService.getTaskByCurrentUser(task.getId()));
+            // based on argument of method, we edit or add new task
+            if(oldTask != null){
+                TaskService.editTask(newTask, oldTask.getId());
 
-            if(newTaskSuccesfull){
+                // if task change category, its not enough to override, because task has changed folder. We need to delete the old task from old folder
+                if(!oldTask.getCategory().equals(newTask.getCategory())){
+                    TaskService.deleteTask(oldTask);
+                }
+                result = true;
+            } else {
+                TaskService.newTask(newTask);
+                result = true;
+            }
+
+            // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
+            if(result){
                 // set current category to this tasks category
                 UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryMenu.getText());
 
