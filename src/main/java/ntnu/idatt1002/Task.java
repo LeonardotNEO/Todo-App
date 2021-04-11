@@ -29,7 +29,7 @@ public class Task implements Serializable {
     private boolean notification24Hours;
     private boolean notification7Days;
     private ArrayList<String> tags;
-
+    private String repeat;
 
     /**
      * A constructor for the class Task. Use when there is a deadline and start date for task.
@@ -41,7 +41,7 @@ public class Task implements Serializable {
      * @param startDate
      * @param category
      */
-    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags) {
+    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags, String repeat) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -65,6 +65,7 @@ public class Task implements Serializable {
         }
         this.tags = tags;
         this.id = generateId();
+        this.repeat = repeat;
     }
 
     /**
@@ -142,6 +143,8 @@ public class Task implements Serializable {
     public ArrayList<String> getTags() {
         return tags;
     }
+
+    public String getRepeat() { return repeat; }
 
     public void setId(long id) {
         this.id = id;
@@ -222,6 +225,8 @@ public class Task implements Serializable {
     public void setNotification7Days(boolean notification7Days) {
         this.notification7Days = notification7Days;
     }
+
+    public void setRepeat(String repeat) { this.repeat = repeat; }
 
     /**
      * Checks to see if all fields in the object up for comparison is equal to the fields in Task.
