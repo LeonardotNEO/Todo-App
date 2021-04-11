@@ -158,21 +158,21 @@ public class AccountController {
      * Change the users theme in their user settings variables, and then update UI
      */
     public void buttonBlueTheme(){
-        App.addTheme("blue");
+        App.updateThemeCurrentUser("blue");
     }
     public void buttonGreenTheme(){
-        App.addTheme("green");
+        App.updateThemeCurrentUser("green");
     }
     public void buttonRedTheme(){
-        App.addTheme("red");
+        App.updateThemeCurrentUser("red");
     }
     public void buttonPinkTheme(){
-        App.addTheme("pink");
+        App.updateThemeCurrentUser("pink");
     }
     public void buttonBrownTheme(){
-        App.addTheme("brown");
+        App.updateThemeCurrentUser("brown");
     }
     public void buttonPurpleTheme(){
-        App.addTheme("purple");
+        App.updateThemeCurrentUser("purple");
     }
 }

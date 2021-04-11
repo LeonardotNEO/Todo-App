@@ -101,10 +101,10 @@ public class App extends Application {
     }
 
     /**
-     * Method used for adding a theme to app
-     * @param theme
+     * Method for updating the theme according to current user
      */
-    public static void addTheme(String theme){
+    public static void updateThemeCurrentUser(String theme){
+        UserStateService.getCurrentUser().setTheme(theme);
         switch (theme){
             case "blue":
                 App.getCurrentScene().getRoot().setStyle("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d;");
@@ -127,14 +127,6 @@ public class App extends Application {
             default:
                 break;
         }
-    }
-
-    /**
-     * Method for updating the theme according to current user
-     */
-    public static void updateThemeCurrentUser(String theme){
-        UserStateService.getCurrentUser().setTheme(theme);
-        addTheme(UserStateService.getCurrentUser().getTheme());
     }
 
     /**
