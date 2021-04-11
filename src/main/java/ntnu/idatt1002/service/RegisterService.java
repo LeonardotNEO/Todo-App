@@ -16,7 +16,7 @@ public class RegisterService {
         User newUser = new User(name, password, UserDAO.generateSalt());
 
         // Update savefiles to include this new user
-        UserDAO.serializeUser(newUser);
+        UserDAO.serialize(newUser);
         UserLogDAO.setUserRegistration(name);
 
         // Set current user to this username

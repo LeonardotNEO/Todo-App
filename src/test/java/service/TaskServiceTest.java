@@ -24,7 +24,7 @@ public class TaskServiceTest {
     @BeforeAll
     public static void SetupTestData() {
         User user = new User("Test User");
-        UserDAO.serializeUser(user);
+        UserDAO.serialize(user);
         UserStateService.setCurrentUserUsername("Test User");
         assertDoesNotThrow(() -> {
             CategoryService.addCategoryToCurrentUser("home");

@@ -36,7 +36,7 @@ public class UserService {
         // check if new users username already exists
         if(RegisterService.checkIfUsernameValid(newUser.getUsername()) || UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){
             // create new user
-            UserDAO.serializeUser(newUser);
+            UserDAO.serialize(newUser);
 
             // transfer categories
             String[] categories = CategoryDAO.getCategoriesByUser(oldUser.getUsername());
