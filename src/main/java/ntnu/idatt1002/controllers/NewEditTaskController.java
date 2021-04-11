@@ -217,6 +217,11 @@ public class NewEditTaskController {
             // based on argument of method, we edit or add new task
             if(oldTask != null){
                 TaskService.editTask(newTask, oldTask.getId());
+
+                // if task change category, its not enough to override, because task has changed folder. We need to delete the old task from old folder
+                if(!oldTask.getCategory().equals(newTask.getCategory())){
+                    TaskService.deleteTask(oldTask);
+                }
                 result = true;
             } else {
                 TaskService.newTask(newTask);
