@@ -48,7 +48,7 @@ public final class NotificationDAO {
      */
     public static void serializeNotif(Notification notif){
         String username = notif.getUsername();
-        int notifID = notif.hashCode();
+        int notifID = notif.getNotifId();
         File file = new File(filePath(username, notifID));
         try {
             FileOutputStream fos = new FileOutputStream(file);

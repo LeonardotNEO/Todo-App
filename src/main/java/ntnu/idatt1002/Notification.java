@@ -1,35 +1,49 @@
 package ntnu.idatt1002;
 
+import ntnu.idatt1002.utils.DateUtils;
+
 import java.io.Serializable;
 import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  * Class representing a notification
  */
 public class Notification implements Serializable {
+    private final int notifId;
     private String title;
     private String username;
     private String description;
     private boolean checked;
     private boolean active;
-    private String dateActive;
-    private String dateDue;
+    private long dateActive;
+    private long dateIssued;
 
     /**
      * A constructor for the class Notification
      * @param title
      * @param username
      * @param description
-     * @param dueClock
      */
-    public Notification(String title, String username, String description, Clock dueClock){
+    public Notification(String title, String username, String description, LocalDateTime issueDate){
         this.title = title;
         this.username = username;
         this.description = description;
         this.checked = false;
-        this.dateActive = Clock.systemDefaultZone().instant().toString();
-        this.dateDue = dueClock.instant().toString();
+        this.dateActive = DateUtils.getAsMs(LocalDateTime.now());
+        this.dateIssued = DateUtils.getAsMs(issueDate);
+        this.notifId = this.hashCode();
+    }
+
+    public Notification(String title, String username, String description, LocalDateTime issueDate, int id){
+        this.title = title;
+        this.username = username;
+        this.description = description;
+        this.checked = false;
+        this.dateActive = DateUtils.getAsMs(LocalDateTime.now());
+        this.dateIssued = DateUtils.getAsMs(issueDate);
+        this.notifId = id;
     }
 
     /**
@@ -66,14 +80,21 @@ public class Notification implements Serializable {
      * A method to get the activation date
      * @return
      */
-    public String getDateActive() { return dateActive; }
+    public long getDateActive() {
+        return dateActive;
+    }
 
     /**
      * A method to get the due date
      * @return
      */
-    public String getDateDue() { return dateDue; }
-    public boolean getActive() { return active; }
+    public long getDateIssued() {
+        return dateIssued;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
 
     /**
      * A method to set the title
@@ -105,19 +126,20 @@ public class Notification implements Serializable {
      */
     public void setChecked(Boolean value) { this.checked = value; }
 
+
     /**
-     * A method to set the due date
-     * @param day
-     * @param month
-     * @param year
-     * @param hour
-     * @param minute
+     * Method to set due date
+     * @param date
      */
-    public void setDateDue(String day, String month, String year, String hour, String minute) {
-        dateDue = year + "-" + month + "-" + day + "T" + hour + ":" + minute;
+    public void setDateIssued(long date) {
+        dateIssued = date;
     }
     public void setActive(boolean active){
         this.active = active;
+    }
+
+    public int getNotifId() {
+        return notifId;
     }
 
     /**

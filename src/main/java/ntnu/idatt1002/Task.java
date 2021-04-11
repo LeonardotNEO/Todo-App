@@ -1,11 +1,13 @@
 package ntnu.idatt1002;
 
+import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.utils.ColorUtil;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * The class Task represents a task.
@@ -23,7 +25,9 @@ public class Task implements Serializable {
     private String category;
     private String color;
     private String location;
-    private boolean notifications;
+    private boolean notification1Hour;
+    private boolean notification24Hours;
+    private boolean notification7Days;
     private ArrayList<String> tags;
 
 
@@ -37,7 +41,7 @@ public class Task implements Serializable {
      * @param startDate
      * @param category
      */
-    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
+    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -47,7 +51,18 @@ public class Task implements Serializable {
         this.category = category;
         this.color = ColorUtil.getCorrectColorFormat(color);
         this.location = location;
-        this.notifications = notifications;
+        this.notification1Hour = notification1Hour;
+        this.notification24Hours = notification24Hours;
+        this.notification7Days = notification7Days;
+        if(notification1Hour){
+            NotificationService.newNotification(this.name, "This task is due in 1 hour", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusHours(1));
+        }
+        if(notification24Hours){
+            NotificationService.newNotification(this.name, "This task is due in 24 hours", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusHours(24));
+        }
+        if(notification7Days){
+            NotificationService.newNotification(this.name, "This task is due in 7 days", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusDays(7));
+        }
         this.tags = tags;
         this.id = generateId();
     }
@@ -118,12 +133,6 @@ public class Task implements Serializable {
         return location;
     }
 
-    public boolean getNotification(){return notifications; }
-
-    public boolean isNotifications() {
-        return notifications;
-    }
-
     public long getId() {
         return id;
     }
@@ -176,16 +185,36 @@ public class Task implements Serializable {
         this.location = location;
     }
 
-    public void setNotifications(boolean notifications) {
-        this.notifications = notifications;
-    }
-
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
 
     public void setUserName(String username) {
         this.userName = username;
+    }
+
+    public boolean isNotification1Hour() {
+        return notification1Hour;
+    }
+
+    public void setNotification1Hour(boolean notification1Hour) {
+        this.notification1Hour = notification1Hour;
+    }
+
+    public boolean isNotification24Hours() {
+        return notification24Hours;
+    }
+
+    public void setNotification24Hours(boolean notification24Hours) {
+        this.notification24Hours = notification24Hours;
+    }
+
+    public boolean isNotification7Days() {
+        return notification7Days;
+    }
+
+    public void setNotification7Days(boolean notification7Days) {
+        this.notification7Days = notification7Days;
     }
 
     /**
