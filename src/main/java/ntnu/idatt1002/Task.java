@@ -16,7 +16,7 @@ public class Task implements Serializable {
     private long id;
     private String name;
     private String userName;
-    private String description = "";
+    private String description;
     private int priority;
     private long startDate;
     private long deadline;
@@ -25,6 +25,7 @@ public class Task implements Serializable {
     private String location;
     private boolean notifications;
     private ArrayList<String> tags;
+    private ArrayList<String> filePaths;
 
 
     /**
@@ -37,7 +38,7 @@ public class Task implements Serializable {
      * @param startDate
      * @param category
      */
-    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
+    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags, ArrayList<String> filePaths) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -49,6 +50,7 @@ public class Task implements Serializable {
         this.location = location;
         this.notifications = notifications;
         this.tags = tags;
+        this.filePaths = filePaths;
         this.id = generateId();
     }
 
@@ -132,6 +134,8 @@ public class Task implements Serializable {
         return tags;
     }
 
+    public ArrayList<String> getFilePaths() {return filePaths;}
+
     /**
      * A method to set a new name for the task
      * @param name
@@ -187,6 +191,8 @@ public class Task implements Serializable {
     public void setUserName(String username) {
         this.userName = username;
     }
+
+    public void setFilePaths(ArrayList<String> filePaths) {this.filePaths = filePaths;}
 
     /**
      * Checks to see if all fields in the object up for comparison is equal to the fields in Task.

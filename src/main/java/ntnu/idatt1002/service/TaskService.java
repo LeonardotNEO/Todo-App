@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
  * A class which provides some necessary features which utilises task-data
  */
 public class TaskService {
-    public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
+    public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags, ArrayList<String> filePaths) {
         String username = UserStateService.getCurrentUser().getUsername();
-        Task newTask = new Task(title, username, description, deadline, priority, startDate, category, color, location, notifications, tags);
+        Task newTask = new Task(title, username, description, deadline, priority, startDate, category, color, location, notifications, tags, filePaths);
         TaskDAO.serializeTask(newTask);
         UserLogDAO.setTaskAdded(username, title);
         return true;

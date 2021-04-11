@@ -56,6 +56,7 @@ public class NewEditTaskController {
     @FXML private Text attachedFiles = new Text();
     FileChooser fileChooser = new FileChooser();
     private File selectedFiles;
+    private ArrayList<String> listOfFiles = new ArrayList<>();
 
 
     /**
@@ -191,7 +192,8 @@ public class NewEditTaskController {
                     color.getValue().toString(),
                     locationTextField.getText(),
                     notification.isSelected(),
-                    tagsList
+                    tagsList, listOfFiles
+
             );
 
             // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
@@ -207,11 +209,11 @@ public class NewEditTaskController {
         }
     }
 
-    public void buttonAttachFiles(Task task) {
+    public void buttonAttachFiles() {
+        hboxForFiles.getChildren().clear();
         selectedFiles = fileChooser.showOpenDialog(App.getStage());
-        attachedFiles.setText(selectedFiles.getAbsolutePath());
-        //selectedFiles = fileChooser.showOpenMultipleDialog(App.getStage());
-        //attachedFiles.setText(selectedFiles.toString());
+        listOfFiles.add(selectedFiles.getAbsolutePath());
+        attachedFiles.setText(listOfFiles.toString());
         hboxForFiles.getChildren().add(attachedFiles);
     }
 
@@ -248,7 +250,7 @@ public class NewEditTaskController {
                     color.getValue().toString(),
                     locationTextField.getText(),
                     notification.isSelected(),
-                    tagsList
+                    tagsList, listOfFiles
             );
 
             // Delete old one
