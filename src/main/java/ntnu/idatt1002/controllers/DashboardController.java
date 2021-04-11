@@ -158,11 +158,37 @@ public class DashboardController {
     }
 
     /**
+     * Updates center-content of dashboard to newCategory page
+     * @throws IOException
+     */
+    public void buttonNewCategory() throws IOException {
+        // Load newEditTask page. get fxml variable and controller variable
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditCategory.fxml"));
+        Node node = loader.load();
+        NewEditCategoryController newEditCategoryController = loader.getController();
+
+        // load the newCategory part of newEditCategoryController
+        newEditCategoryController.intializeNewCategory();
+
+        // set dashboard content to editMenu
+        setCenterContent(node);
+    }
+
+    /**
      * Updates center-content of dashboard to editCategory page
      * @throws IOException
      */
     public void buttonEditCategory() throws IOException {
-        setCenterContent("editCategory");
+        // Load newEditTask page. get fxml variable and controller variable
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditCategory.fxml"));
+        Node node = loader.load();
+        NewEditCategoryController newEditCategoryController = loader.getController();
+
+        // load the newCategory part of newEditCategoryController
+        newEditCategoryController.intializeEditCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+
+        // set dashboard content to editMenu
+        setCenterContent(node);
     }
 
     /**
@@ -177,18 +203,8 @@ public class DashboardController {
             UserStateService.getCurrentUser().setCurrentlySelectedCategory(null);
         }
 
-        // update content of tasks, catalogVBox and catalog/task-HBox
-        loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
-        updateCategoryEditDeleteBar();
-        loadCategoryButtons();
-    }
-
-    /**
-     * Updates center-content of dashboard to newCategory page
-     * @throws IOException
-     */
-    public void buttonNewCategory() throws IOException {
-        setCenterContent("newCategory");
+        // initialize dashboard
+        initialize();
     }
 
     /**
@@ -196,7 +212,7 @@ public class DashboardController {
      * @throws IOException
      */
     public void buttonNewProject() throws IOException {
-        setCenterContent("newProject");
+        //setCenterContent("newProject");
     }
 
     /**
