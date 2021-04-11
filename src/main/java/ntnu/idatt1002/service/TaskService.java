@@ -304,30 +304,10 @@ public class TaskService {
         return errorMessageDisplayString;
     }
 
-    public ArrayList<Task> repeatableTask(Task T){
-        String repeatable = T.getRepeat();
-        ArrayList<Task> repeatedTask = new ArrayList();
-        switch (repeatable){
-            case "Daily":
-                for(int i = 0; i<30;i++){//30 was a random int, just so the array isn't inf long. can increase or decrease
-                    repeatedTask.add(T);
-                    repeatedTask.get(i).setStartDate(T.getStartDate()+(86400000*i));
-                    repeatedTask.get(i).setDeadline(T.getDeadline()+(86400000*i));
-                }
-            case "Weekly":
-                for(int i = 0; i<30;i++){//30 was a random int, just so the array isn't inf long. can increase or decrease
-                    repeatedTask.add(T);
-                    repeatedTask.get(i).setStartDate(T.getStartDate()+(86400000*i)*7);
-                    repeatedTask.get(i).setDeadline(T.getDeadline()+(86400000*i)*7);
-                }
-            case "Montly":
-                for(int j = 0; j<30;j++){
-                    repeatedTask.add(T);
-                    repeatedTask.get(j).setStartDate(T.getStartDate()+(86400000*j));//same day next month
-                    repeatedTask.get(j).setDeadline(T.getDeadline()+(86400000*j));//same day next month
-                }
-        }
-        return repeatedTask;
+    public ArrayList<Task> getRepeatableTasks(){
+        return getTasksByCurrentUser().stream()
+                .filter(x-> x.isRepeatable())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
 

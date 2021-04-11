@@ -29,7 +29,8 @@ public class Task implements Serializable {
     private boolean notification24Hours;
     private boolean notification7Days;
     private ArrayList<String> tags;
-    private String repeat;
+    private boolean isRepeatable;
+    private String typeRepeat;
 
     /**
      * A constructor for the class Task. Use when there is a deadline and start date for task.
@@ -41,7 +42,7 @@ public class Task implements Serializable {
      * @param startDate
      * @param category
      */
-    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags, String repeat) {
+    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags, boolean Repeatable, String typeRepeat) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -65,7 +66,8 @@ public class Task implements Serializable {
         }
         this.tags = tags;
         this.id = generateId();
-        this.repeat = repeat;
+        this.isRepeatable = isRepeatable;
+        this.typeRepeat = typeRepeat;
     }
 
     /**
@@ -144,7 +146,11 @@ public class Task implements Serializable {
         return tags;
     }
 
-    public String getRepeat() { return repeat; }
+    public boolean isRepeatable() { return isRepeatable; }
+
+    public String getTypeRepeat() {
+        return typeRepeat;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -226,7 +232,13 @@ public class Task implements Serializable {
         this.notification7Days = notification7Days;
     }
 
-    public void setRepeat(String repeat) { this.repeat = repeat; }
+    public void setRepeatable(boolean repeatable) {
+        isRepeatable = repeatable;
+    }
+
+    public void setTypeRepeat(String typeRepeat) {
+        this.typeRepeat = typeRepeat;
+    }
 
     /**
      * Checks to see if all fields in the object up for comparison is equal to the fields in Task.
