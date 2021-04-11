@@ -4,6 +4,7 @@ import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserLogDAO;
 
+import java.lang.reflect.Array;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -309,6 +310,19 @@ public class TaskService {
                 .filter(x-> x.isRepeatable())
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public ArrayList<Task> getTasksThisDay(Long Date){
+        return getTasksByCurrentUser().stream()
+                .filter(x-> x.getStartDate()==Date)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public HashMap getTaskThisMonth(int year, int month){
+        HashMap ThisMonthsTasks = new HashMap(31);
+
+        return ThisMonthsTasks;
+    }
+
 }
 
 
