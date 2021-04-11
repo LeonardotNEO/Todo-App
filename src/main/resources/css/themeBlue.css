@@ -1,3 +1,5 @@
+/* GENERAL */
+
 .button1{
   -fx-background-color:  #001021;
   -fx-background-radius: 5;
@@ -18,11 +20,46 @@
   -fx-fill: orange;
 }
 
+.background-color_1{
+  -fx-background-color: #001021;
+}
+
+.background-color_2{
+  -fx-background-color: #001933;
+}
+
+.background-color_3{
+  -fx-background-color:  #00254d;
+}
+
+/* DASHBOARD */
+
 .categoryButton{
   -fx-background-color:  transparent;
   -fx-font-size: 18;
   -fx-text-fill: white;
 }
+
+.categoryButton:hover {
+  -fx-text-fill: orange;
+}
+
+.categoryButton:hover #icon{
+  -fx-fill: orange;
+}
+
+.categoryButton-selected {
+  -fx-background-color:  transparent;
+  -fx-font-size: 18;
+  -fx-text-fill: orange;
+}
+
+.categoryButton-selected #icon {
+  -fx-fill: orange;
+}
+
+
+/* NAVBAR */
 
 .navbarButton{
   -fx-background-color: transparent;
@@ -51,17 +88,7 @@
   -fx-fill: orange;
 }
 
-.background-color_1{
-  -fx-background-color: #001021;
-}
-
-.background-color_2{
-  -fx-background-color: #001933;
-}
-
-.background-color_3{
-  -fx-background-color:  #00254d;
-}
+/* OVERVIEW PAGE */
 
 .simple-advanced-button {
   -fx-background-color: transparent;
