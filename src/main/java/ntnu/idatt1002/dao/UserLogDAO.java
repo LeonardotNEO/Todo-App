@@ -17,29 +17,37 @@ public final class UserLogDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
     private static final String FILENAME = "userlog.txt";
 
+    //String constants
+    private static final String strUserCreated = "User created";
+    private static final String strCatAdded = "Category created: ";
+    private static final String strCatRemoved = "Category removed: ";
+    private static final String strTaskAdded = "Task created: ";
+    private static final String strTaskRemoved = "Task removed: ";
+    private static final String strTaskMoved = "Task moved to: ";
+
     //ADD ENTRY
     public static void setUserRegistration(String username){
-        writeEntry(username, "User created");
+        writeEntry(username, strUserCreated);
     }
 
     public static void setCategoryAdded(String username, String category){
-        writeEntry(username, "Category created: " + category);
+        writeEntry(username, strCatAdded + category);
     }
 
     public static void setCategoryRemoved(String username, String category){
-        writeEntry(username, "Category removed: " + category);
+        writeEntry(username, strCatRemoved + category);
     }
 
     public static void setTaskAdded(String username, String title){
-        writeEntry(username, "Task created: " + title);
+        writeEntry(username, strTaskAdded + title);
     }
 
     public static void setTaskRemoved(String username, String title){
-        writeEntry(username, "Task removed: " + title);
+        writeEntry(username, strTaskRemoved + title);
     }
 
     public static void setTaskMoved(String username, String category){
-        writeEntry(username, "Task moved to: " + category);
+        writeEntry(username, strTaskMoved + category);
     }
 
     /**
@@ -77,14 +85,14 @@ public final class UserLogDAO {
         if(UserDAO.userExists(username)) {
             String[] fullLog = getFullLog(username);
             String userCreation = fullLog[0];
-            String[] categoryAdded = filterArray(fullLog, "Category created");
-            String[] categoryRemoved = filterArray(fullLog, "Category removed");
-            String[] taskAdded = filterArray(fullLog, "Task created");
-            String[] taskRemoved = filterArray(fullLog, "Task removed");
-            String[] taskDone = filterArray(fullLog, "Task moved to");
+            String[] categoryAdded = filterArray(fullLog, strCatAdded);
+            String[] categoryRemoved = filterArray(fullLog, strCatRemoved);
+            String[] taskAdded = filterArray(fullLog, strTaskAdded);
+            String[] taskRemoved = filterArray(fullLog, strTaskRemoved);
+            String[] taskMoved = filterArray(fullLog, strTaskMoved);
 
             return new UserLog(username, userCreation, categoryAdded, categoryRemoved, taskAdded,
-                    taskRemoved, taskDone);
+                    taskRemoved, taskMoved);
         }else{ return null; }
     }
 
