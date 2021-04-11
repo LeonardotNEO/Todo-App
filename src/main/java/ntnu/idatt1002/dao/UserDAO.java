@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public final class UserDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
     private static final String FILETYPE = ".ser";
+    private static final String[] DIRECTORIES = {"Categories","Notifications","Projects"};
 
     /**
      * Get a list of all users in storage
@@ -30,7 +31,8 @@ public final class UserDAO {
         //Deserialize all users in array
         if(dirPaths != null){
             for(File path : dirPaths){
-                User user = deserialize(path.getPath());
+                System.out.println(path.getName());
+                User user = deserialize(path.getName());
                 users.add(user);
             }
         }
@@ -49,6 +51,10 @@ public final class UserDAO {
         //Make directories if the user is new
         if(!userDir.exists()){
             boolean result = userDir.mkdir();
+            for(String directory : DIRECTORIES){
+                File dir = new File(userDir(username) + directory);
+                result = dir.delete();
+            }
         }
 
         GenericDAO.serialize(user, filePath(username));
@@ -68,15 +74,25 @@ public final class UserDAO {
 
     /**
      * Delete a user and all its files.
-     * @return {@code false} if the user folder or some of its elements could not be deleted
+     * @return {@code false} if the user folder could not be deleted
      */
     public static boolean deleteUser(String username){
-        return false;
+        boolean result;                         //Variable to deal with delete() return
+        //User files and directory
+        File userDir = new File(userDir(username));
+        File[] files = userDir.listFiles();
+
+        if(files != null){
+            for(File file : files){
+                result = file.delete();
+            }
+        }
+
+        return userDir.delete();
     }
 
     /**
      * Check if given user exists in storage
-     * @param username non case-sensitive username
      * @return true or false
      */
     static boolean userExists(String username){
