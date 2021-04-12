@@ -21,7 +21,7 @@ public final class UserDAO {
      * Get a list of all users in storage
      * @return an {@code ArrayList} of {@code User} objects
      */
-    public static ArrayList<User> getUsers(){
+    public static ArrayList<User> list(){
         ArrayList<User> users = new ArrayList<>();
         File saveDirectory = new File(SAVEPATH);
 
@@ -66,7 +66,7 @@ public final class UserDAO {
      */
     public static User deserialize(String username){
         User user = null;
-        if(userExists(username)){
+        if(exists(username)){
             user = (User) GenericDAO.deserialize(filePath(username));
         }
         return user;
@@ -76,7 +76,7 @@ public final class UserDAO {
      * Delete a user and all its files.
      * @return {@code false} if the user folder could not be deleted
      */
-    public static boolean deleteUser(String username){
+    public static boolean delete(String username){
         boolean result;                         //Variable to deal with delete() return
         //User files and directory
         File userDir = new File(userDir(username));
@@ -95,7 +95,7 @@ public final class UserDAO {
      * Check if given user exists in storage
      * @return true or false
      */
-    static boolean userExists(String username){
+    static boolean exists(String username){
         File userDir = new File(userDir(username));
         return userDir.exists();
     }

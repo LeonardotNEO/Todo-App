@@ -82,7 +82,7 @@ public class RegisterService {
     public static boolean checkIfUsernameValid(String username){
         boolean result = true;
 
-        for(User user : UserDAO.getUsers()){
+        for(User user : UserDAO.list()){
             if(user.getUsername().equals(username)){
                 result = false;
             }

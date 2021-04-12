@@ -30,7 +30,7 @@ public class UserDAOTest {
 
         @Test
         public void _getUsers(){
-            ArrayList<User> users = UserDAO.getUsers();
+            ArrayList<User> users = UserDAO.list();
 
             assertFalse(users.isEmpty());
             assertTrue(users.contains(userA));
@@ -95,6 +95,6 @@ public class UserDAOTest {
 
     @AfterAll
     public static void cleanup(){
-        boolean result = UserDAO.deleteUser("olanormann");
+        boolean result = UserDAO.delete("olanormann");
     }
 }
