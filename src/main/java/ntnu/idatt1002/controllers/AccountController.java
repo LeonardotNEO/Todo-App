@@ -158,27 +158,21 @@ public class AccountController {
      * Change the users theme in their user settings variables, and then update UI
      */
     public void buttonBlueTheme(){
-        UserStateService.getCurrentUser().setTheme("themeBlue");
-        App.updateThemeCurrentUser();
+        App.updateThemeCurrentUser("blue");
     }
     public void buttonGreenTheme(){
-        UserStateService.getCurrentUser().setTheme("themeGreen");
-        App.updateThemeCurrentUser();
+        App.updateThemeCurrentUser("green");
     }
     public void buttonRedTheme(){
-        UserStateService.getCurrentUser().setTheme("themeRed");
-        App.updateThemeCurrentUser();
+        App.updateThemeCurrentUser("red");
     }
     public void buttonPinkTheme(){
-        UserStateService.getCurrentUser().setTheme("themePink");
-        App.updateThemeCurrentUser();
+        App.updateThemeCurrentUser("pink");
     }
     public void buttonBrownTheme(){
-        UserStateService.getCurrentUser().setTheme("themeBrown");
-        App.updateThemeCurrentUser();
+        App.updateThemeCurrentUser("brown");
     }
     public void buttonPurpleTheme(){
-        UserStateService.getCurrentUser().setTheme("themePurple");
-        App.updateThemeCurrentUser();
+        App.updateThemeCurrentUser("purple");
     }
 }

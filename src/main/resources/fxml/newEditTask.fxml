@@ -28,9 +28,9 @@
    <top>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox layoutX="451.0" layoutY="10.0" prefHeight="30.0" prefWidth="171.0" styleClass="simple-advanced-background" stylesheets="@../css/themeBlue.css">
+            <HBox layoutX="451.0" layoutY="10.0" prefHeight="30.0" prefWidth="171.0" styleClass="simple-advanced-background" stylesheets="@../css/main.css">
                <children>
-                  <Button mnemonicParsing="false" onAction="#buttonSimpleTemplate" styleClass="simple-advanced-button" stylesheets="@../css/themeBlue.css" text="Simple">
+                  <Button mnemonicParsing="false" onAction="#buttonSimpleTemplate" styleClass="simple-advanced-button" stylesheets="@../css/main.css" text="Simple">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
@@ -49,7 +49,7 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" onAction="#buttonAdvancedTemplate" prefHeight="2.0" prefWidth="82.0" styleClass="simple-advanced-button" stylesheets="@../css/themeBlue.css" text="Advanced">
+                  <Button mnemonicParsing="false" onAction="#buttonAdvancedTemplate" prefHeight="2.0" prefWidth="82.0" styleClass="simple-advanced-button" stylesheets="@../css/main.css" text="Advanced">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>

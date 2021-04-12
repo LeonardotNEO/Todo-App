@@ -49,7 +49,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/themeBlue.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueThisWeek" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
@@ -65,7 +65,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/themeBlue.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueNext7Days" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
@@ -82,7 +82,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/themeBlue.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="244.0" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueThisMonth" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
