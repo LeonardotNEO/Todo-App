@@ -30,14 +30,14 @@ public class TaskServiceTest {
             CategoryService.addCategoryToCurrentUser("home");
             CategoryService.addCategoryToCurrentUser("Category");
 
-            TaskService.newTask(new Task("Hei", UserStateService.getCurrentUser().getUsername(), "Hei på deg", DateUtils.getAsMs(LocalDate.of(2021, 02, 12)),  1, 1l, "Category", "", null, false, false, false, null));
-            TaskService.newTask(new Task("Test10001", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 04, 21)), 2, 1l, "home", "", null, false, false, false,null));
-            TaskService.newTask(new Task("Test1", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 05, 15)), 1, 1l, "home", "", null, false, false, false,null));
-            TaskService.newTask(new Task("Test2", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 02, 21)), 2, 1l, "home", "", null, false, false, false,null));
-            TaskService.newTask(new Task("Test64", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 06, 21)), 1, 1l, "home", "", null, false, false, false,null));
-            TaskService.newTask(new Task("Test4", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 02, 16)), 3, 1l, "home", "", null, false, false, false,null));
-            TaskService.newTask(new Task("Test5", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 01, 21)), 1, 1l, "home", "", null, false, false, false,null));
-            TaskService.newTask(new Task("Test61001", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2022, 02, 20)), 0, 1l, "home", "", null, false, false, false,null));
+            TaskService.newTask(new Task("Hei", UserStateService.getCurrentUser().getUsername(), "Hei på deg", DateUtils.getAsMs(LocalDate.of(2021, 02, 12)),  1, 1l, "Category", "", null, false, false, false, null,false,0L));
+            TaskService.newTask(new Task("Test10001", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 04, 21)), 2, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTask(new Task("Test1", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 05, 15)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTask(new Task("Test2", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 02, 21)), 2, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTask(new Task("Test64", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 06, 21)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTask(new Task("Test4", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 02, 16)), 3, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTask(new Task("Test5", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 01, 21)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTask(new Task("Test61001", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2022, 02, 20)), 0, 1l, "home", "", null, false, false, false,null,false,0L));
         });
     }
 
