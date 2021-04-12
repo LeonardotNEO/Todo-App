@@ -43,7 +43,7 @@ public final class TaskDAO {
         File directory = new File(categoryPath(username, category));
         String[] pathnames = directory.list();
 
-        if(pathnames != null && CategoryDAO.catExists(username, category)){
+        if(pathnames != null && CategoryDAO.exists(username, category)){
             for(String path : pathnames){
                 tasks.add(deserializeTask(directory.getPath() + "/" + path));
             }

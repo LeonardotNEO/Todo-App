@@ -39,9 +39,9 @@ public class UserService {
             UserDAO.serialize(newUser);
 
             // transfer categories
-            String[] categories = CategoryDAO.getCategoriesByUser(oldUser.getUsername());
+            String[] categories = CategoryDAO.list(oldUser.getUsername());
             for(String category : categories){
-                CategoryDAO.addCategory(newUser.getUsername(), category);
+                CategoryDAO.add(newUser.getUsername(), category);
             }
 
             // transfer tasks
