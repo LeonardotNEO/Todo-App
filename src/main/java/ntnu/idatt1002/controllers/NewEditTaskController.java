@@ -239,6 +239,22 @@ public class NewEditTaskController {
                 System.out.println(tag.toString());
             });
 
+            //e -> {
+            //                hboxForFiles.getChildren().clear();
+            //                selectedFiles = fileChooser.showOpenDialog(App.getStage());
+            //                listOfFiles.add(selectedFiles.getAbsolutePath());
+            //                attachedFiles.setText(listOfFiles.toString());
+            //                hboxForFiles.getChildren().add(attachedFiles);}
+            buttonAttachFiles.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    hboxForFiles.getChildren().clear();
+                    selectedFiles = fileChooser.showOpenDialog(App.getStage());
+                    listOfFiles.add(selectedFiles.getAbsolutePath());
+                    attachedFiles.setText(listOfFiles.toString());
+                    hboxForFiles.getChildren().add(attachedFiles);
+                }
+            });
+
             // Make new task
             boolean newTaskSuccesfull = TaskService.newTask(
                     titleTextField.getText(),
