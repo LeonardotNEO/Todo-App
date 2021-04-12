@@ -103,30 +103,35 @@ public class App extends Application {
     /**
      * Method for updating the theme according to current user
      */
-    public static void updateThemeCurrentUser(String theme){
+    public static String updateThemeCurrentUser(String theme){
         UserStateService.getCurrentUser().setTheme(theme);
+        String style = "";
+
         switch (theme){
             case "blue":
-                App.getCurrentScene().getRoot().setStyle("color-1: #001021; color-2: #001933 ; color-3: #00254d;");
+                style = "color-1: #001021; color-2: #001933 ; color-3: #00254d; color-4: #ffa500;";
                 break;
             case "green":
-                App.getCurrentScene().getRoot().setStyle("color-1: #004d00; color-2: #006600; color-3: #008000;");
+                style = "color-1: #004d00; color-2: #006600; color-3: #008000; color-4: #ffa500;";
                 break;
             case "red":
-                App.getCurrentScene().getRoot().setStyle("color-1: #660011; color-2: #800015; color-3: #99001a;");
+                style = "color-1: #660011; color-2: #800015; color-3: #99001a; color-4: #ffa500;";
                 break;
             case "pink":
-                App.getCurrentScene().getRoot().setStyle("color-1: #ff99aa; color-2: #ffb3bf; color-3: #ffc0cb;");
+                style = "color-1: #ff99aa; color-2: #ffb3bf; color-3: #ffc0cb; color-4: #ffa500;";
                 break;
             case "brown":
-                App.getCurrentScene().getRoot().setStyle("color-1: #3d1010; color-2: #511515; color-3: #651b1b;");
+                style = "color-1: #3d1010; color-2: #511515; color-3: #651b1b; color-4: #ffa500;";
                 break;
             case "purple":
-                App.getCurrentScene().getRoot().setStyle("color-1: #4d004d; color-2: #660066; color-3: #800080;");
+                style = "color-1: #4d004d; color-2: #660066; color-3: #800080; color-4: #ffa500;";
                 break;
             default:
                 break;
         }
+
+        App.getCurrentScene().getRoot().setStyle(style);
+        return style;
     }
 
     /**

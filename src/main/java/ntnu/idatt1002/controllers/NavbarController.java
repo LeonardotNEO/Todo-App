@@ -16,6 +16,7 @@ import javafx.stage.Popup;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.NotificationService;
+import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 
 
@@ -109,7 +110,9 @@ public class NavbarController {
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
         popup.setX(mouseLocation.getX() - 250);
         popup.setY(mouseLocation.getY());
-        //notificationMenuPopupVBox.getStylesheets().add(App.class.getResource("/css/main.css").toExternalForm());
+
+        // set style of popup
+        notificationMenuPopup.setStyle(App.updateThemeCurrentUser(UserStateService.getCurrentUser().getTheme()));
 
         // Load notifications into notificationMenuPopup
         loadNotificationsIntoPopup(notificationMenuPopupVBox);

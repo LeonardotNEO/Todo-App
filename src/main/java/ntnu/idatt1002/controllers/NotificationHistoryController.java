@@ -1,8 +1,11 @@
 package ntnu.idatt1002.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -10,6 +13,7 @@ import ntnu.idatt1002.Notification;
 import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.utils.DateUtils;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,6 +23,7 @@ import java.util.ArrayList;
 public class NotificationHistoryController {
 
     @FXML private VBox notificationsVBox;
+    @FXML private ScrollPane scrollpane;
 
     /**
      * At initializing of NotificationHistory.fxml we load in all notifications of the user
@@ -26,6 +31,9 @@ public class NotificationHistoryController {
     public void initialize(){
         // When notificationHistoryPage is loaded, put in notifications to VBox
         addNotificationsToPanel(NotificationService.getNotificationsByUser());
+
+        // add listener to scrollpane
+        addScrollpaneListener();
     }
 
     /**
@@ -62,6 +70,18 @@ public class NotificationHistoryController {
         });
 
 
+    }
+
+    /**
+     * Adds a listener to scrollpane that makes the width of notificationsVBox change when scrollpane size changes
+     */
+    public void addScrollpaneListener(){
+        scrollpane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                notificationsVBox.setPrefWidth(scrollpane.getWidth() - 15);
+            }
+        });
     }
 
 }
