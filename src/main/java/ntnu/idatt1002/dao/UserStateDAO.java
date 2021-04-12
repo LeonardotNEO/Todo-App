@@ -49,19 +49,8 @@ public final class UserStateDAO {
      * @return String with chosen value, {@code null} if value is not stored
      */
     private static String getUserState(int index){
-        File file = new File(SAVEFILE);
-        String[] userstate = null;
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        String[] userstate = (String[]) GenericDAO.deserialize(SAVEFILE);
 
-            userstate = (String[]) ois.readObject();
-
-            ois.close();
-            fis.close();
-        }catch(IOException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
         if(userstate != null && index >= 0 && index <= 3) {
             return userstate[index];
         }else{
@@ -78,19 +67,8 @@ public final class UserStateDAO {
      */
     public static void setUserState(String username, String selectedCategory, String selectedSort,
                                     boolean rememberMe){
-        File file = new File(SAVEFILE);
         String[] values = {username, selectedCategory, selectedSort, String.valueOf(rememberMe)};
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(values);
-
-            oos.close();
-            fos.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+        GenericDAO.serialize(values, SAVEFILE);
     }
 
     /**
