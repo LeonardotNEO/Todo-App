@@ -211,7 +211,9 @@ public class NewEditTaskController {
                     notification1Hour.isSelected(),
                     notification24Hours.isSelected(),
                     notification7Days.isSelected(),
-                    tagsList
+                    tagsList,
+                    false,
+                    0L
                     );
 
             // based on argument of method, we edit or add new task

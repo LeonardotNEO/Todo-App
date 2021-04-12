@@ -186,6 +186,7 @@ public class TaskService {
         return tasksBetweenDates;
     }
 
+
     public static ArrayList<Task> getTasksByDate(ArrayList<Task> tasks, long datelong){
         ArrayList<Task> tasksByDate = new ArrayList<>();
 
@@ -279,11 +280,11 @@ public class TaskService {
         return errorsCodes;
     }
 
-    public static String getErrorMessageString(ArrayList<Integer> errorCodes){
+    public static String getErrorMessageString(ArrayList<Integer> errorCodes) {
         String errorMessageDisplayString = "";
 
-        for(Integer errorCode : errorCodes){
-            switch (errorCode){
+        for (Integer errorCode : errorCodes) {
+            switch (errorCode) {
                 case 1:
                     errorMessageDisplayString += "- Title must be between 0 and 30 characters \n";
                     break;
@@ -305,24 +306,21 @@ public class TaskService {
         return errorMessageDisplayString;
     }
 
-    public ArrayList<Task> getRepeatableTasks(){
-        return getTasksByCurrentUser().stream()
-                .filter(x-> x.isRepeatable())
-                .collect(Collectors.toCollection(ArrayList::new));
+    public ArrayList<Task> getReapeatTasksInterval(ArrayList<Task> ArrayListOfTasks, long start, long end){
+        ArrayList<Task> arrayWithAllClones = new ArrayList();
+        ArrayListOfTasks.stream().filter(x->x.isRepeatable());
+        for(Task T: ArrayListOfTasks) {
+            //hvor mange er det i tidsperioden?
+            for (int i=0; T.getStartDate()+i*T.getTimeRepeat()<= end;i++) {
+                Task temp = T;
+                temp.setStartDate(T.getStartDate()+i*T.getTimeRepeat());
+                temp.setDeadline(T.getDeadline()+i*T.getTimeRepeat());
+                arrayWithAllClones.add(temp);
+            }
+
+        }
+        return arrayWithAllClones;
     }
-
-    public ArrayList<Task> getTasksThisDay(Long Date){
-        return getTasksByCurrentUser().stream()
-                .filter(x-> x.getStartDate()==Date)
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    public HashMap getTaskThisMonth(int year, int month){
-        HashMap ThisMonthsTasks = new HashMap(31);
-
-        return ThisMonthsTasks;
-    }
-
 }
 
 

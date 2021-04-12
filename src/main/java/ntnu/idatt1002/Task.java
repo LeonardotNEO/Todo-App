@@ -29,8 +29,8 @@ public class Task implements Serializable {
     private boolean notification24Hours;
     private boolean notification7Days;
     private ArrayList<String> tags;
-    private boolean isRepeatable;
-    private String typeRepeat;
+    private boolean isRepeatable = false;
+    private Long timeRepeat;
 
     /**
      * A constructor for the class Task. Use when there is a deadline and start date for task.
@@ -42,7 +42,7 @@ public class Task implements Serializable {
      * @param startDate
      * @param category
      */
-    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags, boolean Repeatable, String typeRepeat) {
+    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags, boolean Repeatable, Long timeRepeat) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -67,7 +67,7 @@ public class Task implements Serializable {
         this.tags = tags;
         this.id = generateId();
         this.isRepeatable = isRepeatable;
-        this.typeRepeat = typeRepeat;
+        this.timeRepeat=timeRepeat;
     }
 
     /**
@@ -75,10 +75,20 @@ public class Task implements Serializable {
      * @param name
      * @param userName
      * @param description
+     * @param deadlineTime
      * @param priority
+     * @param asMs
+     * @param categoryMenuText
+     * @param color
+     * @param text
+     * @param notification1HourSelected
+     * @param notification24HoursSelected
+     * @param selected
+     * @param tagsList
+     * @param repeatable
      * @param category
      */
-    public Task(String name, String userName, String description, int priority, String category) {
+    public Task(String name, String userName, String description, long deadlineTime, int priority, long asMs, String categoryMenuText, String color, String text, boolean notification1HourSelected, boolean notification24HoursSelected, boolean selected, ArrayList<String> tagsList, boolean repeatable, String category) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -148,8 +158,8 @@ public class Task implements Serializable {
 
     public boolean isRepeatable() { return isRepeatable; }
 
-    public String getTypeRepeat() {
-        return typeRepeat;
+    public Long getTimeRepeat() {
+        return timeRepeat;
     }
 
     public void setId(long id) {
@@ -236,8 +246,8 @@ public class Task implements Serializable {
         isRepeatable = repeatable;
     }
 
-    public void setTypeRepeat(String typeRepeat) {
-        this.typeRepeat = typeRepeat;
+    public void setTimeRepeat(Long timeRepeat) {
+        this.timeRepeat = timeRepeat;
     }
 
     /**
