@@ -109,6 +109,7 @@ public class NavbarController {
         Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
         popup.setX(mouseLocation.getX() - 250);
         popup.setY(mouseLocation.getY());
+        //notificationMenuPopupVBox.getStylesheets().add(App.class.getResource("/css/main.css").toExternalForm());
 
         // Load notifications into notificationMenuPopup
         loadNotificationsIntoPopup(notificationMenuPopupVBox);

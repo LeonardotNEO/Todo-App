@@ -5,6 +5,10 @@ import java.io.IOException;
 
 public class NotificationMenuPopupController {
 
+    public void initialize(){
+
+    }
+
     /**
      * Communicate with mainController to update its main-content to notificationHistory.fxml when button in notificationBell-menu is clicked
      * @param event
