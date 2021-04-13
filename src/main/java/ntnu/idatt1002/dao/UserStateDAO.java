@@ -49,7 +49,11 @@ public final class UserStateDAO {
      * @return String with chosen value, {@code null} if value is not stored
      */
     private static String getUserState(int index){
-        String[] userstate = (String[]) GenericDAO.deserialize(SAVEFILE);
+        String[] userstate = null;
+
+        if(fileExists()){
+            userstate = (String[]) GenericDAO.deserialize(SAVEFILE);
+        }
 
         if(userstate != null && index >= 0 && index <= 3) {
             return userstate[index];

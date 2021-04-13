@@ -107,7 +107,7 @@ public final class CategoryDAO {
      * @return true or false
      */
     static boolean exists(String username, String category){
-        if(UserDAO.userExists(username)){
+        if(UserDAO.exists(username)){
             File catDir = new File(categoriesPath(username) + category);
             return catDir.exists();
         }else{
@@ -120,7 +120,7 @@ public final class CategoryDAO {
      * @return true or false
      */
     static boolean exists(String username, String project, String category){
-        if(UserDAO.userExists(username)){
+        if(UserDAO.exists(username)){
             File catDir = new File(projectPath(username, project) + category);
             return catDir.exists();
         }else{

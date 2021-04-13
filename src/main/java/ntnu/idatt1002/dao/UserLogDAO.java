@@ -58,7 +58,7 @@ public final class UserLogDAO {
     public static String[] getFullLog(String username){
         ArrayList<String> lines = new ArrayList<>();
 
-        if(UserDAO.userExists(username)) {
+        if(UserDAO.exists(username)) {
             try {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath(username)));
                 String line;
@@ -82,7 +82,7 @@ public final class UserLogDAO {
      * @return a {@code UserLog} object, or {@code null} if user does not exist
      */
     public static UserLog getUserLog(String username){
-        if(UserDAO.userExists(username)) {
+        if(UserDAO.exists(username)) {
             String[] fullLog = getFullLog(username);
             String userCreation = fullLog[0];
             String[] categoryAdded = filterArray(fullLog, strCatAdded);
@@ -112,7 +112,7 @@ public final class UserLogDAO {
      * @param entry String containing datetime, entry type and entry message
      */
     private static void writeEntry(String username, String entry){
-        if(UserDAO.userExists(username)) {
+        if(UserDAO.exists(username)) {
             //Get current datetime and format
             LocalDateTime datetime = LocalDateTime.now();
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");

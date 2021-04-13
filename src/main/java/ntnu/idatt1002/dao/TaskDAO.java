@@ -23,7 +23,7 @@ public final class TaskDAO {
         File directory = new File(categoriesPath(username));
         String[] categories = directory.list();
 
-        if(categories != null && UserDAO.userExists(username)){
+        if(categories != null && UserDAO.exists(username)){
             for(String category : categories){
                 tasks.addAll(getTasksByCategory(username, category));
             }
@@ -106,7 +106,7 @@ public final class TaskDAO {
         String[] categories = directory.list();
 
         //Scans all categories and all their tasks, looking for a match on the taskID
-        if(categories != null && UserDAO.userExists(username)){
+        if(categories != null && UserDAO.exists(username)){
             for(String category : categories){
                 File catDir = new File(directory.getPath() + "/" + category);
                 String[] pathnames = catDir.list();

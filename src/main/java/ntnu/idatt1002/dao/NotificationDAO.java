@@ -23,7 +23,7 @@ public final class NotificationDAO {
         File directory = new File(notifsPath(username));
         String[] pathnames = directory.list();
 
-        if(pathnames != null && UserDAO.userExists(username)){
+        if(pathnames != null && UserDAO.exists(username)){
             for(String path : pathnames){
                 notifs.add(deserializeNotif(directory.getPath() + "/" + path));
             }

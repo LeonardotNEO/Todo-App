@@ -23,7 +23,7 @@ public class UserService {
         String user = UserStateService.getCurrentUserUsername();
         if(user == null) return false;
         UserStateService.setCurrentUserUsername(null);
-        return UserDAO.deleteUser(user);
+        return UserDAO.delete(user);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UserService {
 
             // delete old user
             if(!UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){
-                UserDAO.deleteUser(oldUser.getUsername());
+                UserDAO.delete(oldUser.getUsername());
             }
 
             // update UserStateService

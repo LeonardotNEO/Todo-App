@@ -8,6 +8,7 @@ import java.io.*;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Static class to access user objects in storage
@@ -53,7 +54,7 @@ public final class UserDAO {
             boolean result = userDir.mkdir();
             for(String directory : DIRECTORIES){
                 File dir = new File(userDir(username) + directory);
-                result = dir.delete();
+                result = dir.mkdir();
             }
         }
 
@@ -78,6 +79,16 @@ public final class UserDAO {
      */
     public static boolean delete(String username){
         boolean result;                         //Variable to deal with delete() return
+
+        //Method calls
+        CategoryDAO.deleteByUser(username);
+
+        //Directories
+        for(String directory : DIRECTORIES){
+            File dir = new File(userDir(username) + directory);
+            result = dir.delete();
+        }
+
         //User files and directory
         File userDir = new File(userDir(username));
         File[] files = userDir.listFiles();
