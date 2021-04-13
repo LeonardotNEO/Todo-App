@@ -23,6 +23,7 @@ public class Task implements Serializable {
     private long startDate;
     private long deadline;
     private String category;
+    private String project = null;
     private String color;
     private String location;
     private boolean notification1Hour;
@@ -127,6 +128,10 @@ public class Task implements Serializable {
         return category;
     }
 
+    public String getProject(){
+        return project;
+    }
+
     public String getColor() {
         return color;
     }
@@ -182,6 +187,10 @@ public class Task implements Serializable {
      * @param category
      */
     public void setCategory(String category) {this.category = category;}
+
+    public void setProject(String project) {
+        this.project = project;
+    }
 
     public void setColor(String color) {
         this.color = color;
