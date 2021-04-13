@@ -3,8 +3,9 @@ package utils;
 import ntnu.idatt1002.utils.DateUtils;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.time.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,28 +14,33 @@ public class DateUtilsTest {
     @Test
     public void LocalDateGetAsMsTest() {
         LocalDate date = LocalDate.of(2020, 1, 1);
-        assertEquals(1577833200000l, DateUtils.getAsMs(date));
+        long ms = date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        assertEquals(ms, DateUtils.getAsMs(date));
     }
 
     @Test
     public void LocalDateTimeGetAsMsTest() {
-        LocalDateTime date = LocalDateTime.of(1970, 1, 1, 1, 0, 0);
-        assertEquals(0l, DateUtils.getAsMs(date));
+        LocalDateTime date = LocalDateTime.of(1970, 1, 1, 0, 0, 0);
+        long ms = date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+        assertEquals(ms, DateUtils.getAsMs(date));
     }
 
     @Test
     public void getFormattedFullDateTest() {
-        LocalDateTime date = LocalDateTime.of(1970, 1, 1, 1, 0, 0);
-        assertEquals("01/01/1970 01:00", DateUtils.getFormattedFullDate(0l));
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        assertEquals(format.format(Date.from(Instant.ofEpochMilli(0l))), DateUtils.getFormattedFullDate(0l));
     }
 
     @Test
     public void getFormattedDateTest() {
-        assertEquals("01/01/1970", DateUtils.getFormattedDate(0l));
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals(format.format(Date.from(Instant.ofEpochMilli(0l))), DateUtils.getFormattedDate(0l));
     }
 
     @Test
     public void getFormattedTimeTest() {
-        assertEquals("01:00", DateUtils.getFormattedTime(0l));
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        assertEquals(format.format(Date.from(Instant.ofEpochMilli(0l))), DateUtils.getFormattedTime(0l));
     }
 }
