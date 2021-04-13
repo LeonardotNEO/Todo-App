@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TaskDAOTest {
     private final static User userA = new User("olanormann");
     private final static String categoryA = "Home";
-    private final static Task taskA = new Task("Clean room", "olanormann", "", 1, 1, 1, "Home", "", "", false,null);
+    private final static Task taskA = new Task("Clean room", "olanormann", "", 1, 1, 1, "Home", "", "", false, false, false,null);
 
     private static long taskA_ID;
 

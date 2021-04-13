@@ -2,9 +2,7 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import ntnu.idatt1002.dao.UserLogDAO;
 
 public class RegisterService {
 
@@ -19,12 +17,13 @@ public class RegisterService {
 
         // Update savefiles to include this new user
         UserDAO.serializeUser(newUser);
+        UserLogDAO.setUserRegistration(name);
 
         // Set current user to this username
         UserStateService.setCurrentUserUsername(name);
 
         // Update UserState to rember if user want to be remembered
-        UserStateService.setCurrentUserRememberMe(rememberMe);
+        UserStateService.getCurrentUser().setRememberMe(rememberMe);
 
         // Add premade categories to user
         for (String premadeCategory : CategoryService.getPremadeCategories()) {
@@ -67,11 +66,28 @@ public class RegisterService {
      * @param username
      * @return
      */
-    public static boolean checkIfUsernameValid(String username){
-        if(username.length() > 3){
+    public static boolean checkIfUsernameValidSyntax(String username){
+        if(username.length() > 0){
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Method for checking if user already exists
+     * @param username
+     * @return
+     */
+    public static boolean checkIfUsernameValid(String username){
+        boolean result = true;
+
+        for(User user : UserDAO.getUsers()){
+            if(user.getUsername().equals(username)){
+                result = false;
+            }
+        }
+
+        return result;
     }
 }

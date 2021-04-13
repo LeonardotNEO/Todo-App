@@ -296,9 +296,9 @@ public class OverviewController {
         scrollpane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                dueThisWeek.setPrefWidth(scrollpane.getWidth() - 25);
-                dueNext7Days.setPrefWidth(scrollpane.getWidth() - 25);
-                dueThisMonth.setPrefWidth(scrollpane.getWidth() - 25);
+                dueThisWeek.setPrefWidth(scrollpane.getWidth() - 15);
+                dueNext7Days.setPrefWidth(scrollpane.getWidth() - 15);
+                dueThisMonth.setPrefWidth(scrollpane.getWidth() - 15);
             }
         });
     }

@@ -2,11 +2,8 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.utils.DateUtils;
+import ntnu.idatt1002.dao.UserLogDAO;
 
-import javax.swing.*;
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,20 +13,20 @@ import java.util.stream.Collectors;
  * A class which provides some necessary features which utilises task-data
  */
 public class TaskService {
-    public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags) {
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description, deadline, priority, startDate, category, color, location, notifications, tags);
+    public static boolean newTask(Task newTask) {
+        String username = UserStateService.getCurrentUser().getUsername();
         TaskDAO.serializeTask(newTask);
+        UserLogDAO.setTaskAdded(username, newTask.getName());
         return true;
     }
 
-    //Added to stop TaskServiceTest to fail
-    //  -Markus
-    public static boolean newTask(String title, LocalDate deadline, String description, int priority,
-                                  String startDate, String category){
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description,
-                priority, category);
-        TaskDAO.serializeTask(newTask);
-        return true;
+    /**
+     * Method for editing task. This will override Previous task object variables
+     * @param task
+     */
+    public static void editTask(Task task, long taskId){
+        task.setId(taskId);
+        TaskDAO.serializeTask(task);
     }
 
     /**
@@ -47,6 +44,7 @@ public class TaskService {
         TaskDAO.deleteTask(task);
         task.setCategory(newCategory);
         TaskDAO.serializeTask(task);
+        UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
 
     /**
@@ -125,7 +123,7 @@ public class TaskService {
      */
     public static ArrayList<Task> TaskSortedByPriority(){
         //ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
         return userTasks;
     }
@@ -136,7 +134,7 @@ public class TaskService {
      */
     public static ArrayList<Task> TasksSortedByDate(){
         //ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
@@ -157,7 +155,7 @@ public class TaskService {
      * @return
      */
     public static ArrayList<Task> TasksSortedByAlphabet(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUserCategory());
+        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2){
@@ -248,6 +246,7 @@ public class TaskService {
      */
     public static void deleteTask(Task task){
         TaskDAO.deleteTask(task);
+        UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
     }
 
     /**

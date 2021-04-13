@@ -1,7 +1,10 @@
 package ntnu.idatt1002.service;
 
+import ntnu.idatt1002.App;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
+
+import java.io.IOException;
 
 /**
  * A class which provides some necessary features for the login of teh application
@@ -51,14 +54,10 @@ public class LoginService {
 
         // Set selectedCategory to the first one
         if(CategoryService.getCategoriesCurrentUser().length > 0){
-            UserStateService.setCurrentUserCategory(CategoryService.getCategoriesCurrentUser()[0]);
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUser()[0]);
         }
 
-        if(rememberMe) {
-            UserStateService.setCurrentUserRememberMe(true);
-        } else {
-            UserStateService.setCurrentUserRememberMe(false);
-        }
+        UserStateService.getCurrentUser().setRememberMe(rememberMe);
     }
 
     /**
@@ -66,8 +65,17 @@ public class LoginService {
      */
     public static void logOut(){
         UserStateService.setCurrentUserUsername(null);
-        UserStateService.setCurrentUserCategory(null);
-        UserStateService.setCurrentUserSorting(null);
-        UserStateService.setCurrentUserRememberMe(false);
+    }
+
+    /**
+     * Method for logging the user in
+     * @param username
+     * @param rememberMe
+     * @throws IOException
+     */
+    public static void login(String username, boolean rememberMe) throws IOException {
+        LoginService.saveLogin(username, rememberMe);
+        App.setRoot("main");
+        App.updateThemeCurrentUser(UserStateService.getCurrentUser().getTheme());
     }
 }

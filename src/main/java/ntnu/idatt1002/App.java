@@ -6,8 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import ntnu.idatt1002.controllers.MainController;
 import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.LoginService;
+import ntnu.idatt1002.service.UpdateService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage stage;
 
     /**
      * A method to start the program
@@ -26,6 +29,9 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        // set stage objectvariable
+        this.stage = stage;
+
         // Load custom font, Roboto
         Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Roboto/Roboto-Light.ttf"), 14);
 
@@ -34,9 +40,13 @@ public class App extends Application {
             UserStateDAO.setUserState(null, null, null, false);
         }
 
+        // Start timer for checking for updates every 5 seconds
+        UpdateService.start();
+
         // check if userState contains a saved user, loads login if not
         if(UserStateService.checkIfUserState()){
             scene = new Scene(loadFXML("main"));
+            LoginService.login(UserStateService.getCurrentUser().getUsername(), true);
         } else {
             scene = new Scene(loadFXML("login"));
         }
@@ -55,7 +65,7 @@ public class App extends Application {
      */
     public void stop(){
         if(UserStateService.checkIfUserState()){
-            if(!UserStateService.getCurrentUserRememberMe()){
+            if(!UserStateService.getCurrentUser().isRememberMe()){
                 LoginService.logOut();
             }
         }
@@ -84,8 +94,54 @@ public class App extends Application {
      * @return
      * @throws IOException
      */
-    private static Parent loadFXML(String fxml) throws IOException{
+    public static Parent loadFXML(String fxml) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
-        return fxmlLoader.load();
+        Parent parent = fxmlLoader.load();
+        return parent;
+    }
+
+    /**
+     * Method for updating the theme according to current user
+     */
+    public static void updateThemeCurrentUser(String theme){
+        UserStateService.getCurrentUser().setTheme(theme);
+        switch (theme){
+            case "blue":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d;");
+                break;
+            case "green":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #004d00; -fx-color-2: #006600; -fx-color-3: #008000;");
+                break;
+            case "red":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #660011; -fx-color-2: #800015; -fx-color-3: #99001a;");
+                break;
+            case "pink":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #ff99aa; -fx-color-2: #ffb3bf; -fx-color-3: #ffc0cb;");
+                break;
+            case "brown":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #3d1010; -fx-color-2: #511515; -fx-color-3: #651b1b;");
+                break;
+            case "purple":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #4d004d; -fx-color-2: #660066; -fx-color-3: #800080;");
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Method for fetching the scene
+     * @return
+     */
+    public static Scene getCurrentScene(){
+        return scene;
+    }
+
+    /**
+     * Method for fetching the stage
+     * @return
+     */
+    public static Stage getStage() {
+        return stage;
     }
 }

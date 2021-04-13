@@ -1,32 +1,45 @@
+.root {
+  -fx-color-1: #001021;
+  -fx-color-2: #001933;
+  -fx-color-3: #00254d;
+  -fx-color-4: orange;
+}
+
+/* GENERAL */
+
 .button1{
-  -fx-background-color:  #001021;
+  -fx-background-color:  -fx-color-1;
   -fx-background-radius: 5;
   -fx-font-size: 16;
   -fx-text-fill: white;
 }
 
-#button1:hover {
-  -fx-text-fill: orange;
-  -fx-background-color:  #001021;
-}
-
-#button1:hover #icon {
-  -fx-fill: orange;
-}
-
-.button2{
-  -fx-background-color:  #001021;
-  -fx-background-radius: 5;
-  -fx-font-size: 15;
+.button1:visited {
   -fx-text-fill: white;
 }
 
-.button3{
-  -fx-background-color:  #001021;
-  -fx-background-radius: 20;
-  -fx-font-size: 12;
-  -fx-text-fill: white;
+.button1:hover {
+  -fx-text-fill: -fx-color-4;
+  -fx-background-color:  -fx-color-1;
 }
+
+.button1:hover #icon {
+  -fx-fill: -fx-color-4;
+}
+
+.background-color_1{
+  -fx-background-color: -fx-color-1;
+}
+
+.background-color_2{
+  -fx-background-color: -fx-color-2;
+}
+
+.background-color_3{
+  -fx-background-color: -fx-color-3;
+}
+
+/* DASHBOARD */
 
 .categoryButton{
   -fx-background-color:  transparent;
@@ -34,18 +47,44 @@
   -fx-text-fill: white;
 }
 
+.categoryButton:hover {
+  -fx-text-fill: -fx-color-4;
+}
+
+.categoryButton:hover #icon{
+  -fx-fill: -fx-color-4;
+}
+
+.categoryButton-selected {
+  -fx-background-color:  transparent;
+  -fx-font-size: 18;
+  -fx-text-fill: -fx-color-4;
+}
+
+.categoryButton-selected #icon {
+  -fx-fill: -fx-color-4;
+}
+
+
+/* NAVBAR */
+
 .navbarButton{
   -fx-background-color: transparent;
   -fx-font-size: 18;
 }
 
+.navbarButton:focused {
+  -fx-text-fill: white;
+  -fx-font-size: 18;
+}
+
 #navbarButton:hover {
-  -fx-text-fill: orange;
+  -fx-text-fill: -fx-color-4;
   -fx-background-color:  transparent;
 }
 
 #navbarButton:hover #icon {
-  -fx-fill: orange;
+  -fx-fill: -fx-color-4;
 }
 
 #notificationBell {
@@ -53,71 +92,10 @@
 }
 
 #notificationBell:hover #icon{
-  -fx-fill: orange;
+  -fx-fill: -fx-color-4;
 }
 
-.background-color_1{
-  -fx-background-color: #001021;
-}
-
-.background-color_2{
-  -fx-background-color: #001933;
-}
-
-.background-color_3{
-  -fx-background-color:  #00254d;
-}
-
-.scroll-bar:horizontal .track,
-.scroll-bar:vertical .track{
-  -fx-background-color :#001933;
-  -fx-border-color :transparent;
-  -fx-background-radius : 0.0em;
-  -fx-border-radius :2.0em;
-}
-
-
-.scroll-bar:horizontal .increment-button ,
-.scroll-bar:horizontal .decrement-button {
-  -fx-background-color :transparent;
-  -fx-background-radius : 0.0em;
-  -fx-padding :0.0 0.0 10.0 0.0;
-
-}
-
-.scroll-bar:vertical .increment-button ,
-.scroll-bar:vertical .decrement-button {
-  -fx-background-color :transparent;
-  -fx-background-radius : 0.0em;
-  -fx-padding :0.0 10.0 0.0 0.0;
-
-}
-
-.scroll-bar .increment-arrow,
-.scroll-bar .decrement-arrow{
-  -fx-shape : " ";
-  -fx-padding :0.15em 0.0;
-}
-
-.scroll-bar:vertical .increment-arrow,
-.scroll-bar:vertical .decrement-arrow{
-  -fx-shape : " ";
-  -fx-padding :0.0 0.15em;
-}
-
-.scroll-bar:horizontal .thumb,
-.scroll-bar:vertical .thumb {
-  -fx-background-color : #006fe6;
-  -fx-background-insets : 2.0, 0.0, 0.0;
-  -fx-background-radius : 2.0em;
-}
-
-.scroll-bar:horizontal .thumb:hover,
-.scroll-bar:vertical .thumb:hover {
-  -fx-background-color : #3396ff;
-  -fx-background-insets : 2.0, 0.0, 0.0;
-  -fx-background-radius : 2.0em;
-}
+/* OVERVIEW PAGE */
 
 .simple-advanced-button {
   -fx-background-color: transparent;
@@ -134,6 +112,16 @@
 
 .overview-navbar {
   -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
-  -fx-background-color: #00254d;
+  -fx-background-color: -fx-color-2;
+}
+
+.overview-scrollpanes {
+  -fx-background-color: #e2eae2;
+  -fx-background: transparent;
+  -fx-background-radius: 10 0 0 0;
+}
+
+.overview-arrows {
+  -fx-fill: -fx-color-1;
 }
 

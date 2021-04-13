@@ -24,7 +24,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="625.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewEditTaskController">
+<BorderPane onKeyPressed="#onKeyPressed" prefHeight="825.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewEditTaskController">
    <top>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
@@ -73,12 +73,12 @@
    <bottom>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton id="button1" fx:id="button" layoutX="255.0" layoutY="8.0" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="New task">
+            <JFXButton fx:id="button" layoutX="255.0" layoutY="8.0" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="New task">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
                </graphic>
             </JFXButton>
-            <JFXButton id="button1" layoutX="380.0" layoutY="8.0" onAction="#buttonCancelTask" prefHeight="37.0" prefWidth="115.0" styleClass="button2" stylesheets="@../css/main.css" text="Cancel">
+            <JFXButton layoutX="380.0" layoutY="8.0" onAction="#buttonCancelTask" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
                <graphic>
                   <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
                </graphic>
@@ -87,7 +87,7 @@
       </AnchorPane>
    </bottom>
    <center>
-      <ScrollPane maxHeight="500.0" maxWidth="750.0" prefHeight="200.0" prefWidth="750.0" style="-fx-border-color: transparent; -fx-background-color: transparent;" BorderPane.alignment="CENTER">
+      <ScrollPane maxHeight="774.0" maxWidth="750.0" prefHeight="774.0" prefWidth="750.0" style="-fx-border-color: transparent; -fx-background-color: transparent;" BorderPane.alignment="CENTER">
          <content>
             <AnchorPane>
                <children>
@@ -108,12 +108,12 @@
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <MenuButton fx:id="categoryMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Category" textFill="WHITE">
+                        <MenuButton fx:id="categoryMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" text="Category" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </MenuButton>
-                        <MenuButton fx:id="priorityMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" stylesheets="@../css/main.css" text="Priority" textFill="WHITE">
+                        <MenuButton fx:id="priorityMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" text="Priority" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -174,11 +174,49 @@
                               <Insets left="115.0" />
                            </padding>
                         </HBox>
-                        <JFXCheckBox fx:id="notification" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" text="Notifications">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </JFXCheckBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" spacing="10.0">
+                           <children>
+                              <JFXButton fx:id="buttonAttachFiles" onAction="#buttonAttachFiles" prefHeight="37.0" prefWidth="118.0" styleClass="button1" text="Attach files">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="31.0" text="Button">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="47.0" prefWidth="466.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Remind me">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <JFXCheckBox fx:id="notification1Hour" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 hour" />
+                              <JFXCheckBox fx:id="notification24Hours" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="24 hours" />
+                              <JFXCheckBox fx:id="notification7Days" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 week" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
                         <Label fx:id="errorMessage" alignment="TOP_LEFT" maxHeight="100.0" textFill="RED" wrapText="true">
                            <font>
                               <Font size="16.0" />

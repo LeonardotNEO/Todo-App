@@ -37,7 +37,7 @@ public class CalenderElementController {
             button.setOnAction(event -> {
                 try {
                     // set current category to this tasks category
-                    UserStateService.setCurrentUserCategory(task.getCategory());
+                    UserStateService.getCurrentUser().setCurrentlySelectedCategory(task.getCategory());
 
                     // load dashboard to maincontent
                     MainController.getInstance().setMainContent("dashboard");
