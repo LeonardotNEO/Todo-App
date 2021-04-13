@@ -15,7 +15,6 @@ public final class TaskDAO {
 
     /**
      * Get all tasks stored in user folder.
-     * @param username non case-sensitive username
      * @return a list of all tasks
      */
     public static ArrayList<Task> getTasksByUser(String username){

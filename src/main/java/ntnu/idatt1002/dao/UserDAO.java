@@ -81,7 +81,7 @@ public final class UserDAO {
         boolean result;                         //Variable to deal with delete() return
 
         //Method calls
-        CategoryDAO.deleteByUser(username);
+        result = CategoryDAO.deleteByUser(username);
 
         //Directories
         for(String directory : DIRECTORIES){
