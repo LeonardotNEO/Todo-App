@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -52,8 +53,8 @@ public class NewEditTaskController {
     @FXML private Label errorMessage;
     @FXML private Button button;
     @FXML private Button buttonAttachFiles;
-    @FXML private HBox hboxForFiles;
-    @FXML private Text attachedFiles = new Text();
+    @FXML private VBox vboxForFiles;
+    @FXML private ScrollPane scrollPane;
     FileChooser fileChooser = new FileChooser();
     private File selectedFiles;
     private ArrayList<String> listOfFiles = new ArrayList<>();
@@ -128,6 +129,15 @@ public class NewEditTaskController {
 
         // set tags
         setTags(task.getTags());
+
+        setListOfFiles(task.getFilePaths());
+
+        listOfFiles.forEach(e -> {
+            Text t = new Text();
+            t.setText(e);
+            vboxForFiles.getChildren().add(t);
+        });
+        scrollPane.setContent(vboxForFiles);
 
         // set onAction of button and button text
         button.setText("Edit task");
@@ -210,11 +220,15 @@ public class NewEditTaskController {
     }
 
     public void buttonAttachFiles() {
-        hboxForFiles.getChildren().clear();
+        vboxForFiles.getChildren().clear();
         selectedFiles = fileChooser.showOpenDialog(App.getStage());
         listOfFiles.add(selectedFiles.getAbsolutePath());
-        attachedFiles.setText(listOfFiles.toString());
-        hboxForFiles.getChildren().add(attachedFiles);
+        listOfFiles.forEach(e -> {
+            Text t = new Text();
+            t.setText(e);
+            vboxForFiles.getChildren().add(t);
+        });
+        scrollPane.setContent(vboxForFiles);
     }
 
     /**
@@ -237,22 +251,6 @@ public class NewEditTaskController {
             ArrayList<String> tagsList = new ArrayList<>();
             tags.getChips().forEach(tag -> {
                 System.out.println(tag.toString());
-            });
-
-            //e -> {
-            //                hboxForFiles.getChildren().clear();
-            //                selectedFiles = fileChooser.showOpenDialog(App.getStage());
-            //                listOfFiles.add(selectedFiles.getAbsolutePath());
-            //                attachedFiles.setText(listOfFiles.toString());
-            //                hboxForFiles.getChildren().add(attachedFiles);}
-            buttonAttachFiles.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent event) {
-                    hboxForFiles.getChildren().clear();
-                    selectedFiles = fileChooser.showOpenDialog(App.getStage());
-                    listOfFiles.add(selectedFiles.getAbsolutePath());
-                    attachedFiles.setText(listOfFiles.toString());
-                    hboxForFiles.getChildren().add(attachedFiles);
-                }
             });
 
             // Make new task
@@ -423,9 +421,9 @@ public class NewEditTaskController {
      * A method to set tags
      * @param tags
      */
-    public void setTags(ArrayList<String> tags){
-        this.tags.getChips().addAll(tags);
-    }
+    public void setTags(ArrayList<String> tags){this.tags.getChips().addAll(tags);}
+
+    public void setListOfFiles(ArrayList<String> attachedFiles) {this.listOfFiles =attachedFiles;}
 
     /**
      * A method to set notification
