@@ -74,7 +74,7 @@ public class TaskController {
             tagsString += tag + ", ";
         }
         tags.setText("Tags: " + tagsString);
-        taskDate.setText("This task is due: " + task.getDeadline());
+        taskDate.setText("This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
