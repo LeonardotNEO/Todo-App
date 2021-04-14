@@ -12,7 +12,13 @@ import java.util.Arrays;
  */
 public class CategoryService {
 
-    private static String[] premadeCategories = {"All tasks", "Trash bin", "Finished tasks"};
+    private static ArrayList<String> premadeCategories = new ArrayList<>() {
+        {
+            add("All tasks");
+            add("Trash bin");
+            add("Finished tasks");
+        }
+    };
 
     /**
      * Get categories by current user
@@ -31,7 +37,7 @@ public class CategoryService {
         ArrayList<String> categoriesWithoutPremades = new ArrayList<>();
 
         for (String s : getCategoriesCurrentUser()) {
-            boolean result = Arrays.stream(premadeCategories).anyMatch(s::contains);
+            boolean result = premadeCategories.stream().anyMatch(s::contains);
 
             if(!result){
                 categoriesWithoutPremades.add(s);
@@ -81,7 +87,7 @@ public class CategoryService {
     public static ArrayList<String> getArrayListCategoriesOrganized(){
         ArrayList<String> categoriesList = new ArrayList<>();
         for (String s : getCategoriesCurrentUser()) {
-            if(!s.equals("Trash bin") && !s.equals("Finished tasks")){
+            if(!premadeCategories.stream().anyMatch(s::equals)){
                 categoriesList.add(s);
             }
         }
@@ -94,7 +100,7 @@ public class CategoryService {
         return categoriesList;
     }
 
-    public static String[] getPremadeCategories(){
+    public static ArrayList<String> getPremadeCategories(){
         return premadeCategories;
     }
 }
