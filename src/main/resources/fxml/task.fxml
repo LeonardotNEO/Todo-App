@@ -33,7 +33,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#editTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
+            <Button mnemonicParsing="false" onAction="#buttonEditTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="ORANGE" glyphName="PENCIL" size="18" />
                </graphic>
@@ -41,7 +41,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#deleteTask" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
+            <Button mnemonicParsing="false" onAction="#buttonDeleteTask" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" size="18" />
                </graphic>
@@ -52,4 +52,7 @@
          </children>
       </HBox>
    </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </AnchorPane>

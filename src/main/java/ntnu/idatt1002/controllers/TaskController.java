@@ -37,6 +37,13 @@ public class TaskController {
     @FXML private HBox toolsHBox;
 
     /**
+     * Adding listeners to task anchorpane
+     */
+    public void initialize(){
+        addClickTaskListener();
+    }
+
+    /**
      * When finishTaskButton is clicked, task is moved to finished tasks folder
      * @param event
      * @throws IOException
@@ -51,7 +58,7 @@ public class TaskController {
      * @param event
      * @throws IOException
      */
-    public void deleteTask(ActionEvent event) throws IOException {
+    public void buttonDeleteTask(ActionEvent event) throws IOException {
         // update category of task to trash bin
         TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
 
@@ -64,18 +71,8 @@ public class TaskController {
      * @param event
      * @throws IOException
      */
-    public void editTask(ActionEvent event) throws IOException{
-        // Load editTask page. get fxml variable and controller variable
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
-        Node editMenu = loader.load();
-        NewEditTaskController newEditTaskController = loader.getController();
-
-        // load the task part of newEditTaskController
-        newEditTaskController.initializeEditTask(TaskService.getTaskByCurrentUser(taskId));
-
-        // set mainControllers maincontent to dashboard and set dashboard to editpage
-        MainController.getInstance().setMainContent("dashboard");
-        DashboardController.getInstance().setCenterContent(editMenu);
+    public void buttonEditTask(ActionEvent event) throws IOException{
+        editTask();
     }
 
     /**
@@ -147,5 +144,29 @@ public class TaskController {
             taskName.setFill(Paint.valueOf("black"));
             toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
         }
+    }
+
+    public void addClickTaskListener(){
+        background.setOnMouseClicked(mouseEvent -> {
+            try {
+                editTask();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void editTask() throws IOException {
+        // Load editTask page. get fxml variable and controller variable
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
+        Node editMenu = loader.load();
+        NewEditTaskController newEditTaskController = loader.getController();
+
+        // load the task part of newEditTaskController
+        newEditTaskController.initializeEditTask(TaskService.getTaskByCurrentUser(taskId));
+
+        // set mainControllers maincontent to dashboard and set dashboard to editpage
+        MainController.getInstance().setMainContent("dashboard");
+        DashboardController.getInstance().setCenterContent(editMenu);
     }
 }
