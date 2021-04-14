@@ -32,6 +32,7 @@ public class Task implements Serializable {
     private boolean isRepeatable = false;
     private Long timeRepeat;
 
+    private Task() { /* Empty constructor for builder */}
     /**
      * A constructor for the class Task. Use when there is a deadline and start date for task.
      * @param name
@@ -278,10 +279,33 @@ public class Task implements Serializable {
         return Objects.hash(name, userName, description, deadline, priority, startDate, category);
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userName='" + userName + '\'' +
+                ", description='" + description + '\'' +
+                ", priority=" + priority +
+                ", startDate=" + startDate +
+                ", deadline=" + deadline +
+                ", category='" + category + '\'' +
+                ", color='" + color + '\'' +
+                ", location='" + location + '\'' +
+                ", notification1Hour=" + notification1Hour +
+                ", notification24Hours=" + notification24Hours +
+                ", notification7Days=" + notification7Days +
+                ", tags=" + tags +
+                ", isRepeatable=" + isRepeatable +
+                ", timeRepeat=" + timeRepeat +
+                '}';
+    }
+
     /**
      * A method to get a list of all fields in the class as a String
      * @return a String of all fields in the class
      */
+    /*
     @Override
     public String toString() {
         return "Task{" +
@@ -294,6 +318,7 @@ public class Task implements Serializable {
                 ", category='" + category + '\'' +
                 '}';
     }
+    */
 
     public long generateId(){
         Random random = new Random();
@@ -303,4 +328,101 @@ public class Task implements Serializable {
         long finalLong = Long.parseLong(finalString);
         return finalLong;
     }
+
+    public static class TaskBuilder {
+        private long id;
+        private String title;
+        private String userName;
+        private String description;
+        private int priority;
+        private String category;
+        private String color;
+        private String location;
+        private ArrayList<String> tags;
+
+        //Dates
+        private long startDate;
+        private long deadline;
+
+        // Repetable
+        private boolean isRepeatable = false;
+        private Long timeRepeat;
+
+        // Notifications
+        private boolean notification1Hour;
+        private boolean notification24Hours;
+        private boolean notification7Days;
+
+        public TaskBuilder(String userName, String title) {
+            this.userName = userName;
+            this.title = title;
+        }
+
+        public TaskBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public TaskBuilder priority(int priority) {
+            this.priority = priority;
+            return this;
+        }
+
+        public TaskBuilder category(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public TaskBuilder repeatable(Boolean isRepeatable, Long timeRepeat) {
+            this.isRepeatable = isRepeatable;
+            this.timeRepeat = timeRepeat;
+            return this;
+        }
+
+        public TaskBuilder deadline(long deadline) {
+            this.deadline = deadline;
+            return this;
+        }
+
+        public TaskBuilder startDate(long startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        public TaskBuilder color(String color) {
+            this.color = color;
+            return this;
+        }
+
+        public TaskBuilder tags(ArrayList<String> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Task build() {
+            Task task = new Task();
+
+            // Set values for task object
+            task.name = this.title;
+            task.userName = this.userName;
+            task.description = this.description;
+            task.priority = this.priority;
+            task.startDate = this.startDate;
+            task.category = this.category;
+            task.color = this.color;
+            task.location = this.location;
+            task.notification1Hour = this.notification1Hour;
+            task.notification7Days = this.notification7Days;
+            task.notification24Hours = this.notification24Hours;
+            task.tags = this.tags;
+            task.isRepeatable = this.isRepeatable;
+            task.timeRepeat = this.timeRepeat;
+
+            // generate id
+            task.id = task.generateId();
+
+            return task;
+        }
+    }
+
 }
