@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,14 +29,14 @@ public class TaskServiceTest {
             CategoryService.addCategoryToCurrentUser("home");
             CategoryService.addCategoryToCurrentUser("Category");
 
-            TaskService.newTask(new Task("Hei", UserStateService.getCurrentUser().getUsername(), "Hei på deg", DateUtils.getAsMs(LocalDate.of(2021, 02, 12)),  1, 1l, "Category", "", null, false, false, false, null,false,0L));
-            TaskService.newTask(new Task("Test10001", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 04, 21)), 2, 1l, "home", "", null, false, false, false,null,false,0L));
-            TaskService.newTask(new Task("Test1", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 05, 15)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
-            TaskService.newTask(new Task("Test2", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 02, 21)), 2, 1l, "home", "", null, false, false, false,null,false,0L));
-            TaskService.newTask(new Task("Test64", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 06, 21)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
-            TaskService.newTask(new Task("Test4", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 02, 16)), 3, 1l, "home", "", null, false, false, false,null,false,0L));
-            TaskService.newTask(new Task("Test5", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 01, 21)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
-            TaskService.newTask(new Task("Test61001", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2022, 02, 20)), 0, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTaskValidation(new Task("Hei", UserStateService.getCurrentUser().getUsername(), "Hei på deg", DateUtils.getAsMs(LocalDate.of(2021, 02, 12)),  1, 1l, "Category", "", null, false, false, false, null,false,0L));
+            TaskService.newTaskValidation(new Task("Test10001", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 04, 21)), 2, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTaskValidation(new Task("Test1", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 05, 15)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTaskValidation(new Task("Test2", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 02, 21)), 2, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTaskValidation(new Task("Test64", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 06, 21)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTaskValidation(new Task("Test4", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 02, 16)), 3, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTaskValidation(new Task("Test5", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2021, 01, 21)), 1, 1l, "home", "", null, false, false, false,null,false,0L));
+            TaskService.newTaskValidation(new Task("Test61001", UserStateService.getCurrentUser().getUsername(), "dsadksajdskajdkasd", DateUtils.getAsMs(LocalDate.of(2022, 02, 20)), 0, 1l, "home", "", null, false, false, false,null,false,0L));
         });
     }
 
@@ -49,7 +48,7 @@ public class TaskServiceTest {
     @Test
     public void tasksByAlphabetTest(){
         UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
-        ArrayList<Task> list = TaskService.TasksSortedByAlphabet();
+        ArrayList<Task> list = TaskService.sortedAlphabetically();
         assertTrue(list.get(0).getName().compareTo(list.get(list.size() - 1).getName())<1);
     }
 
@@ -80,10 +79,10 @@ public class TaskServiceTest {
         long end = DateUtils.getAsMs(LocalDate.of(2021, 02, 12)) + 100;
 
         // Test if we have found the correct task
-        assertEquals("Hei", TaskService.getTaskByDateInterval(start, end).get(0).getName());
+        assertEquals("Hei", TaskService.getInDateInterval(start, end).get(0).getName());
 
         // Check that we only found one task
-        assertEquals(1, TaskService.getTaskByDateInterval(start, end).size());
+        assertEquals(1, TaskService.getInDateInterval(start, end).size());
     }
 
     @Test
@@ -100,6 +99,6 @@ public class TaskServiceTest {
     @Test
     public void taskBetweenDates(){
         ArrayList<Task> taskList = TaskService.getCategoryWithTasks("home");
-        assertTrue(TaskService.getTasksBetweenDates(taskList, DateUtils.getAsMs(LocalDate.of(2021, 1, 1)), DateUtils.getAsMs(LocalDate.of(2021,7,5))).size() == 6);
+        assertTrue(TaskService.getInDateInterval(taskList, DateUtils.getAsMs(LocalDate.of(2021, 1, 1)), DateUtils.getAsMs(LocalDate.of(2021,7,5))).size() == 6);
     }
 }

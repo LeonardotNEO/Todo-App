@@ -4,17 +4,22 @@ import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserLogDAO;
 
-import java.lang.reflect.Array;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 /**
- * A class which provides some necessary features which utilises task-data
+ * a class which provides some necessary features which utilises task-data
  */
 public class TaskService {
-    public static boolean newTask(Task newTask) {
+    /**
+     * Methode to validate if a task was successfully added. 
+     * Returns true if the task was added.
+     * @param newTask
+     * @return
+     */
+    public static boolean newTaskValidation(Task newTask) {
         String username = UserStateService.getCurrentUser().getUsername();
         TaskDAO.serializeTask(newTask);
         UserLogDAO.setTaskAdded(username, newTask.getName());
@@ -22,7 +27,7 @@ public class TaskService {
     }
 
     /**
-     * Method for editing task. This will override Previous task object variables
+     * Method for editing task. this will override previous task object variables
      * @param task
      */
     public static void editTask(Task task, long taskId){
@@ -64,14 +69,14 @@ public class TaskService {
      * @return
      */
     public static ArrayList<Task> getTasksExcludingCategories(ArrayList<Task> tasks, ArrayList<String> categories){
-        ArrayList<Task> tasksExludingCategories = new ArrayList<>();
+        ArrayList<Task> tasksExcludingCategories = new ArrayList<>();
         tasks.forEach(task -> {
             if(!categories.contains(task.getCategory())){
-                tasksExludingCategories.add(task);
+                tasksExcludingCategories.add(task);
             }
         });
 
-        return tasksExludingCategories;
+        return tasksExcludingCategories;
     }
 
     /**
@@ -155,43 +160,47 @@ public class TaskService {
      * Returns an ArrayList of all the tasks sorted by the alphabetical order of the first letter in them.
      * @return
      */
-    public static ArrayList<Task> TasksSortedByAlphabet(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
-        Collections.sort(userTasks, new Comparator<Task>() {
+    public static ArrayList<Task> sortedAlphabetically(){
+        
+        ArrayList<Task> userTasksInCategory = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+        Collections.sort(userTasksInCategory, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2){
                 return o1.getName().compareTo(o2.getName());
             }
         });
-
-        return userTasks;
+        return userTasksInCategory;
+    }
+    
+    /**
+     * Finds all tasks withing a given interval
+     * @param start interval start time in ms
+     * @param end interval end time in ms
+     * @return Lists of all tasks within the given interval
+     */
+    public static ArrayList<Task> getInDateInterval(long start, long end) {
+        return getInDateInterval(getTasksByCurrentUser(),start,end);
     }
 
     /**
-     * Method that retuns a list of tasks between a specific set of dates
+     * Method that returns a list of tasks between a specific set of dates
      * @param tasks
      * @param start
-     * @param stop
+     * @param end
      * @return
      */
-    public static ArrayList<Task> getTasksBetweenDates(ArrayList<Task> tasks, long start, long stop){
-        ArrayList<Task> tasksBetweenDates = new ArrayList<>();
-
-        for(Task task : tasks){
-            if(task.getDeadline() >= start && task.getDeadline() <= stop){
-                tasksBetweenDates.add(task);
-            }
-        }
-
-        return tasksBetweenDates;
+    public static ArrayList<Task> getInDateInterval(ArrayList<Task> tasks, long start, long end){
+        return tasks.stream()
+                .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-
-    public static ArrayList<Task> getTasksByDate(ArrayList<Task> tasks, long datelong){
+// rewrite this to use getTasksBetweenDates?
+    public static ArrayList<Task> getGivenDate(ArrayList<Task> tasks, long dateLong){
         ArrayList<Task> tasksByDate = new ArrayList<>();
 
         for(Task task : tasks){
-            LocalDate dateInput = Instant.ofEpochMilli(datelong).atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateInput = Instant.ofEpochMilli(dateLong).atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate dateTask = Instant.ofEpochMilli(task.getDeadline()).atZone(ZoneId.systemDefault()).toLocalDate();
 
             if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth() && dateInput.getMonthValue() == dateTask.getMonthValue() && dateInput.getYear() == dateTask.getYear()){
@@ -207,30 +216,15 @@ public class TaskService {
      * @param DesiredName
      * @return
      */
-    public static ArrayList<Task> TasksFoundWithSearchBox(String DesiredName){
+    public static ArrayList<Task> containsDesiredNameInTitle(String DesiredName){
         ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> CompatableTasks = new ArrayList<>();
 
-        for(Task t: userTasks){
-            if(t.getName().toLowerCase().contains(DesiredName.toLowerCase())){
-                CompatableTasks.add(t);
-            }
-        }
-        return CompatableTasks;
-    }
-
-    /**
-     * Finds all tasks withing a given interval
-     * @param start interval start time in ms
-     * @param end interval end time in ms
-     * @return Lists of all tasks within the given interval
-     */
-    public static ArrayList<Task> getTaskByDateInterval(long start, long end) {
-        ArrayList<Task> userTasks = getTasksByCurrentUser();
         return userTasks.stream()
-                .filter(t -> t.getDeadline() > start && t.getDeadline() < end)
+                .filter(t-> t.getName().toLowerCase().contains(DesiredName.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+
 
     /**
      * Uses TaskDAO and UserStateDAO to get task by id for current user
@@ -255,7 +249,7 @@ public class TaskService {
      * Method that validates if task input is correct
      * @param title
      * @param description
-     * @return an ArrayList of errorcodes. Errorcodes can be used i front end to display an errormessage for each scenario
+     * @return an ArrayList of errorCodes. ErrorCodes can be used i front end to display an errormessage for each scenario
      */
     public static ArrayList<Integer> validateTaskInput(String title, String description, String priority, long deadlineTime){
         ArrayList<Integer> errorsCodes = new ArrayList<>();
@@ -292,7 +286,7 @@ public class TaskService {
                     errorMessageDisplayString += "- Description must be between cant be more than 170 characters \n";
                     break;
                 case 3:
-                    errorMessageDisplayString += "- Priority must be choosen \n";
+                    errorMessageDisplayString += "- Priority must be chosen \n";
                     break;
                 case 4:
                     errorMessageDisplayString += "- Deadline cannot be in the past. Please choose a date in the future";
@@ -306,14 +300,13 @@ public class TaskService {
         return errorMessageDisplayString;
     }
 
-    public ArrayList<Task> getReapeatTasksInterval(ArrayList<Task> ArrayListOfTasks, long start, long end){
+    public ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
         ArrayList<Task> arrayWithAllClones = new ArrayList();
         ArrayListOfTasks.stream().filter(x->x.isRepeatable());
         for(Task T: ArrayListOfTasks) {
-            //hvor mange er det i tidsperioden?
+            
             for (int i=0; T.getStartDate()+i*T.getTimeRepeat()<= end;i++) {
                 Task temp = T;
-                temp.setStartDate(T.getStartDate()+i*T.getTimeRepeat());
                 temp.setDeadline(T.getDeadline()+i*T.getTimeRepeat());
                 arrayWithAllClones.add(temp);
             }
