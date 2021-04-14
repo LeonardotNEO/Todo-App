@@ -135,7 +135,9 @@ public class DashboardController {
             taskHBox.setVisible(true);
 
             // if trashbin or finished task category is selected, we wont show edit/delete button and taskBar
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Trash bin") || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Finished tasks")){
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Trash bin")
+                    || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Finished tasks")
+                    || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
                 buttonEditCategory.setVisible(false);
                 buttonDeleteCategory.setVisible(false);
                 taskHBox.setVisible(false);
