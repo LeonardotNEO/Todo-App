@@ -112,7 +112,8 @@ public class NavbarController {
         popup.setY(mouseLocation.getY());
 
         // set style of popup
-        notificationMenuPopup.setStyle(App.updateThemeCurrentUser(UserStateService.getCurrentUser().getTheme());
+        notificationMenuPopup.getStylesheets().add(App.class.getResource("/css/main.css").toExternalForm());
+        notificationMenuPopup.setStyle(UserStateService.getCurrentUser().getTheme());
 
         // Load notifications into notificationMenuPopup
         loadNotificationsIntoPopup(notificationMenuPopupVBox);

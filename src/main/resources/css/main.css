@@ -38,6 +38,10 @@
 .background-color_3{
   -fx-background-color: -fx-color-3;
 }
+.background-color_white {
+  -fx-background-color: white;
+}
+
 
 /* DASHBOARD */
 
