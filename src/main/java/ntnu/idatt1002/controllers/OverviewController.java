@@ -75,17 +75,17 @@ public class OverviewController {
         // The remaining days of the current week
         LocalDateTime firstDayOfNextWeek = now.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
         LocalDateTime nowPlusDaysUntilNextMonday = now.plusDays(ChronoUnit.DAYS.between(now, firstDayOfNextWeek));
-        ArrayList<Task> tasksThisWeek = TaskService.getInDateInterval(TaskService.getTasksExcludingCategories(TaskService.getTasksByCurrentUser(), excludedCategories), DateUtils.getAsMs(now), DateUtils.getAsMs(nowPlusDaysUntilNextMonday));
+        ArrayList<Task> tasksThisWeek = TaskService.getTasksInDateInterval(TaskService.getTasksExcludingCategories(TaskService.getTasksByCurrentUser(), excludedCategories), DateUtils.getAsMs(now), DateUtils.getAsMs(nowPlusDaysUntilNextMonday));
         addTasksToSimpleView("dueThisWeek", getTaskUIListFromTaskObjectList(tasksThisWeek));
 
         // The next 7 days date
         LocalDateTime nowPlus7Days = now.plusDays(7);
-        ArrayList<Task> tasks7Days = TaskService.getInDateInterval(TaskService.getTasksExcludingCategories(TaskService.getTasksByCurrentUser(), excludedCategories), DateUtils.getAsMs(now), DateUtils.getAsMs(nowPlus7Days));
+        ArrayList<Task> tasks7Days = TaskService.getTasksInDateInterval(TaskService.getTasksExcludingCategories(TaskService.getTasksByCurrentUser(), excludedCategories), DateUtils.getAsMs(now), DateUtils.getAsMs(nowPlus7Days));
         addTasksToSimpleView("dueNext7Days", getTaskUIListFromTaskObjectList(tasks7Days));
 
         // The remaining days of the current month
         LocalDateTime endOfMonthDate = now.with(TemporalAdjusters.lastDayOfMonth());
-        ArrayList<Task> tasksCurrentMonth = TaskService.getInDateInterval(TaskService.getTasksExcludingCategories(TaskService.getTasksByCurrentUser(), excludedCategories), DateUtils.getAsMs(now), DateUtils.getAsMs(endOfMonthDate));
+        ArrayList<Task> tasksCurrentMonth = TaskService.getTasksInDateInterval(TaskService.getTasksExcludingCategories(TaskService.getTasksByCurrentUser(), excludedCategories), DateUtils.getAsMs(now), DateUtils.getAsMs(endOfMonthDate));
         addTasksToSimpleView("dueThisMonth", getTaskUIListFromTaskObjectList(tasksCurrentMonth));
     }
 
@@ -135,7 +135,7 @@ public class OverviewController {
             CalenderElementController calenderElementController = loader.getController();
             calenderElementController.display(
                     Integer.toString(currentTimeThisPage.get(ChronoField.DAY_OF_MONTH)),
-                    TaskService.getTasksExcludingCategories(TaskService.getGivenDate(TaskService.getTasksByCurrentUser()
+                    TaskService.getTasksExcludingCategories(TaskService.getTasksOnGivenDate(TaskService.getTasksByCurrentUser()
                             , DateUtils.getAsMs(currentTimeThisPage)), excludedCategories));
 
             calenderViewGrid.add(calenderElement, daysColumns.get(currentTimeThisPage.getDayOfWeek().toString()), row);

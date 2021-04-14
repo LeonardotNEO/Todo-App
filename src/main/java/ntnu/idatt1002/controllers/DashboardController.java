@@ -248,7 +248,7 @@ public class DashboardController {
      */
     public void addSortingOptions(){
         sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
-        sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
+        sort.getItems().add(createSortingMenuItem("Date", TaskService.tasksSortedByDate()));
         sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.sortedAlphabetically()));
     }
 

@@ -79,16 +79,16 @@ public class TaskServiceTest {
         long end = DateUtils.getAsMs(LocalDate.of(2021, 02, 12)) + 100;
 
         // Test if we have found the correct task
-        assertEquals("Hei", TaskService.getInDateInterval(start, end).get(0).getName());
+        assertEquals("Hei", TaskService.getTasksInDateInterval(start, end).get(0).getName());
 
         // Check that we only found one task
-        assertEquals(1, TaskService.getInDateInterval(start, end).size());
+        assertEquals(1, TaskService.getTasksInDateInterval(start, end).size());
     }
 
     @Test
     public void dateSortTest() {
         UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
-        ArrayList<Task> list = TaskService.TasksSortedByDate();
+        ArrayList<Task> list = TaskService.tasksSortedByDate();
 
         long earlyMillis = list.get(0).getDeadline();
         long lateMillis = list.get(list.size() - 1).getDeadline();
@@ -99,6 +99,6 @@ public class TaskServiceTest {
     @Test
     public void taskBetweenDates(){
         ArrayList<Task> taskList = TaskService.getCategoryWithTasks("home");
-        assertTrue(TaskService.getInDateInterval(taskList, DateUtils.getAsMs(LocalDate.of(2021, 1, 1)), DateUtils.getAsMs(LocalDate.of(2021,7,5))).size() == 6);
+        assertTrue(TaskService.getTasksInDateInterval(taskList, DateUtils.getAsMs(LocalDate.of(2021, 1, 1)), DateUtils.getAsMs(LocalDate.of(2021,7,5))).size() == 6);
     }
 }
