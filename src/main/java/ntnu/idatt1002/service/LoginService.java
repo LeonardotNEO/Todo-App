@@ -54,9 +54,13 @@ public class LoginService {
         // Set UserState
         UserStateService.setCurrentUserUsername(username);
 
-        // Set selectedCategory to the first one
-        if(CategoryService.getCategoriesCurrentUser().length > 0){
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUser()[0]);
+        // set current category if it is empty
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            if(CategoryService.getCategoriesCurrentUserWithoutPremades().size() > 0){
+                UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUserWithoutPremades().get(0));
+            } else {
+                UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getPremadeCategories().get(0));
+            }
         }
 
         UserStateService.getCurrentUser().setRememberMe(rememberMe);

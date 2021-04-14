@@ -209,10 +209,10 @@ public class DashboardController {
     public void buttonDeleteCategory() throws IOException {
         CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
 
-        if(CategoryService.getCategoriesCurrentUser().length >= 1){
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUser()[0]);
+        if(CategoryService.getCategoriesCurrentUserWithoutPremades().size() > 0){
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUserWithoutPremades().get(0));
         } else {
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(null);
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getPremadeCategories().get(0));
         }
 
         // initialize dashboard
