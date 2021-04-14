@@ -329,6 +329,9 @@ public class Task implements Serializable {
         return finalLong;
     }
 
+    /**
+     * Builder class that is used to create a Task
+     */
     public static class TaskBuilder {
         private long id;
         private String title;
@@ -353,57 +356,122 @@ public class Task implements Serializable {
         private boolean notification24Hours;
         private boolean notification7Days;
 
+        /**
+         * Constructor for the class TaskBuilder. This constructors requires the bare minimum data required to create
+         * a task.
+         * @param userName Name of the user creating the task
+         * @param title Title of the task
+         */
         public TaskBuilder(String userName, String title) {
             this.userName = userName;
             this.title = title;
         }
 
+        /**
+         * Method to set the description
+         * @param description The tasks description
+         * @return the TaskBuilder
+         */
         public TaskBuilder description(String description) {
             this.description = description;
             return this;
         }
 
+        /**
+         * Method to set the priority.
+         * The priority goes from 0-x
+         * 0 is the lowest and x is the highest
+         * @param priority priority in int
+         * @return the TaskBuilder
+         */
         public TaskBuilder priority(int priority) {
             this.priority = priority;
             return this;
         }
 
+        /**
+         * Method to set the category
+         * @param category name of category
+         * @return the TaskBuilder
+         */
         public TaskBuilder category(String category) {
             this.category = category;
             return this;
         }
 
+        /**
+         * Method to set if the task is repeatable and how often it should repeat.
+         * A repeatable task will create itself when the deadline runs out.
+         * @param isRepeatable true / false depending on if it should be repeatable
+         * @param timeRepeat of often it should repeat in ms
+         * @return the TaskBuilder
+         */
         public TaskBuilder repeatable(Boolean isRepeatable, Long timeRepeat) {
             this.isRepeatable = isRepeatable;
             this.timeRepeat = timeRepeat;
             return this;
         }
 
+        /**
+         * Method to set the task deadline
+         * The deadline is ms since 1/1/1970 UTC +1
+         *
+         * @param deadline deadline in ms since 1/1/1970 UTC +1
+         * @return the deadline
+         */
         public TaskBuilder deadline(long deadline) {
             this.deadline = deadline;
             return this;
         }
 
+        /**
+         * Method to set the task startDate.
+         * The startDate is ms since 1/1/1970 UTC +1
+         * @param startDate startDate in ms since 1/1/1970 UTC +1
+         * @return the TaskBuilder
+         */
         public TaskBuilder startDate(long startDate) {
             this.startDate = startDate;
             return this;
         }
 
+        /**
+         * Method to set the task color
+         * The color should be in a hex format e.g #ffffff (white)
+         * @param color hex color
+         * @return the TaskBuilder
+         */
         public TaskBuilder color(String color) {
             this.color = color;
             return this;
         }
 
+        /**
+         * Method to set the tags
+         * The list contains a list of string that represents a tag
+         * @param tags Arraylist of string
+         * @return the TaskBuilder
+         */
         public TaskBuilder tags(ArrayList<String> tags) {
             this.tags = tags;
             return this;
         }
 
+        /**
+         * Method to set the location
+         * @param location String representing the location
+         * @return the TaskBuilder
+         */
         public TaskBuilder location(String location) {
             this.location = location;
             return this;
         }
 
+        /**
+         * Method that creates a task and returns it.
+         * If a value is not set it will default to. 0, false, null depending on the variable type
+         * @return A task Object
+         */
         public Task build() {
             Task task = new Task();
 
