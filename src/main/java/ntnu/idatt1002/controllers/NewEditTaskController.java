@@ -214,6 +214,8 @@ public class NewEditTaskController {
         popup.setAutoHide(true);
         popup.getContent().add(fileOptionsPopup);
 
+        fileOptionsPopup.getStylesheets().add(App.class.getResource("/css/main.css").toExternalForm());
+        fileOptionsPopup.setStyle(UserStateService.getCurrentUser().getTheme());
         popup.show(App.getStage());
     }
 
