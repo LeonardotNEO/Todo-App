@@ -42,6 +42,19 @@ public class UserDAOTest {
 
             assertNull(userB);
         }
+
+        @Nested
+        public class wrong_arguments{
+            @Test
+            public void _deserialize(){
+                assertNull(UserDAO.deserialize("joseph"));
+            }
+
+            @Test
+            public void _delete(){
+                assertFalse(UserDAO.delete("joseph"));
+            }
+        }
     }
 
     @Nested

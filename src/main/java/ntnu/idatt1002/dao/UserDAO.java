@@ -8,7 +8,6 @@ import java.io.*;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Static class to access user objects in storage
@@ -78,6 +77,8 @@ public final class UserDAO {
      * @return {@code false} if the user folder could not be deleted
      */
     public static boolean delete(String username){
+        if(!exists(username)){ return false; }
+
         boolean result;                         //Variable to deal with delete() return
 
         //Method calls

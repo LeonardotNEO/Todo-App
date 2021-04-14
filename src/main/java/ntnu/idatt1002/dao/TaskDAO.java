@@ -194,7 +194,7 @@ public final class TaskDAO {
     }
 
     private static String categoryDiv(String username, String category){
-        return (userDir(username) + category + "/");
+        return (userDir(username) + "/Categories/" + category + "/");
     }
 
     private static String projectCategoryDiv(String username, String project, String category){
