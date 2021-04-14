@@ -90,7 +90,7 @@ public class TasksController {
                     text.setText("There are no finished tasks!");
                     break;
                 case "All tasks":
-                    text.setText("You have no tasks! Click on New-Task-button to add a new task!");
+                    text.setText("You have no tasks!");
                     break;
                 default:
                     text.setText("Theres no tasks in this category...\nClick on New-Task-button to add a new task!");
