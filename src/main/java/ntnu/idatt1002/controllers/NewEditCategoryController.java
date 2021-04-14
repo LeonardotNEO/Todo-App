@@ -26,9 +26,9 @@ public class NewEditCategoryController {
     @FXML private Button button;
 
     public void intializeNewCategory(){
-        headerText.setText("New category");
+        headerText.setText("Create category");
 
-        button.setText("New category");
+        button.setText("Create category");
         button.setOnAction(event -> {
             try {
                 buttonNewCategory();

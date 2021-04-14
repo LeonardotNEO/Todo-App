@@ -160,7 +160,7 @@
                               <Insets left="115.0" />
                            </padding>
                         </HBox>
-                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" spacing="10.0">
+                        <HBox fx:id="attachBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" spacing="10.0">
                            <children>
                               <JFXButton fx:id="buttonAttachFiles" onAction="#buttonAttachFiles" prefHeight="37.0" prefWidth="118.0" styleClass="button1" text="Attach files">
                                  <font>
