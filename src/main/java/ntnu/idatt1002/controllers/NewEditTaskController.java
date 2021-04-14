@@ -143,9 +143,14 @@ public class NewEditTaskController {
         setListOfFiles(task.getFilePaths());
 
         listOfFiles.forEach(e -> {
-            Text t = new Text();
-            t.setText(e);
-            vboxForFiles.getChildren().add(t);
+            Button b = new Button(e);
+            b.setOnAction(event -> {
+                listOfFiles.remove(e);
+                vboxForFiles.getChildren().clear();
+                vboxForFiles.getChildren().add(b);
+                scrollPane.setContent(vboxForFiles);
+            });
+            vboxForFiles.getChildren().add(b);
         });
         scrollPane.setContent(vboxForFiles);
 
@@ -168,9 +173,14 @@ public class NewEditTaskController {
         selectedFiles = fileChooser.showOpenDialog(App.getStage());
         listOfFiles.add(selectedFiles.getAbsolutePath());
         listOfFiles.forEach(e -> {
-            Text t = new Text();
-            t.setText(e);
-            vboxForFiles.getChildren().add(t);
+            Button b = new Button(e);
+            b.setOnAction(event -> {
+                listOfFiles.remove(e);
+                vboxForFiles.getChildren().clear();
+                vboxForFiles.getChildren().add(b);
+                scrollPane.setContent(vboxForFiles);
+            });
+            vboxForFiles.getChildren().add(b);
         });
         scrollPane.setContent(vboxForFiles);
     }
