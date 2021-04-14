@@ -48,8 +48,8 @@ public class DashboardController {
      * @throws IOException
      */
     public void initialize() throws IOException {
-        // loads tasks page
-        loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
+        // load tasks
+        loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
 
         // load category buttons to categories VBox
         loadCategoryButtons();
@@ -80,6 +80,11 @@ public class DashboardController {
             if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals(category)){
                 button.getStyleClass().add("categoryButton-selected");
                 icon.getStyleClass().add("categoryButton-selected #icon");
+            }
+            if(category.equals("All tasks")){
+                icon.setGlyphName("LIST");
+                icon.getStyleClass().add("categoryButton-alltasks #icon");
+                button.getStyleClass().add("categoryButton-alltasks");
             }
             if(category.equals("Trash bin")){
                 icon.setGlyphName("TRASH");
@@ -251,9 +256,9 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
-        sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
-        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.TasksSortedByAlphabet()));
+        sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
+        sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
+        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.TasksSortedByAlphabet(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
     }
 
     /**

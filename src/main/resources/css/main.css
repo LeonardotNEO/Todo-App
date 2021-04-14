@@ -44,7 +44,7 @@
 .categoryButton{
   -fx-background-color:  transparent;
   -fx-font-size: 18;
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: white;
 }
 
 .categoryButton:hover {
@@ -81,6 +81,13 @@
   -fx-fill: #ff1717;
 }
 
+.categoryButton-alltasks {
+  -fx-text-fill: #fff200;
+}
+
+.categoryButton-alltasks #icon {
+  -fx-fill: #fff200;
+}
 
 /* NAVBAR */
 

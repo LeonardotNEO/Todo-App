@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class CategoryService {
 
-    private static String[] premadeCategories = {"Trash bin", "Finished tasks"};
+    private static String[] premadeCategories = {"All tasks", "Trash bin", "Finished tasks"};
 
     /**
      * Get categories by current user
