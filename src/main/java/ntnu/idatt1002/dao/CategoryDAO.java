@@ -1,5 +1,7 @@
 package ntnu.idatt1002.dao;
 
+import ntnu.idatt1002.User;
+
 import java.io.File;
 
 /**
@@ -49,6 +51,8 @@ public final class CategoryDAO {
      * @return {@code false} if some the categories could not be deleted
      */
     public static boolean deleteByUser(String username){
+        if(!UserDAO.exists(username)){ return false; }
+
         boolean success = true;
         String[] categories = list(username);
 
@@ -66,11 +70,13 @@ public final class CategoryDAO {
      * @return {@code false} if some the categories could not be deleted
      */
     public static boolean deleteByProject(String username, String project){
+        if(!ProjectDAO.exists(username, project)){ return false; }
+
         boolean success = true;
         String[] categories = list(username, project);
 
         for(String category : categories){
-            if(!delete(username, category)){
+            if(!delete(username, project, category)){
                 success = false;
             }
         }
