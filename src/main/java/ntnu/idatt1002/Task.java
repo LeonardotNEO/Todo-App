@@ -43,7 +43,7 @@ public class Task implements Serializable {
      * @param startDate
      * @param category
      */
-    public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags, boolean Repeatable, Long timeRepeat) {
+    private Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags, boolean Repeatable, Long timeRepeat) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -89,7 +89,7 @@ public class Task implements Serializable {
      * @param repeatable
      * @param category
      */
-    public Task(String name, String userName, String description, long deadlineTime, int priority, long asMs, String categoryMenuText, String color, String text, boolean notification1HourSelected, boolean notification24HoursSelected, boolean selected, ArrayList<String> tagsList, boolean repeatable, String category) {
+    private Task(String name, String userName, String description, long deadlineTime, int priority, long asMs, String categoryMenuText, String color, String text, boolean notification1HourSelected, boolean notification24HoursSelected, boolean selected, ArrayList<String> tagsList, boolean repeatable, String category) {
         this.name = name;
         this.userName = userName;
         this.description = description;
@@ -399,6 +399,11 @@ public class Task implements Serializable {
             return this;
         }
 
+        public TaskBuilder location(String location) {
+            this.location = location;
+            return this;
+        }
+
         public Task build() {
             Task task = new Task();
 
@@ -410,6 +415,7 @@ public class Task implements Serializable {
             task.startDate = this.startDate;
             task.category = this.category;
             task.color = this.color;
+            task.deadline = this.deadline;
             task.location = this.location;
             task.notification1Hour = this.notification1Hour;
             task.notification7Days = this.notification7Days;
