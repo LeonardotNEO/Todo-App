@@ -49,7 +49,7 @@ public class TaskServiceTest {
     @Test
     public void tasksByAlphabetTest(){
         UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
-        ArrayList<Task> list = TaskService.TasksSortedByAlphabet();
+        ArrayList<Task> list = TaskService.TasksSortedByAlphabet(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
         assertTrue(list.get(0).getName().compareTo(list.get(list.size() - 1).getName())<1);
     }
 
@@ -68,7 +68,7 @@ public class TaskServiceTest {
     @Test
     public void prioritySortTest() {
         UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
-        ArrayList<Task> list = TaskService.TaskSortedByPriority();
+        ArrayList<Task> list = TaskService.TaskSortedByPriority(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
 
         // Higher number means higher priority.
         assertTrue(list.get(0).getPriority() >= list.get(list.size() - 1).getPriority());
@@ -89,7 +89,7 @@ public class TaskServiceTest {
     @Test
     public void dateSortTest() {
         UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
-        ArrayList<Task> list = TaskService.TasksSortedByDate();
+        ArrayList<Task> list = TaskService.TasksSortedByDate(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
 
         long earlyMillis = list.get(0).getDeadline();
         long lateMillis = list.get(list.size() - 1).getDeadline();

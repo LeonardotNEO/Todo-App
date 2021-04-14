@@ -54,7 +54,13 @@ public class TaskService {
      * @return
      */
     public static ArrayList<Task> getTasksByCategory(String category){
-        return TaskDAO.getTasksByCategory(UserStateService.getCurrentUserUsername(), category);
+        ArrayList tasksResult = new ArrayList();
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
+            tasksResult = TaskService.getTasksByCurrentUser();
+        } else {
+            tasksResult = TaskDAO.getTasksByCategory(UserStateService.getCurrentUserUsername(), category);
+        }
+        return tasksResult;
     }
 
     /**
@@ -122,9 +128,8 @@ public class TaskService {
      * Returns an Array of all the tasks sorted by their priority.
      * @return
      */
-    public static ArrayList<Task> TaskSortedByPriority(){
-        //ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+    public static ArrayList<Task> TaskSortedByPriority(ArrayList<Task> tasks){
+        ArrayList<Task> userTasks = tasks;
         Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
         return userTasks;
     }
@@ -133,9 +138,8 @@ public class TaskService {
      * Returns an Array of all the tasks sorted by their date.
      * @return
      */
-    public static ArrayList<Task> TasksSortedByDate(){
-        //ArrayList<Task> userTasks = getTasksByCurrentUser();
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+    public static ArrayList<Task> TasksSortedByDate(ArrayList<Task> tasks){
+        ArrayList<Task> userTasks = tasks;
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
@@ -155,8 +159,8 @@ public class TaskService {
      * Returns an ArrayList of all the tasks sorted by the alphabetical order of the first letter in them.
      * @return
      */
-    public static ArrayList<Task> TasksSortedByAlphabet(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+    public static ArrayList<Task> TasksSortedByAlphabet(ArrayList<Task> tasks){
+        ArrayList<Task> userTasks = tasks;
         Collections.sort(userTasks, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2){
