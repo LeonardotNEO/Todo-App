@@ -19,4 +19,17 @@ public class TaskTest {
         System.out.println(t);
 
     }
+
+    @Test
+    public void HardcodingTask(){
+        TaskService.newTask(
+                new Task.TaskBuilder("omar","TestRepeat")
+                        .category("Test")
+                        .repeatable(true,1000*60*60*12L)
+                        .deadline(DateUtils.getAsMs(LocalDate.now().atTime(1,0)))
+                        .description("Testing stuff")
+                        .color("#ffffff")
+                        .build()
+        );
+    }
 }

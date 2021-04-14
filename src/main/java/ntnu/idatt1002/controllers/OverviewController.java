@@ -127,7 +127,7 @@ public class OverviewController {
             put("SATURDAY", 6);
             put("SUNDAY", 7);
         }};
-
+        long testing =  DateUtils.getAsMs(currentTimeThisPage.atZone(ZoneId.systemDefault()).toLocalDate().atStartOfDay());
         // ui elements to grid
         for(int i = 0; i < daysInMonth; i++){
             // Loads calenderElement page and get the controller
@@ -136,11 +136,15 @@ public class OverviewController {
             CalenderElementController calenderElementController = loader.getController();
             calenderElementController.display(
                     Integer.toString(currentTimeThisPage.get(ChronoField.DAY_OF_MONTH)),
-                    TaskService.getTasksExcludingCategories(TaskService.getTasksOnGivenDate(TaskService.getTasksByCurrentUser(),
-                            DateUtils.getAsMs(currentTimeThisPage.atZone(ZoneId.systemDefault()).toLocalDate().atStartOfDay())),
+                    TaskService.getTasksExcludingCategories(
+                            TaskService.getTasksOnGivenDate(
+                                    TaskService.getTasksByCurrentUser(),
+                                    testing
+                            ),
                             excludedCategories
                     )
             );
+            testing += 1000*24*3600L;
 
             calenderViewGrid.add(calenderElement, daysColumns.get(currentTimeThisPage.getDayOfWeek().toString()), row);
 

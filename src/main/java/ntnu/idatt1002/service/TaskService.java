@@ -3,6 +3,7 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserLogDAO;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.time.*;
 import java.util.*;
@@ -161,6 +162,8 @@ public class TaskService {
      * @return Lists of all tasks within the given interval.
      */
     public static ArrayList<Task> getTasksInDateInterval(ArrayList<Task> tasks, long start, long end){
+        //getRepeatTasks(getTasksByCurrentUser(),end).forEach(t -> System.out.println(t));
+        System.out.println((end-start)/(60*60*1000));
         tasks.addAll(getRepeatTasks(getTasksByCurrentUser(),end));
         return tasks.stream()
                 .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
@@ -290,15 +293,24 @@ public class TaskService {
         ArrayList arrayWithAllClones = new ArrayList();
         ArrayList<Task> ArrayListOfRepeat = ArrayListOfTasks.stream()
                 .filter(t->t.isRepeatable())
-                .collect(Collectors.toCollection(ArrayList::new));       //fix this to include the entire expression
+                .collect(Collectors.toCollection(ArrayList::new));
 
+        // For each t
+            // For each n*timeRepeat + deadline < end
+                // Add new task to lost
+        // return list
         for(Task T: ArrayListOfRepeat) {
+            T.setDeadline(T.getDeadline()+1);
+            long DeadLine = T.getDeadline() + 1;
+            System.out.println(ArrayListOfRepeat.size());// this is to counteract a bug that happens when the deadline is set to 0000:
+                for (int i=1; (T.getDeadline() + i * (T.getTimeRepeat())) <= end; i++) {
 
-            for (int i=0; T.getStartDate()+i*T.getTimeRepeat()<= end;i++) {
-                Task temp = T;
-                temp.setDeadline(T.getDeadline()+i*T.getTimeRepeat());
-                arrayWithAllClones.add(temp);
-            }
+                    Task temp = new Task.TaskBuilder(T.getUserName(), T.getName())
+                            .deadline(T.getDeadline() + i * T.getTimeRepeat())
+                            .color("#fffffff")
+                            .build();
+                    arrayWithAllClones.add(temp);
+                }
 
         }
         return arrayWithAllClones;

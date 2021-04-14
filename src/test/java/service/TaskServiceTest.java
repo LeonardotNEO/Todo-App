@@ -28,6 +28,7 @@ public class TaskServiceTest {
         assertDoesNotThrow(() -> {
             CategoryService.addCategoryToCurrentUser("home");
             CategoryService.addCategoryToCurrentUser("Category");
+            CategoryService.addCategoryToCurrentUser("Stonks");
 
             String userName = UserStateService.getCurrentUser().getUsername();
 
@@ -104,6 +105,13 @@ public class TaskServiceTest {
                             .category("home")
                             .build()
             );
+            TaskService.newTask(
+                    new Task.TaskBuilder(userName,"TestRepeat")
+                            .category("Stonks")
+                            .repeatable(true,43000000L)
+                            .deadline(DateUtils.getAsMs(LocalDate.now()))
+                            .build()
+            );
         });
     }
 
@@ -168,5 +176,13 @@ public class TaskServiceTest {
     public void taskBetweenDates(){
         ArrayList<Task> taskList = TaskService.getCategoryWithTasks("home");
         assertTrue(TaskService.getTasksInDateInterval(taskList, DateUtils.getAsMs(LocalDate.of(2021, 1, 1)), DateUtils.getAsMs(LocalDate.of(2021,7,5))).size() == 6);
+    }
+
+    @Test
+    public void getRepeatTask(){
+        ArrayList<Task> taskList = TaskService.getCategoryWithTasks("Stonks");
+        long day = DateUtils.getAsMs(LocalDate.now());
+        //TaskService.getTasksOnGivenDate(taskList,day).forEach(t-> System.out.println(t));
+        assertTrue(TaskService.getTasksOnGivenDate(taskList,day).size() == 2);
     }
 }
