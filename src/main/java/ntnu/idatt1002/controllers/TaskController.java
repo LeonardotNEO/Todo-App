@@ -48,7 +48,8 @@ public class TaskController {
      * At initializing of this UI, we display the minimized version
      */
     public void initialize(){
-        displayFullTask();
+        displayMinimizedTask();
+        addClickTaskListener();
     }
 
     /**
@@ -65,7 +66,7 @@ public class TaskController {
         color.setText("Color: " + task.getColor());
         notification1hour.setText("Notification 1 hour before duedate: " + task.isNotification1Hour());
         notification24hours.setText("Notification 24 hours before duedate: " + task.isNotification24Hours());
-        notification24hours.setText("Notification 7 days before duedate: " + task.isNotification24Hours());
+        notification24hours.setText("Notification 7 days before duedate: " + task.isNotification7Days());
         // tags
         String tagsString = "";
         ArrayList<String> tagsList = task.getTags();
@@ -136,10 +137,14 @@ public class TaskController {
     }
 
     /**
-     * Adding listeners to task anchorpane
+     * Method for alternating between displaying full and minimized task ui
      */
-    public void initialize(){
-        addClickTaskListener();
+    public void clickTask(){
+        if(fullDisplayed){
+            displayMinimizedTask();
+        } else {
+            displayFullTask();
+        }
     }
 
     /**
@@ -219,11 +224,7 @@ public class TaskController {
 
     public void addClickTaskListener(){
         background.setOnMouseClicked(mouseEvent -> {
-            try {
-                editTask();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            clickTask();
         });
     }
 

@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
@@ -204,7 +205,7 @@ public class NewEditTaskController {
                     .priority(Integer.parseInt(priorityMenu.getText()))
                     .startDate(DateUtils.getAsMs(LocalDate.now()))
                     .category(categoryMenu.getText())
-                    .color(color.getValue().toString())
+                    .color(ColorUtil.getCorrectColorFormat(color.getValue().toString()))
                     .location(locationTextField.getText())
                     .tags(tagsList);
 
@@ -226,7 +227,7 @@ public class NewEditTaskController {
                 }
                 result = true;
             } else {
-                TaskService.newTaskValidation(newTask);
+                TaskService.newTask(newTask);
                 result = true;
             }
 
