@@ -32,70 +32,7 @@ public class Task implements Serializable {
     private boolean isRepeatable = false;
     private Long timeRepeat;
 
-    private Task() { /* Empty constructor for builder */}
-    /**
-     * A constructor for the class Task. Use when there is a deadline and start date for task.
-     * @param name
-     * @param userName
-     * @param description
-     * @param deadline
-     * @param priority
-     * @param startDate
-     * @param category
-     */
-    private Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags, boolean Repeatable, Long timeRepeat) {
-        this.name = name;
-        this.userName = userName;
-        this.description = description;
-        this.deadline = deadline;
-        this.priority = priority;
-        this.startDate = startDate;
-        this.category = category;
-        this.color = ColorUtil.getCorrectColorFormat(color);
-        this.location = location;
-        this.notification1Hour = notification1Hour;
-        this.notification24Hours = notification24Hours;
-        this.notification7Days = notification7Days;
-        if(notification1Hour){
-            NotificationService.newNotification(this.name, "This task is due in 1 hour", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusHours(1));
-        }
-        if(notification24Hours){
-            NotificationService.newNotification(this.name, "This task is due in 24 hours", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusHours(24));
-        }
-        if(notification7Days){
-            NotificationService.newNotification(this.name, "This task is due in 7 days", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusDays(7));
-        }
-        this.tags = tags;
-        this.id = generateId();
-        this.isRepeatable = isRepeatable;
-        this.timeRepeat=timeRepeat;
-    }
-
-    /**
-     * A constructor for the class Task. Use for the times when there is no deadline or start date for the task
-     * @param name
-     * @param userName
-     * @param description
-     * @param deadlineTime
-     * @param priority
-     * @param asMs
-     * @param categoryMenuText
-     * @param color
-     * @param text
-     * @param notification1HourSelected
-     * @param notification24HoursSelected
-     * @param selected
-     * @param tagsList
-     * @param repeatable
-     * @param category
-     */
-    private Task(String name, String userName, String description, long deadlineTime, int priority, long asMs, String categoryMenuText, String color, String text, boolean notification1HourSelected, boolean notification24HoursSelected, boolean selected, ArrayList<String> tagsList, boolean repeatable, String category) {
-        this.name = name;
-        this.userName = userName;
-        this.description = description;
-        this.priority = priority;
-        this.category = category;
-    }
+    private Task() { /* Empty constructor so that this class cannot be initialized without the builder */}
 
     /**
      * A method to get the field name
@@ -279,6 +216,10 @@ public class Task implements Serializable {
         return Objects.hash(name, userName, description, deadline, priority, startDate, category);
     }
 
+    /**
+     * A method to get a list of all fields in the class as a String
+     * @return a String of all fields in the class
+     */
     @Override
     public String toString() {
         return "Task{" +
@@ -300,25 +241,6 @@ public class Task implements Serializable {
                 ", timeRepeat=" + timeRepeat +
                 '}';
     }
-
-    /**
-     * A method to get a list of all fields in the class as a String
-     * @return a String of all fields in the class
-     */
-    /*
-    @Override
-    public String toString() {
-        return "Task{" +
-                "name='" + name + '\'' +
-                ", userName='" + userName + '\'' +
-                ", description='" + description + '\'' +
-                ", deadline='" + deadline + '\'' +
-                ", priority=" + priority +
-                ", startDate='" + startDate + '\'' +
-                ", category='" + category + '\'' +
-                '}';
-    }
-    */
 
     public long generateId(){
         Random random = new Random();
@@ -464,6 +386,26 @@ public class Task implements Serializable {
          */
         public TaskBuilder location(String location) {
             this.location = location;
+            return this;
+        }
+
+        /*
+        * These 3 methods can not be put into the product. It should be written into an loop that checks x minite etc.
+        * this could also be used by the repeatable tasks
+        */
+        public TaskBuilder notification7Days() {
+            this.notification7Days = true;
+            NotificationService.newNotification(this.title, "This task is due in 7 days", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusDays(7));
+            return this;
+        }
+        public TaskBuilder notification24Hours() {
+            this.notification24Hours = true;
+            NotificationService.newNotification(this.title, "This task is due in 24 hours", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusHours(24));
+            return this;
+        }
+        public TaskBuilder notification1Hour() {
+            this.notification1Hour = true;
+            NotificationService.newNotification(this.title, "This task is due in 1 hour", LocalDateTime.ofInstant(Instant.ofEpochMilli(this.deadline), TimeZone.getDefault().toZoneId()).minusHours(1));
             return this;
         }
 
