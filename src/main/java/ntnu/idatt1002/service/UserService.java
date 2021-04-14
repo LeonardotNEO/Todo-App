@@ -45,11 +45,11 @@ public class UserService {
             }
 
             // transfer tasks
-            ArrayList<Task> tasks = TaskDAO.getTasksByUser(oldUser.getUsername());
+            ArrayList<Task> tasks = TaskDAO.list(oldUser.getUsername());
             tasks.forEach(task -> {
                 task.setUserName(newUser.getUsername());
             });
-            TaskDAO.saveTasks(tasks);
+            TaskDAO.serialize(tasks);
 
             // transfer notifications
             ArrayList<Notification> notifications = NotificationDAO.getNotifsByUser(oldUser.getUsername());

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class TaskService {
     public static boolean newTask(Task newTask) {
         String username = UserStateService.getCurrentUser().getUsername();
-        TaskDAO.serializeTask(newTask);
+        TaskDAO.serialize(newTask);
         UserLogDAO.setTaskAdded(username, newTask.getName());
         return true;
     }
@@ -26,7 +26,7 @@ public class TaskService {
      */
     public static void editTask(Task task, long taskId){
         task.setId(taskId);
-        TaskDAO.serializeTask(task);
+        TaskDAO.serialize(task);
     }
 
     /**
@@ -41,9 +41,9 @@ public class TaskService {
     }
 
     public static void editCategoryOfTask(Task task, String newCategory){
-        TaskDAO.deleteTask(task);
+        TaskDAO.delete(task);
         task.setCategory(newCategory);
-        TaskDAO.serializeTask(task);
+        TaskDAO.serialize(task);
         UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
 
@@ -53,7 +53,7 @@ public class TaskService {
      * @return
      */
     public static ArrayList<Task> getTasksByCategory(String category){
-        return TaskDAO.getTasksByCategory(UserStateService.getCurrentUserUsername(), category);
+        return TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
     }
 
     /**
@@ -78,7 +78,7 @@ public class TaskService {
      * @return
      */
     public static ArrayList<Task> getTasksByCurrentUser(){
-        return TaskDAO.getTasksByUser(UserStateService.getCurrentUserUsername());
+        return TaskDAO.list(UserStateService.getCurrentUserUsername());
     }
 
     /**
@@ -236,7 +236,7 @@ public class TaskService {
      * @return
      */
     public static Task getTaskByCurrentUser(long id){
-        Task task = TaskDAO.deserializeTask(UserStateService.getCurrentUserUsername(), id);
+        Task task = TaskDAO.deserialize(UserStateService.getCurrentUserUsername(), id);
         return task;
     }
 
@@ -245,7 +245,7 @@ public class TaskService {
      * @param task
      */
     public static void deleteTask(Task task){
-        TaskDAO.deleteTask(task);
+        TaskDAO.delete(task);
         UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
     }
 

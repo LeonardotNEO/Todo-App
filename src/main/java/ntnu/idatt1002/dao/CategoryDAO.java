@@ -9,7 +9,7 @@ public final class CategoryDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
 
     /**
-     * Get all categories from a user
+     * Get all regular categories from a user
      * @return {@code String[]} of all categories. {@code null} if empty
      */
     public static String[] list(String username){
@@ -45,7 +45,7 @@ public final class CategoryDAO {
     }
 
     /**
-     * Delete all categories for a user
+     * Delete all regular categories for a user
      * @return {@code false} if some the categories could not be deleted
      */
     public static boolean deleteByUser(String username){
@@ -84,7 +84,7 @@ public final class CategoryDAO {
      */
     public static boolean delete(String username, String category){
         File directory = new File(categoriesPath(username) + category);
-        boolean success = TaskDAO.deleteTasksByCategory(username, category);
+        boolean success = TaskDAO.deleteByCategory(username, category);
 
         if(!directory.delete()){ success = false; }
 
@@ -97,7 +97,7 @@ public final class CategoryDAO {
      */
     public static boolean delete(String username, String project, String category){
         File directory = new File(projectPath(username, project) + category);
-        boolean success = TaskDAO.deleteTasksByCategory(username, category);
+        boolean success = TaskDAO.deleteByCategory(username, category);
 
         return directory.delete();
     }
