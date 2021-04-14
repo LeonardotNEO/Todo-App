@@ -55,16 +55,19 @@
   -fx-fill: -fx-color-4;
 }
 
+/* categorybutton selected */
 .categoryButton-selected {
   -fx-background-color:  transparent;
   -fx-font-size: 18;
   -fx-text-fill: -fx-color-4;
+  -fx-padding: 6 0 6 -6;
 }
 
 .categoryButton-selected #icon {
   -fx-fill: -fx-color-4;
 }
 
+/* finishedtasks categorybutton */
 .categoryButton-finished {
   -fx-text-fill: #00ff00;
 }
@@ -73,6 +76,15 @@
   -fx-fill: #00ff00;
 }
 
+.categoryButton-finished:hover {
+  -fx-text-fill: -fx-color-4;
+}
+
+.categoryButton-finished:hover #icon{
+  -fx-fill: -fx-color-4;
+}
+
+/* trashbin categorybutton */
 .categoryButton-trashbin {
   -fx-text-fill: #ff1717;
 }
@@ -81,12 +93,29 @@
   -fx-fill: #ff1717;
 }
 
+.categoryButton-trashbin:hover {
+  -fx-text-fill: -fx-color-4;
+}
+
+.categoryButton-trashbin:hover #icon{
+  -fx-fill: -fx-color-4;
+}
+
+/* alltasks categorybutton */
 .categoryButton-alltasks {
   -fx-text-fill: #fff200;
 }
 
 .categoryButton-alltasks #icon {
   -fx-fill: #fff200;
+}
+
+.categoryButton-alltasks:hover {
+  -fx-text-fill: -fx-color-4;
+}
+
+.categoryButton-alltasks:hover #icon{
+  -fx-fill: -fx-color-4;
 }
 
 /* NAVBAR */

@@ -77,10 +77,6 @@ public class DashboardController {
             FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
 
             // set the style of selected button
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals(category)){
-                button.getStyleClass().add("categoryButton-selected");
-                icon.getStyleClass().add("categoryButton-selected #icon");
-            }
             if(category.equals("All tasks")){
                 icon.setGlyphName("LIST");
                 icon.getStyleClass().add("categoryButton-alltasks #icon");
@@ -95,6 +91,11 @@ public class DashboardController {
                 icon.setGlyphName("CHECK");
                 icon.getStyleClass().add("categoryButton-finished #icon");
                 button.getStyleClass().add("categoryButton-finished");
+            }
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals(category)){
+                button.getStyleClass().removeAll(button.getStyleClass());
+                button.getStyleClass().add("categoryButton-selected");
+                icon.getStyleClass().add("categoryButton-selected #icon");
             }
 
             button.setOnAction(new EventHandler<ActionEvent>() {
