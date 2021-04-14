@@ -13,7 +13,6 @@ import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
-import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
@@ -227,7 +226,7 @@ public class NewEditTaskController {
                 }
                 result = true;
             } else {
-                TaskService.newTask(newTask);
+                TaskService.newTaskValidation(newTask);
                 result = true;
             }
 
