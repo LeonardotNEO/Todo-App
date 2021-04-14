@@ -197,8 +197,8 @@ public class NewEditTaskController {
                 System.out.println(tag.toString());
             });
 
-            // task
-            Task newTask = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
+            // TaskBuilder
+            Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
                     .description(descriptionTextArea.getText())
                     .deadline(deadlineTime)
                     .priority(Integer.parseInt(priorityMenu.getText()))
@@ -206,8 +206,15 @@ public class NewEditTaskController {
                     .category(categoryMenu.getText())
                     .color(color.getValue().toString())
                     .location(locationTextField.getText())
-                    .tags(tagsList)
-                    .build();
+                    .tags(tagsList);
+
+            // This can be done with each variable so that we do not have to make everything required
+            if(notification1Hour.isSelected()) builder.notification1Hour();
+            if(notification24Hours.isSelected()) builder.notification24Hours();
+            if(notification7Days.isSelected()) builder.notification7Days();
+
+            // Create the task:
+            Task newTask = builder.build();
 
             // based on argument of method, we edit or add new task
             if(oldTask != null){
