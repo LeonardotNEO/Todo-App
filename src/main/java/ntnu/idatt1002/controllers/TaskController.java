@@ -61,42 +61,12 @@ public class TaskController {
     }
 
     public void clickDeleteButton(ActionEvent event) throws IOException {
-        ConfirmationController.display(this);
-
-/*
-        AnchorPane root;
-        Popup popup = new Popup();
-        root = FXMLLoader.load(getClass().getResource("/fxml/confirmation.fxml"));
-        popup.getContent().add(root);
-        popup.setAutoHide(true);
-        popup.show(App.getStage());
-*/
-    }
-    /*
-    @FXML
-    void dontShowAgain(ActionEvent event) {
-        // save option to user file if ticked
-        checkBox.setSelected(true);
-    }
-
-    @FXML
-    void noOption(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
-    void yesOption(ActionEvent event) {
-        try {
-            this.deleteTask();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (NullPointerException e) {
-            e.printStackTrace();
+        if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
+            deleteTask(event);
+        } else {
+            ConfirmationController.display(this);
         }
     }
-    */
 
     /**
      * Get the id of this task (from tasks AnchorPane), then we delete the task with this id with TaskService

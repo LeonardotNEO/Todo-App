@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
@@ -42,6 +43,9 @@ public class ConfirmationController {
         // New Popup, not window
         FXMLLoader loader = new FXMLLoader(ConfirmationController.class.getResource("/fxml/confirmation.fxml"));
         AnchorPane root = loader.load();
+
+        // set style of popup
+        root.setStyle(App.updateThemeCurrentUser(UserStateService.getCurrentUser().getTheme()));
 
         ConfirmationController controllerInstance = loader.getController();
         controllerInstance.setTask(task);
@@ -73,12 +77,18 @@ public class ConfirmationController {
 
     @FXML
     void yesOption(ActionEvent event) throws IOException{
+        if (checkBox.isSelected()) {
+            UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
+        }
         this.task.deleteTask(event);
         popup.hide();
     }
 
     @FXML
     void noOption(ActionEvent event) {
+        if (checkBox.isSelected()) {
+            UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
+        }
         popup.hide();
     }
 
@@ -86,4 +96,43 @@ public class ConfirmationController {
         this.task = task;
     }
 
+    public Button getNoButton() {
+        return noButton;
+    }
+
+    public void setNoButton(Button noButton) {
+        this.noButton = noButton;
+    }
+
+    public Button getYesButton() {
+        return yesButton;
+    }
+
+    public void setYesButton(Button yesButton) {
+        this.yesButton = yesButton;
+    }
+
+    public CheckBox getCheckBox() {
+        return checkBox;
+    }
+
+    public void setCheckBox(CheckBox checkBox) {
+        this.checkBox = checkBox;
+    }
+
+    public Text getConfirmQuestion() {
+        return confirmQuestion;
+    }
+
+    public void setConfirmQuestion(Text confirmQuestion) {
+        this.confirmQuestion = confirmQuestion;
+    }
+
+    public Text getExtraText() {
+        return extraText;
+    }
+
+    public void setExtraText(Text extraText) {
+        this.extraText = extraText;
+    }
 }
