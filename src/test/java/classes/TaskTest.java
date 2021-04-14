@@ -1,3 +1,4 @@
+package classes;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
