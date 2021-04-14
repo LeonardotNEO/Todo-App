@@ -4,20 +4,25 @@ import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
-import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
@@ -29,7 +34,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class which contains the buttons related to the creation of a new task
@@ -57,6 +61,8 @@ public class NewEditTaskController {
     @FXML private Button buttonAttachFiles;
     @FXML private VBox vboxForFiles;
     @FXML private ScrollPane scrollPane;
+    @FXML private static AnchorPane fileOptionsPopup;
+    @FXML private static Popup popup;
     FileChooser fileChooser = new FileChooser();
     private File selectedFiles;
     private ArrayList<String> listOfFiles = new ArrayList<>();
@@ -171,18 +177,44 @@ public class NewEditTaskController {
     public void buttonAttachFiles() {
         vboxForFiles.getChildren().clear();
         selectedFiles = fileChooser.showOpenDialog(App.getStage());
-        listOfFiles.add(selectedFiles.getAbsolutePath());
+        if (selectedFiles != null) {
+            listOfFiles.add(selectedFiles.getAbsolutePath());
+        } else {}
         listOfFiles.forEach(e -> {
             Button b = new Button(e);
             b.setOnAction(event -> {
-                listOfFiles.remove(e);
-                vboxForFiles.getChildren().clear();
-                vboxForFiles.getChildren().add(b);
-                scrollPane.setContent(vboxForFiles);
+                //                listOfFiles.remove(e);
+                //                vboxForFiles.getChildren().clear();
+                //                vboxForFiles.getChildren().add(b);
+                //                scrollPane.setContent(vboxForFiles);
+                try {
+                    //                    File open = new File(e);
+                    //                    if (!Desktop.isDesktopSupported()) {
+                    //
+                    //                    }
+                    //                    Desktop desktop = Desktop.getDesktop();
+                    //                    if(open.exists()) {
+                    //                        desktop.open(open);
+                    //                    }
+
+                    fileOptionsPopup();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
             });
             vboxForFiles.getChildren().add(b);
         });
         scrollPane.setContent(vboxForFiles);
+    }
+
+    public void fileOptionsPopup() throws IOException{
+        FXMLLoader loaderPopup = new FXMLLoader(App.class.getResource("/fxml/attachedFilePopup.fxml"));
+        fileOptionsPopup = loaderPopup.load();
+        popup = new Popup();
+        popup.setAutoHide(true);
+        popup.getContent().add(fileOptionsPopup);
+
+        popup.show(App.getStage());
     }
 
     /**
@@ -198,7 +230,9 @@ public class NewEditTaskController {
      * Method that uses TaskService to add a new task to the current user
      * @throws IOException
      */
-    public void buttonNewTask() throws  IOException {addEditTask(null);}
+    public void buttonNewTask() throws  IOException {
+        addEditTask(null);
+    }
 
     /**
      * When editButton is clicked, we delete the old task and make a new one
@@ -346,15 +380,21 @@ public class NewEditTaskController {
         priorityMenu.setText(menuItem.getText());
     }
 
-    public void setCategoryMenu(String category) {this.categoryMenu.setText(category);}
+    public void setCategoryMenu(String category) {
+        this.categoryMenu.setText(category);
+    }
 
     /**
      * A method to set the color
      * @param color
      */
-    public void setColor(String color){this.color.setValue(Color.valueOf(color));}
+    public void setColor(String color){
+        this.color.setValue(Color.valueOf(color));
+    }
 
-    public void setListOfFiles(ArrayList<String> attachedFiles) {this.listOfFiles =attachedFiles;}
+    public void setListOfFiles(ArrayList<String> attachedFiles) {
+        this.listOfFiles =attachedFiles;
+    }
 
     /**
      * Press new task button if enter is pressed
