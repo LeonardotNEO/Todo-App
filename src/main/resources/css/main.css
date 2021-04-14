@@ -44,7 +44,7 @@
 .categoryButton{
   -fx-background-color:  transparent;
   -fx-font-size: 18;
-  -fx-text-fill: white;
+  -fx-text-fill: -fx-color-4;
 }
 
 .categoryButton:hover {
@@ -63,6 +63,22 @@
 
 .categoryButton-selected #icon {
   -fx-fill: -fx-color-4;
+}
+
+.categoryButton-finished {
+  -fx-text-fill: #00ff00;
+}
+
+.categoryButton-finished #icon {
+  -fx-fill: #00ff00;
+}
+
+.categoryButton-trashbin {
+  -fx-text-fill: #ff1717;
+}
+
+.categoryButton-trashbin #icon {
+  -fx-fill: #ff1717;
 }
 
 

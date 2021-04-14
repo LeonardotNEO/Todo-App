@@ -158,21 +158,21 @@ public class AccountController {
      * Change the users theme in their user settings variables, and then update UI
      */
     public void buttonBlueTheme(){
-        App.updateThemeCurrentUser("blue");
+        App.updateThemeCurrentUser("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d;");
     }
     public void buttonGreenTheme(){
-        App.updateThemeCurrentUser("green");
+        App.updateThemeCurrentUser("-fx-color-1: #004d00; -fx-color-2: #006600; -fx-color-3: #008000;");
     }
     public void buttonRedTheme(){
-        App.updateThemeCurrentUser("red");
+        App.updateThemeCurrentUser("-fx-color-1: #660011; -fx-color-2: #800015; -fx-color-3: #99001a;");
     }
     public void buttonPinkTheme(){
-        App.updateThemeCurrentUser("pink");
+        App.updateThemeCurrentUser("-fx-color-1: #ff99aa; -fx-color-2: #ffb3bf; -fx-color-3: #ffc0cb;");
     }
     public void buttonBrownTheme(){
-        App.updateThemeCurrentUser("brown");
+        App.updateThemeCurrentUser("-fx-color-1: #3d1010; -fx-color-2: #511515; -fx-color-3: #651b1b;");
     }
     public void buttonPurpleTheme(){
-        App.updateThemeCurrentUser("purple");
+        App.updateThemeCurrentUser("-fx-color-1: #4d004d; -fx-color-2: #660066; -fx-color-3: #800080;");
     }
 }

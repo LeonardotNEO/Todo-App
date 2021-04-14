@@ -75,17 +75,21 @@ public class DashboardController {
 
             // set icons for trash bin and finished tasks
             FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
-            if(category.equals("Trash bin")){
-                icon.setGlyphName("TRASH");
-            }
-            if(category.equals("Finished tasks")){
-                icon.setGlyphName("CHECK");
-            }
 
             // set the style of selected button
             if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals(category)){
                 button.getStyleClass().add("categoryButton-selected");
                 icon.getStyleClass().add("categoryButton-selected #icon");
+            }
+            if(category.equals("Trash bin")){
+                icon.setGlyphName("TRASH");
+                icon.getStyleClass().add("categoryButton-trashbin #icon");
+                button.getStyleClass().add("categoryButton-trashbin");
+            }
+            if(category.equals("Finished tasks")){
+                icon.setGlyphName("CHECK");
+                icon.getStyleClass().add("categoryButton-finished #icon");
+                button.getStyleClass().add("categoryButton-finished");
             }
 
             button.setOnAction(new EventHandler<ActionEvent>() {

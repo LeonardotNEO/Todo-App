@@ -101,40 +101,19 @@ public class App extends Application {
     }
 
     /**
-     * Method for updating the theme according to current user
-     */
-    public static void updateThemeCurrentUser(String theme){
-        UserStateService.getCurrentUser().setTheme(theme);
-        switch (theme){
-            case "blue":
-                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d;");
-                break;
-            case "green":
-                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #004d00; -fx-color-2: #006600; -fx-color-3: #008000;");
-                break;
-            case "red":
-                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #660011; -fx-color-2: #800015; -fx-color-3: #99001a;");
-                break;
-            case "pink":
-                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #ff99aa; -fx-color-2: #ffb3bf; -fx-color-3: #ffc0cb;");
-                break;
-            case "brown":
-                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #3d1010; -fx-color-2: #511515; -fx-color-3: #651b1b;");
-                break;
-            case "purple":
-                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #4d004d; -fx-color-2: #660066; -fx-color-3: #800080;");
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
      * Method for fetching the scene
      * @return
      */
     public static Scene getCurrentScene(){
         return scene;
+    }
+
+    /**
+     * Method for updating the theme according to current user
+     */
+    public static void updateThemeCurrentUser(String changes){
+        UserStateService.getCurrentUser().setTheme(changes);
+        App.getCurrentScene().getRoot().setStyle(changes);
     }
 
     /**
