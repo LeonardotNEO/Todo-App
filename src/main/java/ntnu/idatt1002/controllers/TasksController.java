@@ -45,13 +45,8 @@ public class TasksController {
         // add id to task anchorpane. A task is identified in TaskDAO as the taskobject's hashcode
         task.setId(Integer.toString(taskObject.hashCode()));
 
-        // use controller to change content of task before adding to to tasks
-        taskController.setTaskName(taskObject.getName());
-        taskController.setTaskDescription(taskObject.getDescription());
-        taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
-        taskController.setTaskPriority(taskObject.getPriority());
-        taskController.setTaskId(taskObject.getId());
-        taskController.setTaskColor(taskObject.getColor());
+        // use controller to display task
+        taskController.display(taskObject);
 
         // adding the task to tasks
         tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);
