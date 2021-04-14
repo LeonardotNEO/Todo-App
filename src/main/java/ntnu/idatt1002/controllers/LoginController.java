@@ -39,9 +39,11 @@ public class LoginController {
     public void buttonLogin(ActionEvent event) throws IOException{
         String errorMessage = "";
 
-        if(!LoginService.checkIfLoginSyntaxValid(usernameField.getText(), passwordField.getText())){
-            errorMessage += "Username or password cant be empty \n";
-        }
+        // added the ability for password to be empty, when user register account without password
+        //if(!LoginService.checkIfLoginSyntaxValid(usernameField.getText(), passwordField.getText())){
+        //    errorMessage += "Username or password cant be empty \n";
+        //}
+
 
         if(errorMessage.isEmpty()){
             boolean loginValid = LoginService.checkIfLoginValid(usernameField.getText(), passwordField.getText());

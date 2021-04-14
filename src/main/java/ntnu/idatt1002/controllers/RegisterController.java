@@ -23,6 +23,7 @@ public class RegisterController {
     @FXML TextField passwordField;
     @FXML TextField repeatPasswordField;
     @FXML JFXCheckBox rememberMe;
+    @FXML JFXCheckBox noPassword;
 
     /**
      * Method that register a new user
@@ -39,12 +40,16 @@ public class RegisterController {
             errorMessage += "Username already exists, choose another username \n";
         }
 
-        if (!RegisterService.checkIfPasswordValid(passwordField.getText(), repeatPasswordField.getText())){
-            errorMessage += "The passwords do not match \n";
-        } else if(!RegisterService.checkIfPasswordValidSyntax(passwordField.getText(), repeatPasswordField.getText())){
-            errorMessage += "Password must be more than 6 characters \n";
+        if(!noPassword.isSelected()){
+            if (!RegisterService.checkIfPasswordValid(passwordField.getText(), repeatPasswordField.getText())){
+                errorMessage += "The passwords do not match \n";
+            } else if(!RegisterService.checkIfPasswordValidSyntax(passwordField.getText(), repeatPasswordField.getText())){
+                errorMessage += "Password must be more than 6 characters \n";
+            }
+        } else {
+            passwordField.setText("");
+            repeatPasswordField.setText("");
         }
-
 
         if(errorMessage.isEmpty()){
             boolean userSuccesfullyRegistered = RegisterService.registerNewUser(usernameField.getText(), passwordField.getText(), rememberMe.isSelected());
