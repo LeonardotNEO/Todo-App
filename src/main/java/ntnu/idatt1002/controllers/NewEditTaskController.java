@@ -45,6 +45,7 @@ public class NewEditTaskController {
     @FXML private JFXColorPicker color;
     @FXML private HBox tagsBox;
     @FXML private JFXChipView tags;
+    @FXML private HBox attachBox;
     @FXML private Label errorMessage;
     @FXML private Button button;
 
@@ -196,24 +197,24 @@ public class NewEditTaskController {
                 System.out.println(tag.toString());
             });
 
-            // task
-            Task newTask = new Task(
-                    titleTextField.getText(),
-                    UserStateService.getCurrentUser().getUsername(),
-                    descriptionTextArea.getText(),
-                    deadlineTime,
-                    Integer.parseInt(priorityMenu.getText()),
-                    DateUtils.getAsMs(LocalDate.now()),
-                    categoryMenu.getText(),
-                    color.getValue().toString(),
-                    locationTextField.getText(),
-                    notification1Hour.isSelected(),
-                    notification24Hours.isSelected(),
-                    notification7Days.isSelected(),
-                    tagsList,
-                    false,
-                    0L
-                    );
+            // TaskBuilder
+            Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
+                    .description(descriptionTextArea.getText())
+                    .deadline(deadlineTime)
+                    .priority(Integer.parseInt(priorityMenu.getText()))
+                    .startDate(DateUtils.getAsMs(LocalDate.now()))
+                    .category(categoryMenu.getText())
+                    .color(color.getValue().toString())
+                    .location(locationTextField.getText())
+                    .tags(tagsList);
+
+            // This can be done with each variable so that we do not have to make everything required
+            if(notification1Hour.isSelected()) builder.notification1Hour();
+            if(notification24Hours.isSelected()) builder.notification24Hours();
+            if(notification7Days.isSelected()) builder.notification7Days();
+
+            // Create the task:
+            Task newTask = builder.build();
 
             // based on argument of method, we edit or add new task
             if(oldTask != null){
@@ -256,6 +257,8 @@ public class NewEditTaskController {
         colorBox.setManaged(false);
         tagsBox.setVisible(false);
         tagsBox.setManaged(false);
+        attachBox.setVisible(false);
+        attachBox.setManaged(false);
     }
 
     /**
@@ -272,6 +275,8 @@ public class NewEditTaskController {
         colorBox.setManaged(true);
         tagsBox.setVisible(true);
         tagsBox.setManaged(true);
+        attachBox.setVisible(true);
+        attachBox.setManaged(true);
     }
 
     public void buttonAttachFiles(ActionEvent event){
