@@ -152,7 +152,21 @@ public class TaskService {
         userTasksInCategory.sort(Comparator.comparing(Task::getName));
         return userTasksInCategory;
     }
-    
+
+    /**
+     * Method that returns a list of tasks between a specific set of dates.
+     * @param tasks The set of tasks the methode is being preformed on.
+     * @param start interval start time in ms.
+     * @param end interval end time in ms.
+     * @return Lists of all tasks within the given interval.
+     */
+    public static ArrayList<Task> getTasksInDateInterval(ArrayList<Task> tasks, long start, long end){
+        tasks.addAll(getRepeatTasks(getTasksByCurrentUser(),end));
+        return tasks.stream()
+                .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     /**
      * Finds all tasks withing a given interval. It uses all the tasks that the user has currently active.
      * @param start interval start time in ms
@@ -164,19 +178,6 @@ public class TaskService {
     }
 
     /**
-     * Method that returns a list of tasks between a specific set of dates.
-     * @param tasks The set of tasks the methode is being preformed on.
-     * @param start interval start time in ms.
-     * @param end interval end time in ms.
-     * @return Lists of all tasks within the given interval.
-     */
-    public static ArrayList<Task> getTasksInDateInterval(ArrayList<Task> tasks, long start, long end){
-        return tasks.stream()
-                .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * Method that returns a list of tasks between a specific date.
      * @param tasks The set of tasks the methode is being preformed on.
      * @param dateLong The date.
@@ -184,18 +185,7 @@ public class TaskService {
      */
 // rewrite this to use getTasksBetweenDates?
     public static ArrayList<Task> getTasksOnGivenDate(ArrayList<Task> tasks, long dateLong){
-        ArrayList<Task> tasksByDate = new ArrayList<>();
-
-        for(Task task : tasks){
-            LocalDate dateInput = Instant.ofEpochMilli(dateLong).atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate dateTask = Instant.ofEpochMilli(task.getDeadline()).atZone(ZoneId.systemDefault()).toLocalDate();
-
-            if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth() && dateInput.getMonthValue() == dateTask.getMonthValue() && dateInput.getYear() == dateTask.getYear()){
-                tasksByDate.add(task);
-            }
-        }
-
-        return tasksByDate;
+        return getTasksInDateInterval(tasks,dateLong,dateLong+24*60*60*1000);
     }
 
     /**
@@ -296,10 +286,13 @@ public class TaskService {
      * @param end The limit date of where the repeatable tasks are stopped being cloned.
      * @return A ArrayList of all the cloned Repeatable tasks, with new deadlines.
      */
-    public ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
+    public static ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
         ArrayList arrayWithAllClones = new ArrayList();
-        ArrayListOfTasks.stream().filter(x->x.isRepeatable());//fix this to include the entire expression
-        for(Task T: ArrayListOfTasks) {
+        ArrayList<Task> ArrayListOfRepeat = ArrayListOfTasks.stream()
+                .filter(t->t.isRepeatable())
+                .collect(Collectors.toCollection(ArrayList::new));       //fix this to include the entire expression
+
+        for(Task T: ArrayListOfRepeat) {
 
             for (int i=0; T.getStartDate()+i*T.getTimeRepeat()<= end;i++) {
                 Task temp = T;

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.temporal.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -135,8 +136,11 @@ public class OverviewController {
             CalenderElementController calenderElementController = loader.getController();
             calenderElementController.display(
                     Integer.toString(currentTimeThisPage.get(ChronoField.DAY_OF_MONTH)),
-                    TaskService.getTasksExcludingCategories(TaskService.getTasksOnGivenDate(TaskService.getTasksByCurrentUser()
-                            , DateUtils.getAsMs(currentTimeThisPage)), excludedCategories));
+                    TaskService.getTasksExcludingCategories(TaskService.getTasksOnGivenDate(TaskService.getTasksByCurrentUser(),
+                            DateUtils.getAsMs(currentTimeThisPage.atZone(ZoneId.systemDefault()).toLocalDate().atStartOfDay())),
+                            excludedCategories
+                    )
+            );
 
             calenderViewGrid.add(calenderElement, daysColumns.get(currentTimeThisPage.getDayOfWeek().toString()), row);
 
