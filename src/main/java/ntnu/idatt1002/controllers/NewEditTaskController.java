@@ -198,23 +198,16 @@ public class NewEditTaskController {
             });
 
             // task
-            Task newTask = new Task(
-                    titleTextField.getText(),
-                    UserStateService.getCurrentUser().getUsername(),
-                    descriptionTextArea.getText(),
-                    deadlineTime,
-                    Integer.parseInt(priorityMenu.getText()),
-                    DateUtils.getAsMs(LocalDate.now()),
-                    categoryMenu.getText(),
-                    color.getValue().toString(),
-                    locationTextField.getText(),
-                    notification1Hour.isSelected(),
-                    notification24Hours.isSelected(),
-                    notification7Days.isSelected(),
-                    tagsList,
-                    false,
-                    0L
-                    );
+            Task newTask = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
+                    .description(descriptionTextArea.getText())
+                    .deadline(deadlineTime)
+                    .priority(Integer.parseInt(priorityMenu.getText()))
+                    .startDate(DateUtils.getAsMs(LocalDate.now()))
+                    .category(categoryMenu.getText())
+                    .color(color.getValue().toString())
+                    .location(locationTextField.getText())
+                    .tags(tagsList)
+                    .build();
 
             // based on argument of method, we edit or add new task
             if(oldTask != null){
