@@ -1,21 +1,17 @@
 package ntnu.idatt1002.controllers;
 
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
@@ -68,54 +64,37 @@ public class DashboardController {
     /**
      * Load categoryButtons to categories VBox
      */
-    public void loadCategoryButtons(){
+    public void loadCategoryButtons() throws IOException {
         // delete old buttons before adding new ones
         deleteCategoryButtons();
 
         // add categoryButtons for each category to VBox. Set properties of button. and icon.
         for (String category : CategoryService.getArrayListCategoriesOrganized()) {
-            Button button = new Button();
-            MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.FOLDER_OPEN);
+            Button button = FXMLLoader.load(App.class.getResource("/fxml/categoryMenuButton.fxml"));
+            button.setText(category);
+
+            // set icons for trash bin and finished tasks
+            FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
             if(category.equals("Trash bin")){
-                icon = new MaterialDesignIconView(MaterialDesignIcon.DELETE);
+                icon.setGlyphName("TRASH");
             }
             if(category.equals("Finished tasks")){
-                icon = new MaterialDesignIconView(MaterialDesignIcon.CHECK);
+                icon.setGlyphName("CHECK");
             }
 
-            button.setText(category);
-            icon.fillProperty().setValue(Paint.valueOf("White"));
-            icon.setGlyphSize(25);
-            button.setGraphic(icon);
-            button.styleProperty().bind(Bindings
-                    .when(button.hoverProperty())
-                    .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
-                    .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: white;")));
-            button.cursorProperty().setValue(Cursor.HAND);
-            MaterialDesignIconView finalIcon = icon;
-            button.setOnMouseEntered(e -> {
-                finalIcon.setFill(Paint.valueOf("orange"));
-            });
-            button.setOnMouseExited(e -> {
-                if(!category.equals(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
-                    finalIcon.setFill(Paint.valueOf("white"));
-                }
-            });
+            // set the style of selected button
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals(category)){
+                button.getStyleClass().add("categoryButton-selected");
+                icon.getStyleClass().add("categoryButton-selected #icon");
+            }
+
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     try {
                         // Set currently saved category to this category
                         UserStateService.getCurrentUser().setCurrentlySelectedCategory(category);
-
-                        // When this category button is clicked, we loadtaskspage with this category
-                        loadTasksPage(TaskService.getCategoryWithTasks(category));
-
-                        // update categorybutton UI
-                        updateCategoryButtons();
-
-                        // update categoryEditDeleteBar UI
-                        updateCategoryEditDeleteBar();
+                        initialize();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -124,33 +103,6 @@ public class DashboardController {
 
             categories.getChildren().add(categories.getChildren().size(), button);
         }
-
-        updateCategoryButtons();
-    }
-
-    /**
-     * Method for updating UI of categoryButtons. Currently selected category is showed as orange at all times.
-     */
-    public void updateCategoryButtons(){
-        categories.getChildren().forEach(node -> {
-            Button button = (Button) node;
-            if(button.getText().equals(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
-                // selected category as defined in UserStateService in set to show color orange
-                button.styleProperty().bind(Bindings
-                        .when(button.hoverProperty())
-                        .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
-                        .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;")));
-                MaterialDesignIconView icon = (MaterialDesignIconView) button.getGraphic();
-                icon.setFill(Paint.valueOf("orange"));
-            } else {
-                button.styleProperty().bind(Bindings
-                        .when(button.hoverProperty())
-                        .then(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: orange;"))
-                        .otherwise(new SimpleStringProperty("-fx-background-color:  transparent; -fx-font-size: 18; -fx-text-fill: white;")));
-                MaterialDesignIconView icon = (MaterialDesignIconView) button.getGraphic();
-                icon.setFill(Paint.valueOf("white"));
-            }
-        });
     }
 
     /**
@@ -206,11 +158,37 @@ public class DashboardController {
     }
 
     /**
+     * Updates center-content of dashboard to newCategory page
+     * @throws IOException
+     */
+    public void buttonNewCategory() throws IOException {
+        // Load newEditTask page. get fxml variable and controller variable
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditCategory.fxml"));
+        Node node = loader.load();
+        NewEditCategoryController newEditCategoryController = loader.getController();
+
+        // load the newCategory part of newEditCategoryController
+        newEditCategoryController.intializeNewCategory();
+
+        // set dashboard content to editMenu
+        setCenterContent(node);
+    }
+
+    /**
      * Updates center-content of dashboard to editCategory page
      * @throws IOException
      */
     public void buttonEditCategory() throws IOException {
-        setCenterContent("editCategory");
+        // Load newEditTask page. get fxml variable and controller variable
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditCategory.fxml"));
+        Node node = loader.load();
+        NewEditCategoryController newEditCategoryController = loader.getController();
+
+        // load the newCategory part of newEditCategoryController
+        newEditCategoryController.intializeEditCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+
+        // set dashboard content to editMenu
+        setCenterContent(node);
     }
 
     /**
@@ -225,18 +203,16 @@ public class DashboardController {
             UserStateService.getCurrentUser().setCurrentlySelectedCategory(null);
         }
 
-        // update content of tasks, catalogVBox and catalog/task-HBox
-        loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
-        updateCategoryEditDeleteBar();
-        loadCategoryButtons();
+        // initialize dashboard
+        initialize();
     }
 
     /**
-     * Updates center-content of dashboard to newCategory page
+     * Updates center-content of dashboard to newProject page
      * @throws IOException
      */
-    public void buttonNewCategory() throws IOException {
-        setCenterContent("newCategory");
+    public void buttonNewProject() throws IOException {
+        //setCenterContent("newProject");
     }
 
     /**

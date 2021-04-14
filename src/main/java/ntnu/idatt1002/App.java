@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import ntnu.idatt1002.controllers.MainController;
 import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.LoginService;
+import ntnu.idatt1002.service.UpdateService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        // set stage objectvariable
+        this.stage = stage;
+
         // Load custom font, Roboto
         Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Roboto/Roboto-Light.ttf"), 14);
 
@@ -35,6 +39,9 @@ public class App extends Application {
         if(!UserStateDAO.fileExists()){
             UserStateDAO.setUserState(null, null, null, false);
         }
+
+        // Start timer for checking for updates every 5 seconds
+        UpdateService.start();
 
         // check if userState contains a saved user, loads login if not
         if(UserStateService.checkIfUserState()){
@@ -66,8 +73,6 @@ public class App extends Application {
 
     public void initialize() {stage = new Stage();}
 
-    public static Stage getStage() {return stage;}
-
     /**
      * Main method
      * @param args
@@ -96,19 +101,32 @@ public class App extends Application {
     }
 
     /**
-     * Method used for adding a theme to app
-     * @param theme
-     */
-    public static void addTheme(String theme){
-        scene.getStylesheets().removeAll(scene.getStylesheets());
-        scene.getStylesheets().add(App.class.getResource("/css/" + theme + ".css").toExternalForm());
-    }
-
-    /**
      * Method for updating the theme according to current user
      */
-    public static void updateThemeCurrentUser(){
-        addTheme(UserStateService.getCurrentUser().getTheme());
+    public static void updateThemeCurrentUser(String theme){
+        UserStateService.getCurrentUser().setTheme(theme);
+        switch (theme){
+            case "blue":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d;");
+                break;
+            case "green":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #004d00; -fx-color-2: #006600; -fx-color-3: #008000;");
+                break;
+            case "red":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #660011; -fx-color-2: #800015; -fx-color-3: #99001a;");
+                break;
+            case "pink":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #ff99aa; -fx-color-2: #ffb3bf; -fx-color-3: #ffc0cb;");
+                break;
+            case "brown":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #3d1010; -fx-color-2: #511515; -fx-color-3: #651b1b;");
+                break;
+            case "purple":
+                App.getCurrentScene().getRoot().setStyle("-fx-color-1: #4d004d; -fx-color-2: #660066; -fx-color-3: #800080;");
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -117,5 +135,13 @@ public class App extends Application {
      */
     public static Scene getCurrentScene(){
         return scene;
+    }
+
+    /**
+     * Method for fetching the stage
+     * @return
+     */
+    public static Stage getStage() {
+        return stage;
     }
 }

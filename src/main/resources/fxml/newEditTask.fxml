@@ -9,13 +9,14 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane onKeyPressed="#onKeyPressed" prefHeight="625.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewEditTaskController">
+
+<BorderPane onKeyPressed="#onKeyPressed" prefHeight="825.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewEditTaskController">
    <top>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox layoutX="451.0" layoutY="10.0" prefHeight="30.0" prefWidth="171.0" styleClass="simple-advanced-background" stylesheets="@../css/themeBlue.css">
+            <HBox layoutX="451.0" layoutY="10.0" prefHeight="30.0" prefWidth="171.0" styleClass="simple-advanced-background" stylesheets="@../css/main.css">
                <children>
-                  <Button mnemonicParsing="false" onAction="#buttonSimpleTemplate" styleClass="simple-advanced-button" stylesheets="@../css/themeBlue.css" text="Simple">
+                  <Button mnemonicParsing="false" onAction="#buttonSimpleTemplate" styleClass="simple-advanced-button" stylesheets="@../css/main.css" text="Simple">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
@@ -34,7 +35,7 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" onAction="#buttonAdvancedTemplate" prefHeight="2.0" prefWidth="82.0" styleClass="simple-advanced-button" stylesheets="@../css/themeBlue.css" text="Advanced">
+                  <Button mnemonicParsing="false" onAction="#buttonAdvancedTemplate" prefHeight="2.0" prefWidth="82.0" styleClass="simple-advanced-button" stylesheets="@../css/main.css" text="Advanced">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
@@ -72,7 +73,7 @@
       </AnchorPane>
    </bottom>
    <center>
-      <ScrollPane maxHeight="500.0" maxWidth="750.0" prefHeight="200.0" prefWidth="750.0" style="-fx-border-color: transparent; -fx-background-color: transparent;" BorderPane.alignment="CENTER">
+      <ScrollPane maxHeight="774.0" maxWidth="750.0" prefHeight="774.0" prefWidth="750.0" style="-fx-border-color: transparent; -fx-background-color: transparent;" BorderPane.alignment="CENTER">
          <content>
             <AnchorPane>
                <children>
@@ -177,11 +178,24 @@
                               </ScrollPane>
                            </children>
                         </HBox>
-                        <JFXCheckBox fx:id="notification" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" text="Notifications">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </JFXCheckBox>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="47.0" prefWidth="466.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Remind me">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <JFXCheckBox fx:id="notification1Hour" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 hour" />
+                              <JFXCheckBox fx:id="notification24Hours" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="24 hours" />
+                              <JFXCheckBox fx:id="notification7Days" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 week" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
                         <Label fx:id="errorMessage" alignment="TOP_LEFT" maxHeight="100.0" textFill="RED" wrapText="true">
                            <font>
                               <Font size="16.0" />

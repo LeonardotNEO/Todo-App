@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class NotificationDAOTest {
     private final static User userA = new User("olanormann");
     private final static Notification notifA = new Notification("Task A expired","olanormann","",
-            Clock.systemDefaultZone());
+            LocalDateTime.now().plusHours(5));
 
     @BeforeAll
     public static void setup(){
@@ -35,7 +36,7 @@ public class NotificationDAOTest {
     @Test
     public void _saveNotifs(){
         Notification notifB = new Notification("Task B expired","olanormann","",
-                Clock.systemDefaultZone());
+                LocalDateTime.now().plusHours(5));
         ArrayList<Notification> notifsA = new ArrayList<>();
         notifsA.add(notifB);
 

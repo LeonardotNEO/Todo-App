@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="navbar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NavbarController">
+<AnchorPane fx:id="navbar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NavbarController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" styleClass="background-color_1" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <left>
@@ -32,7 +31,7 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" layoutX="282.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="760.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="140.0" styleClass="navbarButton" stylesheets="@../css/themeBlue.css" text="Dashboard" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="140.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Dashboard" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -43,7 +42,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonOverview" prefHeight="47.0" prefWidth="138.0" styleClass="navbarButton" stylesheets="@../css/themeBlue.css" text="Overview" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonOverview" prefHeight="47.0" prefWidth="138.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Overview" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -54,7 +53,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonAccount" prefHeight="47.0" prefWidth="116.0" styleClass="navbarButton" stylesheets="@../css/themeBlue.css" text="Account" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonAccount" prefHeight="47.0" prefWidth="116.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Account" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -65,7 +64,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="47.0" prefWidth="108.0" styleClass="navbarButton" stylesheets="@../css/themeBlue.css" text="Log out" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="47.0" prefWidth="108.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Log out" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -76,7 +75,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <MenuButton id="notificationBell" fx:id="notificationBell" mnemonicParsing="false" stylesheets="@../css/themeBlue.css">
+                        <Button id="notificationBell" mnemonicParsing="false" onAction="#buttonNotificationMenuPopup" stylesheets="@../css/main.css">
                            <graphic>
                               <Pane id="notificationBell">
                                  <children>
@@ -94,7 +93,7 @@
                                  </children>
                               </Pane>
                            </graphic>
-                        </MenuButton>
+                        </Button>
                      </children>
                      <padding>
                         <Insets right="20.0" />
@@ -104,16 +103,5 @@
             </AnchorPane>
          </right>
       </BorderPane>
-      <Button fx:id="buttonNotificationHistory" layoutX="-277.0" layoutY="50.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buttonNotificationHistory" prefHeight="39.0" style="-fx-background-radius: 4;" styleClass="background-color_1" stylesheets="@../css/themeBlue.css" text="Notification history" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="18" />
-         </graphic>
-      </Button>
    </children>
 </AnchorPane>

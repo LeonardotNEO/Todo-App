@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+
+
+<Button mnemonicParsing="false" styleClass="categoryButton" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <graphic>
+      <FontAwesomeIconView id="icon" fill="WHITE" glyphName="FOLDER_OPEN" />
+   </graphic>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</Button>

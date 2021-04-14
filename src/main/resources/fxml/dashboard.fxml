@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.DashboardController">
+<BorderPane fx:id="borderPane" prefHeight="500.0" prefWidth="1000.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.DashboardController">
    <left>
       <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="250.0" styleClass="background-color_3" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -40,6 +40,17 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                        </JFXButton>
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewProject" prefHeight="35.0" prefWidth="200.0" style="-fx-min-height: 35;" styleClass="button1" text="New project">
+                           <graphic>
+                              <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
                         </JFXButton>
                      </children>
                      <padding>

@@ -13,22 +13,21 @@ import java.util.stream.Collectors;
  * A class which provides some necessary features which utilises task-data
  */
 public class TaskService {
-    public static boolean newTask(String title, long deadline, String description, int priority, long startDate, String category, String color, String location, boolean notifications, ArrayList<String> tags, ArrayList<String> filePaths) {
+
+    public static boolean newTask(Task newTask) {
         String username = UserStateService.getCurrentUser().getUsername();
-        Task newTask = new Task(title, username, description, deadline, priority, startDate, category, color, location, notifications, tags, filePaths);
         TaskDAO.serializeTask(newTask);
-        UserLogDAO.setTaskAdded(username, title);
+        UserLogDAO.setTaskAdded(username, newTask.getName());
         return true;
     }
 
-    //Added to stop TaskServiceTest to fail
-    //  -Markus
-    public static boolean newTask(String title, LocalDate deadline, String description, int priority,
-                                  String startDate, String category){
-        Task newTask = new Task(title, UserStateService.getCurrentUser().getUsername(), description,
-                priority, category);
-        TaskDAO.serializeTask(newTask);
-        return true;
+    /**
+     * Method for editing task. This will override Previous task object variables
+     * @param task
+     */
+    public static void editTask(Task task, long taskId){
+        task.setId(taskId);
+        TaskDAO.serializeTask(task);
     }
 
     /**
