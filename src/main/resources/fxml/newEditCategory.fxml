@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -34,23 +35,27 @@
    <bottom>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="button" layoutX="245.0" layoutY="8.0" prefHeight="37.0" prefWidth="139.0" styleClass="button1" text="New category">
-               <graphic>
-                  <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
-               </graphic>
-            </JFXButton>
-            <JFXButton layoutX="391.0" layoutY="8.0" onAction="#buttonCancelNewCategory" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
-               <graphic>
-                  <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
-               </graphic>
-            </JFXButton>
+            <HBox alignment="CENTER" layoutX="200.0" layoutY="3.0" prefHeight="45.0" prefWidth="351.0" spacing="10.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="199.0">
+               <children>
+                  <JFXButton fx:id="button" maxWidth="1.7976931348623157E308" prefHeight="37.0" styleClass="button1" text="New category">
+                     <graphic>
+                        <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton onAction="#buttonCancelNewCategory" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
+                     <graphic>
+                        <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </bottom>
    <top>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="headerText" layoutX="299.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New category" wrappingWidth="152.6611328125">
+            <Text fx:id="headerText" layoutX="247.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New category" textAlignment="CENTER" wrappingWidth="255.6611328125">
                <font>
                   <Font size="25.0" />
                </font>
