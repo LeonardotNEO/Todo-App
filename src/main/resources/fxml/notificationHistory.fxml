@@ -11,7 +11,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane prefHeight="544.0" prefWidth="747.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+            <ScrollPane fx:id="scrollpane" prefHeight="544.0" prefWidth="747.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
                <content>
                   <VBox fx:id="notificationsVBox" maxHeight="1.7976931348623157E308" prefHeight="162.0" spacing="10.0" />
                </content>
