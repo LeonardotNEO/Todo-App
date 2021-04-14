@@ -46,6 +46,7 @@ public class NewEditTaskController {
     @FXML private JFXColorPicker color;
     @FXML private HBox tagsBox;
     @FXML private JFXChipView tags;
+    @FXML private HBox attachBox;
     @FXML private Label errorMessage;
     @FXML private Button button;
 
@@ -257,6 +258,8 @@ public class NewEditTaskController {
         colorBox.setManaged(false);
         tagsBox.setVisible(false);
         tagsBox.setManaged(false);
+        attachBox.setVisible(false);
+        attachBox.setManaged(false);
     }
 
     /**
@@ -273,6 +276,8 @@ public class NewEditTaskController {
         colorBox.setManaged(true);
         tagsBox.setVisible(true);
         tagsBox.setManaged(true);
+        attachBox.setVisible(true);
+        attachBox.setManaged(true);
     }
 
     public void buttonAttachFiles(ActionEvent event){
