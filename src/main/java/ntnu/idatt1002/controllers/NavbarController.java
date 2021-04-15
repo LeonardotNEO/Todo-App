@@ -80,7 +80,7 @@ public class NavbarController {
      * @throws IOException
      */
     public void buttonLogout(ActionEvent event) throws IOException {
-        App.setRoot("login");
+        App.setRoot("newLogin");
         LoginService.logOut();
     }
 
