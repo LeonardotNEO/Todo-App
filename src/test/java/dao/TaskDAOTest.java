@@ -8,6 +8,7 @@ import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserDAO;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -53,6 +54,61 @@ public class TaskDAOTest {
         Task taskE = TaskDAO.deserialize("olanormann", "Build house", "Carpentry", id_B);
 
         assertEquals(taskB, taskE);
+    }
+
+    @Nested
+    public class wrong_arguments{
+        @Test
+        public void _list(){
+            assertNull(TaskDAO.list("joseph"));
+            assertNull(TaskDAO.list("joseph", "Home"));
+            assertNull(TaskDAO.list("olanormann", "Work"));
+            assertNull(TaskDAO.list("joseph", "Build house", "Carpentry"));
+            assertNull(TaskDAO.list("olanormann", "Start business", "Take loan"));
+            assertNull(TaskDAO.list("olanormann", "Build house", "Foundation"));
+        }
+
+        @Test
+        public void _deserialize(){
+            assertNull(TaskDAO.deserialize("joseph", id_A));
+            assertNull(TaskDAO.deserialize("olanormann", 66666));
+            assertNull(TaskDAO.deserialize("joseph", "Home", id_A));
+            assertNull(TaskDAO.deserialize("olanormann", "Work", id_A));
+            assertNull(TaskDAO.deserialize("olanormann", "Home", 666666));
+            assertNull(TaskDAO.deserialize("joseph", "Build house", "Carpentry", id_A));
+            assertNull(TaskDAO.deserialize("olanormann", "Start business", "Carpentry", id_A));
+            assertNull(TaskDAO.deserialize("olanormann", "Build house", "Foundation", id_A));
+            assertNull(TaskDAO.deserialize("olanormann", "Build house", "Carpentry", 666666));
+        }
+
+        @Test
+        public void _deleteByUser(){
+            assertFalse(TaskDAO.deleteByUser("joseph"));
+        }
+
+        @Test
+        public void _deleteByCategory(){
+            assertFalse(TaskDAO.deleteByCategory("joseph", "Home"));
+            assertFalse(TaskDAO.deleteByCategory("olanormann", "Work"));
+        }
+
+        @Test
+        public void _deleteByProjectCategory(){
+            assertFalse(TaskDAO.deleteByProjectCategory("joseph", "Build house", "Carpentry"));
+            assertFalse(TaskDAO.deleteByProjectCategory("olanormann", "Start business", "Take loan"));
+            assertFalse(TaskDAO.deleteByProjectCategory("olanormann", "Build house", "Foundation"));
+        }
+
+        @Test
+        public void _delete(){
+            assertFalse(TaskDAO.delete("joseph", "Home", id_A));
+            assertFalse(TaskDAO.delete("olanormann", "Work", id_A));
+            assertFalse(TaskDAO.delete("olanormann", "Home", 666666));
+            assertFalse(TaskDAO.delete("joseph", "Build house", "Carpentry", id_A));
+            assertFalse(TaskDAO.delete("olanormann", "Start business", "Carpentry", id_A));
+            assertFalse(TaskDAO.delete("olanormann", "Build house", "Foundation", id_A));
+            assertFalse(TaskDAO.delete("olanormann", "Build house", "Carpentry", 666666));
+        }
     }
 
     @AfterAll

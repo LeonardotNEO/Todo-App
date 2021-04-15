@@ -168,7 +168,7 @@ public final class TaskDAO {
             for(Task task : tasks){
                 if(!delete(task)){ result = false; }
             }
-        }
+        }else{ return false; }
 
         return result;
     }
