@@ -71,8 +71,6 @@ public class App extends Application {
         }
     }
 
-    public void initialize() {stage = new Stage();}
-
     /**
      * Main method
      * @param args
