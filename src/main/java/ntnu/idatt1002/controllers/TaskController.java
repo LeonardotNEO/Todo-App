@@ -33,6 +33,7 @@ public class TaskController {
     @FXML private Text taskDescription;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
+    @FXML private Label taskRepeat;
     @FXML private Pane background;
     @FXML private HBox toolsHBox;
 
@@ -104,7 +105,7 @@ public class TaskController {
 
     /**
      * A method to set the priority of the task
-     * @param priority
+     * @param priority The priority of task
      */
     public void setTaskPriority(int priority) {
         taskPriority.setText("Priority: " + priority);
@@ -125,6 +126,22 @@ public class TaskController {
             default:
         }
 
+    }
+
+    public void setRepeatTime(String repeatTime){
+        switch(repeatTime){
+            case "None":
+                taskRepeat.setText("");
+                break;
+            case "Repeat Daily":
+                taskRepeat.setText("Daily");
+                break;
+            case "Repeat Weekly":
+                taskRepeat.setText("Weekly");
+                break;
+            default:
+
+        }
     }
 
     public void setTaskId(long id){
