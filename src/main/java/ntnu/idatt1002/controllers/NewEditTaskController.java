@@ -226,7 +226,7 @@ public class NewEditTaskController {
                 }
                 result = true;
             } else {
-                TaskService.newTaskValidation(newTask);
+                TaskService.newTask(newTask);
                 result = true;
             }
 
