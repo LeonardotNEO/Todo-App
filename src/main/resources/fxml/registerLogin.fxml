@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="328.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.LoginRegisterController">
+   <children>
+      <Pane layoutX="-2.0" layoutY="-7.0" prefHeight="343.0" prefWidth="378.0">
+         <children>
+            <PasswordField fx:id="passwordField" layoutX="101.0" layoutY="105.0" prefHeight="38.0" prefWidth="167.0" promptText="Password" />
+            <PasswordField fx:id="repeatPasswordField" layoutX="101.0" layoutY="153.0" prefHeight="38.0" prefWidth="167.0" promptText="Repeat Password" />
+            <Button fx:id="finishButton" layoutX="158.0" layoutY="289.0" mnemonicParsing="false" text="Button" />
+            <CheckBox fx:id="keepLoggedInn" layoutX="102.0" layoutY="232.0" mnemonicParsing="false" text="Keep me logged inn" />
+            <CheckBox fx:id="noPassword" layoutX="101.0" layoutY="257.0" mnemonicParsing="false" text="No password" />
+            <TextField fx:id="usernameField" layoutX="100.0" layoutY="55.0" prefHeight="38.0" prefWidth="167.0" promptText="Username" />
+            <Label fx:id="errorMessageLabel" layoutX="33.0" layoutY="191.0" prefHeight="38.0" prefWidth="312.0" textAlignment="CENTER" textFill="RED" />
+         </children></Pane>
+   </children>
+</AnchorPane>
