@@ -71,6 +71,8 @@ public final class TaskDAO {
             for(String file : filepaths){
                 tasks.add(deserialize(div.getPath() + "/" + file));
             }
+        }else{
+            return null;
         }
         return tasks;
     }

@@ -2,7 +2,6 @@ package ntnu.idatt1002;
 
 import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.utils.ColorUtil;
-import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -34,13 +33,6 @@ public class Task implements Serializable {
 
     /**
      * A constructor for the class Task. Use when there is a deadline and start date for task.
-     * @param name
-     * @param userName
-     * @param description
-     * @param deadline
-     * @param priority
-     * @param startDate
-     * @param category
      */
     public Task(String name, String userName, String description, long deadline, int priority, long startDate, String category, String color, String location, boolean notification1Hour, boolean notification24Hours, boolean notification7Days, ArrayList<String> tags) {
         this.name = name;
@@ -70,11 +62,6 @@ public class Task implements Serializable {
 
     /**
      * A constructor for the class Task. Use for the times when there is no deadline or start date for the task
-     * @param name
-     * @param userName
-     * @param description
-     * @param priority
-     * @param category
      */
     public Task(String name, String userName, String description, int priority, String category) {
         this.name = name;
@@ -82,6 +69,20 @@ public class Task implements Serializable {
         this.description = description;
         this.priority = priority;
         this.category = category;
+        this.id = generateId();
+    }
+
+    /**
+     * Simple task within a project category
+     */
+    public Task(String name, String userName, String description, int priority, String project, String category) {
+        this.name = name;
+        this.userName = userName;
+        this.description = description;
+        this.priority = priority;
+        this.project = project;
+        this.category = category;
+        this.id = generateId();
     }
 
     /**

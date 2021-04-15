@@ -103,7 +103,7 @@ public final class CategoryDAO {
      */
     public static boolean delete(String username, String project, String category){
         File directory = new File(projectPath(username, project) + category);
-        boolean success = TaskDAO.deleteByCategory(username, category);
+        boolean success = TaskDAO.deleteByProjectCategory(username, project, category);
 
         return directory.delete();
     }
