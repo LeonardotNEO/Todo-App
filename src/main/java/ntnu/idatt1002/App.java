@@ -71,13 +71,13 @@ public class App extends Application {
         }
     }
 
+    public void initialize() {stage = new Stage();}
+
     /**
      * Main method
      * @param args
      */
-    public static void main(String[] args) {
-        launch();
-    }
+    public static void main(String[] args) {launch();}
 
     /**
      * Method that uses loadFXML method to load fxml file to the scene
