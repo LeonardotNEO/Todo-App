@@ -44,7 +44,7 @@ public class NewLoginController {
         backToHome.setManaged(false);
 
         // Populate the Vbox with users
-        ArrayList<User> users = UserDAO.getUsers();
+        ArrayList<User> users = UserDAO.list();
         users.forEach(u -> {
             // Create user pane
             AnchorPane pane = null;

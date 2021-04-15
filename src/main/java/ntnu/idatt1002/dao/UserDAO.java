@@ -31,7 +31,6 @@ public final class UserDAO {
         //Deserialize all users in array
         if(dirPaths != null){
             for(File path : dirPaths){
-                System.out.println(path.getName());
                 User user = deserialize(path.getName());
                 users.add(user);
             }
