@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="281.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.AttachedFilePopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="281.0" style="-fx-background-radius: 10; -fx-background: transparent;" styleClass="background-color_3" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.AttachedFilePopupController">
    <children>
-      <Pane prefHeight="106.0" prefWidth="281.0">
+      <HBox fx:id="hboxFileOptions" layoutY="59.0" prefHeight="47.0" spacing="50.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
          <children>
-            <HBox fx:id="hboxFileOptions" layoutX="-8.0" layoutY="60.0" prefHeight="39.0" prefWidth="297.0">
-               <children>
-                  <Button fx:id="buttonOpenFile" mnemonicParsing="false" onAction="#buttonOpenFile" prefHeight="15.0" prefWidth="78.0" text="Open file">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="40.0" right="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="buttonRemoveFile" mnemonicParsing="false" text="Remove file">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="20.0" right="40.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <Text layoutX="35.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File options:" textAlignment="CENTER" wrappingWidth="211.47003173828125">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Button fx:id="buttonCloseFileOptions" layoutX="236.0" layoutY="2.0" mnemonicParsing="false" text="Close" />
+            <Button fx:id="buttonOpenFile" mnemonicParsing="false" onAction="#buttonOpenFile" prefHeight="37.0" prefWidth="101.0" styleClass="button1" text="Open file" />
+            <Button fx:id="buttonRemoveFile" mnemonicParsing="false" prefHeight="37.0" prefWidth="108.0" styleClass="button1" text="Remove file" />
          </children>
-      </Pane>
+      </HBox>
+      <Text fill="WHITE" layoutX="35.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File options:" textAlignment="CENTER" wrappingWidth="211.47003173828125">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="buttonCloseFileOptions" layoutX="249.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+         <graphic>
+            <FontAwesomeIconView fill="RED" glyphName="TIMES" size="20">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
