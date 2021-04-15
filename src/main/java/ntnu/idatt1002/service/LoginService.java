@@ -14,11 +14,10 @@ public class LoginService {
     /**
      * Check if login syntax is valid
      * @param username
-     * @param password
      * @return
      */
-    public static boolean checkIfLoginSyntaxValid(String username, String password){
-        if(username.isEmpty() || password.isEmpty()){
+    public static boolean checkIfLoginSyntaxValid(String username){
+        if(username.isEmpty()){
             return false;
         } else {
             return true;
