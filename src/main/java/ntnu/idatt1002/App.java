@@ -48,7 +48,7 @@ public class App extends Application {
             scene = new Scene(loadFXML("main"));
             LoginService.login(UserStateService.getCurrentUser().getUsername(), true);
         } else {
-            scene = new Scene(loadFXML("newLogin"));
+            scene = new Scene(loadFXML("loginRegister"));
         }
 
         // fill stage with the scene choosen above. Set properties of the stage.
