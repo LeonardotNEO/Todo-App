@@ -52,11 +52,11 @@ public class UserService {
             TaskDAO.serialize(tasks);
 
             // transfer notifications
-            ArrayList<Notification> notifications = NotificationDAO.getNotifsByUser(oldUser.getUsername());
+            ArrayList<Notification> notifications = NotificationDAO.list(oldUser.getUsername());
             notifications.forEach(notif -> {
                 notif.setUsername(newUser.getUsername());
             });
-            NotificationDAO.saveNotifs(notifications);
+            NotificationDAO.serialize(notifications);
 
 
             // delete old user

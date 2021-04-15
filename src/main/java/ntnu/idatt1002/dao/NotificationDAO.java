@@ -14,18 +14,16 @@ public final class NotificationDAO {
     private static final String FILETYPE = ".ser";
 
     /**
-     * Get all notifications stored in user folder
-     * @param username non case-sensitive username
-     * @return {@code ArrayList} of all notifications, if user could not be found the list will be empty
+     * Get all notifications for a user
      */
-    public static ArrayList<Notification> getNotifsByUser(String username){
+    public static ArrayList<Notification> list(String username){
+        File notifDir = new File(notifDir(username));
+        String[] filepaths = notifDir.list();
         ArrayList<Notification> notifs = new ArrayList<>();
-        File directory = new File(notifsPath(username));
-        String[] pathnames = directory.list();
 
-        if(pathnames != null && UserDAO.exists(username)){
-            for(String path : pathnames){
-                notifs.add(deserializeNotif(directory.getPath() + "/" + path));
+        if(filepaths != null){
+            for(String file : filepaths) {
+                notifs.add(deserialize(notifDir.getPath() + "/" + file));
             }
         }
 
@@ -33,128 +31,78 @@ public final class NotificationDAO {
     }
 
     /**
-     * Save a list of noticiations to their respective folders
-     * @param notifs an {@code ArrayList} of notifications
+     * Save a list of notifications to storage
      */
-    public static void saveNotifs(ArrayList<Notification> notifs){
-        for(Notification notif : notifs) {
-            serializeNotif(notif);
+    public static void serialize(ArrayList<Notification> notifications){
+        for(Notification notif : notifications){
+            serialize(notif);
         }
     }
 
     /**
      * Save a single notification to storage
-     * @param notif a Notification object
      */
-    public static void serializeNotif(Notification notif){
-        String username = notif.getUsername();
-        int notifID = notif.getNotifId();
-        File file = new File(filePath(username, notifID));
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(notif);
-
-            oos.close();
-            fos.close();
-        }catch(IOException ioe){
-            ioe.printStackTrace();
-        }
+    public static void serialize(Notification notification){
+        GenericDAO.serialize(notification, filepath(notification.getUsername(), notification.getNotifId()));
     }
 
     /**
-     * Get a single notification given by owner and ID
-     * @param username which user that owns the notification
-     * @param notifID notifications hashcode
-     * @return {@code null} if notification could not be found
+     * Get a notification object from storage
+     * @return {@code null} if file could not be found
      */
-    public static Notification deserializeNotif(String username, int notifID){
-        return deserializeNotif(filePath(username, notifID));
+    public static Notification deserialize(String username, int id){
+        return deserialize(filepath(username, id));
     }
 
     /**
-     * Get a single notification by complete filepath
-     * @param filepath String of the filepath starting with "src/"
-     * @return {@code null} if notification could not be found
+     * Get notification object by it's filepath
+     * @return {@code null} if file could not be found
      */
-    public static Notification deserializeNotif(String filepath){
-        File file = new File(filepath);
-        Notification notif = null;
-
-        if(!file.exists()){ return null; }
-
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            notif = (Notification) ois.readObject();
-
-            ois.close();
-            fis.close();
-        }catch(IOException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        return notif;
+    private static Notification deserialize(String filepath){
+        return (Notification) GenericDAO.deserialize(filepath);
     }
 
     /**
      * Delete all notifications for a user
-     * @param username which user to wipe all notifications from
-     * @return {@code false} if one or more could not be deleted
+     * @return {@code false} if some files could not be deleted
      */
-    public static boolean deleteNotifsByUser(String username){
-        return deleteNotifs(getNotifsByUser(username));
-    }
+    public static boolean deleteByUser(String username){
+        if(!UserDAO.exists(username)){ return false; }
 
-    /**
-     * Delete a list of notifications
-     * @param notifs an {@code ArrayList} of Notifications
-     * @return {@code false} if one or more could not be deleted
-     */
-    public static boolean deleteNotifs(ArrayList<Notification> notifs){
-        boolean success = true;
+        ArrayList<Notification> notifs = list(username);
+        boolean result = true;
+
+        if(notifs == null){ return false; }
         for(Notification notif : notifs){
-            if(!deleteNotif(notif)){
-                success = false;
-            }
+            if(!delete(notif)){ result = false; }
         }
-        return success;
+
+        return result;
     }
 
     /**
-     * Delete a single notification
-     * @param notif a Notification object
+     * Delete a notification
      * @return {@code false} if file could not be deleted
      */
-    public static boolean deleteNotif(Notification notif){
-        String username = notif.getUsername();
-        int notifID = notif.hashCode();
-        return deleteNotif(filePath(username, notifID));
+    public static boolean delete(Notification notification){
+        return delete(notification.getUsername(), notification.getNotifId());
     }
 
     /**
-     * Delete a single notification by filepath
-     * @param filepath String of filepath starting with "src/"
+     * Delete a notification given by its user and its hashCode
      * @return {@code false} if file could not be deleted
      */
-    public static boolean deleteNotif(String filepath){
-        File file = new File(filepath);
+    public static boolean delete(String username, int id){
+        File file = new File(filepath(username, id));
         return file.delete();
     }
 
-    //PRIVATE STRING FUNCTIONS
-    /**
-     * Get notifications directory
-     */
-    private static String notifsPath(String username){
-        return (SAVEPATH + "/" + username + "/Notifications/");
+    //Get paths
+    private static String notifDir(String username){
+        return (SAVEPATH + "/Notifications/");
     }
 
-    /**
-     * Get file path
-     */
-    private static String filePath(String username, int notifID){
-        return (notifsPath(username) + PREFIX + notifID + FILETYPE);
+    private static String filepath(String username, int id){
+        return (notifDir(username) + PREFIX + id + FILETYPE);
     }
 }
