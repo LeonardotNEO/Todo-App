@@ -1,25 +1,24 @@
 package ntnu.idatt1002.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Popup;
-import ntnu.idatt1002.App;
-import ntnu.idatt1002.Task;
-import ntnu.idatt1002.service.TaskService;
-import ntnu.idatt1002.service.UserStateService;
 
 import java.awt.*;
 import java.io.File;
 
+/**
+ * A class which contains the buttons related to attachFilePopup.
+ * It contains a button for opening a file, closing a file and removing a file.
+ */
 public class AttachedFilePopupController {
     @FXML private Button buttonOpenFile;
     @FXML Button buttonRemoveFile;
     @FXML Button buttonCloseFileOptions;
     private String filePath;
-    private Task taskWithFile;
 
+    /**
+     * A button which opens the File from filePath.
+     */
     public void buttonOpenFile() {
         try {
             File open = new File(filePath);
@@ -35,11 +34,12 @@ public class AttachedFilePopupController {
         }
     }
 
+    /**
+     * A method to set the filePath.
+     *
+     * @param filePath the new file path to be set.
+     */
     public void setFilePath(String filePath) {
         this.filePath = filePath;
-    }
-
-    public void setTaskWithFiles(Task task){
-        this.taskWithFile = task;
     }
 }
