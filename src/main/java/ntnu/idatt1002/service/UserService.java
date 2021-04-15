@@ -23,7 +23,7 @@ public class UserService {
         String user = UserStateService.getCurrentUserUsername();
         if(user == null) return false;
         UserStateService.setCurrentUserUsername(null);
-        return UserDAO.deleteUser(user);
+        return UserDAO.delete(user);
     }
 
     /**
@@ -36,32 +36,32 @@ public class UserService {
         // check if new users username already exists
         if(RegisterService.checkIfUsernameValid(newUser.getUsername()) || UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){
             // create new user
-            UserDAO.serializeUser(newUser);
+            UserDAO.serialize(newUser);
 
             // transfer categories
-            String[] categories = CategoryDAO.getCategoriesByUser(oldUser.getUsername());
+            String[] categories = CategoryDAO.list(oldUser.getUsername());
             for(String category : categories){
-                CategoryDAO.addCategory(newUser.getUsername(), category);
+                CategoryDAO.add(newUser.getUsername(), category);
             }
 
             // transfer tasks
-            ArrayList<Task> tasks = TaskDAO.getTasksByUser(oldUser.getUsername());
+            ArrayList<Task> tasks = TaskDAO.list(oldUser.getUsername());
             tasks.forEach(task -> {
                 task.setUserName(newUser.getUsername());
             });
-            TaskDAO.saveTasks(tasks);
+            TaskDAO.serialize(tasks);
 
             // transfer notifications
-            ArrayList<Notification> notifications = NotificationDAO.getNotifsByUser(oldUser.getUsername());
+            ArrayList<Notification> notifications = NotificationDAO.list(oldUser.getUsername());
             notifications.forEach(notif -> {
                 notif.setUsername(newUser.getUsername());
             });
-            NotificationDAO.saveNotifs(notifications);
+            NotificationDAO.serialize(notifications);
 
 
             // delete old user
             if(!UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){
-                UserDAO.deleteUser(oldUser.getUsername());
+                UserDAO.delete(oldUser.getUsername());
             }
 
             // update UserStateService

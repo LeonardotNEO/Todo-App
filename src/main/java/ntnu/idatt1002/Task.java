@@ -22,6 +22,7 @@ public class Task implements Serializable {
     private int priority;
     private long startDate;
     private long deadline;
+    private String project;
     private String category;
     private String color;
     private String location;
@@ -69,6 +70,10 @@ public class Task implements Serializable {
      * @return the startDate of the task
      */
     public long getStartDate() {return startDate;}
+
+    public String getProject() {
+        return project;
+    }
 
     /**A method to get the field category
      *
@@ -133,6 +138,8 @@ public class Task implements Serializable {
      * @param startDate
      */
     public void setStartDate(long startDate) {this.startDate = startDate;}
+
+    public void setProject(String project) {this.project = project;}
 
     /**
      * A method to set a new category.
@@ -260,6 +267,7 @@ public class Task implements Serializable {
         private String userName;
         private String description;
         private int priority;
+        private String project;
         private String category;
         private String color;
         private String location;
@@ -308,6 +316,15 @@ public class Task implements Serializable {
          */
         public TaskBuilder priority(int priority) {
             this.priority = priority;
+            return this;
+        }
+
+        /**
+         * Method to set the project
+         * @return the TaskBuilder
+         */
+        public TaskBuilder project(String project) {
+            this.project = project;
             return this;
         }
 
@@ -423,6 +440,7 @@ public class Task implements Serializable {
             task.description = this.description;
             task.priority = this.priority;
             task.startDate = this.startDate;
+            task.project = this.project;
             task.category = this.category;
             task.color = this.color;
             task.deadline = this.deadline;
