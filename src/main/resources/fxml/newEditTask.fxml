@@ -204,9 +204,9 @@
                                     <Insets right="30.0" />
                                  </HBox.margin>
                               </Text>
+                              <JFXCheckBox fx:id="notification1Hour" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 hour" />
                               <JFXCheckBox fx:id="notification24Hours" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="24 hours" />
-                              <JFXCheckBox fx:id="notification7Days" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 week" />
-                           </children>
+                              <JFXCheckBox fx:id="notification7Days" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 week" /></children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>

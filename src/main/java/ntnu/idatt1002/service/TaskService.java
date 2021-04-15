@@ -301,8 +301,7 @@ public class TaskService {
         // return list
         for(Task T: ArrayListOfRepeat) {
             T.setDeadline(T.getDeadline()+1);
-            long DeadLine = T.getDeadline() + 1;
-            System.out.println(ArrayListOfRepeat.size());// this is to counteract a bug that happens when the deadline is set to 0000:
+            long DeadLine = T.getDeadline() + 1;// this is to counteract a bug that happens when the deadline is set to 0000:
                 for (int i=1; (T.getDeadline() + i * (T.getTimeRepeat())) <= end; i++) {
 
                     Task temp = new Task.TaskBuilder(T.getUserName(), T.getName())

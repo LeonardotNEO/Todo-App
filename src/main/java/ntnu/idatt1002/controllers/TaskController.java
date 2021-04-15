@@ -131,7 +131,7 @@ public class TaskController {
     public void setRepeatTime(String repeatTime){
         switch(repeatTime){
             case "None":
-                taskRepeat.setText("");
+                taskRepeat.setText(" ");
                 break;
             case "Repeat Daily":
                 taskRepeat.setText("Daily");
