@@ -1,14 +1,15 @@
-* {
-  -fx-color-1: #004d00;
-  -fx-color-2: #006600;
-  -fx-color-3: #008000;
-  -fx-color-4: orange;
+/* Root */
+.root {
+  color-1: #001021;
+  color-2: #001933;
+  color-3: #00254d;
+  color-4: #ffa500;
 }
 
 /* GENERAL */
 
 .button1{
-  -fx-background-color:  -fx-color-1;
+  -fx-background-color:  color-1;
   -fx-background-radius: 5;
   -fx-font-size: 16;
   -fx-text-fill: white;
@@ -19,24 +20,27 @@
 }
 
 .button1:hover {
-  -fx-text-fill: -fx-color-4;
-  -fx-background-color:  -fx-color-1;
+  -fx-text-fill: color-4;
 }
 
 .button1:hover #icon {
-  -fx-fill: -fx-color-4;
+  -fx-fill: color-4;
 }
 
 .background-color_1{
-  -fx-background-color: -fx-color-1;
+  -fx-background-color: color-1;
 }
 
 .background-color_2{
-  -fx-background-color: -fx-color-2;
+  -fx-background-color: color-2;
 }
 
 .background-color_3{
-  -fx-background-color: -fx-color-3;
+  -fx-background-color: color-3;
+}
+
+.background-color_white{
+  -fx-background-color: white;
 }
 
 /* DASHBOARD */
@@ -48,21 +52,21 @@
 }
 
 .categoryButton:hover {
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: color-4;
 }
 
 .categoryButton:hover #icon{
-  -fx-fill: -fx-color-4;
+  -fx-fill: color-4;
 }
 
 .categoryButton-selected {
   -fx-background-color:  transparent;
   -fx-font-size: 18;
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: color-4;
 }
 
 .categoryButton-selected #icon {
-  -fx-fill: -fx-color-4;
+  -fx-fill: color-4;
 }
 
 
@@ -79,12 +83,12 @@
 }
 
 #navbarButton:hover {
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: color-4;
   -fx-background-color:  transparent;
 }
 
 #navbarButton:hover #icon {
-  -fx-fill: -fx-color-4;
+  -fx-fill: color-4;
 }
 
 #notificationBell {
@@ -92,7 +96,7 @@
 }
 
 #notificationBell:hover #icon{
-  -fx-fill: -fx-color-4;
+  -fx-fill: color-4;
 }
 
 /* OVERVIEW PAGE */
@@ -112,7 +116,7 @@
 
 .overview-navbar {
   -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
-  -fx-background-color: -fx-color-2;
+  -fx-background-color: color-2;
 }
 
 .overview-scrollpanes {
@@ -122,7 +126,6 @@
 }
 
 .overview-arrows {
-  -fx-fill: -fx-color-1;
+  -fx-fill: color-1;
 }
-
 

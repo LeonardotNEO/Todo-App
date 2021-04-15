@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="notificationPane1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="200.0" styleClass="background-color_1" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NotificationController">
+<AnchorPane fx:id="notificationPane1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="200.0" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NotificationController">
    <children>
       <Label fx:id="title" layoutX="5.0" layoutY="1.0" text="title" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="1.0">
          <font>
@@ -19,9 +19,9 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button layoutX="68.0" mnemonicParsing="false" onAction="#checkNotification" prefHeight="0.0" prefWidth="28.0" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Button layoutX="171.0" layoutY="2.0" mnemonicParsing="false" onAction="#checkNotification" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <graphic>
-            <FontAwesomeIconView fill="#0eff00" glyphName="CHECK" size="16" />
+            <FontAwesomeIconView fill="LIME" glyphName="CHECK" size="14" />
          </graphic>
          <cursor>
             <Cursor fx:constant="HAND" />

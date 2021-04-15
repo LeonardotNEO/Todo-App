@@ -16,9 +16,19 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskDAOTest {
-    private final static Task taskA = new Task("Do laundry", "olanormann", "", 0, "Home");
+    private final static Task taskA = new Task.TaskBuilder("olanormann", "Do laundry")
+            .description("")
+            .priority(0)
+            .category("Home")
+            .build();
     private final static long id_A = taskA.getId();
-    private final static Task taskB = new Task("Build walls", "olanormann", "", 0, "Build house", "Carpentry");
+
+    private final static Task taskB = new Task.TaskBuilder("olanormann", "Build walls")
+            .description("")
+            .priority(0)
+            .project("Build house")
+            .category("Carpentry")
+            .build();
     private final static long id_B = taskB.getId();
 
     @BeforeAll
@@ -28,9 +38,7 @@ public class TaskDAOTest {
         ProjectDAO.add("olanormann", "Build house");
         CategoryDAO.add("olanormann", "Build house", "Carpentry");
         TaskDAO.serialize(taskA);
-        TaskDAO.serialize(new Task("Mow lawn", "olanormann", "", 0, "Home"));
         TaskDAO.serialize(taskB);
-        TaskDAO.serialize(new Task("Lay roof tiles", "olanormann", "", 0, "Build house", "Carpentry"));
     }
 
     @Test
@@ -40,7 +48,7 @@ public class TaskDAOTest {
         ArrayList<Task> projectTasks = TaskDAO.list("olanormann", "Build house", "Carpentry");
 
         assertTrue(allTasks != null && categoryTasks != null && projectTasks != null);
-        assertTrue(allTasks.size() == 4 && categoryTasks.size() == 2 && projectTasks.size() == 2);
+        assertTrue(allTasks.size() == 2 && categoryTasks.size() == 1 && projectTasks.size() == 1);
     }
 
     @Test

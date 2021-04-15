@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="navbar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NavbarController">
+<AnchorPane fx:id="navbar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NavbarController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" styleClass="background-color_1" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <left>
@@ -31,7 +31,7 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" layoutX="282.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="760.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="140.0" styleClass="navbarButton" stylesheets="@../css/themeBlue.css" text="Dashboard" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="47.0" prefWidth="140.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Dashboard" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -42,7 +42,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonOverview" prefHeight="47.0" prefWidth="138.0" styleClass="navbarButton" stylesheets="@../css/themeBlue.css" text="Overview" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonOverview" prefHeight="47.0" prefWidth="138.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Overview" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -53,7 +53,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonAccount" prefHeight="47.0" prefWidth="116.0" styleClass="navbarButton" stylesheets="@../css/themeBlue.css" text="Account" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonAccount" prefHeight="47.0" prefWidth="116.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Account" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -64,7 +64,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="47.0" prefWidth="108.0" styleClass="navbarButton" stylesheets="@../css/themeBlue.css" text="Log out" textFill="WHITE">
+                        <Button id="navbarButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="47.0" prefWidth="108.0" styleClass="navbarButton" stylesheets="@../css/main.css" text="Log out" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -75,7 +75,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="notificationBell" mnemonicParsing="false" onAction="#buttonNotificationMenuPopup" stylesheets="@../css/themeBlue.css">
+                        <Button id="notificationBell" mnemonicParsing="false" onAction="#buttonNotificationMenuPopup" stylesheets="@../css/main.css">
                            <graphic>
                               <Pane id="notificationBell">
                                  <children>

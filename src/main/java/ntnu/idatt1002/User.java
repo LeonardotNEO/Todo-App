@@ -24,6 +24,7 @@ public class User implements Serializable {
     String currentlySelectedSort = "";
     boolean rememberMe = false;
     String theme = "";
+    boolean deleteTaskDontShowAgainCheckbox;
 
     public User(){}
 
@@ -46,7 +47,7 @@ public class User implements Serializable {
         this.password = password;
         this.salt = salt;
         this.dateCreated = DateUtils.getAsMs(LocalDate.now());
-        this.theme = "themeBlue";
+        this.theme = "blue";
     }
 
     /**
@@ -147,13 +148,15 @@ public class User implements Serializable {
         UserService.editUser(userBeforeChanges, this);
     }
 
-    public boolean isRememberMe() {
-        return rememberMe;
+    // For deleteTask popup
+    public boolean isDeleteTaskDontShowAgainCheckbox() {
+        return deleteTaskDontShowAgainCheckbox;
     }
 
-    public void setRememberMe(boolean rememberMe) {
+    // For deleteTask popup
+    public void setDeleteTaskDontShowAgainCheckbox(boolean checkbox) {
         User userBeforeChanges = new User(this);
-        this.rememberMe = rememberMe;
+        this.deleteTaskDontShowAgainCheckbox = checkbox;
 
         UserService.editUser(userBeforeChanges, this);
     }
@@ -165,6 +168,17 @@ public class User implements Serializable {
     public void setTheme(String theme) {
         User userBeforeChanges = new User(this);
         this.theme = theme;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        User userBeforeChanges = new User(this);
+        this.rememberMe = rememberMe;
 
         UserService.editUser(userBeforeChanges, this);
     }
