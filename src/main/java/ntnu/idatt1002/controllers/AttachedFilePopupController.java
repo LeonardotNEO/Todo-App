@@ -15,8 +15,8 @@ import java.io.File;
 
 public class AttachedFilePopupController {
     @FXML private Button buttonOpenFile;
-    @FXML private Button buttonRemoveFile;
-    @FXML private Button buttonCloseFileOptions;
+    @FXML Button buttonRemoveFile;
+    @FXML Button buttonCloseFileOptions;
     private String filePath;
     private Task taskWithFile;
 
@@ -35,20 +35,11 @@ public class AttachedFilePopupController {
         }
     }
 
-    public void buttonRemoveFile() {
-        //task.listOfFiles.remove(filePath);
-        TaskService.removeAttachedFile(taskWithFile, filePath);
-    }
-
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
     public void setTaskWithFiles(Task task){
         this.taskWithFile = task;
-    }
-
-    public void updateAttachedFiles() {
-
     }
 }

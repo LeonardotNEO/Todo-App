@@ -83,9 +83,9 @@ public class TaskService {
         return TaskDAO.getTasksByUser(UserStateService.getCurrentUserUsername());
     }
 
-    public static void removeAttachedFile(Task task, String filePath) {
+    public static Task removeAttachedFile(Task task, String filePath) {
         task.getFilePaths().removeIf(e -> e.equals(filePath));
-        TaskDAO.serializeTask(task);
+        return task;
     }
 
     /**

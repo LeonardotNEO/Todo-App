@@ -208,6 +208,13 @@ public class NewEditTaskController {
 
         attachedFilePopup.setFilePath(filePath);
         attachedFilePopup.setTaskWithFiles(taskWithFiles);
+        attachedFilePopup.buttonRemoveFile.setOnAction(event -> {
+            Task changedTask = TaskService.removeAttachedFile(taskWithFiles, filePath);
+            vboxForFiles.getChildren().clear();
+            addUpdateAttachedFiles(changedTask.getFilePaths());
+            popup.hide();
+        });
+        attachedFilePopup.buttonCloseFileOptions.setOnAction(event -> popup.hide());
     }
 
     /**
