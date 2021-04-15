@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
@@ -43,7 +44,10 @@ public class TaskController {
      * @throws IOException
      */
     public void buttonFinishTask(ActionEvent event) throws IOException{
+        TaskService.nextRepeatableTask(taskId);
+
         TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks");
+
         DashboardController.getInstance().initialize();
     }
 
@@ -53,6 +57,9 @@ public class TaskController {
      * @throws IOException
      */
     public void deleteTask(ActionEvent event) throws IOException {
+        // creates a new task, if it is repeatable
+        TaskService.nextRepeatableTask(taskId);
+
         // update category of task to trash bin
         TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
 
@@ -129,10 +136,10 @@ public class TaskController {
     }
 
     public void setRepeatTime(String repeatTime){
+        if(repeatTime==null){
+            repeatTime = "";
+        }
         switch(repeatTime){
-            case "None":
-                taskRepeat.setText(" ");
-                break;
             case "Repeat Daily":
                 taskRepeat.setText("Daily");
                 break;
@@ -140,7 +147,8 @@ public class TaskController {
                 taskRepeat.setText("Weekly");
                 break;
             default:
-
+                taskRepeat.setText("");
+                break;
         }
     }
 
@@ -155,12 +163,14 @@ public class TaskController {
             taskDescription.setFill(Paint.valueOf("white"));
             taskDate.setTextFill(Paint.valueOf("white"));
             taskPriority.setTextFill(Paint.valueOf("white"));
+            taskRepeat.setTextFill(Paint.valueOf("white"));
             taskName.setFill(Paint.valueOf("white"));
             toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
         } else {
             taskDescription.setFill(Paint.valueOf("black"));
             taskDate.setTextFill(Paint.valueOf("black"));
             taskPriority.setTextFill(Paint.valueOf("black"));
+            taskRepeat.setTextFill(Paint.valueOf("black"));
             taskName.setFill(Paint.valueOf("black"));
             toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
         }

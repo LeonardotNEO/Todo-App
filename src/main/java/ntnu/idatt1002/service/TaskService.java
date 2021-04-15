@@ -162,9 +162,10 @@ public class TaskService {
      * @return Lists of all tasks within the given interval.
      */
     public static ArrayList<Task> getTasksInDateInterval(ArrayList<Task> tasks, long start, long end){
-        //getRepeatTasks(getTasksByCurrentUser(),end).forEach(t -> System.out.println(t));
-        System.out.println((end-start)/(60*60*1000));
-        tasks.addAll(getRepeatTasks(getTasksByCurrentUser(),end));
+        ArrayList<String> unWantedCategories = new ArrayList();
+        unWantedCategories.add("Finished tasks");
+        unWantedCategories.add("Trash bin");
+        tasks.addAll(getRepeatTasks(getTasksExcludingCategories(getTasksByCurrentUser(),unWantedCategories),end));
         return tasks.stream()
                 .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -186,7 +187,6 @@ public class TaskService {
      * @param dateLong The date.
      * @return An ArrayList of all the tasks that occurs that date.
      */
-// rewrite this to use getTasksBetweenDates?
     public static ArrayList<Task> getTasksOnGivenDate(ArrayList<Task> tasks, long dateLong){
         return getTasksInDateInterval(tasks,dateLong,dateLong+24*60*60*1000);
     }
@@ -218,8 +218,10 @@ public class TaskService {
      * @param task The task that is going to be deleted.
      */
     public static void deleteTask(Task task){
+
         TaskDAO.deleteTask(task);
         UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
+
     }
 
     /**
@@ -291,21 +293,34 @@ public class TaskService {
      */
     public static ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
         ArrayList arrayWithAllClones = new ArrayList();
+
+
         ArrayList<Task> ArrayListOfRepeat = ArrayListOfTasks.stream()
                 .filter(t->t.isRepeatable())
                 .collect(Collectors.toCollection(ArrayList::new));
-
+        ArrayListOfRepeat.stream().forEach(x-> System.out.println(x));
         // For each t
             // For each n*timeRepeat + deadline < end
                 // Add new task to lost
         // return list
         for(Task T: ArrayListOfRepeat) {
-            T.setDeadline(T.getDeadline()+1);
-            long DeadLine = T.getDeadline() + 1;// this is to counteract a bug that happens when the deadline is set to 0000:
-                for (int i=1; (T.getDeadline() + i * (T.getTimeRepeat())) <= end; i++) {
+            long inMs = 0L;
+            switch (T.getTimeRepeat()){
+                case "None":
+                    inMs = 0L;
+                    break;
+                case "Repeat Daily":
+                    inMs = 1000*60*60*24L;
+                    break;
+                case "Repeat Weekly":
+                    inMs = 1000*60*60*24*7L;
+                    break;
+            }
+            T.setDeadline(T.getDeadline()+1);// this is to counteract a bug that happens when the deadline is set to 0000:
+                for (int i=1; (T.getDeadline() + i * inMs) <= end; i++) {
 
                     Task temp = new Task.TaskBuilder(T.getUserName(), T.getName())
-                            .deadline(T.getDeadline() + i * T.getTimeRepeat())
+                            .deadline(T.getDeadline() + i * inMs)
                             .color("#fffffff")
                             .build();
                     arrayWithAllClones.add(temp);
@@ -313,6 +328,30 @@ public class TaskService {
 
         }
         return arrayWithAllClones;
+    }
+
+    public static void nextRepeatableTask(long taskId){
+        Task task = TaskService.getTaskByCurrentUser(taskId);
+        if(task.isRepeatable()) {
+            long inMs = 0L;
+            switch (task.getTimeRepeat()) {
+                case "None":
+                    inMs = 0L;
+                    break;
+                case "Repeat Daily":
+                    inMs = 1000 * 60 * 60 * 24L;
+                    break;
+                case "Repeat Weekly":
+                    inMs = 1000 * 60 * 60 * 24 * 7L;
+                    break;
+            }
+            if (inMs != 0L) {
+                Task t = TaskDAO.deserializeTask(task.getUserName(), task.getCategory(), task.getId());
+                t.setDeadline(t.getDeadline() + inMs);
+                t.setId(t.generateId());
+                TaskService.newTask(t);
+            }
+        }
     }
 }
 

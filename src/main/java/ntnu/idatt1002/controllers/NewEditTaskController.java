@@ -118,14 +118,8 @@ public class NewEditTaskController {
         // set priority prompt
         this.priorityMenu.setText(Integer.toString(task.getPriority()));
 
-        //Fix for repeat time, longs to string
-        String storedTimeRepeat;
-        if((task.isRepeatable()) && (task.getTimeRepeat().equals(1000*60*60*24L)))
-        {storedTimeRepeat = "Repeats Daily";}
-        else if((task.isRepeatable()) && (task.getTimeRepeat().equals(1000*60*60*24*7L)))
-        {storedTimeRepeat = "Repeats Weekly";}
-        else{storedTimeRepeat = "";}
-        this.repeatMenu.setText(storedTimeRepeat);
+        //set repeatTime
+        this.repeatMenu.setText(task.getTimeRepeat());
 
         // set notification booleans
         this.notification1Hour.setSelected(task.isNotification1Hour());
@@ -200,8 +194,6 @@ public class NewEditTaskController {
             errorCodes.remove(Integer.valueOf(3));
         }
 
-
-
         if(errorCodes.size() == 0){
             // get all the input tags and put them in a list
             ArrayList<String> tagsList = new ArrayList<>();
@@ -224,16 +216,14 @@ public class NewEditTaskController {
             if(notification1Hour.isSelected()) builder.notification1Hour();
             if(notification24Hours.isSelected()) builder.notification24Hours();
             if(notification7Days.isSelected()) builder.notification7Days();
-
-                switch (repeatMenu.getText()){
-                    case "None":
-                        break;
-                    case "Repeat Daily":
-                        builder.repeatable(true,1000*60*60*24L);
-                    case "Repeat Weekly":
-                        builder.repeatable(true,1000*60*60*24*7L);
-                }
-
+            if(!repeatMenu.getText().equals("None") && !repeatMenu.getText().isEmpty() && !repeatMenu.getText().equals("Repeat task")) {
+                builder.repeatable(true,repeatMenu.getText());
+                System.out.println("the if works");
+            } else {
+                builder.repeatable(false,"None");
+                System.out.println("the else works");
+            }
+            System.out.println(repeatMenu.getText());
 
 
             // Create the task:

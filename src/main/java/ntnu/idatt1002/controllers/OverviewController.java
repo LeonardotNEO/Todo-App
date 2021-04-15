@@ -293,6 +293,7 @@ public class OverviewController {
         taskController.setTaskDescription(taskObject.getDescription());
         taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
         taskController.setTaskPriority(taskObject.getPriority());
+        taskController.setRepeatTime(taskObject.getTimeRepeat());
         taskController.setTaskId(taskObject.getId());
         taskController.setTaskColor(taskObject.getColor());
 

@@ -30,7 +30,7 @@ public class Task implements Serializable {
     private boolean notification7Days;
     private ArrayList<String> tags;
     private boolean isRepeatable = false;
-    private Long timeRepeat;
+    private String timeRepeat;
 
     private Task() { /* Empty constructor so that this class cannot be initialized without the builder */}
 
@@ -96,7 +96,7 @@ public class Task implements Serializable {
 
     public boolean isRepeatable() { return isRepeatable; }
 
-    public Long getTimeRepeat() {
+    public String getTimeRepeat() {
         return timeRepeat;
     }
 
@@ -184,7 +184,7 @@ public class Task implements Serializable {
         isRepeatable = repeatable;
     }
 
-    public void setTimeRepeat(Long timeRepeat) {
+    public void setTimeRepeat(String timeRepeat) {
         this.timeRepeat = timeRepeat;
     }
 
@@ -271,7 +271,7 @@ public class Task implements Serializable {
 
         // Repetable
         private boolean isRepeatable = false;
-        private Long timeRepeat;
+        private String timeRepeat;
 
         // Notifications
         private boolean notification1Hour;
@@ -328,7 +328,7 @@ public class Task implements Serializable {
          * @param timeRepeat of often it should repeat in ms
          * @return the TaskBuilder
          */
-        public TaskBuilder repeatable(Boolean isRepeatable, Long timeRepeat) {
+        public TaskBuilder repeatable(Boolean isRepeatable, String timeRepeat) {
             this.isRepeatable = isRepeatable;
             this.timeRepeat = timeRepeat;
             return this;

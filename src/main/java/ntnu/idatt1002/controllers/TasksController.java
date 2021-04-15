@@ -50,15 +50,7 @@ public class TasksController {
         taskController.setTaskDescription(taskObject.getDescription());
         taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
         taskController.setTaskPriority(taskObject.getPriority());
-
-        String storedTimeRepeat;
-        if((taskObject.isRepeatable()) && (taskObject.getTimeRepeat().equals(1000*60*60*24L)))
-        {storedTimeRepeat = "Repeats Daily";}
-        else if((taskObject.isRepeatable()) && (taskObject.getTimeRepeat().equals(1000*60*60*24*7L)))
-        {storedTimeRepeat = "Repeats Weekly";}
-        else{storedTimeRepeat = "";}
-
-        taskController.setRepeatTime(storedTimeRepeat);
+        taskController.setRepeatTime(taskObject.getTimeRepeat());
         taskController.setTaskId(taskObject.getId());
         taskController.setTaskColor(taskObject.getColor());
 
