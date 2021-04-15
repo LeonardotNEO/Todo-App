@@ -259,9 +259,9 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
-        sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
-        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.TasksSortedByAlphabet(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
+        sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
+        sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
+        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
     }
 
     /**
@@ -336,7 +336,7 @@ public class DashboardController {
     public void initializeSearchbar(){
         searchField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
             try {
-                loadTasksPage(TaskService.TasksFoundWithSearchBox(newValue));
+                loadTasksPage(TaskService.containsDesiredNameInTitle(newValue));
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -34,7 +34,7 @@ public class LoginService {
      */
     public static boolean checkIfLoginValid(String username, String password){
         boolean result = false;
-        User user = UserDAO.deserializeUser(username);
+        User user = UserDAO.deserialize(username);
 
         if(user != null) {
             if (user.getPassword().isEmpty() || user.getPassword().equals(password)) {

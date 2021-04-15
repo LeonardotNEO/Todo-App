@@ -14,7 +14,7 @@ public class UserServiceTest {
     public static void DeleteUserTest() {
         // Create a new user, save and serialize it
         User user = new User("Test");
-        UserDAO.serializeUser(user);
+        UserDAO.serialize(user);
         UserStateService.setCurrentUserUsername(user.getUsername());
 
         // Delete the new user created

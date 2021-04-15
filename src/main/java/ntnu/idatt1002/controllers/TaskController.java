@@ -12,11 +12,11 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -159,15 +159,17 @@ public class TaskController {
 
     /**
      * Get the id of this task (from tasks AnchorPane), then we delete the task with this id with TaskService
-     * @param event
      * @throws IOException
      */
     public void buttonDeleteTask(ActionEvent event) throws IOException {
-        // update category of task to trash bin
-        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
-
-        // update dashboard
-        DashboardController.getInstance().initialize();
+        if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
+            // update category of task to trash bin
+            TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
+            // update dashboard
+            DashboardController.getInstance().initialize();
+        } else {
+            ConfirmationController.display(this);
+        }
     }
 
     /**
