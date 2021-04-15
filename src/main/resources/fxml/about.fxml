@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="66.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <FontAwesomeIconView glyphName="QUESTION" layoutX="86.0" layoutY="99.0" size="50" AnchorPane.bottomAnchor="447.8571434020996" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="685.4285717010498" AnchorPane.topAnchor="56.14285659790039" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="57.0" layoutY="41.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="41.0">
+               <children>
+                  <Label alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Lorum ipsum this shit up, insert some more text her in about page Lorum ipsum this shit up, insert some more text her in about pageLorum ipsum this shit up, insert some more text her in about pageLorum ipsum this shit up, insert some more text her in about pageLorum ipsum this shit up, insert some more text her in about pageLorum ipsum this shit up, insert some more text her in about pageLorum ipsum this shit up, insert some more text her in about page" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

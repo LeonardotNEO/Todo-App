@@ -95,10 +95,14 @@ public class LoginRegisterController {
             errorMessage += "Username already exists, choose antoher username\n";
         }
 
-        if(!RegisterService.checkIfPasswordValid(passwordField.getText(), repeatPasswordField.getText())) {
-            errorMessage += "The passwords do not match \n";
-        } else if(!RegisterService.checkIfPasswordValidSyntax(passwordField.getText(), repeatPasswordField.getText())) {
-            errorMessage += "Password must be more than 6 characters \n";
+        if(noPassword.isSelected()){
+            passwordField.setText("");
+        } else {
+            if(!RegisterService.checkIfPasswordValid(passwordField.getText(), repeatPasswordField.getText())) {
+                errorMessage += "The passwords do not match \n";
+            } else if(!RegisterService.checkIfPasswordValidSyntax(passwordField.getText(), repeatPasswordField.getText())) {
+                errorMessage += "Password must be more than 6 characters \n";
+            }
         }
 
         if(errorMessage.isEmpty()) {

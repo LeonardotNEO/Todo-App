@@ -45,7 +45,7 @@ public class ConfirmationController {
         AnchorPane root = loader.load();
 
         // set style of popup
-        root.setStyle(App.updateThemeCurrentUser(UserStateService.getCurrentUser().getTheme()));
+        root.setStyle(UserStateService.getCurrentUser().getTheme());
 
         ConfirmationController controllerInstance = loader.getController();
         controllerInstance.setTask(task);
@@ -80,7 +80,7 @@ public class ConfirmationController {
         if (checkBox.isSelected()) {
             UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
         }
-        this.task.deleteTask(event);
+        this.task.buttonDeleteTask(event);
         popup.hide();
     }
 

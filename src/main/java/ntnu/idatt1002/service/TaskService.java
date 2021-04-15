@@ -63,7 +63,13 @@ public class TaskService {
      * @return The tasks that were found with the given category.
      */
     public static ArrayList<Task> getTasksByCategory(String category){
-        return TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+        ArrayList<Task> tasksResult = new ArrayList<>();
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
+            tasksResult = TaskService.getTasksByCurrentUser();
+        } else {
+            tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+        }
+        return tasksResult;
     }
 
     /**
@@ -114,12 +120,12 @@ public class TaskService {
     }
 
     /**
-     * Returns an ArrayList of all the tasks sorted by their priority.
-     * @return A ArrayList of all the tasks sorted from highest priority(3) first in the ArrayList, and down to (0).
+     * Returns an Array of all the tasks sorted by their priority.
+     * @return
      */
-    public static ArrayList<Task> TaskSortedByPriority(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
-        userTasks.sort((o1, o2) -> Integer.compare(o2.getPriority(), o1.getPriority()));
+    public static ArrayList<Task> getTasksSortedByPriority(ArrayList<Task> tasks){
+        ArrayList<Task> userTasks = tasks;
+        Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
         return userTasks;
     }
 
@@ -128,8 +134,8 @@ public class TaskService {
      * @return An ArrayList of all tasks in the currently selected category, sorted by date.
      * The further away the deadline of the task is, the higher index it has.
      */
-    public static ArrayList<Task> tasksSortedByDate(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+    public static ArrayList<Task> getTasksSortedByDate(ArrayList<Task> tasks){
+        ArrayList<Task> userTasks = tasks;
         userTasks.sort((o1, o2) -> {
             long task1Date = o1.getDeadline();
             long task2Date = o2.getDeadline();
@@ -146,21 +152,21 @@ public class TaskService {
      * @return Returns an ArrayList of tasks that is sorted alphabetically by the title of the task. it only sorts the
      * tasks inside the currently selected category by the user.
      */
-    public static ArrayList<Task> sortedAlphabetically(){
+    public static ArrayList<Task> getTasksSortedAlphabetically(ArrayList<Task> tasks){
         
-        ArrayList<Task> userTasksInCategory = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+        ArrayList<Task> userTasksInCategory = tasks;
         userTasksInCategory.sort(Comparator.comparing(Task::getName));
         return userTasksInCategory;
     }
-    
+
     /**
      * Finds all tasks withing a given interval. It uses all the tasks that the user has currently active.
      * @param start interval start time in ms
      * @param end interval end time in ms
      * @return Lists of all tasks within the given interval
      */
-    public static ArrayList<Task> getTasksInDateInterval(long start, long end) {
-        return getTasksInDateInterval(getTasksByCurrentUser(),start,end);
+    public static ArrayList<Task> getTasksBetweenDates(long start, long end) {
+        return getTasksBetweenDates(getTasksByCurrentUser(),start,end);
     }
 
     /**
@@ -170,7 +176,7 @@ public class TaskService {
      * @param end interval end time in ms.
      * @return Lists of all tasks within the given interval.
      */
-    public static ArrayList<Task> getTasksInDateInterval(ArrayList<Task> tasks, long start, long end){
+    public static ArrayList<Task> getTasksBetweenDates(ArrayList<Task> tasks, long start, long end){
         return tasks.stream()
                 .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -182,8 +188,7 @@ public class TaskService {
      * @param dateLong The date.
      * @return An ArrayList of all the tasks that occurs that date.
      */
-// rewrite this to use getTasksBetweenDates?
-    public static ArrayList<Task> getTasksOnGivenDate(ArrayList<Task> tasks, long dateLong){
+    public static ArrayList<Task> getTasksByDate(ArrayList<Task> tasks, long dateLong){
         ArrayList<Task> tasksByDate = new ArrayList<>();
 
         for(Task task : tasks){
