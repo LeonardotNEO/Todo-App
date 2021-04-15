@@ -72,7 +72,6 @@ public final class NotificationDAO {
         ArrayList<Notification> notifs = list(username);
         boolean result = true;
 
-        if(notifs == null){ return false; }
         for(Notification notif : notifs){
             if(!delete(notif)){ result = false; }
         }
@@ -99,7 +98,7 @@ public final class NotificationDAO {
 
     //Get paths
     private static String notifDir(String username){
-        return (SAVEPATH + "/Notifications/");
+        return (SAVEPATH + "/" + username + "/Notifications/");
     }
 
     private static String filepath(String username, int id){

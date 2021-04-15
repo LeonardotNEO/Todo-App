@@ -85,6 +85,7 @@ public final class UserDAO {
         result = CategoryDAO.deleteByUser(username);
         result = ProjectDAO.deleteByUser(username);
         result = TaskDAO.deleteByUser(username);
+        result = NotificationDAO.deleteByUser(username);
 
         //Directories
         for(String directory : DIRECTORIES){
