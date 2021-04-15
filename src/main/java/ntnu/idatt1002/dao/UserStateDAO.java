@@ -106,16 +106,20 @@ public final class UserStateDAO {
     /**
      * Remove user from list over users who are logged in
      */
-    public static void remove(String username){
+    public static void removeFromList(String username){
         String[] oldUsers = getLoggedInUsers();
-        String[] newUsers = (String[]) Arrays.stream(oldUsers).filter(str -> !str.equals(username)).toArray();
+        Object[] objects = Arrays.stream(oldUsers).filter(str -> !str.equals(username)).toArray();
+        String[] newUsers = new String[objects.length];
+        for(int i=0; i< newUsers.length; i++){
+            newUsers[i] = (String) objects[i];
+        }
         setLoggedInUsers(newUsers);
     }
 
     /**
      * Clear list over which users who are logged in
      */
-    public static void removeAll(){
+    public static void clearList(){
         setLoggedInUsers(new String[0]);
     }
 
