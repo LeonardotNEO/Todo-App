@@ -43,11 +43,9 @@ public class TaskController {
     @FXML private HBox toolsHBox;
     @FXML private AnchorPane spacer;
 
-
     /**
      * At initializing of this UI, we display the minimized version
      */
-
     public void initialize(){
         displayMinimizedTask();
         addClickTaskListener();
@@ -55,7 +53,6 @@ public class TaskController {
 
     /**
      * A method to check if a task has a notification checked.
-     *
      * @param task the task to check.
      * @return On if a notification is checked, Off is no notification is checked.
      */
@@ -71,7 +68,7 @@ public class TaskController {
      * Method for displaying this task UI
      * @param task
      */
-    public void display(Task task){
+    public void display(Task task) {
         taskName.setText(task.getName());
         taskDescription.setText(task.getDescription());
         category.setText("Category: " + task.getCategory());
@@ -109,7 +106,7 @@ public class TaskController {
     /**
      * Method for displaying this task with minimized UI
      */
-    public void displayMinimizedTask(){
+    public void displayMinimizedTask() {
         category.setVisible(false);
         category.setManaged(false);
         startdate.setVisible(false);
@@ -135,7 +132,7 @@ public class TaskController {
     /**
      * Method for displaying this task with full UI
      */
-    public void displayFullTask(){
+    public void displayFullTask() {
         category.setVisible(true);
         category.setManaged(true);
         startdate.setVisible(true);
@@ -161,43 +158,72 @@ public class TaskController {
     /**
      * Method for alternating between displaying full and minimized task ui
      */
-    public void clickTask(){
-        if(fullDisplayed){
+    public void clickTask() {
+        if (fullDisplayed) {
             displayMinimizedTask();
         } else {
             displayFullTask();
         }
     }
-
+    
     /**
-     * When finishTaskButton is clicked, task is moved to finished tasks folder
+     * Checks for confirmation popup settings. Calls this.finishTask() if true.
+     * Displays confirmation popup if false.
      * @param event
      * @throws IOException
      */
-    public void buttonFinishTask(ActionEvent event) throws IOException{
+    public void clickFinishTask(ActionEvent event) throws IOException {
+        if (UserStateService.getCurrentUser().isFinishTaskDontShowAgainCheckbox()) {
+            this.finishTask(event);
+        } else {
+            ConfirmationController.display(this, "finish");
+        }
+    }
+
+    /**
+     * Moves task to 'Finished tasks' folder.
+     * Creates new repeatable task if task is repeatable.
+     * @param event
+     * @throws IOException
+     */
+    public void finishTask(ActionEvent event) throws IOException{
         if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
             TaskService.nextRepeatableTask(taskId);
         }
+        // update category of task to 'Finished tasks'
         TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks");
+        // update dashboard
         DashboardController.getInstance().initialize();
     }
 
     /**
-     * Get the id of this task (from tasks AnchorPane), then we delete the task with this id with TaskService
+     * Checks for confirmation popup settings. Calls this.deleteTask() if true.
+     * Displays confirmation popup if false.
+     * @param event
      * @throws IOException
      */
-    public void buttonDeleteTask(ActionEvent event) throws IOException {
+    public void clickDeleteButton(ActionEvent event) throws IOException {
         if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
-            if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
-                TaskService.nextRepeatableTask(taskId);
-            }
-            // update category of task to trash bin
-            TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
-            // update dashboard
-            DashboardController.getInstance().initialize();
+            deleteTask(event);
         } else {
-            ConfirmationController.display(this);
+            ConfirmationController.display(this, "delete");
         }
+    }
+
+    /**
+     * Moves task to 'Trash bin' folder.
+     * Creates new repeatable task if task is repeatable.
+     * @param event
+     * @throws IOException
+     */
+    public void deleteTask(ActionEvent event) throws IOException {
+        if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
+            TaskService.nextRepeatableTask(taskId);
+        }
+        // update category of task to 'Trash bin'
+        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
+        // update dashboard
+        DashboardController.getInstance().initialize();
     }
 
     /**

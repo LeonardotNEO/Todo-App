@@ -3,22 +3,19 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
 import ntnu.idatt1002.App;
-import ntnu.idatt1002.Task;
-import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ * Meant to be called in a TaskController
+ */
 public class ConfirmationController {
 
     private TaskController task;
@@ -31,6 +28,8 @@ public class ConfirmationController {
 
     Popup popup = new Popup();
 
+    public ConfirmationController() {}
+
 
     public void initialize() throws IOException {
         confirmQuestion.setText("Are you sure you want to delete this task?");
@@ -38,7 +37,13 @@ public class ConfirmationController {
         checkBox.setText("This message is annoying, dont show it again!");
     }
 
-    public static void display(TaskController task) throws IOException {
+    /**
+     * Takes a TaskController in order to control the task
+     * Takes a String to determine the textFields.
+     * @param task
+     * @throws IOException
+     */
+    public static void display(TaskController task, String operation) throws IOException {
 
         // New Popup, not window
         FXMLLoader loader = new FXMLLoader(ConfirmationController.class.getResource("/fxml/confirmation.fxml"));
@@ -49,6 +54,19 @@ public class ConfirmationController {
 
         ConfirmationController controllerInstance = loader.getController();
         controllerInstance.setTask(task);
+
+        //TODO Add common text: info om repeatable task
+        if (operation.equalsIgnoreCase("delete")) {
+            controllerInstance.confirmQuestion.setText("Are you sure you want to delete this task?");
+            controllerInstance.extraText.setText("It wil only go in to the trash bin for now...");
+            controllerInstance.checkBox.setText("This message is annoying, dont show it again!");
+        } else if (operation.equalsIgnoreCase("finish")) {
+            controllerInstance.confirmQuestion.setText("Please confirm:");
+            controllerInstance.extraText.setText("The task can still be found in the \"finished tasks\" folder," +
+                    "\nbut as of now, there is no way to restore it.");
+            controllerInstance.yesButton.setText("Yes, move it!");
+            controllerInstance.noButton.setText("No, wait!");
+        }
 
         controllerInstance.popup.getContent().add(root);
         controllerInstance.popup.setAutoHide(true);
@@ -65,10 +83,6 @@ public class ConfirmationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         */
-
-        //noButton.setOnMouseClicked(e -> popup.hide());
-
-
     }
 
     @FXML
@@ -80,7 +94,7 @@ public class ConfirmationController {
         if (checkBox.isSelected()) {
             UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
         }
-        this.task.buttonDeleteTask(event);
+        this.task.deleteTask(event);
         popup.hide();
     }
 
@@ -104,12 +118,20 @@ public class ConfirmationController {
         this.noButton = noButton;
     }
 
+    public void setNoButtonText(String newText) {
+        this.noButton.setText(newText);
+    }
+
     public Button getYesButton() {
         return yesButton;
     }
 
     public void setYesButton(Button yesButton) {
         this.yesButton = yesButton;
+    }
+
+    public void setYesButtonText(String newText) {
+        this.yesButton.setText(newText);
     }
 
     public CheckBox getCheckBox() {
@@ -120,6 +142,10 @@ public class ConfirmationController {
         this.checkBox = checkBox;
     }
 
+    public void setCheckBoxText(String newText) {
+        this.checkBox.setText(newText);
+    }
+
     public Text getConfirmQuestion() {
         return confirmQuestion;
     }
@@ -128,11 +154,19 @@ public class ConfirmationController {
         this.confirmQuestion = confirmQuestion;
     }
 
+    public void setConfirmQuestionText(String newText) {
+        this.confirmQuestion.setText(newText);
+    }
+
     public Text getExtraText() {
         return extraText;
     }
 
     public void setExtraText(Text extraText) {
         this.extraText = extraText;
+    }
+
+    public void setExtraText(String newText) {
+        this.extraText.setText(newText);
     }
 }
