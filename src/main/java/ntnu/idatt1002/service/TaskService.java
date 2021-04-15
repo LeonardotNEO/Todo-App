@@ -83,6 +83,11 @@ public class TaskService {
         return TaskDAO.getTasksByUser(UserStateService.getCurrentUserUsername());
     }
 
+    public static void removeAttachedFile(Task task, String filePath) {
+        task.getFilePaths().removeIf(e -> e.equals(filePath));
+        TaskDAO.serializeTask(task);
+    }
+
     /**
      * Returns a HashMap for all the categories with all tasks in an arraylist
      * @return

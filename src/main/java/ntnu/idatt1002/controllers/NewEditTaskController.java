@@ -67,6 +67,7 @@ public class NewEditTaskController {
     FileChooser fileChooser = new FileChooser();
     private File selectedFiles;
     private ArrayList<String> listOfFiles = new ArrayList<>();
+    private Task taskWithFiles;
 
 
     /**
@@ -121,6 +122,8 @@ public class NewEditTaskController {
         // set categories in menuButton
         setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
 
+        setTaskWithFiles(task);
+
         // set category prompt
         this.categoryMenu.setText(task.getCategory());
 
@@ -149,16 +152,7 @@ public class NewEditTaskController {
 
         setListOfFiles(task.getFilePaths());
 
-        listOfFiles.forEach(e -> {
-            Button b = new Button(e);
-            b.setOnAction(event -> {
-                listOfFiles.remove(e);
-                vboxForFiles.getChildren().clear();
-                vboxForFiles.getChildren().add(b);
-                scrollPane.setContent(vboxForFiles);
-            });
-            vboxForFiles.getChildren().add(b);
-        });
+        addUpdateAttachedFiles(listOfFiles);
         scrollPane.setContent(vboxForFiles);
 
         // set onAction of button and button text
@@ -181,36 +175,29 @@ public class NewEditTaskController {
         if (selectedFiles != null) {
             listOfFiles.add(selectedFiles.getAbsolutePath());
         } else {}
-        listOfFiles.forEach(e -> {
-            Button b = new Button(e);
-            b.setOnAction(event -> {
-                //                listOfFiles.remove(e);
-                //                vboxForFiles.getChildren().clear();
-                //                vboxForFiles.getChildren().add(b);
-                //                scrollPane.setContent(vboxForFiles);
-                try {
-                    //                    File open = new File(e);
-                    //                    if (!Desktop.isDesktopSupported()) {
-                    //
-                    //                    }
-                    //                    Desktop desktop = Desktop.getDesktop();
-                    //                    if(open.exists()) {
-                    //                        desktop.open(open);
-                    //                    }
+        addUpdateAttachedFiles(listOfFiles);
+        scrollPane.setContent(vboxForFiles);
+    }
 
-                    fileOptionsPopup();
+    public void addUpdateAttachedFiles(ArrayList<String> list) {
+        list.forEach(e -> {
+            String [] fileName = e.split("\\\\");
+            Button b = new Button(fileName[fileName.length -1]);
+            b.setOnAction(event -> {
+                try {
+                    fileOptionsPopup(e);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
             });
             vboxForFiles.getChildren().add(b);
         });
-        scrollPane.setContent(vboxForFiles);
     }
 
-    public void fileOptionsPopup() throws IOException{
+    public void fileOptionsPopup(String filePath) throws IOException {
         FXMLLoader loaderPopup = new FXMLLoader(App.class.getResource("/fxml/attachedFilePopup.fxml"));
         fileOptionsPopup = loaderPopup.load();
+        AttachedFilePopupController attachedFilePopup = loaderPopup.getController();
         popup = new Popup();
         popup.setAutoHide(true);
         popup.getContent().add(fileOptionsPopup);
@@ -218,6 +205,9 @@ public class NewEditTaskController {
         fileOptionsPopup.getStylesheets().add(App.class.getResource("/css/main.css").toExternalForm());
         fileOptionsPopup.setStyle(UserStateService.getCurrentUser().getTheme());
         popup.show(App.getStage());
+
+        attachedFilePopup.setFilePath(filePath);
+        attachedFilePopup.setTaskWithFiles(taskWithFiles);
     }
 
     /**
@@ -274,7 +264,7 @@ public class NewEditTaskController {
             tags.getChips().forEach(tag -> {
                 System.out.println(tag.toString());
             });
-            
+
             // TaskBuilder
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
                     .description(descriptionTextArea.getText())
@@ -404,6 +394,8 @@ public class NewEditTaskController {
     public void setListOfFiles(ArrayList<String> attachedFiles) {
         this.listOfFiles =attachedFiles;
     }
+
+    public void setTaskWithFiles(Task task) {this.taskWithFiles = task;}
 
     /**
      * Press new task button if enter is pressed
