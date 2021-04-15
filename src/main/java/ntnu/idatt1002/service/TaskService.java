@@ -20,7 +20,7 @@ public class TaskService {
      * @param newTask Task being validated.
      * @return boolean depending on the validation was successful.
      */
-    public static boolean newTaskValidation(Task newTask) {
+    public static boolean newTask(Task newTask) {
         String username = UserStateService.getCurrentUser().getUsername();
         TaskDAO.serializeTask(newTask);
         UserLogDAO.setTaskAdded(username, newTask.getName());
