@@ -12,14 +12,20 @@ import java.util.Arrays;
  */
 public class CategoryService {
 
-    private static String[] premadeCategories = {"Trash bin", "Finished tasks"};
+    private static ArrayList<String> premadeCategories = new ArrayList<>() {
+        {
+            add("All tasks");
+            add("Trash bin");
+            add("Finished tasks");
+        }
+    };
 
     /**
      * Get categories by current user
      * @return
      */
     public static String[] getCategoriesCurrentUser(){
-        String[] categories = CategoryDAO.getCategoriesByUser(UserStateDAO.getUsername());
+        String[] categories = CategoryDAO.list(UserStateDAO.getUsername());
         return categories;
     }
 
@@ -31,7 +37,7 @@ public class CategoryService {
         ArrayList<String> categoriesWithoutPremades = new ArrayList<>();
 
         for (String s : getCategoriesCurrentUser()) {
-            boolean result = Arrays.stream(premadeCategories).anyMatch(s::contains);
+            boolean result = premadeCategories.stream().anyMatch(s::contains);
 
             if(!result){
                 categoriesWithoutPremades.add(s);
@@ -47,7 +53,7 @@ public class CategoryService {
      */
     public static void deleteCategoryCurrentUser(String categoryName){
         String username = UserStateDAO.getUsername();
-        CategoryDAO.deleteCategory(username, categoryName);
+        CategoryDAO.delete(username, categoryName);
         UserLogDAO.setCategoryRemoved(username, categoryName);
     }
 
@@ -57,7 +63,7 @@ public class CategoryService {
      */
     public static void addCategoryToCurrentUser(String categoryName){
         String username = UserStateDAO.getUsername();
-        CategoryDAO.addCategory(username, categoryName);
+        CategoryDAO.add(username, categoryName);
         UserLogDAO.setCategoryAdded(username, categoryName);
     }
 
@@ -81,7 +87,7 @@ public class CategoryService {
     public static ArrayList<String> getArrayListCategoriesOrganized(){
         ArrayList<String> categoriesList = new ArrayList<>();
         for (String s : getCategoriesCurrentUser()) {
-            if(!s.equals("Trash bin") && !s.equals("Finished tasks")){
+            if(!premadeCategories.stream().anyMatch(s::equals)){
                 categoriesList.add(s);
             }
         }
@@ -94,7 +100,7 @@ public class CategoryService {
         return categoriesList;
     }
 
-    public static String[] getPremadeCategories(){
+    public static ArrayList<String> getPremadeCategories(){
         return premadeCategories;
     }
 }

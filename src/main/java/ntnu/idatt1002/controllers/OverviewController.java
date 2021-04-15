@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.temporal.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class OverviewController {
@@ -134,7 +133,10 @@ public class OverviewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calenderElement.fxml"));
             AnchorPane calenderElement = loader.load();
             CalenderElementController calenderElementController = loader.getController();
-            calenderElementController.display(Integer.toString(currentTimeThisPage.get(ChronoField.DAY_OF_MONTH)), TaskService.getTasksExcludingCategories(TaskService.getTasksByDate(TaskService.getTasksByCurrentUser(), DateUtils.getAsMs(currentTimeThisPage)), excludedCategories));
+            calenderElementController.display(
+                    Integer.toString(currentTimeThisPage.get(ChronoField.DAY_OF_MONTH)),
+                    TaskService.getTasksExcludingCategories(TaskService.getTasksByDate(TaskService.getTasksByCurrentUser()
+                            , DateUtils.getAsMs(currentTimeThisPage)), excludedCategories));
 
             calenderViewGrid.add(calenderElement, daysColumns.get(currentTimeThisPage.getDayOfWeek().toString()), row);
 
@@ -279,12 +281,7 @@ public class OverviewController {
         task.setId(Integer.toString(taskObject.hashCode()));
 
         // use controller to change content of task before adding to to tasks
-        taskController.setTaskName(taskObject.getName());
-        taskController.setTaskDescription(taskObject.getDescription());
-        taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
-        taskController.setTaskPriority(taskObject.getPriority());
-        taskController.setTaskId(taskObject.getId());
-        taskController.setTaskColor(taskObject.getColor());
+        taskController.display(taskObject);
 
         return task;
     }

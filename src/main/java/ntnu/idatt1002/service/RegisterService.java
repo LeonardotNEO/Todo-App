@@ -16,7 +16,7 @@ public class RegisterService {
         User newUser = new User(name, password, UserDAO.generateSalt());
 
         // Update savefiles to include this new user
-        UserDAO.serializeUser(newUser);
+        UserDAO.serialize(newUser);
         UserLogDAO.setUserRegistration(name);
 
         // Set current user to this username
@@ -82,7 +82,7 @@ public class RegisterService {
     public static boolean checkIfUsernameValid(String username){
         boolean result = true;
 
-        for(User user : UserDAO.getUsers()){
+        for(User user : UserDAO.list()){
             if(user.getUsername().equals(username)){
                 result = false;
             }

@@ -16,26 +16,45 @@ public class UserDAOTest {
 
     @BeforeAll
     public static void setup(){
-        UserDAO.serializeUser(userA);
+        UserDAO.serialize(userA);
     }
 
-    @Test
-    public void _getUsers(){
-        ArrayList<User> users = UserDAO.getUsers();
+    @Nested
+    public class serializing_and_deserializing{
+        @Test
+        public void _deserialize(){
+            User userB = UserDAO.deserialize("olanormann");
 
-        assertTrue(users.contains(userA));
-    }
+            assertEquals(userA, userB);
+        }
 
-    @Test
-    public void _deserializeUser(){
-        User userB = UserDAO.deserializeUser("olanormann");
+        @Test
+        public void _getUsers(){
+            ArrayList<User> users = UserDAO.list();
 
-        assertEquals(userA, userB);
-    }
+            assertFalse(users.isEmpty());
+            assertTrue(users.contains(userA));
+        }
 
-    @Test
-    public void get_user_that_does_not_exist(){
-        assertNull(UserDAO.deserializeUser("josephjoestar"));
+        @Test
+        public void user_not_existing_handled(){
+            User userB = UserDAO.deserialize("joseph");
+
+            assertNull(userB);
+        }
+
+        @Nested
+        public class wrong_arguments{
+            @Test
+            public void _deserialize(){
+                assertNull(UserDAO.deserialize("joseph"));
+            }
+
+            @Test
+            public void _delete(){
+                assertFalse(UserDAO.delete("joseph"));
+            }
+        }
     }
 
     @Nested
@@ -89,6 +108,6 @@ public class UserDAOTest {
 
     @AfterAll
     public static void cleanup(){
-        UserDAO.deleteUser("olanormann");
+        boolean result = UserDAO.delete("olanormann");
     }
 }

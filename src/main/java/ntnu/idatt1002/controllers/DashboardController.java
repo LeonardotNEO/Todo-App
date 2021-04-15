@@ -48,8 +48,8 @@ public class DashboardController {
      * @throws IOException
      */
     public void initialize() throws IOException {
-        // loads tasks page
-        loadTasksPage(TaskService.getCategoryWithTasks(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
+        // load tasks
+        loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
 
         // load category buttons to categories VBox
         loadCategoryButtons();
@@ -75,15 +75,25 @@ public class DashboardController {
 
             // set icons for trash bin and finished tasks
             FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
+
+            // set the style of selected button
+            if(category.equals("All tasks")){
+                icon.setGlyphName("LIST");
+                icon.getStyleClass().add("categoryButton-alltasks #icon");
+                button.getStyleClass().add("categoryButton-alltasks");
+            }
             if(category.equals("Trash bin")){
                 icon.setGlyphName("TRASH");
+                icon.getStyleClass().add("categoryButton-trashbin #icon");
+                button.getStyleClass().add("categoryButton-trashbin");
             }
             if(category.equals("Finished tasks")){
                 icon.setGlyphName("CHECK");
+                icon.getStyleClass().add("categoryButton-finished #icon");
+                button.getStyleClass().add("categoryButton-finished");
             }
-
-            // set the style of selected button
             if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals(category)){
+                button.getStyleClass().removeAll(button.getStyleClass());
                 button.getStyleClass().add("categoryButton-selected");
                 icon.getStyleClass().add("categoryButton-selected #icon");
             }
@@ -125,7 +135,9 @@ public class DashboardController {
             taskHBox.setVisible(true);
 
             // if trashbin or finished task category is selected, we wont show edit/delete button and taskBar
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Trash bin") || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Finished tasks")){
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Trash bin")
+                    || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Finished tasks")
+                    || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
                 buttonEditCategory.setVisible(false);
                 buttonDeleteCategory.setVisible(false);
                 taskHBox.setVisible(false);
@@ -197,10 +209,10 @@ public class DashboardController {
     public void buttonDeleteCategory() throws IOException {
         CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
 
-        if(CategoryService.getCategoriesCurrentUser().length >= 1){
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUser()[0]);
+        if(CategoryService.getCategoriesCurrentUserWithoutPremades().size() > 0){
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUserWithoutPremades().get(0));
         } else {
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(null);
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getPremadeCategories().get(0));
         }
 
         // initialize dashboard
@@ -247,9 +259,9 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        sort.getItems().add(createSortingMenuItem("Priority", TaskService.TaskSortedByPriority()));
-        sort.getItems().add(createSortingMenuItem("Date", TaskService.TasksSortedByDate()));
-        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.TasksSortedByAlphabet()));
+        sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
+        sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
+        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
     }
 
     /**
@@ -324,7 +336,7 @@ public class DashboardController {
     public void initializeSearchbar(){
         searchField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
             try {
-                loadTasksPage(TaskService.TasksFoundWithSearchBox(newValue));
+                loadTasksPage(TaskService.containsDesiredNameInTitle(newValue));
             } catch (IOException e) {
                 e.printStackTrace();
             }
