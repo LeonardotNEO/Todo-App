@@ -383,9 +383,9 @@ public class TaskService {
                             .build();
                             if(T.isNotification1Hour()){
                                 temp.setNotification1Hour(true);
-                            }else if(T.isNotification24Hours()){
+                            }if(T.isNotification24Hours()){
                                 temp.setNotification24Hours(true);
-                            }else if(T.isNotification7Days()){
+                            }if(T.isNotification7Days()){
                                 temp.setNotification7Days(true);
                             }
 
