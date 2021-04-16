@@ -14,11 +14,10 @@ public class LoginService {
     /**
      * Check if login syntax is valid
      * @param username
-     * @param password
      * @return
      */
-    public static boolean checkIfLoginSyntaxValid(String username, String password){
-        if(username.isEmpty() || password.isEmpty()){
+    public static boolean checkIfLoginSyntaxValid(String username){
+        if(username.isEmpty()){
             return false;
         } else {
             return true;
@@ -34,10 +33,12 @@ public class LoginService {
      */
     public static boolean checkIfLoginValid(String username, String password){
         boolean result = false;
-        User user = UserDAO.deserializeUser(username);
+        User user = UserDAO.deserialize(username);
 
-        if(user != null && user.getPassword().equals(password)){
-            result = true;
+        if(user != null) {
+            if (user.getPassword().isEmpty() || user.getPassword().equals(password)) {
+                result = true;
+            }
         }
 
 
@@ -52,9 +53,13 @@ public class LoginService {
         // Set UserState
         UserStateService.setCurrentUserUsername(username);
 
-        // Set selectedCategory to the first one
-        if(CategoryService.getCategoriesCurrentUser().length > 0){
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUser()[0]);
+        // set current category if it is empty
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            if(CategoryService.getCategoriesCurrentUserWithoutPremades().size() > 0){
+                UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUserWithoutPremades().get(0));
+            } else {
+                UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getPremadeCategories().get(0));
+            }
         }
 
         UserStateService.getCurrentUser().setRememberMe(rememberMe);

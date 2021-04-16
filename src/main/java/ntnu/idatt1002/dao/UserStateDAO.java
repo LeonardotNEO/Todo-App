@@ -1,12 +1,15 @@
 package ntnu.idatt1002.dao;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Access what state the program is in, like which user is logged in and what category is selected
  */
 public final class UserStateDAO {
-    private static final String SAVEFILE = "src/main/resources/saves/userstate.ser";
+    private static final String SAVEFILE1 = "src/main/resources/saves/userstate.ser";
+    private static final String SAVEFILE2 = "src/main/resources/saves/loggedusers.ser";
 
     /**
      * Get which user is logged in
@@ -49,19 +52,12 @@ public final class UserStateDAO {
      * @return String with chosen value, {@code null} if value is not stored
      */
     private static String getUserState(int index){
-        File file = new File(SAVEFILE);
         String[] userstate = null;
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
 
-            userstate = (String[]) ois.readObject();
-
-            ois.close();
-            fis.close();
-        }catch(IOException | ClassNotFoundException e){
-            e.printStackTrace();
+        if(fileExists()){
+            userstate = (String[]) GenericDAO.deserialize(SAVEFILE1);
         }
+
         if(userstate != null && index >= 0 && index <= 3) {
             return userstate[index];
         }else{
@@ -78,19 +74,53 @@ public final class UserStateDAO {
      */
     public static void setUserState(String username, String selectedCategory, String selectedSort,
                                     boolean rememberMe){
-        File file = new File(SAVEFILE);
         String[] values = {username, selectedCategory, selectedSort, String.valueOf(rememberMe)};
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+        GenericDAO.serialize(values, SAVEFILE1);
+    }
 
-            oos.writeObject(values);
+    /**
+     * Get all users who are logged in
+     */
+    public static String[] getLoggedInUsers(){
+        return (String[]) GenericDAO.deserialize(SAVEFILE2);
+    }
 
-            oos.close();
-            fos.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+    /**
+     * Set all users who are logged in. Will overwrite previous save.
+     */
+    public static void setLoggedInUsers(String[] usernames){
+        GenericDAO.serialize(usernames, SAVEFILE2);
+    }
+
+    /**
+     * Add user to list over which users are logged in
+     */
+    public static void addLoggedUser(String username){
+        String[] oldUsers = getLoggedInUsers();
+        String[] newUsers = new String[oldUsers.length + 1];
+        System.arraycopy(oldUsers, 0, newUsers, 0, oldUsers.length);
+        newUsers[newUsers.length-1] = username;
+        setLoggedInUsers(newUsers);
+    }
+
+    /**
+     * Remove user from list over users who are logged in
+     */
+    public static void removeFromList(String username){
+        String[] oldUsers = getLoggedInUsers();
+        Object[] objects = Arrays.stream(oldUsers).filter(str -> !str.equals(username)).toArray();
+        String[] newUsers = new String[objects.length];
+        for(int i=0; i< newUsers.length; i++){
+            newUsers[i] = (String) objects[i];
         }
+        setLoggedInUsers(newUsers);
+    }
+
+    /**
+     * Clear list over which users who are logged in
+     */
+    public static void clearList(){
+        setLoggedInUsers(new String[0]);
     }
 
     /**
@@ -98,7 +128,7 @@ public final class UserStateDAO {
      * @return true or false
      */
     public static boolean fileExists(){
-        File file = new File(SAVEFILE);
+        File file = new File(SAVEFILE1);
         return file.exists();
     }
 }

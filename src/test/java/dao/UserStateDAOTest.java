@@ -1,47 +1,78 @@
 package dao;
 
-import ntnu.idatt1002.User;
-import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.File;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserStateDAOTest {
-    private final static User userA = new User("olanormann");
+    @Nested
+    public class userstate {
+        @Test
+        public void values_store_properly() {
+            UserStateDAO.setUserState("olanormann", "Home", "Date", false);
+            String username = UserStateDAO.getUsername();
+            String category = UserStateDAO.getSelectedCategory();
+            String sort = UserStateDAO.getSelectedSort();
+            boolean rememberMe = UserStateDAO.getRememberMe();
 
-    @BeforeAll
-    public static void setup(){
-        UserDAO.serializeUser(userA);
-        UserStateDAO.setUserState("olanormann", "Home", "Alphabetic", false);
+            assertTrue(username.equals("olanormann") && category.equals("Home") && sort.equals("Date") &&
+                    !rememberMe);
+        }
+
+        @Test
+        public void handle_file_not_existing() {
+            File file = new File("src/main/resources/saves/userstate.ser");
+            boolean result = file.delete();
+
+            assertNull(UserStateDAO.getUsername());
+
+            UserStateDAO.setUserState(null, null, null, false);
+        }
     }
 
-    @Test
-    public void _getUsername(){
-        String username = UserStateDAO.getUsername();
+    @Nested
+    public class loggedusers{
+        @Test
+        public void values_store_properly(){
+            String[] users = {"joseph", "maria", "judas", "adam"};
+            UserStateDAO.setLoggedInUsers(users);
 
-        assertEquals(username, "olanormann");
-    }
+            assertEquals(UserStateDAO.getLoggedInUsers().length, users.length);
+        }
 
-    @Test
-    public void _getSelectedCategory(){
-        String selectedCategory = UserStateDAO.getSelectedCategory();
+        @Test
+        public void _addLoggedUsers(){
+            String[] oldUsers = {"joseph", "maria", "judas", "adam"};
+            UserStateDAO.setLoggedInUsers(oldUsers);
+            UserStateDAO.addLoggedUser("homer");
+            String[] newUsers = UserStateDAO.getLoggedInUsers();
 
-        assertEquals(selectedCategory, "Home");
-    }
+            assertTrue(Arrays.asList(newUsers).contains("homer"));
+        }
 
-    @Test
-    public void _getSelectedSort(){
-        String selectedSort = UserStateDAO.getSelectedSort();
+        @Test
+        public void _removeFromList(){
+            String[] oldUsers = {"joseph", "maria", "judas", "adam"};
+            UserStateDAO.setLoggedInUsers(oldUsers);
+            UserStateDAO.removeFromList("adam");
+            String[] newUsers = UserStateDAO.getLoggedInUsers();
 
-        assertEquals(selectedSort, "Alphabetic");
-    }
+            assertFalse(Arrays.asList(newUsers).contains("adam"));
+        }
 
-    @AfterAll
-    public static void cleanup(){
-        UserDAO.deleteUser("olanormann");
-        UserStateDAO.setUserState(null, null, null, false);
+        @Test
+        public void _clearList(){
+            String[] oldUsers = {"joseph", "maria", "judas", "adam"};
+            UserStateDAO.setLoggedInUsers(oldUsers);
+            UserStateDAO.clearList();
+            String[] newUsers = UserStateDAO.getLoggedInUsers();
+
+            assertEquals(newUsers.length, 0);
+        }
     }
 }

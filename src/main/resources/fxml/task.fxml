@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="background" maxHeight="100.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
+<AnchorPane fx:id="background" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="-Infinity" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
    <children>
       <Text fx:id="taskName" fill="ORANGE" layoutX="5.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="task_name" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0">
          <font>
@@ -20,6 +20,11 @@
       </Text>
       <Label fx:id="taskDate" layoutX="5.0" layoutY="78.0" text="date" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
       <Label fx:id="taskPriority" layoutX="184.0" layoutY="78.0" prefHeight="17.0" prefWidth="58.0" text="Priority" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Text fx:id="taskLocation" fill="WHITE" layoutX="5.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="location" wrappingWidth="239.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
       <HBox fx:id="toolsHBox" alignment="CENTER" layoutX="149.0" prefHeight="0.0" prefWidth="101.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button mnemonicParsing="false" onAction="#buttonFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
@@ -30,7 +35,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#editTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
+            <Button mnemonicParsing="false" onAction="#buttonEditTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="ORANGE" glyphName="PENCIL" size="18" />
                </graphic>
@@ -38,7 +43,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#deleteTask" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
+            <Button mnemonicParsing="false" onAction="#buttonDeleteTask" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" size="18" />
                </graphic>
@@ -49,5 +54,49 @@
          </children>
       </HBox>
       <Label fx:id="taskRepeat" layoutX="143.0" layoutY="77.0" text="Repeat" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="100.0" />
+      <Text fx:id="notification1hour" fill="WHITE" layoutX="6.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 1 hour before duedate" wrappingWidth="385.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="startdate" fill="WHITE" layoutX="5.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="startdate" wrappingWidth="239.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="notification24hours" fill="WHITE" layoutX="6.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 24 before duedate" wrappingWidth="375.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="notification7days" fill="WHITE" layoutX="6.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 7 days before duedate" wrappingWidth="385.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="duedate" fill="WHITE" layoutX="5.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="tags" fill="WHITE" layoutX="6.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tags: ....." wrappingWidth="281.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="color" fill="WHITE" layoutX="5.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="color" wrappingWidth="239.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="category" fill="WHITE" layoutX="5.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="category" wrappingWidth="239.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <AnchorPane fx:id="spacer" layoutX="98.0" layoutY="297.0" prefHeight="28.0" prefWidth="174.0" />
    </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </AnchorPane>

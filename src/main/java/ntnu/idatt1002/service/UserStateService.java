@@ -22,7 +22,7 @@ public class UserStateService {
     }
 
     public static User getCurrentUser(){
-        return UserDAO.deserializeUser(UserStateService.getCurrentUserUsername());
+        return UserDAO.deserialize(UserStateService.getCurrentUserUsername());
     }
 
     /**
@@ -30,7 +30,7 @@ public class UserStateService {
      * @return
      */
     public static String getCurrentUserUsername(){
-        return UserDAO.deserializeUser(UserStateDAO.getUsername()).getUsername();
+        return UserDAO.deserialize(UserStateDAO.getUsername()).getUsername();
     }
 
     /**

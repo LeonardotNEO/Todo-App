@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -39,6 +40,7 @@ public class AccountController {
     @FXML private TextField editPassword;
     @FXML private TextField editRepeatPassword;
     @FXML private Label errorMessage;
+    @FXML private CheckBox noPasswordRegister;
 
     // general
     @FXML private AnchorPane content;
@@ -70,11 +72,15 @@ public class AccountController {
         }
 
         // password
-        if(!RegisterService.checkIfPasswordValidSyntax(editPassword.getText(), editRepeatPassword.getText())){
-            errorMessageString += "Password length must be more than 6 characters \n";
-        }
-        if (!RegisterService.checkIfPasswordValid(editPassword.getText(), editRepeatPassword.getText())){
-            errorMessageString += "Password do not match \n";
+        if(noPasswordRegister.isSelected()) {
+            editPassword.setText("");
+        } else {
+            if(!RegisterService.checkIfPasswordValidSyntax(editPassword.getText(), editRepeatPassword.getText())){
+                errorMessageString += "Password length must be more than 6 characters \n";
+            }
+            if (!RegisterService.checkIfPasswordValid(editPassword.getText(), editRepeatPassword.getText())){
+                errorMessageString += "Password do not match \n";
+            }
         }
 
         if(errorMessageString.isEmpty()){
@@ -158,21 +164,21 @@ public class AccountController {
      * Change the users theme in their user settings variables, and then update UI
      */
     public void buttonBlueTheme(){
-        App.updateThemeCurrentUser("blue");
+        App.updateThemeCurrentUser("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d; -fx-color-4: orange;");
     }
     public void buttonGreenTheme(){
-        App.updateThemeCurrentUser("green");
+        App.updateThemeCurrentUser("-fx-color-1: #004d00; -fx-color-2: #006600; -fx-color-3: #008000; -fx-color-4: orange;");
     }
     public void buttonRedTheme(){
-        App.updateThemeCurrentUser("red");
+        App.updateThemeCurrentUser("-fx-color-1: #660011; -fx-color-2: #800015; -fx-color-3: #99001a; -fx-color-4: orange;");
     }
     public void buttonPinkTheme(){
-        App.updateThemeCurrentUser("pink");
+        App.updateThemeCurrentUser("-fx-color-1: #ff99aa; -fx-color-2: #ffb3bf; -fx-color-3: #ffc0cb; -fx-color-4: black;");
     }
     public void buttonBrownTheme(){
-        App.updateThemeCurrentUser("brown");
+        App.updateThemeCurrentUser("-fx-color-1: #3d1010; -fx-color-2: #511515; -fx-color-3: #651b1b; -fx-color-4: orange;");
     }
     public void buttonPurpleTheme(){
-        App.updateThemeCurrentUser("purple");
+        App.updateThemeCurrentUser("-fx-color-1: #4d004d; -fx-color-2: #660066; -fx-color-3: #800080; -fx-color-4: orange;");
     }
 }

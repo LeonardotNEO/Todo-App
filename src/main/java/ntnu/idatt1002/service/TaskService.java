@@ -23,22 +23,29 @@ public class TaskService {
      */
     public static boolean newTask(Task newTask) {
         String username = UserStateService.getCurrentUser().getUsername();
-        TaskDAO.serializeTask(newTask);
+        TaskDAO.serialize(newTask);
         UserLogDAO.setTaskAdded(username, newTask.getName());
         return true;
     }
 
     /**
+<<<<<<< HEAD
+     * Method for editing task. This will override Previous task object variables.
+     *
+     * @param task
+=======
      * Method for editing task. this will override previous task object variables
      * @param task Task that is being edited.
+>>>>>>> master
      */
     public static void editTask(Task task, long taskId){
         task.setId(taskId);
-        TaskDAO.serializeTask(task);
+        TaskDAO.serialize(task);
     }
 
     /**
-     * A method to change the category assigned to the task
+     * A method to change the category assigned to the task.
+     *
      * @param tasks The Array of tasks with the current category.
      * @param newCategory New category name.
      */
@@ -47,31 +54,40 @@ public class TaskService {
     }
 
     /**
-     * Edits the category of a given task.
-     * @param task Task that you want to edit.
-     * @param newCategory The new category name.
+     * A method to edit the category of a single task.
+     *
+     * @param task the task object we want to edit.
+     * @param newCategory the new category for the task.
      */
     public static void editCategoryOfTask(Task task, String newCategory){
-        TaskDAO.deleteTask(task);
+        TaskDAO.delete(task);
         task.setCategory(newCategory);
-        TaskDAO.serializeTask(task);
+        TaskDAO.serialize(task);
         UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
 
     /**
      * Get tasks that have a given category.
+     *
      * @param category The category that the tasks should be in.
      * @return The tasks that were found with the given category.
      */
     public static ArrayList<Task> getTasksByCategory(String category){
-        return TaskDAO.getTasksByCategory(UserStateService.getCurrentUserUsername(), category);
+        ArrayList<Task> tasksResult = new ArrayList<>();
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
+            tasksResult = TaskService.getTasksByCurrentUser();
+        } else {
+            tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+        }
+        return tasksResult;
     }
 
     /**
-     * Method for getting tasks based on if the task does not contain a specific set of categories
-     * @param tasks ArrayList of tasks that are being filtered.
-     * @param categories The category that, if the task have they will be excluded from the Arraylist.
-     * @return Returns a ArrayList of tasks without the tasks that had the given category.
+     * Method for getting tasks based on if the task does not contain a specific set of categories.
+     *
+     * @param tasks the ArrayList of task-objects to check.
+     * @param categories the ArrayList of categories to exclude.
+     * @return a new ArrayList of task-objects, containing only tasks without the given categories.
      */
     public static ArrayList<Task> getTasksExcludingCategories(ArrayList<Task> tasks, ArrayList<String> categories){
         ArrayList<Task> tasksExcludingCategories = new ArrayList<>();
@@ -85,15 +101,30 @@ public class TaskService {
     }
 
     /**
-     * Get all tasks for the user currently logged inn
-     * @return returns a ArrayList of tasks that the current user has active.
+     * Get all tasks for the user currently logged inn.
+     *
+     * @return an ArrayList of task-objects by the current user.
      */
     public static ArrayList<Task> getTasksByCurrentUser(){
-        return TaskDAO.getTasksByUser(UserStateService.getCurrentUserUsername());
+        return TaskDAO.list(UserStateService.getCurrentUserUsername());
     }
 
     /**
-     * @return Returns a HashMap for all the categories with all tasks in an arraylist
+     * A method which will remove a single file from a specified task.
+     *
+     * @param task the task with a file to be removed.
+     * @param filePath the file to be removed.
+     * @return the changed task.
+     */
+    public static Task removeAttachedFile(Task task, String filePath) {
+        task.getFilePaths().removeIf(e -> e.equals(filePath));
+        return task;
+    }
+
+    /**
+     * A method which returns a HashMap for all the categories with all tasks in an arraylist.
+     *
+     * @return a HashMap for all the categories with all tasks in an arraylist.
      */
     public static HashMap<String, ArrayList<Task>> getCategoriesWithTasks() {
         HashMap<String, ArrayList<Task>> categoriesList = new HashMap<>();
@@ -106,7 +137,8 @@ public class TaskService {
     }
 
     /**
-     * Returns a list of task from a given category
+     * A method which returns a list of task from a given category.
+     *
      * @param category Name of the category you want to get tasks from.
      * @return List of tasks or null if category is not found.
      */
@@ -115,22 +147,36 @@ public class TaskService {
     }
 
     /**
-     * Returns an ArrayList of all the tasks sorted by their priority.
-     * @return A ArrayList of all the tasks sorted from highest priority(3) first in the ArrayList, and down to (0).
+     * Methode that sorts all the tasks by category.
+     *
+     * @param CategoryName the category to sort by.
+     * @return an ArrayList of task-objects, containing task with the given category.
      */
-    public static ArrayList<Task> TaskSortedByPriority(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
-        userTasks.sort((o1, o2) -> Integer.compare(o2.getPriority(), o1.getPriority()));
+    public static ArrayList<Task> TaskSortedByCategory(String CategoryName){
+        ArrayList<Task> usersTasks = getTasksByCurrentUser();
+        ArrayList<Task> tasksSortedByCat = (ArrayList<Task>) usersTasks.stream().filter(t -> t.getCategory().equals(CategoryName));
+        return tasksSortedByCat;
+    }
+
+    /**
+     * A method which sorts tasks by their priority.
+     * @return an Array of all the tasks sorted by their priority.
+     */
+    public static ArrayList<Task> getTasksSortedByPriority(ArrayList<Task> tasks){
+        ArrayList<Task> userTasks = tasks;
+        Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
         return userTasks;
     }
 
     /**
-     * Returns an ArrayList of all the tasks sorted by their date.
-     * @return An ArrayList of all tasks in the currently selected category, sorted by date.
+     * A method which sorts tasks by their deadline.
+     * The task with the earliest deadline will be the first index in the ArrayList.
      * The further away the deadline of the task is, the higher index it has.
+     *
+     * @return An ArrayList of all tasks in the currently selected category, sorted by date.
      */
-    public static ArrayList<Task> tasksSortedByDate(){
-        ArrayList<Task> userTasks = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+    public static ArrayList<Task> getTasksSortedByDate(ArrayList<Task> tasks){
+        ArrayList<Task> userTasks = tasks;
         userTasks.sort((o1, o2) -> {
             long task1Date = o1.getDeadline();
             long task2Date = o2.getDeadline();
@@ -144,18 +190,31 @@ public class TaskService {
 
     /**
      * Returns an ArrayList of all the tasks sorted by the alphabetical order of the first letter in them.
-     * @return Returns an ArrayList of tasks that is sorted alphabetically by the title of the task. it only sorts the
-     * tasks inside the currently selected category by the user.
+     * Tasks inside the currently selected category by the user.
+     *
+     * @return an ArrayList of tasks that is sorted alphabetically by the title of the task. it only sorts the
      */
-    public static ArrayList<Task> sortedAlphabetically(){
+    public static ArrayList<Task> getTasksSortedAlphabetically(ArrayList<Task> tasks){
         
-        ArrayList<Task> userTasksInCategory = getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+        ArrayList<Task> userTasksInCategory = tasks;
         userTasksInCategory.sort(Comparator.comparing(Task::getName));
         return userTasksInCategory;
     }
 
     /**
+     * Finds all tasks withing a given interval. It uses all the tasks that the user has currently active.
+     *
+     * @param start interval start time in ms
+     * @param end interval end time in ms
+     * @return Lists of all tasks within the given interval
+     */
+    public static ArrayList<Task> getTasksBetweenDates(long start, long end) {
+        return getTasksInDateInterval(getTasksByCurrentUser(),start,end);
+    }
+
+    /**
      * Method that returns a list of tasks between a specific set of dates.
+     *
      * @param tasks The set of tasks the methode is being preformed on.
      * @param start interval start time in ms.
      * @param end interval end time in ms.
@@ -183,10 +242,12 @@ public class TaskService {
 
     /**
      * Method that returns a list of tasks between a specific date.
+     *
      * @param tasks The set of tasks the methode is being preformed on.
      * @param dateLong The date.
      * @return An ArrayList of all the tasks that occurs that date.
      */
+
     public static ArrayList<Task> getTasksOnGivenDate(ArrayList<Task> tasks, long dateLong){
         return getTasksInDateInterval(tasks,dateLong,dateLong+24*60*60*1000);
     }
@@ -194,6 +255,7 @@ public class TaskService {
     /**
      * Returns an ArrayList of Tasks that have a name that contains the a given string.
      * The methode is not case sensitive.
+     *
      * @param DesiredName A part(or entire) string that is contained in the task(s) that you want to find.
      * @return An ArrayList of all the tasks that contains the DesiredName in the title.
      */
@@ -204,31 +266,34 @@ public class TaskService {
                 .filter(t-> t.getName().toLowerCase().contains(DesiredName.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
     /**
-     * Uses TaskDAO and UserStateDAO to get task by id for current user
-     * @param id
-     * @return
+     * Uses TaskDAO and UserStateDAO to get task by id for current user.
+     *
+     * @param id the id of the singular task.
+     * @return the task-object.
      */
     public static Task getTaskByCurrentUser(long id){
-        return TaskDAO.deserializeTask(UserStateService.getCurrentUserUsername(), id);
+        return TaskDAO.deserialize(UserStateService.getCurrentUserUsername(), id);
     }
 
     /**
-     * Communicates with TaskDAO to delete a task
+     * Communicates with TaskDAO to delete a task.
+     *
      * @param task The task that is going to be deleted.
      */
     public static void deleteTask(Task task){
-
-        TaskDAO.deleteTask(task);
+        TaskDAO.delete(task);
         UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
 
     }
 
     /**
-     * Method that validates if task input is correct
-     * @param title Title of task
-     * @param description Description of the task
-     * @return an ArrayList of errorCodes. ErrorCodes can be used i front end to display an errormessage for each scenario
+     * Method that validates if task input is correct.
+     *
+     * @param title Title of task.
+     * @param description Description of the task.
+     * @return an ArrayList of errorCodes. ErrorCodes can be used i front end to display an errormessage for each scenario.
      */
     public static ArrayList<Integer> validateTaskInput(String title, String description, String priority, long deadlineTime){
         ArrayList<Integer> errorsCodes = new ArrayList<>();
@@ -255,6 +320,7 @@ public class TaskService {
 
     /**
      * Methode for returning the right error message as a String depending on the error code.
+     *
      * @param errorCodes An ArrayList of integers, that contains the potential errorCodes.
      * @return A String containing a description of the errors.
      */
@@ -318,7 +384,7 @@ public class TaskService {
         Task T= TaskService.getTaskByCurrentUser(taskId);
         if(T.isRepeatable()) {
             if (T.getTimeRepeat() != 0L) {
-                Task t = TaskDAO.deserializeTask(T.getUserName(), T.getCategory(), T.getId());
+                Task t = TaskDAO.deserialize(T.getUserName(), T.getCategory(), T.getId());
                 t.setDeadline(t.getDeadline() + T.getTimeRepeat());
                 t.setId(t.generateId());
                 TaskService.newTask(t);

@@ -46,14 +46,8 @@ public class TasksController {
         // add id to task anchorpane. A task is identified in TaskDAO as the taskobject's hashcode
         task.setId(Integer.toString(taskObject.hashCode()));
 
-        // use controller to change content of task before adding to to tasks
-        taskController.setTaskName(taskObject.getName());
-        taskController.setTaskDescription(taskObject.getDescription());
-        taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
-        taskController.setTaskPriority(taskObject.getPriority());
-        taskController.setRepeatTime(TaskService.convertTimeRepeatToString(taskObject));
-        taskController.setTaskId(taskObject.getId());
-        taskController.setTaskColor(taskObject.getColor());
+        // use controller to display task
+        taskController.display(taskObject);
 
         // adding the task to tasks
         tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);
@@ -90,6 +84,9 @@ public class TasksController {
                     break;
                 case "Finished tasks":
                     text.setText("There are no finished tasks!");
+                    break;
+                case "All tasks":
+                    text.setText("You have no tasks!");
                     break;
                 default:
                     text.setText("Theres no tasks in this category...\nClick on New-Task-button to add a new task!");

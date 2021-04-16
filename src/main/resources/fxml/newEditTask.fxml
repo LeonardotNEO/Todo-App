@@ -9,7 +9,8 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane onKeyPressed="#onKeyPressed" prefHeight="825.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewEditTaskController">
+
+<BorderPane onKeyPressed="#onKeyPressed" prefHeight="825.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.NewEditTaskController">
    <top>
       <AnchorPane maxWidth="-Infinity" prefHeight="50.0" prefWidth="750.0" BorderPane.alignment="CENTER">
          <children>
@@ -176,21 +177,14 @@
                                     <Font size="16.0" />
                                  </font>
                               </JFXButton>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                                 <content>
-                                    <HBox>
+                              <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="168.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="31.0" text="Button">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
+                                          <VBox fx:id="vboxForFiles" prefHeight="198.0" prefWidth="178.0" />
                                        </children>
-                                    </HBox>
-                                 </content>
+                                    </AnchorPane>
+                                </content>
                               </ScrollPane>
                            </children>
                         </HBox>

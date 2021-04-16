@@ -289,13 +289,7 @@ public class OverviewController {
         task.setId(Integer.toString(taskObject.hashCode()));
 
         // use controller to change content of task before adding to to tasks
-        taskController.setTaskName(taskObject.getName());
-        taskController.setTaskDescription(taskObject.getDescription());
-        taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
-        taskController.setTaskPriority(taskObject.getPriority());
-        taskController.setRepeatTime(TaskService.convertTimeRepeatToString(taskObject));
-        taskController.setTaskId(taskObject.getId());
-        taskController.setTaskColor(taskObject.getColor());
+        taskController.display(taskObject);
 
         return task;
     }

@@ -2,7 +2,7 @@ package ntnu.idatt1002.dao;
 
 import ntnu.idatt1002.Task;
 
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -14,215 +14,209 @@ public final class TaskDAO {
     private static final String FILETYPE = ".ser";
 
     /**
-     * Get all tasks stored in user folder.
-     * @param username non case-sensitive username
-     * @return a list of all tasks
+     * Get all tasks under a user
+     * @return {@code ArrayList} of Tasks, {@code null} if none could be found
      */
-    public static ArrayList<Task> getTasksByUser(String username){
-        ArrayList<Task> tasks = new ArrayList<>();
-        File directory = new File(categoriesPath(username));
-        String[] categories = directory.list();
+    public static ArrayList<Task> list(String username){
+        if(!UserDAO.exists(username)){ return null; }
 
-        if(categories != null && UserDAO.userExists(username)){
-            for(String category : categories){
-                tasks.addAll(getTasksByCategory(username, category));
+        ArrayList<Task> allTasks = new ArrayList<>();
+        String[] categories = CategoryDAO.list(username);
+
+        //Add tasks in regular categories
+        for(String category : categories){
+            allTasks.addAll(list(username, category));
+        }
+
+        //Add tasks in project categories
+        String[] projects = ProjectDAO.list(username);
+        for(String project : projects){
+            String[] projCats = CategoryDAO.list(username, project);
+            for(String projCat : projCats){
+                allTasks.addAll(list(username, project, projCat));
             }
         }
 
+        return allTasks;
+    }
+
+    /**
+     * Get all tasks under a category
+     * @return {@code ArrayList} of Tasks, {@code null} if none could be found
+     */
+    public static ArrayList<Task> list(String username, String category){
+        File categoryDiv = new File(categoryDiv(username, category));
+        return list(categoryDiv);
+    }
+
+    /**
+     * Get all tasks under a project category
+     * @return {@code ArrayList} of Tasks, {@code null} if none could be found
+     */
+    public static ArrayList<Task> list(String username, String project, String category){
+        File projectDiv = new File(projectCategoryDiv(username, project, category));
+        return list(projectDiv);
+    }
+
+    /**
+     * Get all tasks in a given directory
+     * @param div File object of directory
+     * @return {@code null} if empty
+     */
+    private static ArrayList<Task> list(File div){
+        String[] filepaths = div.list();
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        if(filepaths != null){
+            for(String file : filepaths){
+                tasks.add(deserialize(div.getPath() + "/" + file));
+            }
+        }else{
+            return null;
+        }
         return tasks;
     }
 
     /**
-     * Get all tasks in a category.
-     * @param username non case-sensitive username
-     * @param category category in give user
-     * @return list of all tasks
+     * Save a list of tasks to storage
      */
-    public static ArrayList<Task> getTasksByCategory(String username, String category){
-        ArrayList<Task> tasks = new ArrayList<>();
-        File directory = new File(categoryPath(username, category));
-        String[] pathnames = directory.list();
-
-        if(pathnames != null && CategoryDAO.catExists(username, category)){
-            for(String path : pathnames){
-                tasks.add(deserializeTask(directory.getPath() + "/" + path));
-            }
-        }
-
-        return tasks;
-    }
-
-    /**
-     * Save a list of tasks to their respective folders
-     * @param tasks an {@code ArrayList} of Task objects
-     */
-    public static void saveTasks(ArrayList<Task> tasks){
-        for(Task task : tasks) {
-            serializeTask(task);
+    public static void serialize(ArrayList<Task> tasks){
+        for(Task task : tasks){
+            serialize(task);
         }
     }
 
     /**
      * Save a single task to storage
-     * @param task Task object
      */
-    public static void serializeTask(Task task){
-        String username = task.getUserName();
-        String category = task.getCategory();
-        long taskID = task.getId();
-        File file = new File(filePath(username, category, taskID));
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(task);
-
-            oos.close();
-            fos.close();
-        }catch(IOException ioe){
-            ioe.printStackTrace();
-        }
+    public static void serialize(Task task){
+        GenericDAO.serialize(task, filepath(task));
     }
 
     /**
-     * Get a single task given by owner, category and ID
-     * @param username which user that owns the task
-     * @param category which category the task belogns to
-     * @param taskID tasks hashcode
-     * @return Task object, or {@code null} if it could not be found
+     * Search entire user for matching task id and return the Task object
+     * @return {@code null} if task could not be found
      */
-    public static Task deserializeTask(String username, String category, long taskID){
-        return deserializeTask(filePath(username, category, taskID));
-    }
-
-    /**
-     * Get a single task only by owner and ID, less effective than giving the category as well
-     * @param username which user that owns the task
-     * @param taskID tasks hashcode
-     * @return Task object, {@code null} if task object could not be found
-     */
-    public static Task deserializeTask(String username, long taskID){
-        File directory = new File(categoriesPath(username));
-        String[] categories = directory.list();
-
-        //Scans all categories and all their tasks, looking for a match on the taskID
-        if(categories != null && UserDAO.userExists(username)){
-            for(String category : categories){
-                File catDir = new File(directory.getPath() + "/" + category);
-                String[] pathnames = catDir.list();
-
-                if(pathnames != null){
-                    for(String path : pathnames){
-                        if((PREFIX + taskID + FILETYPE).equals(path)){
-                            return deserializeTask(directory.getPath() + "/" + category + "/" + path);
-                        }
-                    }
-                }
+    public static Task deserialize(String username, long id){
+        ArrayList<Task> tasks = list(username);
+        if(tasks != null){
+            for(Task task : tasks){
+                if(task.getId() == id){ return task;}
             }
         }
+
         return null;
     }
 
     /**
-     * Get a single task by complete filepath
-     * @param filepath String of filepath starting with "src/"
-     * @return Task object, {@code null} if task could not be found
+     * Get task under user folder
+     * @return {@code null} if task could not be found
      */
-    public static Task deserializeTask(String filepath){
-        File file = new File(filepath);
-        Task task = null;
-
-        if(!file.exists()){ return null; }
-
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            task = (Task) ois.readObject();
-
-            ois.close();
-            fis.close();
-        }catch(IOException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        return task;
+    public static Task deserialize(String username, String category, long id){
+        return deserialize(categoryDiv(username, category) + filename(id));
     }
 
     /**
-     * Delete all tasks for a user.
-     * @param username non case-sensitive username
-     * @return {@code false} if user could not be found, or if one or more files could not be deleted
+     * Get task under project folder
+     * @return {@code null} if task could not be found
      */
-    public static boolean deleteTasksByUser(String username){
-        return deleteTasks(getTasksByUser(username));
+    public static Task deserialize(String username, String project, String category, long id){
+        return deserialize(projectCategoryDiv(username, project, category) + filename(id));
     }
 
     /**
-     * Delete all tasks in a category
-     * @param username non case-sensitive username
-     * @param category category in given user folder
-     * @return {@code false} if one or more could not be deleted
+     * Get task from storage from a filepath
+     * @param filepath filepath starting with "src/"
+     * @return {@code null} if task could not be found
      */
-    public static boolean deleteTasksByCategory(String username, String category){
-        return deleteTasks(getTasksByCategory(username, category));
+    private static Task deserialize(String filepath){
+        return (Task) GenericDAO.deserialize(filepath);
     }
 
     /**
-     * Delete a list of tasks
-     * @param tasks an {@code ArrayList} of Task objects
-     * @return {@code false} if one or more could not be deleted
+     * Delete all tasks in a user folder
+     * @return {@code false} if a task could not be deleted
      */
-    public static boolean deleteTasks(ArrayList<Task> tasks){
-        boolean success = true;
-        for(Task task : tasks){
-            if(!deleteTask(task)){
-                success = false;
+    public static boolean deleteByUser(String username){
+        return deleteByList(list(username));
+    }
+
+    /**
+     * Delete all tasks in a given category
+     * @return {@code false} if a task could not be deleted
+     */
+    public static boolean deleteByCategory(String username, String category){
+        return deleteByList(list(username, category));
+    }
+
+    /**
+     * Delete all tasks in a given project category
+     * @return {@code false} if a task could not be deleted
+     */
+    public static boolean deleteByProjectCategory(String username, String project, String category){
+        return deleteByList(list(username, project, category));
+    }
+
+    /**
+     * Delete all tasks in a given list
+     * @return {@code false} if a task could not be deleted
+     */
+    private static boolean deleteByList(ArrayList<Task> tasks){
+        boolean result = true;
+
+        if(tasks != null){
+            for(Task task : tasks){
+                if(!delete(task)){ result = false; }
             }
-        }
-        return success;
+        }else{ return false; }
+
+        return result;
     }
 
-    /**
-     * Delete a single task
-     * @param task Task object
-     * @return {@code false} if task could not be deleted
-     */
-    public static boolean deleteTask(Task task){
-        String username = task.getUserName();
-        String category = task.getCategory();
-        long taskID = task.getId();
-        return deleteTask(filePath(username, category, taskID));
+    public static boolean delete(Task task){
+        return delete(filepath(task));
     }
 
-    /**
-     * Delete a single task by filepath
-     * @param filepath String of filepath starting with "src/"
-     * @return {@code false} if task could not be deleted
-     */
-    public static boolean deleteTask(String filepath){
+    public static boolean delete(String username, String category, long id){
+        return delete(categoryDiv(username, category) + filename(id));
+    }
+
+    public static boolean delete(String username, String project, String category, long id){
+        return delete(projectCategoryDiv(username, project, category) + filename(id));
+    }
+
+    private static boolean delete(String filepath){
         File file = new File(filepath);
         return file.delete();
     }
 
-    //PRIVATE STRING FUNCTIONS
-    /**
-     * Get categories directory
-     */
-    private static String categoriesPath(String username){
-        return (SAVEPATH + "/" + username + "/Categories/");
+    //Get paths
+    private static String userDir(String username){
+        return (SAVEPATH + "/" + username + "/");
     }
 
-    /**
-     * Get category directory
-     */
-    private static String categoryPath(String username, String category){
-        return (categoriesPath(username) + category + "/");
+    private static String categoryDiv(String username, String category){
+        return (userDir(username) + "/Categories/" + category + "/");
     }
 
-    /**
-     * Get file path
-     */
-    private static String filePath(String username, String category, long taskID){
-        return (categoryPath(username, category) + PREFIX + taskID + FILETYPE);
+    private static String projectCategoryDiv(String username, String project, String category){
+        return (userDir(username) + "/Projects/" + project + "/" + category + "/");
+    }
+
+    private static String filename(long taskID){
+        return (PREFIX + taskID + FILETYPE);
+    }
+
+    private static String filepath(Task task){
+        String username = task.getUserName();
+        String category = task.getCategory();
+        String project = task.getProject();
+        long id = task.getId();
+
+        if(project == null){
+            return categoryDiv(username, category) + filename(id);
+        }else{
+            return projectCategoryDiv(username, project, category) + filename(id);
+        }
     }
 }

@@ -66,7 +66,7 @@ public class NavbarController {
     }
 
     /**
-     * Communicate with mainController to update its main-content to overview.fxml when buttin in navbar is clicked
+     * Communicate with mainController to update its main-content to overview.fxml when butt0n in navbar is clicked
      * @param event
      * @throws IOException
      */
@@ -75,12 +75,21 @@ public class NavbarController {
     }
 
     /**
+     * Communicate with mainController to update its main-content to about.fxml when butt0n in navbar is clicked
+     * @param event
+     * @throws IOException
+     */
+    public void buttonAbout(ActionEvent event) throws IOException {
+        MainController.getInstance().setMainContent("about");
+    }
+
+    /**
      * Method for loading login.fxml
      * @param event
      * @throws IOException
      */
     public void buttonLogout(ActionEvent event) throws IOException {
-        App.setRoot("login");
+        App.setRoot("loginRegister");
         LoginService.logOut();
     }
 
@@ -112,7 +121,8 @@ public class NavbarController {
         popup.setY(mouseLocation.getY());
 
         // set style of popup
-        notificationMenuPopup.setStyle(App.updateThemeCurrentUser(UserStateService.getCurrentUser().getTheme()));
+        notificationMenuPopup.getStylesheets().add(App.class.getResource("/css/main.css").toExternalForm());
+        notificationMenuPopup.setStyle(UserStateService.getCurrentUser().getTheme());
 
         // Load notifications into notificationMenuPopup
         loadNotificationsIntoPopup(notificationMenuPopupVBox);

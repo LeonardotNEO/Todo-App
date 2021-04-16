@@ -26,7 +26,7 @@
                            <content>
                               <VBox fx:id="categories" prefWidth="215.0" spacing="10.0">
                                  <padding>
-                                    <Insets top="15.0" />
+                                    <Insets left="15.0" top="15.0" />
                                  </padding></VBox>
                            </content>
                         </ScrollPane>
