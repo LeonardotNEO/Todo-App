@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class HelpPageDAO {
 
-    public static HelpSection[] getData() throws IOException {
+    public static HelpSection[] getData() {
         Gson gson = new Gson();
         FileReader fileReader = null;
 
@@ -35,16 +35,8 @@ public class HelpPageDAO {
      * A method that returns all the sections in the helpPage json file
      */
     public static ArrayList<String> getSections()  {
-        HelpSection[] helpSections = null;
-
-        try {
-            helpSections = getData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        HelpSection[] helpSections = helpSections = getData();
         if(helpSections == null) return null;
-
         return Arrays.stream(helpSections).map(HelpSection::getSection).collect(Collectors.toCollection(ArrayList::new));
     }
 }
