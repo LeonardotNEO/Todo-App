@@ -10,14 +10,13 @@ public final class ImageDAO {
 
     /**
      * Add an image to the users image folder
+     * @throws IOException if user or file does not exist
      */
-    public static void add(String username, File image){
-        BufferedImage bufferedImage;
-        try{
+    public static void add(String username, File image) throws IOException{
+        if(UserDAO.exists(username) && image.exists()) {
+            BufferedImage bufferedImage = null;
             bufferedImage = ImageIO.read(image);
             ImageIO.write(bufferedImage, "png", new File(removeExtension(filepath(username, image)) + ".png"));
-        }catch(IOException ioe){
-            ioe.printStackTrace();
         }
     }
 
@@ -33,9 +32,12 @@ public final class ImageDAO {
     /**
      * Get an image file given its owner and filename
      * @param filename filename with extension. "image.png"
+     * @return {@code null} if file does not exist
      */
     public static File get(String username, String filename){
-        return new File(filepath(username, filename));
+        File file = new File(filepath(username, filename));
+        if(file.exists()){ return file; }
+        else{ return null; }
     }
 
     /**
@@ -44,6 +46,9 @@ public final class ImageDAO {
      */
     public static boolean deleteByUser(String username){
         boolean result = true;
+        File[] files = list(username);
+
+        if(files == null){ return false; }
         for(File file : list(username)){
             if(!file.delete()){ result = false; }
         }
