@@ -88,7 +88,7 @@ public class TasksController {
                     text.setText("You have no tasks!");
                     break;
                 default:
-                    text.setText("");
+                    text.setText("Click on a category, then '+Task' to add a task!");
             }
 
             text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");

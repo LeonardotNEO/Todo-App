@@ -44,7 +44,7 @@
                               <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
                            </graphic>
                            <VBox.margin>
-                              <Insets left="55.0" top="-5.0" />
+                              <Insets left="55.0" />
                            </VBox.margin>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -75,7 +75,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <VBox.margin>
-                              <Insets left="60.0" top="-5.0" />
+                              <Insets left="60.0" />
                            </VBox.margin>
                         </JFXButton>
                      </children>
