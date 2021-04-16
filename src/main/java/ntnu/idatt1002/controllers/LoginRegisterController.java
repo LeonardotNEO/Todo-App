@@ -75,6 +75,7 @@ public class LoginRegisterController {
     /**
      * Method for displaying loginWithAccount part of loginRegister fxml.
      * We set login and register to false and loginWithAccount to true
+     * If password is empty (No password is set) it will auto log inn instead of going through the login page
      */
     public void displayLoginWithAccounts(){
         pageHeader.setText("Login");
@@ -106,7 +107,11 @@ public class LoginRegisterController {
             // Set login button to run the loginButtonEvent method when clicked
             controller.login.setOnAction(actionEvent -> {
                 try {
-                    displayLogin(u.getUsername());
+                    if(u.getPassword().isEmpty()) {
+                        LoginService.login(u.getUsername(), true);
+                    } else {
+                        displayLogin(u.getUsername());
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

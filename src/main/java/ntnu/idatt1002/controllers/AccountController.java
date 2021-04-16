@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -39,6 +40,7 @@ public class AccountController {
     @FXML private TextField editPassword;
     @FXML private TextField editRepeatPassword;
     @FXML private Label errorMessage;
+    @FXML private CheckBox noPasswordRegister;
 
     // general
     @FXML private AnchorPane content;
@@ -70,11 +72,15 @@ public class AccountController {
         }
 
         // password
-        if(!RegisterService.checkIfPasswordValidSyntax(editPassword.getText(), editRepeatPassword.getText())){
-            errorMessageString += "Password length must be more than 6 characters \n";
-        }
-        if (!RegisterService.checkIfPasswordValid(editPassword.getText(), editRepeatPassword.getText())){
-            errorMessageString += "Password do not match \n";
+        if(noPasswordRegister.isSelected()) {
+            editPassword.setText("");
+        } else {
+            if(!RegisterService.checkIfPasswordValidSyntax(editPassword.getText(), editRepeatPassword.getText())){
+                errorMessageString += "Password length must be more than 6 characters \n";
+            }
+            if (!RegisterService.checkIfPasswordValid(editPassword.getText(), editRepeatPassword.getText())){
+                errorMessageString += "Password do not match \n";
+            }
         }
 
         if(errorMessageString.isEmpty()){
