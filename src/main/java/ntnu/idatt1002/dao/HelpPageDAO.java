@@ -1,32 +1,50 @@
 package ntnu.idatt1002.dao;
 
-import javax.swing.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import ntnu.idatt1002.HelpSection;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Reads helpPage data from storage
  */
 public class HelpPageDAO {
-    public static void getData() {
 
+    public static HelpSection[] getData() throws IOException {
+        Gson gson = new Gson();
+        FileReader fileReader = null;
+
+        try {
+            fileReader = new FileReader("src/main/resources/helpData/format.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(fileReader == null) return null;
+
+        JsonReader reader = gson.newJsonReader(fileReader);
+        return gson.fromJson(reader, HelpSection[].class);
     }
 
     /**
      * A method that returns all the sections in the helpPage json file
      */
-    public static void getSections() throws IOException, ParseException {
-        JSONParser parser = new JSONParser();
-        JSONArray a = (JSONArray) parser.parse(new FileReader("src/main/resources/helpData/format.json"));
-        for(Object o : a) {
-            JSONObject person = (JSONObject) o;
-            System.out.println(person.get("section"));
+    public static ArrayList<String> getSections()  {
+        HelpSection[] helpSections = null;
+
+        try {
+            helpSections = getData();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        if(helpSections == null) return null;
+
+        return Arrays.stream(helpSections).map(HelpSection::getSection).collect(Collectors.toCollection(ArrayList::new));
     }
 }
