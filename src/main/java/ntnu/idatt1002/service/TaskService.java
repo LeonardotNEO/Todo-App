@@ -372,7 +372,23 @@ public class TaskService {
                     Task temp = new Task.TaskBuilder(T.getUserName(), T.getName())
                             .deadline(T.getDeadline() + i * T.getTimeRepeat())
                             .color(T.getColor())
+                            .description(T.getDescription())
+                            .category(T.getCategory())
+                            .filePaths(T.getFilePaths())
+                            .location(T.getLocation())
+                            .priority(T.getPriority())
+                            .project(T.getProject())
+                            .tags(T.getTags())
+                            .startDate(T.getStartDate())
                             .build();
+                            if(T.isNotification1Hour()){
+                                temp.setNotification1Hour(true);
+                            }else if(T.isNotification24Hours()){
+                                temp.setNotification24Hours(true);
+                            }else if(T.isNotification7Days()){
+                                temp.setNotification7Days(true);
+                            }
+
                     arrayWithAllClones.add(temp);
                 }
 
