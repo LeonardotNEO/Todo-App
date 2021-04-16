@@ -33,9 +33,7 @@ public class TaskController {
     @FXML private Text duedate;
     @FXML private Text taskLocation;
     @FXML private Text color;
-    @FXML private Text notification1hour;
-    @FXML private Text notification24hours;
-    @FXML private Text notification7days;
+    @FXML private Text notification;
     @FXML private Text tags;
     @FXML private Text attachedFiles;
     @FXML private Label taskDate;
@@ -53,6 +51,14 @@ public class TaskController {
         addClickTaskListener();
     }
 
+    public String checkNotification(Task task) {
+        if (task.isNotification1Hour() || task.isNotification24Hours() || task.isNotification7Days()) {
+            return "On";
+        } else {
+            return "Off";
+        }
+    }
+
     /**
      * Method for displaying this task UI
      * @param task
@@ -65,14 +71,17 @@ public class TaskController {
         duedate.setText("Due date: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());
-        notification1hour.setText("Notification 1 hour before duedate: " + task.isNotification1Hour());
-        notification24hours.setText("Notification 24 hours before duedate: " + task.isNotification24Hours());
-        notification24hours.setText("Notification 7 days before duedate: " + task.isNotification7Days());
+        notification.setText("Notifications: " + checkNotification(task));
         // tags
         String tagsString = "";
         ArrayList<String> tagsList = task.getTags();
         for(String tag : tagsList){
             tagsString += tag + ", ";
+        }
+        String filesString = "";
+        ArrayList<String> filesList = task.getFilePaths();
+        for (String file : filesList) {
+            filesString += file + ", ";
         }
         tags.setText("Tags: " + tagsString);
         taskDate.setText("This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline()));
@@ -95,12 +104,8 @@ public class TaskController {
         taskLocation.setManaged(false);
         color.setVisible(false);
         color.setManaged(false);
-        notification1hour.setVisible(false);
-        notification1hour.setManaged(false);
-        notification24hours.setVisible(false);
-        notification24hours.setManaged(false);
-        notification7days.setVisible(false);
-        notification7days.setManaged(false);
+        notification.setVisible(false);
+        notification.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
         attachedFiles.setVisible(false);
@@ -125,12 +130,8 @@ public class TaskController {
         taskLocation.setManaged(true);
         color.setVisible(true);
         color.setManaged(true);
-        notification1hour.setVisible(true);
-        notification1hour.setManaged(true);
-        notification24hours.setVisible(true);
-        notification24hours.setManaged(true);
-        notification7days.setVisible(true);
-        notification7days.setManaged(true);
+        notification.setVisible(true);
+        notification.setManaged(true);
         tags.setVisible(true);
         tags.setManaged(true);
         attachedFiles.setVisible(true);
