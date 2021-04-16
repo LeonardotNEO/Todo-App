@@ -53,7 +53,7 @@ public class TaskController {
 
     /**
      * A method to check if a task has a notification checked.
-     * 
+     *
      * @param task the task to check.
      * @return On if a notification is checked, Off is no notification is checked.
      */
@@ -85,11 +85,11 @@ public class TaskController {
             tagsString += tag + ", ";
         }
         // files
-        String filesString = "";
+        String filesString = "\n";
         ArrayList<String> filesList = task.getFilePaths();
         for (String file : filesList) {
             String [] fileName = file.split("\\\\");
-            filesString += fileName[fileName.length -1] + ", ";
+            filesString += "-" + fileName[fileName.length -1] + ",\n ";
         }
         tags.setText("Tags: " + tagsString);
         attachedFiles.setText(("Attached files: " + filesString));
