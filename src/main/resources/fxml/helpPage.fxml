@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="ntnu.idatt1002.controllers.HelpPageController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <ScrollPane layoutX="5.0" prefHeight="483.0" prefWidth="210.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="478.0" prefWidth="200.0">
+                     <children>
+                        <VBox fx:id="helpMenuVBox" prefHeight="483.0" prefWidth="201.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <ScrollPane prefHeight="483.0" prefWidth="501.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="499.0">
+                     <children>
+                        <Text fx:id="headerText" layoutX="213.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Header">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="descriptionText" layoutX="220.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <VBox fx:id="vboxForInfoText" layoutX="-2.0" layoutY="240.0" prefHeight="228.0" prefWidth="493.0" />
+                        <VBox fx:id="vboxForImages" layoutX="1.0" layoutY="91.0" prefHeight="159.0" prefWidth="485.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

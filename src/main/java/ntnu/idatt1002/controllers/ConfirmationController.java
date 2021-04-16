@@ -67,8 +67,6 @@ public class ConfirmationController {
         */
 
         //noButton.setOnMouseClicked(e -> popup.hide());
-
-
     }
 
     @FXML
