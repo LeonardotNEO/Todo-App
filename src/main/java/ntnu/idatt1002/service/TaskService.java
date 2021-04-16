@@ -3,6 +3,7 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserLogDAO;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.time.*;
 import java.util.*;
@@ -17,7 +18,7 @@ public class TaskService {
     /**
      * Methode to validate if a task was successfully added. 
      * Returns true if the task was added.
-     * @param newTask Task being validated.
+     * @param  newTask that is being added.
      * @return boolean depending on the validation was successful.
      */
     public static boolean newTask(Task newTask) {
@@ -208,7 +209,7 @@ public class TaskService {
      * @return Lists of all tasks within the given interval
      */
     public static ArrayList<Task> getTasksBetweenDates(long start, long end) {
-        return getTasksBetweenDates(getTasksByCurrentUser(),start,end);
+        return getTasksInDateInterval(getTasksByCurrentUser(),start,end);
     }
 
     /**
@@ -219,10 +220,24 @@ public class TaskService {
      * @param end interval end time in ms.
      * @return Lists of all tasks within the given interval.
      */
-    public static ArrayList<Task> getTasksBetweenDates(ArrayList<Task> tasks, long start, long end){
+    public static ArrayList<Task> getTasksInDateInterval(ArrayList<Task> tasks, long start, long end){
+        ArrayList<String> unWantedCategories = new ArrayList();
+        unWantedCategories.add("Finished tasks");
+        unWantedCategories.add("Trash bin");
+        tasks.addAll(getRepeatTasks(getTasksExcludingCategories(tasks,unWantedCategories),end));
         return tasks.stream()
                 .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Finds all tasks withing a given interval. It uses all the tasks that the user has currently active.
+     * @param start interval start time in ms
+     * @param end interval end time in ms
+     * @return Lists of all tasks within the given interval
+     */
+    public static ArrayList<Task> getTasksInDateInterval(long start, long end) {
+        return getTasksInDateInterval(getTasksByCurrentUser(),start,end);
     }
 
     /**
@@ -232,19 +247,9 @@ public class TaskService {
      * @param dateLong The date.
      * @return An ArrayList of all the tasks that occurs that date.
      */
-    public static ArrayList<Task> getTasksByDate(ArrayList<Task> tasks, long dateLong){
-        ArrayList<Task> tasksByDate = new ArrayList<>();
 
-        for(Task task : tasks){
-            LocalDate dateInput = Instant.ofEpochMilli(dateLong).atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate dateTask = Instant.ofEpochMilli(task.getDeadline()).atZone(ZoneId.systemDefault()).toLocalDate();
-
-            if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth() && dateInput.getMonthValue() == dateTask.getMonthValue() && dateInput.getYear() == dateTask.getYear()){
-                tasksByDate.add(task);
-            }
-        }
-
-        return tasksByDate;
+    public static ArrayList<Task> getTasksOnGivenDate(ArrayList<Task> tasks, long dateLong){
+        return getTasksInDateInterval(tasks,dateLong,dateLong+24*60*60*1000);
     }
 
     /**
@@ -280,6 +285,7 @@ public class TaskService {
     public static void deleteTask(Task task){
         TaskDAO.delete(task);
         UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
+
     }
 
     /**
@@ -351,19 +357,61 @@ public class TaskService {
      * @param end The limit date of where the repeatable tasks are stopped being cloned.
      * @return A ArrayList of all the cloned Repeatable tasks, with new deadlines.
      */
-    public ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
+    public static ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
         ArrayList arrayWithAllClones = new ArrayList();
-        ArrayListOfTasks.stream().filter(x->x.isRepeatable());//fix this to include the entire expression
-        for(Task T: ArrayListOfTasks) {
 
-            for (int i=0; T.getStartDate()+i*T.getTimeRepeat()<= end;i++) {
-                Task temp = T;
-                temp.setDeadline(T.getDeadline()+i*T.getTimeRepeat());
-                arrayWithAllClones.add(temp);
-            }
+
+        ArrayList<Task> ArrayListOfRepeat = ArrayListOfTasks.stream()
+                .filter(t->t.isRepeatable())
+                .collect(Collectors.toCollection(ArrayList::new));
+        for(Task T: ArrayListOfRepeat) {
+
+            T.setDeadline(T.getDeadline()+1);// this is to counteract a bug that happens when the deadline is set to 0000:
+                for (int i=1; (T.getDeadline() + i * T.getTimeRepeat()) <= end; i++) {
+
+                    Task temp = new Task.TaskBuilder(T.getUserName(), T.getName())
+                            .deadline(T.getDeadline() + i * T.getTimeRepeat())
+                            .color(T.getColor())
+                            .build();
+                    arrayWithAllClones.add(temp);
+                }
 
         }
         return arrayWithAllClones;
+    }
+
+    public static void nextRepeatableTask(long taskId){
+        Task T= TaskService.getTaskByCurrentUser(taskId);
+        if(T.isRepeatable()) {
+            if (T.getTimeRepeat() != 0L) {
+                Task t = TaskDAO.deserialize(T.getUserName(), T.getCategory(), T.getId());
+                t.setDeadline(t.getDeadline() + T.getTimeRepeat());
+                t.setId(t.generateId());
+                TaskService.newTask(t);
+            }
+        }
+    }
+    public static long convertTimeRepeatToLong(String TimeRepeatString){
+
+        if (TimeRepeatString.equals("Repeat Daily")){
+            return 1000*60*60*24L;
+        }
+        else if (TimeRepeatString.equals("Repeat Weekly")){
+            return 1000*60*60*24*7L;
+        }
+        else{
+            return 0L;
+        }
+    }
+    public static String convertTimeRepeatToString(Task T){
+        if(T.getTimeRepeat() == 1000*60*60*24L){
+            return "Repeat Daily";
+        }else if(T.getTimeRepeat() == 1000*60*60*24*7L){
+            return "Repeat Weekly";
+        }
+        else{
+            return "None";
+        }
     }
 }
 

@@ -50,6 +50,7 @@ public class DashboardController {
     public void initialize() throws IOException {
         // load tasks
         loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
+        loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
 
         // load category buttons to categories VBox
         loadCategoryButtons();

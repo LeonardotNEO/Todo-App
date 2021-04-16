@@ -38,6 +38,7 @@ public class TaskController {
     @FXML private Text attachedFiles;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
+    @FXML private Label taskRepeat;
     @FXML private Pane background;
     @FXML private HBox toolsHBox;
     @FXML private AnchorPane spacer;
@@ -46,6 +47,7 @@ public class TaskController {
     /**
      * At initializing of this UI, we display the minimized version
      */
+
     public void initialize(){
         displayMinimizedTask();
         addClickTaskListener();
@@ -78,18 +80,23 @@ public class TaskController {
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());
         notification.setText("Notifications: " + checkNotification(task));
+        setRepeatTime(TaskService.convertTimeRepeatToString(task));
         // tags
         String tagsString = "";
         ArrayList<String> tagsList = task.getTags();
-        for(String tag : tagsList){
-            tagsString += tag + ", ";
+        if(tagsList!=null) { // added this because tagList was null, null pointer error
+            for (String tag : tagsList) {
+                tagsString += tag + ", ";
+            }
         }
         // files
         String filesString = "\n";
         ArrayList<String> filesList = task.getFilePaths();
-        for (String file : filesList) {
-            String [] fileName = file.split("\\\\");
-            filesString += "-" + fileName[fileName.length -1] + ",\n ";
+        if(filesList!=null) { // null pointer exeption when file list equals null
+            for (String file : filesList) {
+                String[] fileName = file.split("\\\\");
+                filesString += "-" + fileName[fileName.length - 1] + ",\n ";
+            }
         }
         tags.setText("Tags: " + tagsString);
         attachedFiles.setText(("Attached files: " + filesString));
@@ -168,6 +175,9 @@ public class TaskController {
      * @throws IOException
      */
     public void buttonFinishTask(ActionEvent event) throws IOException{
+        if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
+            TaskService.nextRepeatableTask(taskId);
+        }
         TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks");
         DashboardController.getInstance().initialize();
     }
@@ -178,6 +188,9 @@ public class TaskController {
      */
     public void buttonDeleteTask(ActionEvent event) throws IOException {
         if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
+            if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
+                TaskService.nextRepeatableTask(taskId);
+            }
             // update category of task to trash bin
             TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
             // update dashboard
@@ -198,7 +211,7 @@ public class TaskController {
 
     /**
      * A method to set the priority of the task
-     * @param priority
+     * @param priority The priority of task
      */
     public void setTaskPriority(int priority) {
         taskPriority.setText("Priority: " + priority);
@@ -221,6 +234,27 @@ public class TaskController {
 
     }
 
+    public void setRepeatTime(String repeatTime){
+        if(repeatTime==null){
+            repeatTime = "";
+        }
+        switch(repeatTime){
+            case "Repeat Daily":
+                taskRepeat.setText("Daily");
+                break;
+            case "Repeat Weekly":
+                taskRepeat.setText("Weekly");
+                break;
+            default:
+                taskRepeat.setText("");
+                break;
+        }
+    }
+
+    public void setTaskId(long id){
+        this.taskId = id;
+    }
+
     public void setTaskColor(String backgroundColor){
         background.setStyle("-fx-background-color: " + backgroundColor + "; -fx-background-radius:  5 20 5 5;");
 
@@ -228,12 +262,14 @@ public class TaskController {
             taskDescription.setFill(Paint.valueOf("white"));
             taskDate.setTextFill(Paint.valueOf("white"));
             taskPriority.setTextFill(Paint.valueOf("white"));
+            taskRepeat.setTextFill(Paint.valueOf("white"));
             taskName.setFill(Paint.valueOf("white"));
             toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
         } else {
             taskDescription.setFill(Paint.valueOf("black"));
             taskDate.setTextFill(Paint.valueOf("black"));
             taskPriority.setTextFill(Paint.valueOf("black"));
+            taskRepeat.setTextFill(Paint.valueOf("black"));
             taskName.setFill(Paint.valueOf("black"));
             toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
         }
