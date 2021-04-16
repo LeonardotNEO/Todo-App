@@ -37,6 +37,7 @@ public class TaskController {
     @FXML private Text notification24hours;
     @FXML private Text notification7days;
     @FXML private Text tags;
+    @FXML private Text attachedFiles;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
     @FXML private Pane background;
@@ -102,6 +103,8 @@ public class TaskController {
         notification7days.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
+        attachedFiles.setVisible(false);
+        attachedFiles.setManaged(false);
         spacer.setVisible(false);
         spacer.setManaged(false);
 
@@ -130,6 +133,8 @@ public class TaskController {
         notification7days.setManaged(true);
         tags.setVisible(true);
         tags.setManaged(true);
+        attachedFiles.setVisible(true);
+        attachedFiles.setManaged(true);
         spacer.setVisible(true);
         spacer.setManaged(true);
 
