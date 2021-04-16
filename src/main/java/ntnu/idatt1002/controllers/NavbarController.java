@@ -80,7 +80,7 @@ public class NavbarController {
      * @throws IOException
      */
     public void buttonAbout(ActionEvent event) throws IOException {
-        MainController.getInstance().setMainContent("about");
+        MainController.getInstance().setMainContent("helpPage");
     }
 
     /**

@@ -24,6 +24,10 @@ public class HelpSection {
         public String image;
         public String text;
 
+        public String getImage() {return image;}
+
+        public String getText() {return text;}
+
         @Override
         public String toString() {
             return "Info{" +
