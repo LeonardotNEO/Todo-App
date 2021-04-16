@@ -108,7 +108,7 @@ public class TaskServiceTest {
             TaskService.newTask(
                     new Task.TaskBuilder(userName,"TestRepeat")
                             .category("Stonks")
-                            .repeatable(true,43000000L)
+                            .repeatable(true,1000*60*60*24L)
                             .deadline(DateUtils.getAsMs(LocalDate.now()))
                             .build()
             );

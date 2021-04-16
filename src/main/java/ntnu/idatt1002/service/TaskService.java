@@ -298,30 +298,14 @@ public class TaskService {
         ArrayList<Task> ArrayListOfRepeat = ArrayListOfTasks.stream()
                 .filter(t->t.isRepeatable())
                 .collect(Collectors.toCollection(ArrayList::new));
-        ArrayListOfRepeat.stream().forEach(x-> System.out.println(x));
-        // For each t
-            // For each n*timeRepeat + deadline < end
-                // Add new task to lost
-        // return list
         for(Task T: ArrayListOfRepeat) {
-            long inMs = 0L;
-            switch (T.getTimeRepeat()){
-                case "None":
-                    inMs = 0L;
-                    break;
-                case "Repeat Daily":
-                    inMs = 1000*60*60*24L;
-                    break;
-                case "Repeat Weekly":
-                    inMs = 1000*60*60*24*7L;
-                    break;
-            }
+
             T.setDeadline(T.getDeadline()+1);// this is to counteract a bug that happens when the deadline is set to 0000:
-                for (int i=1; (T.getDeadline() + i * inMs) <= end; i++) {
+                for (int i=1; (T.getDeadline() + i * T.getTimeRepeat()) <= end; i++) {
 
                     Task temp = new Task.TaskBuilder(T.getUserName(), T.getName())
-                            .deadline(T.getDeadline() + i * inMs)
-                            .color("#fffffff")
+                            .deadline(T.getDeadline() + i * T.getTimeRepeat())
+                            .color(T.getColor())
                             .build();
                     arrayWithAllClones.add(temp);
                 }
@@ -331,26 +315,36 @@ public class TaskService {
     }
 
     public static void nextRepeatableTask(long taskId){
-        Task task = TaskService.getTaskByCurrentUser(taskId);
-        if(task.isRepeatable()) {
-            long inMs = 0L;
-            switch (task.getTimeRepeat()) {
-                case "None":
-                    inMs = 0L;
-                    break;
-                case "Repeat Daily":
-                    inMs = 1000 * 60 * 60 * 24L;
-                    break;
-                case "Repeat Weekly":
-                    inMs = 1000 * 60 * 60 * 24 * 7L;
-                    break;
-            }
-            if (inMs != 0L) {
-                Task t = TaskDAO.deserializeTask(task.getUserName(), task.getCategory(), task.getId());
-                t.setDeadline(t.getDeadline() + inMs);
+        Task T= TaskService.getTaskByCurrentUser(taskId);
+        if(T.isRepeatable()) {
+            if (T.getTimeRepeat() != 0L) {
+                Task t = TaskDAO.deserializeTask(T.getUserName(), T.getCategory(), T.getId());
+                t.setDeadline(t.getDeadline() + T.getTimeRepeat());
                 t.setId(t.generateId());
                 TaskService.newTask(t);
             }
+        }
+    }
+    public static long convertTimeRepeatToLong(String TimeRepeatString){
+
+        if (TimeRepeatString.equals("Repeat Daily")){
+            return 1000*60*60*24L;
+        }
+        else if (TimeRepeatString.equals("Repeat Weekly")){
+            return 1000*60*60*24*7L;
+        }
+        else{
+            return 0L;
+        }
+    }
+    public static String convertTimeRepeatToString(Task T){
+        if(T.getTimeRepeat() == 1000*60*60*24L){
+            return "Repeat Daily";
+        }else if(T.getTimeRepeat() == 1000*60*60*24*7L){
+            return "Repeat Weekly";
+        }
+        else{
+            return "None";
         }
     }
 }

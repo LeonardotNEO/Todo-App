@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 
@@ -50,7 +51,7 @@ public class TasksController {
         taskController.setTaskDescription(taskObject.getDescription());
         taskController.setTaskDate(DateUtils.getFormattedFullDate(taskObject.getDeadline()));
         taskController.setTaskPriority(taskObject.getPriority());
-        taskController.setRepeatTime(taskObject.getTimeRepeat());
+        taskController.setRepeatTime(TaskService.convertTimeRepeatToString(taskObject));
         taskController.setTaskId(taskObject.getId());
         taskController.setTaskColor(taskObject.getColor());
 

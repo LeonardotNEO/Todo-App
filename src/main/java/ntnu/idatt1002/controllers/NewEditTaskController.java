@@ -119,7 +119,7 @@ public class NewEditTaskController {
         this.priorityMenu.setText(Integer.toString(task.getPriority()));
 
         //set repeatTime
-        this.repeatMenu.setText(task.getTimeRepeat());
+        this.repeatMenu.setText(TaskService.convertTimeRepeatToString(task));
 
         // set notification booleans
         this.notification1Hour.setSelected(task.isNotification1Hour());
@@ -217,13 +217,10 @@ public class NewEditTaskController {
             if(notification24Hours.isSelected()) builder.notification24Hours();
             if(notification7Days.isSelected()) builder.notification7Days();
             if(!repeatMenu.getText().equals("None") && !repeatMenu.getText().isEmpty() && !repeatMenu.getText().equals("Repeat task")) {
-                builder.repeatable(true,repeatMenu.getText());
-                System.out.println("the if works");
+                builder.repeatable(true,TaskService.convertTimeRepeatToLong(repeatMenu.getText()));
             } else {
-                builder.repeatable(false,"None");
-                System.out.println("the else works");
+                builder.repeatable(false, 0L);
             }
-            System.out.println(repeatMenu.getText());
 
 
             // Create the task:
