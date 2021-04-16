@@ -165,7 +165,7 @@ public class TaskService {
         ArrayList<String> unWantedCategories = new ArrayList();
         unWantedCategories.add("Finished tasks");
         unWantedCategories.add("Trash bin");
-        tasks.addAll(getRepeatTasks(getTasksExcludingCategories(getTasksByCurrentUser(),unWantedCategories),end));
+        tasks.addAll(getRepeatTasks(getTasksExcludingCategories(tasks,unWantedCategories),end));
         return tasks.stream()
                 .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
                 .collect(Collectors.toCollection(ArrayList::new));
