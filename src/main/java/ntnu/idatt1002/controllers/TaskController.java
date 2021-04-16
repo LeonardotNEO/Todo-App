@@ -81,9 +81,11 @@ public class TaskController {
         String filesString = "";
         ArrayList<String> filesList = task.getFilePaths();
         for (String file : filesList) {
-            filesString += file + ", ";
+            String [] fileName = file.split("\\\\");
+            filesString += fileName[fileName.length -1] + ", ";
         }
         tags.setText("Tags: " + tagsString);
+        attachedFiles.setText(("Attached files: " + filesString));
         taskDate.setText("This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         setTaskPriority(task.getPriority());
         taskId = task.getId();

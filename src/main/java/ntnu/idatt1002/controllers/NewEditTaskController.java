@@ -300,7 +300,7 @@ public class NewEditTaskController {
                 System.out.println(tag.toString());
                 tagsList.add(tag.toString());
             });
-            oldTask.setTags(tagsList);
+            //oldTask.setTags(tagsList);
 
             // TaskBuilder
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
