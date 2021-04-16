@@ -33,10 +33,9 @@ public class TaskController {
     @FXML private Text duedate;
     @FXML private Text taskLocation;
     @FXML private Text color;
-    @FXML private Text notification1hour;
-    @FXML private Text notification24hours;
-    @FXML private Text notification7days;
+    @FXML private Text notification;
     @FXML private Text tags;
+    @FXML private Text attachedFiles;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
     @FXML private Label taskRepeat;
@@ -55,6 +54,20 @@ public class TaskController {
     }
 
     /**
+     * A method to check if a task has a notification checked.
+     *
+     * @param task the task to check.
+     * @return On if a notification is checked, Off is no notification is checked.
+     */
+    public String checkNotification(Task task) {
+        if (task.isNotification1Hour() || task.isNotification24Hours() || task.isNotification7Days()) {
+            return "On";
+        } else {
+            return "Off";
+        }
+    }
+
+    /**
      * Method for displaying this task UI
      * @param task
      */
@@ -66,9 +79,7 @@ public class TaskController {
         duedate.setText("Due date: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());
-        notification1hour.setText("Notification 1 hour before duedate: " + task.isNotification1Hour());
-        notification24hours.setText("Notification 24 hours before duedate: " + task.isNotification24Hours());
-        notification24hours.setText("Notification 7 days before duedate: " + task.isNotification7Days());
+        notification.setText("Notifications: " + checkNotification(task));
         setRepeatTime(TaskService.convertTimeRepeatToString(task));
         // tags
         String tagsString = "";
@@ -78,7 +89,17 @@ public class TaskController {
                 tagsString += tag + ", ";
             }
         }
+        // files
+        String filesString = "\n";
+        ArrayList<String> filesList = task.getFilePaths();
+        if(filesList!=null) { // null pointer exeption when file list equals null
+            for (String file : filesList) {
+                String[] fileName = file.split("\\\\");
+                filesString += "-" + fileName[fileName.length - 1] + ",\n ";
+            }
+        }
         tags.setText("Tags: " + tagsString);
+        attachedFiles.setText(("Attached files: " + filesString));
         taskDate.setText("This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         setTaskPriority(task.getPriority());
         taskId = task.getId();
@@ -99,14 +120,12 @@ public class TaskController {
         taskLocation.setManaged(false);
         color.setVisible(false);
         color.setManaged(false);
-        notification1hour.setVisible(false);
-        notification1hour.setManaged(false);
-        notification24hours.setVisible(false);
-        notification24hours.setManaged(false);
-        notification7days.setVisible(false);
-        notification7days.setManaged(false);
+        notification.setVisible(false);
+        notification.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
+        attachedFiles.setVisible(false);
+        attachedFiles.setManaged(false);
         spacer.setVisible(false);
         spacer.setManaged(false);
 
@@ -127,14 +146,12 @@ public class TaskController {
         taskLocation.setManaged(true);
         color.setVisible(true);
         color.setManaged(true);
-        notification1hour.setVisible(true);
-        notification1hour.setManaged(true);
-        notification24hours.setVisible(true);
-        notification24hours.setManaged(true);
-        notification7days.setVisible(true);
-        notification7days.setManaged(true);
+        notification.setVisible(true);
+        notification.setManaged(true);
         tags.setVisible(true);
         tags.setManaged(true);
+        attachedFiles.setVisible(true);
+        attachedFiles.setManaged(true);
         spacer.setVisible(true);
         spacer.setManaged(true);
 

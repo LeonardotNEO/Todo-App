@@ -302,7 +302,9 @@ public class NewEditTaskController {
             ArrayList<String> tagsList = new ArrayList<>();
             tags.getChips().forEach(tag -> {
                 System.out.println(tag.toString());
+                tagsList.add(tag.toString());
             });
+            //oldTask.setTags(tagsList);
 
             // TaskBuilder
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())

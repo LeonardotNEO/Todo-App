@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="background" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="-Infinity" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
+<AnchorPane fx:id="background" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="-Infinity" prefWidth="391.0" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
    <children>
       <Text fx:id="taskName" fill="ORANGE" layoutX="5.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="task_name" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fx:id="taskDescription" fill="WHITE" layoutX="5.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="task_description" wrappingWidth="239.0703125" AnchorPane.leftAnchor="5.0">
+      <Text fx:id="taskDescription" fill="WHITE" layoutX="6.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="task_description" wrappingWidth="281.0703125" AnchorPane.leftAnchor="6.0">
          <font>
             <Font size="16.0" />
          </font>
@@ -54,7 +54,7 @@
          </children>
       </HBox>
       <Label fx:id="taskRepeat" layoutX="143.0" layoutY="77.0" text="Repeat" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="100.0" />
-      <Text fx:id="notification1hour" fill="WHITE" layoutX="6.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 1 hour before duedate" wrappingWidth="385.0703125">
+      <Text fx:id="notification" fill="WHITE" layoutX="6.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notification: " wrappingWidth="385.0703125">
          <font>
             <Font size="16.0" />
          </font>
@@ -64,22 +64,17 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="notification24hours" fill="WHITE" layoutX="6.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 24 before duedate" wrappingWidth="375.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="notification7days" fill="WHITE" layoutX="6.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 7 days before duedate" wrappingWidth="385.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
       <Text fx:id="duedate" fill="WHITE" layoutX="5.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="tags" fill="WHITE" layoutX="6.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tags: ....." wrappingWidth="281.0703125">
+      <Text fx:id="tags" fill="WHITE" layoutX="6.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tags: ....." wrappingWidth="281.0703125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="attachedFiles" fill="WHITE" layoutX="6.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="attached files:" wrappingWidth="281.0703125">
          <font>
             <Font size="16.0" />
          </font>
@@ -94,7 +89,7 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <AnchorPane fx:id="spacer" layoutX="98.0" layoutY="297.0" prefHeight="28.0" prefWidth="174.0" />
+      <AnchorPane fx:id="spacer" layoutX="98.0" layoutY="297.0" prefHeight="74.0" prefWidth="174.0" />
    </children>
    <cursor>
       <Cursor fx:constant="HAND" />
