@@ -1,0 +1,27 @@
+[
+  {
+    "section": "task",
+    "title": "New Task",
+    "description": "This page informs you about",
+    "fields": [
+      {
+        "image": null,
+        "text": "This is a help page for task. I will help you get much data fro free"
+      },{
+        "image": null,
+        "text": "Another information field. This is fucking poggers"
+      }
+    ]
+  },
+  {
+    "section": "category",
+    "title": "Category",
+    "description": "This page gives info on about to create add and delete a category",
+    "fields": [
+      {
+        "image": null,
+        "text": "You fucking suck dude."
+      }
+    ]
+  }
+]
