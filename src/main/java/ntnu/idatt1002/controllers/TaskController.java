@@ -51,6 +51,12 @@ public class TaskController {
         addClickTaskListener();
     }
 
+    /**
+     * A method to check if a task has a notification checked.
+     * 
+     * @param task the task to check.
+     * @return On if a notification is checked, Off is no notification is checked.
+     */
     public String checkNotification(Task task) {
         if (task.isNotification1Hour() || task.isNotification24Hours() || task.isNotification7Days()) {
             return "On";
@@ -78,6 +84,7 @@ public class TaskController {
         for(String tag : tagsList){
             tagsString += tag + ", ";
         }
+        // files
         String filesString = "";
         ArrayList<String> filesList = task.getFilePaths();
         for (String file : filesList) {
