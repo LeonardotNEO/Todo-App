@@ -4,6 +4,7 @@ import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserLogDAO;
 
+import java.lang.reflect.Array;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -79,6 +80,16 @@ public class TaskService {
             tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
         }
         return tasksResult;
+    }
+
+    /**
+     * Get tasks that have a given category and project name.
+     *
+     * @param category The category that the tasks should be in.
+     * @return The tasks that were found with the given category.
+     */
+    public static ArrayList<Task> getTasksByCategory(String category, String project){
+        return TaskDAO.list(UserStateService.getCurrentUserUsername(), project, category);
     }
 
     /**

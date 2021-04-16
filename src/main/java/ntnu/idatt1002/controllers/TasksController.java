@@ -43,7 +43,7 @@ public class TasksController {
         TaskController taskController = loader.getController();
 
         // add id to task anchorpane. A task is identified in TaskDAO as the taskobject's hashcode
-        task.setId(Integer.toString(taskObject.hashCode()));
+        task.setId(Long.toString(taskObject.getId()));
 
         // use controller to display task
         taskController.display(taskObject);
@@ -88,7 +88,7 @@ public class TasksController {
                     text.setText("You have no tasks!");
                     break;
                 default:
-                    text.setText("Theres no tasks in this category...\nClick on New-Task-button to add a new task!");
+                    text.setText("");
             }
 
             text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");

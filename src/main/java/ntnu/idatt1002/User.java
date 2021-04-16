@@ -21,6 +21,8 @@ public class User implements Serializable {
 
     // settings
     String currentlySelectedCategory = "";
+    String currentlySelectedProject = "";
+    String currentlySelectedProjectCategory = "";
     String currentlySelectedSort = "";
     boolean rememberMe = false;
     String theme = "";
@@ -60,6 +62,8 @@ public class User implements Serializable {
         this.salt = user.getSalt();
         this.dateCreated = user.getDateCreated();
         this.currentlySelectedCategory = user.getCurrentlySelectedCategory();
+        this.currentlySelectedProject = user.getCurrentlySelectedProject();
+        this.currentlySelectedProjectCategory = user.getCurrentlySelectedProjectCategory();
         this.currentlySelectedSort = user.currentlySelectedSort;
         this.rememberMe = user.isRememberMe();
         this.theme = user.getTheme();
@@ -133,6 +137,28 @@ public class User implements Serializable {
     public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedCategory = currentlySelectedCategory;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public String getCurrentlySelectedProject() {
+        return currentlySelectedProject;
+    }
+
+    public void setCurrentlySelectedProject(String currentlySelectedProject) {
+        User userBeforeChanges = new User(this);
+        this.currentlySelectedProject = currentlySelectedProject;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public String getCurrentlySelectedProjectCategory() {
+        return currentlySelectedProjectCategory;
+    }
+
+    public void setCurrentlySelectedProjectCategory(String currentlySelectedProjectCategory) {
+        User userBeforeChanges = new User(this);
+        this.currentlySelectedProjectCategory = currentlySelectedProjectCategory;
 
         UserService.editUser(userBeforeChanges, this);
     }

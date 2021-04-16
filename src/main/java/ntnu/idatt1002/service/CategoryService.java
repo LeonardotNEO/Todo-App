@@ -29,6 +29,19 @@ public class CategoryService {
         return categories;
     }
 
+    public static String[] getCategoriesByProjectCurrentUser(String projectName){
+        return CategoryDAO.list(UserStateService.getCurrentUser().getUsername(), projectName);
+    }
+
+    public static ArrayList<String> getCategoriesByProjectCurrentUserArraylist(String projectName){
+        ArrayList<String> categories = new ArrayList<>();
+
+        for(String category : getCategoriesByProjectCurrentUser(projectName)){
+            categories.add(category);
+        }
+        return categories;
+    }
+
     /**
      * Method for getting all categories without the premades one defined in premadeCategories objectvariable
      * @return
@@ -55,6 +68,18 @@ public class CategoryService {
         String username = UserStateDAO.getUsername();
         CategoryDAO.delete(username, categoryName);
         UserLogDAO.setCategoryRemoved(username, categoryName);
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory("");
+    }
+
+    /**
+     * Delete categories by current user inside project
+     * @param categoryName
+     */
+    public static void deleteCategoryCurrentUser(String categoryName, String projectName){
+        String username = UserStateService.getCurrentUser().getUsername();
+        CategoryDAO.delete(username, projectName, categoryName);
+        UserLogDAO.setCategoryRemoved(username, categoryName);
+        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory("");
     }
 
     /**
@@ -62,9 +87,17 @@ public class CategoryService {
      * @param categoryName
      */
     public static void addCategoryToCurrentUser(String categoryName){
-        String username = UserStateDAO.getUsername();
-        CategoryDAO.add(username, categoryName);
-        UserLogDAO.setCategoryAdded(username, categoryName);
+        CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), categoryName);
+        UserLogDAO.setCategoryAdded(UserStateService.getCurrentUser().getUsername(), categoryName);
+    }
+
+    /**
+     * Add new category to current user under project
+     * @param projectName
+     * @param categoryName
+     */
+    public static void addCategoryToCurrentUser(String projectName, String categoryName){
+        CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), projectName, categoryName);
     }
 
     /**
