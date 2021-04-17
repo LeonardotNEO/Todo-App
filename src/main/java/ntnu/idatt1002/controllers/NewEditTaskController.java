@@ -45,7 +45,6 @@ public class NewEditTaskController {
     @FXML private TextField titleTextField;
     @FXML private TextField locationTextField;
     @FXML private TextArea descriptionTextArea;
-    @FXML private MenuButton categoryMenu;
     @FXML private HBox timeBox;
     @FXML private JFXDatePicker datePicker;
     @FXML private JFXTimePicker timePicker;
@@ -74,12 +73,9 @@ public class NewEditTaskController {
     /**
      * Method used for initializing new task page.
      */
-    public void initializeNewTask(){
+    public void initializeNewTask(String category, String project){
         // show simple template first
         buttonSimpleTemplate();
-
-        // fill MenuButton categoryMenu with categories
-        setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
 
         // Changes the date format of the datePicker
         this.datePicker.setConverter(new DateConverter());
@@ -121,13 +117,7 @@ public class NewEditTaskController {
         // set location prompt
         this.locationTextField.setText(task.getLocation());
 
-        // set categories in menuButton
-        setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
-
         setTaskWithFiles(task);
-
-        // set category prompt
-        this.categoryMenu.setText(task.getCategory());
 
         // set datepicker prompt and DateConverter
         this.datePicker.setValue(LocalDate.parse(DateUtils.getFormattedDate(task.getDeadline()), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -300,13 +290,25 @@ public class NewEditTaskController {
                 System.out.println(tag.toString());
             });
 
+            // set the category and project of task
+            String projectString = "";
+            String categoryString = "";
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+                categoryString = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
+                projectString = UserStateService.getCurrentUser().getCurrentlySelectedProject();
+            } else {
+                categoryString = UserStateService.getCurrentUser().getCurrentlySelectedCategory();
+                projectString = null;
+            }
+
             // TaskBuilder
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
                     .description(descriptionTextArea.getText())
                     .deadline(deadlineTime)
                     .priority(Integer.parseInt(priorityMenu.getText()))
                     .startDate(DateUtils.getAsMs(LocalDate.now()))
-                    .category(categoryMenu.getText())
+                    .category(categoryString)
+                    .project(projectString)
                     .color(ColorUtil.getCorrectColorFormat(color.getValue().toString()))
                     .location(locationTextField.getText())
                     .tags(tagsList)
@@ -336,9 +338,6 @@ public class NewEditTaskController {
 
             // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
             if(result){
-                // set current category to this tasks category
-                UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryMenu.getText());
-
                 // navigate back to tasks
                 DashboardController.getInstance().initialize();
             }
@@ -381,28 +380,6 @@ public class NewEditTaskController {
         tagsBox.setManaged(true);
         attachBox.setVisible(true);
         attachBox.setManaged(true);
-    }
-
-    /**
-     * Loads categories into categoryMenuButton.
-     *
-     * @param categories
-     */
-    public void setCategoryMenu(ArrayList<String> categories) {
-        for (String category : categories) {
-            MenuItem menuItem = new MenuItem();
-            menuItem.setText(category);
-            menuItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    categoryMenu.setText(category);
-                }
-            });
-
-            categoryMenu.getItems().add(menuItem);
-        }
-
-        categoryMenu.setText(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
     }
 
     /**

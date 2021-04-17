@@ -61,7 +61,13 @@ public class TaskService {
      */
     public static void editCategoryOfTask(Task task, String newCategory){
         TaskDAO.delete(task);
-        task.setCategory(newCategory);
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            task.setCategory(newCategory);
+            task.setProject(null);
+        } else {
+            task.setCategory(newCategory);
+        }
+
         TaskDAO.serialize(task);
         UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
