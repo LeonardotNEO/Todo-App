@@ -53,7 +53,7 @@
                         </JFXButton>
                         <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Projects" textFill="WHITE">
                            <VBox.margin>
-                              <Insets left="-5.0" top="30.0" />
+                              <Insets left="-5.0" top="20.0" />
                            </VBox.margin>
                         </Button>
                         <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" stylesheets="@../css/category_scrollbar.css">
