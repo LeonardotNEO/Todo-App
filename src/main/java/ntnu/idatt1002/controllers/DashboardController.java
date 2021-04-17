@@ -29,12 +29,14 @@ public class DashboardController {
     private static DashboardController instance;
 
     //FXML
-    @FXML private Text categoryName;
+    @FXML private Label categoryName;
+    @FXML private Label projectName;
     @FXML private VBox categories;
     @FXML private VBox projects;
     @FXML private BorderPane borderPane;
     @FXML private MenuButton sort;
     @FXML private HBox categoryHBox;
+    @FXML private HBox projectHBox;
     @FXML private HBox taskHBox;
     @FXML private Button buttonEditCategory;
     @FXML private Button buttonDeleteCategory;
@@ -153,37 +155,42 @@ public class DashboardController {
      * Update update category/task edit/delete bar according to UserStateService values
      */
     public void updateCategoryEditDeleteBar(){
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty() && UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
-            categoryHBox.setVisible(false);
-            taskHBox.setVisible(false);
-        } else {
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-                categoryName.setText(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory());
+        if(!UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
+            projectName.setText(UserStateService.getCurrentUser().getCurrentlySelectedProject());
+            projectHBox.setVisible(true);
+            projectHBox.setManaged(true);
 
-                // show category and task HBox
-                categoryHBox.setVisible(true);
-                taskHBox.setVisible(true);
+            categoryName.setText(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory());
+            categoryHBox.setVisible(true);
+            categoryHBox.setManaged(true);
+        } else if(!UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            categoryName.setText(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+            categoryHBox.setVisible(true);
+            categoryHBox.setManaged(true);
+            taskHBox.setVisible(true);
+
+            projectHBox.setVisible(false);
+            projectHBox.setManaged(false);
+
+            // If any of the premade categories is selected, we wont show edit/delete button
+            if(CategoryService.getPremadeCategories().contains(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
+                buttonEditCategory.setVisible(false);
+                buttonDeleteCategory.setVisible(false);
             } else {
-                // set categorytitle to category in savefile
-                categoryName.setText(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
-
-                // show category and task HBox
-                categoryHBox.setVisible(true);
-                taskHBox.setVisible(true);
-
-                // if trashbin or finished task category is selected, we wont show edit/delete button and taskBar
-                if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Trash bin")
-                        || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("Finished tasks")
-                        || UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
-                    buttonEditCategory.setVisible(false);
-                    buttonDeleteCategory.setVisible(false);
-                    taskHBox.setVisible(false);
-                } else {
-                    buttonEditCategory.setVisible(true);
-                    buttonDeleteCategory.setVisible(true);
-                    taskHBox.setVisible(true);
-                }
+                buttonEditCategory.setVisible(true);
+                buttonDeleteCategory.setVisible(true);
             }
+        } else if(!UserStateService.getCurrentUser().getCurrentlySelectedProject().isEmpty() && UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
+            projectName.setText(UserStateService.getCurrentUser().getCurrentlySelectedProject());
+            projectHBox.setVisible(true);
+            projectHBox.setManaged(true);
+            categoryHBox.setVisible(false);
+            categoryHBox.setManaged(false);
+        } else {
+            categoryHBox.setVisible(false);
+            categoryHBox.setManaged(false);
+            projectHBox.setVisible(false);
+            projectHBox.setManaged(false);
         }
     }
 
@@ -214,8 +221,13 @@ public class DashboardController {
         Node node = loader.load();
         NewEditCategoryController newEditCategoryController = loader.getController();
 
-        // load the newCategory part of newEditCategoryController
-        newEditCategoryController.intializeEditCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+        // load the editCategory part of newEditCategoryController
+        // we differentiate between when project category and ordinary category is selected
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            newEditCategoryController.intializeEditCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject());
+        } else {
+            newEditCategoryController.intializeEditCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject());
+        }
 
         // set dashboard content to editMenu
         setCenterContent(node);
@@ -228,15 +240,11 @@ public class DashboardController {
     public void buttonDeleteCategory() throws IOException {
         if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
             CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject());
-            UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory("");
         } else {
             CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory("");
         }
 
-
-
-        // initialize dashboard
+        // reload dashboard
         initialize();
     }
 
@@ -255,6 +263,26 @@ public class DashboardController {
 
         // set dashboard content to editMenu
         setCenterContent(node);
+    }
+
+    public void buttonEditProject() throws IOException {
+        // Load newEditTask page. get fxml variable and controller variable
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditProject.fxml"));
+        Node node = loader.load();
+        NewEditProjectController newEditProjectController = loader.getController();
+
+        // load the newCategory part of newEditCategoryController
+        newEditProjectController.initializeEdit();
+
+        // set dashboard content to editMenu
+        setCenterContent(node);
+    }
+
+    public void buttonDeleteProject() throws IOException {
+        ProjectService.deleteProjectCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProject());
+
+        // reload dashboard
+        initialize();
     }
 
     /**

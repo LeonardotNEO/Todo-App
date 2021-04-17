@@ -92,10 +92,6 @@ public class CategoryMenuButtonController {
         DashboardController.getInstance().setCenterContent(node);
     }
 
-    public void buttonAddTaskToProjectCategory(){
-
-    }
-
     public void setStyleOfButton(Button button){
         // set icons for trash bin and finished tasks
         FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
@@ -141,15 +137,16 @@ public class CategoryMenuButtonController {
     }
 
     public void buttonClickNormalCategory(String category) throws IOException {
+
         UserStateService.getCurrentUser().setCurrentlySelectedCategory(category);
-        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory("");
+
         DashboardController.getInstance().initialize();
     }
 
     public void buttonClickProjectCategory(String category, String project) throws IOException {
-        UserStateService.getCurrentUser().setCurrentlySelectedCategory("");
         UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(category);
         UserStateService.getCurrentUser().setCurrentlySelectedProject(project);
+
         DashboardController.getInstance().initialize();
     }
 

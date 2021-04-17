@@ -88,6 +88,7 @@ public class CategoryService {
      */
     public static void addCategoryToCurrentUser(String categoryName){
         CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), categoryName);
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryName);
         UserLogDAO.setCategoryAdded(UserStateService.getCurrentUser().getUsername(), categoryName);
     }
 
@@ -98,6 +99,7 @@ public class CategoryService {
      */
     public static void addCategoryToCurrentUser(String projectName, String categoryName){
         CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), projectName, categoryName);
+        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryName);
     }
 
     /**

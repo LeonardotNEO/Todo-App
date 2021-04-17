@@ -80,11 +80,15 @@ public class TaskService {
      */
     public static ArrayList<Task> getTasksByCategory(String category){
         ArrayList<Task> tasksResult = new ArrayList<>();
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
-            tasksResult = TaskService.getTasksByCurrentUser();
-        } else {
-            tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
+                tasksResult = TaskService.getTasksByCurrentUser();
+            } else {
+                tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+            }
         }
+
         return tasksResult;
     }
 

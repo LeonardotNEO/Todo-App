@@ -40,13 +40,17 @@ public class NewEditCategoryController {
         });
     }
 
-    public void intializeEditCategory(String categoryName){
+    public void intializeEditCategory(String categoryName, String projectName){
         headerText.setText("Edit category");
 
         button.setText("Edit category");
         button.setOnAction(event -> {
             try {
-                buttonEditCategory();
+                if(projectName.isEmpty()){
+                    buttonEditCategory();
+                } else {
+                    buttonEditCategoryUnderProject(projectName);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -73,11 +77,11 @@ public class NewEditCategoryController {
             if(projectName.isEmpty()){
                 CategoryService.addCategoryToCurrentUser(categoryTitle.getText());
                 UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle.getText());
-                UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory("");
             } else {
                 CategoryService.addCategoryToCurrentUser(projectName, categoryTitle.getText());
-                UserStateService.getCurrentUser().setCurrentlySelectedCategory("");
+
                 UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryTitle.getText());
+                UserStateService.getCurrentUser().setCurrentlySelectedProject(projectName);
             }
 
             // load dashboard back in
@@ -105,6 +109,32 @@ public class NewEditCategoryController {
 
             // Set current category to new one
             UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle.getText());
+
+            // Load dashboard into mainContent
+            DashboardController.getInstance().initialize();
+        } else {
+            errorMessage.setText("Title need to be between 0 and 24 characters");
+        }
+    }
+
+    /**
+     * Edit category button allows one to edit a category which is already created under a project, by recreating a new one with the
+     * changes in its place
+     * @throws IOException
+     */
+    public void buttonEditCategoryUnderProject(String projectName) throws IOException {
+        if(CategoryService.validateCategoryTitleSyntax(categoryTitle.getText())){
+            // Make new category
+            CategoryService.addCategoryToCurrentUser(categoryTitle.getText(), projectName);
+
+            // Move tasks in old category to new category
+            TaskService.editCategoryOfTasks(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), projectName), categoryTitle.getText());
+
+            // Delete old category
+            CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory());
+
+            // Set current category to new one
+            UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryTitle.getText());
 
             // Load dashboard into mainContent
             DashboardController.getInstance().initialize();

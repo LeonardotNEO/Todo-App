@@ -137,6 +137,8 @@ public class User implements Serializable {
     public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedCategory = currentlySelectedCategory;
+        this.currentlySelectedProjectCategory = "";
+        this.currentlySelectedProject = "";
 
         UserService.editUser(userBeforeChanges, this);
     }
@@ -148,6 +150,7 @@ public class User implements Serializable {
     public void setCurrentlySelectedProject(String currentlySelectedProject) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedProject = currentlySelectedProject;
+        this.currentlySelectedCategory = "";
 
         UserService.editUser(userBeforeChanges, this);
     }
@@ -159,6 +162,7 @@ public class User implements Serializable {
     public void setCurrentlySelectedProjectCategory(String currentlySelectedProjectCategory) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedProjectCategory = currentlySelectedProjectCategory;
+        this.currentlySelectedCategory = "";
 
         UserService.editUser(userBeforeChanges, this);
     }
