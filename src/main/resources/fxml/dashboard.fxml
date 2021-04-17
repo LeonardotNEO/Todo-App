@@ -23,9 +23,9 @@
                <children>
                   <VBox prefWidth="250.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="230.0" styleClass="background-color_1" text="Categories" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Categories" textFill="WHITE">
                            <VBox.margin>
-                              <Insets />
+                              <Insets left="-5.0" />
                            </VBox.margin>
                         </Button>
                         <ScrollPane maxHeight="1.7976931348623157E308" prefWidth="240.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" stylesheets="@../css/category_scrollbar.css">
@@ -50,9 +50,9 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <Button mnemonicParsing="false" prefWidth="230.0" styleClass="background-color_1" text="Projects" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Projects" textFill="WHITE">
                            <VBox.margin>
-                              <Insets top="30.0" />
+                              <Insets left="-5.0" top="30.0" />
                            </VBox.margin>
                         </Button>
                         <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" stylesheets="@../css/category_scrollbar.css">
