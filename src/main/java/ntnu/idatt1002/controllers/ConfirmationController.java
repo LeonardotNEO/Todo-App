@@ -1,6 +1,8 @@
 package ntnu.idatt1002.controllers;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -19,6 +21,7 @@ import java.io.IOException;
 public class ConfirmationController {
 
     private TaskController task;
+    private String operation;
     @FXML private Button noButton;
     @FXML private Button yesButton;
     @FXML private CheckBox checkBox;
@@ -55,8 +58,12 @@ public class ConfirmationController {
         ConfirmationController controllerInstance = loader.getController();
         controllerInstance.setTask(task);
 
-        //TODO Add common text: info om repeatable task
+        // So other methods can access the operation string
+        controllerInstance.operation = operation;
+
+        // Repeatable task text added as standard
         if (operation.equalsIgnoreCase("delete")) {
+            // This is the standard texts in the fxml file and not really needed
             controllerInstance.confirmQuestion.setText("Are you sure you want to delete this task?");
             controllerInstance.extraText.setText("It wil only go in to the trash bin for now...");
             controllerInstance.checkBox.setText("This message is annoying, dont show it again!");
@@ -71,41 +78,54 @@ public class ConfirmationController {
         controllerInstance.popup.getContent().add(root);
         controllerInstance.popup.setAutoHide(true);
         controllerInstance.popup.show(App.getStage());
-
-
-
-        // Alternative code: New window with Modality
-
-        /*
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/confirmation.fxml"));
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        */
     }
 
     @FXML
     void dontShowAgain(ActionEvent event) {
     }
 
+    /**
+     * Executes operation
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void yesOption(ActionEvent event) throws IOException{
         if (checkBox.isSelected()) {
-            UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
+            if (operation.equalsIgnoreCase("delete")) {
+                UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
+            } else if (operation.equalsIgnoreCase("finish")) {
+                UserStateService.getCurrentUser().setFinishTaskDontShowAgainCheckbox(true);
+            }
         }
-        this.task.deleteTask(event);
+        if (operation.equalsIgnoreCase("delete")) {
+            this.task.deleteTask(event);
+        } else if (operation.equalsIgnoreCase("finish")) {
+            this.task.finishTask(event);
+        }
         popup.hide();
     }
 
+    /**
+     * Cancels operation
+     * @param event
+     */
     @FXML
     void noOption(ActionEvent event) {
         if (checkBox.isSelected()) {
-            UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
+            if (operation.equalsIgnoreCase("delete")) {
+                UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
+            } else if (operation.equalsIgnoreCase("finish")) {
+                UserStateService.getCurrentUser().setFinishTaskDontShowAgainCheckbox(true);
+            }
         }
         popup.hide();
     }
 
+    /**
+     * For setting parent task, in order to access its methods.
+     * @param task
+     */
     public void setTask(TaskController task) {
         this.task = task;
     }

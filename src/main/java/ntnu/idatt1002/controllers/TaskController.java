@@ -165,7 +165,7 @@ public class TaskController {
             displayFullTask();
         }
     }
-    
+
     /**
      * Checks for confirmation popup settings. Calls this.finishTask() if true.
      * Displays confirmation popup if false.
