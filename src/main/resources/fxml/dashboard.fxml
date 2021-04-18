@@ -202,6 +202,6 @@
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="625.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="TOP_LEFT" />
+      <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="625.0" styleClass="background-color_grey" BorderPane.alignment="TOP_LEFT" />
    </center>
 </BorderPane>

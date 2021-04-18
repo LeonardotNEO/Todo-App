@@ -3,6 +3,7 @@
   -fx-color-2: #001933;
   -fx-color-3: #00254d;
   -fx-color-4: orange;
+  -fx-color-5: #e6e6e6;
 }
 
 /* GENERAL */
@@ -40,6 +41,10 @@
 }
 .background-color_white {
   -fx-background-color: white;
+}
+
+.background-color_grey {
+  -fx-background-color: -fx-color-5;
 }
 
 
@@ -163,7 +168,7 @@
 
 .simple-advanced-background {
   -fx-background-radius: 20;
-  -fx-background-color: linear-gradient(#f5f1f1, #dfeadf);
+  -fx-background-color: linear-gradient(#e7dede, #d0d9d0);
 }
 
 .overview-navbar {

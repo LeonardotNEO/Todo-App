@@ -48,6 +48,8 @@ public class TaskController {
      */
     public void initialize(){
         addClickTaskListener();
+        background.setVisible(false);
+        background.setManaged(false);
     }
 
     /**
@@ -57,7 +59,7 @@ public class TaskController {
     public void display(Task task){
         // We set the height for taskDescription to its initial value (the height when Task UI is loaded), then we save this value to use it later for when we maximize task view.
         // But after we have set the height value for opening the task maximized in the future, we can then display the minimized task.
-        taskDescription.setText("Description: " + task.getDescription());
+        taskDescription.setText(task.getDescription());
         taskDescription.heightProperty().addListener((ob, oldValue, newValue) -> {
             if(taskDescriptionHeight == 0){
                 taskDescriptionHeight = newValue.doubleValue();
@@ -65,8 +67,9 @@ public class TaskController {
             }
         });
 
-        taskName.setText("Name: " + task.getName());
+        taskName.setText(task.getName());
         category.setText("Category: " + task.getCategory());
+        project.setText("Project: " + task.getProject());
         startdate.setText("Start date: " + DateUtils.getFormattedFullDate(task.getStartDate()));
         duedate.setText("Due date: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         taskLocation.setText("Location: " + task.getLocation());
@@ -131,6 +134,8 @@ public class TaskController {
         notification7days.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
+        background.setVisible(true);
+        background.setManaged(true);
 
         fullDisplayed = false;
     }

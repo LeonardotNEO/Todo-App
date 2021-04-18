@@ -91,14 +91,19 @@ public class TasksController {
     }
 
     public void showAddTaskButton(){
-        if(!UserStateService.getCurrentUser().getCurrentlySelectedProject().isEmpty() && UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
-            buttonAddTask.setVisible(false);
-            buttonAddTask.setManaged(false);
+        // set button to hidden as default
+        buttonAddTask.setVisible(false);
+        buttonAddTask.setManaged(false);
+
+        if(!UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
+            buttonAddTask.setVisible(true);
+            buttonAddTask.setManaged(true);
         }
-        if(CategoryService.getPremadeCategories().contains(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
-            buttonAddTask.setVisible(false);
-            buttonAddTask.setManaged(false);
+        if(!UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty() && !CategoryService.getPremadeCategories().contains(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
+            buttonAddTask.setVisible(true);
+            buttonAddTask.setManaged(true);
         }
+
     }
 
     /**
@@ -147,10 +152,7 @@ public class TasksController {
      * Method for displaying UI in tasks when we are using searchbar
      */
     public void tasksIsEmptySearch(){
-        Text text = new Text();
-        text.setText("No task matching your search!");
-        text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
-        tasksVBox.getChildren().add(text);
+        showMessage("No task matching your search!");
     }
 
     /**

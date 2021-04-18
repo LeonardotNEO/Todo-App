@@ -20,7 +20,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Label fx:id="taskDescription" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" text="some text some text some text some text some text some text some text some text some text some text some text some text some text some text some text some text some text some text some text some text some text some text " textFill="WHITE" wrapText="true">
+            <Label fx:id="taskDescription" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font>
