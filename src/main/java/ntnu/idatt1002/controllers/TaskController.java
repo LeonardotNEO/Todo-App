@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
@@ -26,7 +27,7 @@ public class TaskController {
     private long taskId;
     @FXML private Text taskName;
     @FXML private Label taskDescription;
-    private double taskDescriptionHeight = 0;
+    private double taskDescriptionHeight;
     @FXML private Text project;
     @FXML private Text category;
     @FXML private Text startdate;
@@ -48,15 +49,14 @@ public class TaskController {
      */
     public void initialize(){
         addClickTaskListener();
-
+        displayMinimizedTask();
         // We set the height for taskDescription to its initial value (the height when Task UI is loaded), then we save this value to use it later for when we maximize task view.
         // But after we have set the height value for opening the task maximized in the future, we can then display the minimized task.
-        taskDescription.heightProperty().addListener((ob, oldValue, newValue) -> {
-            if(taskDescriptionHeight == 0){
-                taskDescriptionHeight = newValue.doubleValue();
-                displayMinimizedTask();
-            }
-        });
+        /*taskDescription.heightProperty().addListener((ob, oldValue, newValue) -> {
+            taskDescriptionHeight = newValue.doubleValue();
+            displayMinimizedTask();
+        });*/
+
     }
 
     /**
@@ -112,10 +112,6 @@ public class TaskController {
      */
     public void displayMinimizedTask(){
         taskDescription.setPrefHeight(50);
-
-        background.setVisible(true);
-        background.setManaged(true);
-
         project.setVisible(false);
         project.setManaged(false);
         category.setVisible(false);
@@ -144,7 +140,20 @@ public class TaskController {
      * Method for displaying this task with full UI
      */
     public void displayFullTask(){
-        taskDescription.setPrefHeight(taskDescriptionHeight);
+        // In order to get the proper height for the description when we load the maximized view, we recreate the label and put font size and wrapping.
+        // Then we set the width of the label in order to simulate what height the label will end up width after wrapping around that width (Background of Task UI is the width).
+        // We have to add a listener to the label, in order to execute the code when the height property has been fully set. When that is done we can set the height of our
+        // taskDescription label. We delete the sample label since we dont need it anymore.
+        Label label = new Label(taskDescription.getText());
+        label.setWrapText(true);
+        background.getChildren().add(label);
+        label.setPrefWidth(background.getWidth());
+        label.setFont(new Font(16));
+        label.heightProperty().addListener((obj, oldValue, newValue) -> {
+            taskDescription.setPrefHeight(label.getHeight());
+            background.getChildren().removeAll(label);
+        });
+
         project.setVisible(true);
         project.setManaged(true);
         category.setVisible(true);
