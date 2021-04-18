@@ -177,7 +177,7 @@
             </VBox>
             <HBox fx:id="taskHBox" alignment="CENTER_RIGHT" layoutX="758.0" maxWidth="-Infinity" prefHeight="75.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" style="-fx-font-size: 12; -fx-background-radius: 10;" styleClass="background-color_1" text="Sort" textFill="WHITE">
+                  <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-font-size: 15; -fx-background-radius: 10;" styleClass="background-color_1" text="Sort" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -188,7 +188,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MenuButton>
-                  <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="31.0" prefWidth="111.0" promptText="Search..." style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white; -fx-font-style: none;" styleClass="background-color_1">
+                  <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="120.0" promptText="Search..." style="-fx-font-size: 15; -fx-background-radius: 10; -fx-text-fill: white; -fx-font-style: none;" styleClass="background-color_1">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
