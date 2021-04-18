@@ -48,8 +48,15 @@ public class TaskController {
      */
     public void initialize(){
         addClickTaskListener();
-        background.setVisible(false);
-        background.setManaged(false);
+
+        // We set the height for taskDescription to its initial value (the height when Task UI is loaded), then we save this value to use it later for when we maximize task view.
+        // But after we have set the height value for opening the task maximized in the future, we can then display the minimized task.
+        taskDescription.heightProperty().addListener((ob, oldValue, newValue) -> {
+            if(taskDescriptionHeight == 0){
+                taskDescriptionHeight = newValue.doubleValue();
+                displayMinimizedTask();
+            }
+        });
     }
 
     /**
@@ -57,16 +64,7 @@ public class TaskController {
      * @param task
      */
     public void display(Task task){
-        // We set the height for taskDescription to its initial value (the height when Task UI is loaded), then we save this value to use it later for when we maximize task view.
-        // But after we have set the height value for opening the task maximized in the future, we can then display the minimized task.
         taskDescription.setText(task.getDescription());
-        taskDescription.heightProperty().addListener((ob, oldValue, newValue) -> {
-            if(taskDescriptionHeight == 0){
-                taskDescriptionHeight = newValue.doubleValue();
-                displayMinimizedTask();
-            }
-        });
-
         taskName.setText(task.getName());
         category.setText("Category: " + task.getCategory());
         project.setText("Project: " + task.getProject());
@@ -114,6 +112,10 @@ public class TaskController {
      */
     public void displayMinimizedTask(){
         taskDescription.setPrefHeight(50);
+
+        background.setVisible(true);
+        background.setManaged(true);
+
         project.setVisible(false);
         project.setManaged(false);
         category.setVisible(false);
@@ -134,8 +136,6 @@ public class TaskController {
         notification7days.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
-        background.setVisible(true);
-        background.setManaged(true);
 
         fullDisplayed = false;
     }
