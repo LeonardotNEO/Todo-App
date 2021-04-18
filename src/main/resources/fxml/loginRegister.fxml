@@ -110,7 +110,7 @@
             </AnchorPane>
             <AnchorPane fx:id="loginAccountsContent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="background-color_3" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ScrollPane fx:id="scrollPane" style="-fx-background-color: transparent; -fx-background: transparent;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <ScrollPane fx:id="scrollPane" style="-fx-background-color: transparent; -fx-background: transparent;" stylesheets="@../css/category_scrollbar.css" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <content>
                         <VBox fx:id="userVbox" spacing="10.0" />
                      </content>
