@@ -5,9 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
@@ -27,7 +25,9 @@ public class TaskController {
     private boolean fullDisplayed;
     private long taskId;
     @FXML private Text taskName;
-    @FXML private Text taskDescription;
+    @FXML private Label taskDescription;
+    private double taskDescriptionHeight = 0;
+    @FXML private Text project;
     @FXML private Text category;
     @FXML private Text startdate;
     @FXML private Text duedate;
@@ -41,14 +41,12 @@ public class TaskController {
     @FXML private Label taskPriority;
     @FXML private Pane background;
     @FXML private HBox toolsHBox;
-    @FXML private AnchorPane spacer;
 
 
     /**
      * At initializing of this UI, we display the minimized version
      */
     public void initialize(){
-        displayMinimizedTask();
         addClickTaskListener();
     }
 
@@ -57,16 +55,44 @@ public class TaskController {
      * @param task
      */
     public void display(Task task){
-        taskName.setText(task.getName());
-        taskDescription.setText(task.getDescription());
+        // We set the height for taskDescription to its initial value (the height when Task UI is loaded), then we save this value to use it later for when we maximize task view.
+        // But after we have set the height value for opening the task maximized in the future, we can then display the minimized task.
+        taskDescription.setText("Description: " + task.getDescription());
+        taskDescription.heightProperty().addListener((ob, oldValue, newValue) -> {
+            if(taskDescriptionHeight == 0){
+                taskDescriptionHeight = newValue.doubleValue();
+                displayMinimizedTask();
+            }
+        });
+
+        taskName.setText("Name: " + task.getName());
         category.setText("Category: " + task.getCategory());
         startdate.setText("Start date: " + DateUtils.getFormattedFullDate(task.getStartDate()));
         duedate.setText("Due date: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());
-        notification1hour.setText("Notification 1 hour before duedate: " + task.isNotification1Hour());
-        notification24hours.setText("Notification 24 hours before duedate: " + task.isNotification24Hours());
-        notification24hours.setText("Notification 7 days before duedate: " + task.isNotification7Days());
+
+        String yesNo;
+        if(task.isNotification1Hour()){
+            yesNo = "Yes";
+        } else {
+            yesNo = "No";
+        }
+        notification1hour.setText("Notification 1 hour: " + yesNo);
+
+        if(task.isNotification24Hours()){
+            yesNo = "Yes";
+        } else {
+            yesNo = "No";
+        }
+        notification24hours.setText("Notification 24 hours: " + yesNo);
+
+        if(task.isNotification7Days()){
+            yesNo = "Yes";
+        } else {
+            yesNo = "No";
+        }
+        notification7days.setText("Notification 7 days: " + yesNo);
         // tags
         String tagsString = "";
         ArrayList<String> tagsList = task.getTags();
@@ -84,6 +110,9 @@ public class TaskController {
      * Method for displaying this task with minimized UI
      */
     public void displayMinimizedTask(){
+        taskDescription.setPrefHeight(50);
+        project.setVisible(false);
+        project.setManaged(false);
         category.setVisible(false);
         category.setManaged(false);
         startdate.setVisible(false);
@@ -102,8 +131,6 @@ public class TaskController {
         notification7days.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
-        spacer.setVisible(false);
-        spacer.setManaged(false);
 
         fullDisplayed = false;
     }
@@ -112,6 +139,9 @@ public class TaskController {
      * Method for displaying this task with full UI
      */
     public void displayFullTask(){
+        taskDescription.setPrefHeight(taskDescriptionHeight);
+        project.setVisible(true);
+        project.setManaged(true);
         category.setVisible(true);
         category.setManaged(true);
         startdate.setVisible(true);
@@ -130,8 +160,6 @@ public class TaskController {
         notification7days.setManaged(true);
         tags.setVisible(true);
         tags.setManaged(true);
-        spacer.setVisible(true);
-        spacer.setManaged(true);
 
         fullDisplayed = true;
     }
@@ -210,13 +238,13 @@ public class TaskController {
         background.setStyle("-fx-background-color: " + backgroundColor + "; -fx-background-radius:  5 20 5 5;");
 
         if(ColorUtil.isVisibilityRatingOverThreshold(backgroundColor)){
-            taskDescription.setFill(Paint.valueOf("white"));
+            taskDescription.setTextFill(Paint.valueOf("white"));
             taskDate.setTextFill(Paint.valueOf("white"));
             taskPriority.setTextFill(Paint.valueOf("white"));
             taskName.setFill(Paint.valueOf("white"));
             toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
         } else {
-            taskDescription.setFill(Paint.valueOf("black"));
+            taskDescription.setTextFill(Paint.valueOf("black"));
             taskDate.setTextFill(Paint.valueOf("black"));
             taskPriority.setTextFill(Paint.valueOf("black"));
             taskName.setFill(Paint.valueOf("black"));
@@ -243,4 +271,5 @@ public class TaskController {
         MainController.getInstance().setMainContent("dashboard");
         DashboardController.getInstance().setCenterContent(editMenu);
     }
+
 }

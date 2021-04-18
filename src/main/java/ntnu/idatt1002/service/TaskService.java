@@ -316,7 +316,7 @@ public class TaskService {
         if(title.length() < 1 || title.length() > 30){
             errorsCodes.add(1);
         }
-        if(description.length() > 170){
+        if(description.length() > 5000){
             errorsCodes.add(2);
         }
         try{
