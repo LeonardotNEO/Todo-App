@@ -49,6 +49,8 @@ public class DashboardController {
         instance = this;
     }
 
+
+
     /**
      * The initialize method used to load dashboard.
      *
@@ -325,13 +327,13 @@ public class DashboardController {
      */
     public void addSortingOptions(){
         if(normalCategory.isEmpty()){
-            sort.getItems().add(createSortingMenuItem("Priority", projectCategory, project));
-            sort.getItems().add(createSortingMenuItem("Date", projectCategory, project));
-            sort.getItems().add(createSortingMenuItem("Alphabet", projectCategory, project));
+            sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(projectCategory, project))));
+            sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(projectCategory, project))));
+            sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(projectCategory, project))));
         } else {
-            sort.getItems().add(createSortingMenuItem("Priority", projectCategory, null));
-            sort.getItems().add(createSortingMenuItem("Date", projectCategory, null));
-            sort.getItems().add(createSortingMenuItem("Alphabet", projectCategory, null));
+            sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(normalCategory))));
+            sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(normalCategory))));
+            sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(normalCategory))));
         }
     }
 
@@ -414,14 +416,14 @@ public class DashboardController {
      * @param name
      * @return
      */
-    public MenuItem createSortingMenuItem(String name, String category, String project){
+    public MenuItem createSortingMenuItem(String name, ArrayList<Task> tasks){
         MenuItem menuItem = new MenuItem();
         menuItem.setText(name);
         menuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    loadTasksPage(category, project);
+                    loadTasksPage(tasks);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
