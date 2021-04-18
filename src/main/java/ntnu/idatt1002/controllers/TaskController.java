@@ -140,20 +140,7 @@ public class TaskController {
      * Method for displaying this task with full UI
      */
     public void displayFullTask(){
-        // In order to get the proper height for the description when we load the maximized view, we recreate the label and put font size and wrapping.
-        // Then we set the width of the label in order to simulate what height the label will end up width after wrapping around that width (Background of Task UI is the width).
-        // We have to add a listener to the label, in order to execute the code when the height property has been fully set. When that is done we can set the height of our
-        // taskDescription label. We delete the sample label since we dont need it anymore.
-        Label label = new Label(taskDescription.getText());
-        label.setWrapText(true);
-        background.getChildren().add(label);
-        label.setPrefWidth(background.getWidth());
-        label.setFont(new Font(16));
-        label.heightProperty().addListener((obj, oldValue, newValue) -> {
-            taskDescription.setPrefHeight(label.getHeight());
-            background.getChildren().removeAll(label);
-        });
-
+        setHeightOfTaskDescription();
         project.setVisible(true);
         project.setManaged(true);
         category.setVisible(true);
@@ -284,6 +271,24 @@ public class TaskController {
         // set mainControllers maincontent to dashboard and set dashboard to editpage
         MainController.getInstance().setMainContent("dashboard");
         DashboardController.getInstance().setCenterContent(editMenu);
+    }
+
+    /**
+     * In order to get the proper height for the description when we load the maximized view, we recreate the label and put font size and wrapping.
+     * Then we set the width of the label in order to simulate what height the label will end up width after wrapping around that width (Background of Task UI is the width).
+     * We have to add a listener to the label, in order to execute the code when the height property has been fully set. When that is done we can set the height of our
+     * taskDescription label. We delete the sample label since we dont need it anymore.
+     */
+    public void setHeightOfTaskDescription(){
+        Label label = new Label(taskDescription.getText());
+        label.setWrapText(true);
+        background.getChildren().add(label);
+        label.setPrefWidth(background.getWidth());
+        label.setFont(new Font(16));
+        label.heightProperty().addListener((obj, oldValue, newValue) -> {
+            taskDescription.setPrefHeight(label.getHeight());
+            background.getChildren().removeAll(label);
+        });
     }
 
 }
