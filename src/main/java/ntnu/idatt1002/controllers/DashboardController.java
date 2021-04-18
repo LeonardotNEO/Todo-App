@@ -27,6 +27,9 @@ import java.util.ArrayList;
 public class DashboardController {
     //VARIABLES
     private static DashboardController instance;
+    private String normalCategory;
+    private String projectCategory;
+    private String project;
 
     //FXML
     @FXML private Label categoryName;
@@ -54,12 +57,16 @@ public class DashboardController {
     public void initialize() throws IOException {
         // load tasks
         // we differentiate between loading normal categories and project categories
-        if(!UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()));
-        } else if(!UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()) {
-            loadTasksPage(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject()));
+        normalCategory = UserStateService.getCurrentUser().getCurrentlySelectedCategory();
+        projectCategory = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
+        project = UserStateService.getCurrentUser().getCurrentlySelectedProject();
+
+        if(!normalCategory.isEmpty()){
+            loadTasksPage(normalCategory, null);
+        } else if(!projectCategory.isEmpty()) {
+            loadTasksPage(projectCategory, project);
         } else {
-            loadTasksPage(null);
+            loadTasksPage(null, null);
         }
 
         // load category buttons to categories VBox
@@ -317,14 +324,14 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject()))));
-            sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject()))));
-            sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject()))));
+        if(normalCategory.isEmpty()){
+            sort.getItems().add(createSortingMenuItem("Priority", projectCategory, project));
+            sort.getItems().add(createSortingMenuItem("Date", projectCategory, project));
+            sort.getItems().add(createSortingMenuItem("Alphabet", projectCategory, project));
         } else {
-            sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
-            sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
-            sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()))));
+            sort.getItems().add(createSortingMenuItem("Priority", projectCategory, null));
+            sort.getItems().add(createSortingMenuItem("Date", projectCategory, null));
+            sort.getItems().add(createSortingMenuItem("Alphabet", projectCategory, null));
         }
     }
 
@@ -345,7 +352,40 @@ public class DashboardController {
 
     /**
      * Loads an empty Tasks UI elements, adds task UI elements to it. Then we set center content of dashboard to tasks.fxml
-     * @param tasks
+     * @throws IOException
+     */
+    public void loadTasksPage(String category, String project) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
+        BorderPane borderPane = loader.load();
+        TasksController tasksController = loader.getController();
+
+        tasksController.initializeTasksController(category, project);
+
+        ArrayList<Task> tasks = new ArrayList<>();
+        if(project == null){
+            tasks = TaskService.getTasksByCategory(category);
+        } else {
+            tasks = TaskService.getTasksByCategory(category, project);
+        }
+
+        if(tasks == null || tasks.contains(null) || tasks.isEmpty()){
+            tasksController.tasksIsEmpty();
+        } else {
+            // add tasks to generated taskspage
+            tasksController.addTasks(tasks);
+
+            // show no message when loaded tasks are not equals 0
+            tasksController.showMessage(null);
+
+            // update MenuButton sort with newest arraylists<Task>
+            updateSortingOptions();
+        }
+
+        setCenterContent((Node) borderPane);
+    }
+
+    /**
+     * Loads an empty Tasks UI elements, adds task UI elements to it. Then we set center content of dashboard to tasks.fxml
      * @throws IOException
      */
     public void loadTasksPage(ArrayList<Task> tasks) throws IOException {
@@ -354,15 +394,13 @@ public class DashboardController {
         TasksController tasksController = loader.getController();
 
         if(tasks == null || tasks.contains(null) || tasks.isEmpty()){
-            // we differentiate between getting empty task arraylist when loading normally og using searchbar
-            if(!searchField.getText().isEmpty()){
-                tasksController.tasksIsEmptySearch();
-            } else {
-                tasksController.tasksIsEmpty();
-            }
+            tasksController.tasksIsEmptySearch();
         } else {
             // add tasks to generated taskspage
             tasksController.addTasks(tasks);
+
+            // show no message when loaded tasks are not equals 0
+            tasksController.showMessage(null);
 
             // update MenuButton sort with newest arraylists<Task>
             updateSortingOptions();
@@ -374,17 +412,16 @@ public class DashboardController {
     /**
      * Method for creating MenuItem element, and adding an action event to it
      * @param name
-     * @param tasks
      * @return
      */
-    public MenuItem createSortingMenuItem(String name, ArrayList<Task> tasks){
+    public MenuItem createSortingMenuItem(String name, String category, String project){
         MenuItem menuItem = new MenuItem();
         menuItem.setText(name);
         menuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    loadTasksPage(tasks);
+                    loadTasksPage(category, project);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

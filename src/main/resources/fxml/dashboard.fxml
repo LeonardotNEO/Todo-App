@@ -24,61 +24,62 @@
                <children>
                   <VBox prefWidth="250.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Categories" textFill="WHITE">
-                           <VBox.margin>
-                              <Insets left="-5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <ScrollPane maxHeight="1.7976931348623157E308" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" stylesheets="@../css/category_scrollbar.css">
-                           <content>
-                              <VBox fx:id="categories" prefWidth="215.0" spacing="10.0">
-                                 <padding>
-                                    <Insets top="15.0" />
-                                 </padding></VBox>
-                           </content>
-                           <VBox.margin>
-                              <Insets left="-10.0" top="-5.0" />
-                           </VBox.margin>
-                        </ScrollPane>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewCategory" style="-fx-background-radius: 30; -fx-text-fill: white; -fx-font-size: 14;" styleClass="background-color_1" stylesheets="@../css/main.css" text="New category" textFill="LIME">
-                           <graphic>
-                              <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets left="55.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </JFXButton>
-                        <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Projects" textFill="WHITE">
-                           <VBox.margin>
-                              <Insets left="-5.0" top="20.0" />
-                           </VBox.margin>
-                        </Button>
-                        <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" stylesheets="@../css/category_scrollbar.css">
-                           <content>
-                              <VBox fx:id="projects" prefWidth="215.0" spacing="10.0">
-                                 <padding>
-                                    <Insets top="15.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                           <VBox.margin>
-                              <Insets left="-10.0" top="-5.0" />
-                           </VBox.margin>
-                        </ScrollPane>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewProject" style="-fx-background-radius: 30; -fx-text-fill: white; -fx-font-size: 14;" styleClass="background-color_1" text="New project">
-                           <graphic>
-                              <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <VBox.margin>
-                              <Insets left="60.0" />
-                           </VBox.margin>
-                        </JFXButton>
+                        <VBox minHeight="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Categories" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="-5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent;" stylesheets="@../css/category_scrollbar.css">
+                                 <content>
+                                    <VBox fx:id="categories" prefWidth="215.0" spacing="5.0" />
+                                 </content>
+                                 <VBox.margin>
+                                    <Insets left="-10.0" />
+                                 </VBox.margin>
+                              </ScrollPane>
+                              <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewCategory" style="-fx-background-radius: 30; -fx-text-fill: white; -fx-font-size: 14;" styleClass="background-color_1" stylesheets="@../css/main.css" text="New category" textFill="LIME">
+                                 <graphic>
+                                    <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets left="55.0" top="5.0" />
+                                 </VBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                        <VBox minHeight="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Projects" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="-5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent;" stylesheets="@../css/category_scrollbar.css">
+                                 <content>
+                                    <VBox fx:id="projects" prefWidth="215.0" spacing="10.0" />
+                                 </content>
+                                 <VBox.margin>
+                                    <Insets left="-10.0" />
+                                 </VBox.margin>
+                              </ScrollPane>
+                              <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewProject" style="-fx-background-radius: 30; -fx-text-fill: white; -fx-font-size: 14;" styleClass="background-color_1" text="New project">
+                                 <graphic>
+                                    <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <VBox.margin>
+                                    <Insets bottom="-10.0" left="60.0" top="5.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                           </children>
+                        </VBox>
                      </children>
                      <padding>
                         <Insets left="10.0" top="5.0" />
