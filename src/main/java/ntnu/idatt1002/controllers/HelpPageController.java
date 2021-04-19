@@ -17,6 +17,7 @@ import ntnu.idatt1002.HelpSection;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.HelpService;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,18 +41,57 @@ public class HelpPageController {
         pages.forEach(page -> {
             Button b = new Button(page);
             b.setOnAction(event -> {
-                getInfoPage(page);
+                try {
+                    getInfoPage(page);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
             helpMenuVBox.getChildren().add(b);
         });
     }
 
-    public void getInfoPage(String section) {
+    public void getInfoPage(String section) throws IOException {
+        // Clearing children
         vboxForInfoText.getChildren().clear();
+
+        // Getting information
         HelpSection helpSection = HelpService.getSection(section);
+
+        // Setting header and description
         headerText.setText(helpSection.getSection());
         descriptionText.setText(helpSection.getDescription());
-        ArrayList<HelpSection.Info> field = helpSection.getFields();
+
+        // Getting fields
+        ArrayList<HelpSection.Info> fields = helpSection.getFields();
+
+        for(HelpSection.Info field: fields) {
+            // Load controller and AnchorPane
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/infoField.fxml"));
+            AnchorPane infoField = loader.load();
+            InfoFieldController infoFieldController = loader.getController();
+
+            AnchorPane p = infoFieldController.getAnchor();
+
+            //Add text if it exists
+            if(field.getText() != null) {
+                infoFieldController.setText(field.getText());
+            }
+
+            //Add image if it exists
+            if(field.getImage() != null) {
+                InputStream stream = new FileInputStream(field.getImage());
+                Image image = new Image(stream);
+                infoFieldController.setImageView(image);
+            }
+
+            // Adding it to the vbox
+            vboxForInfoText.getChildren().add(vboxForInfoText.getChildren().size(), infoField);
+        }
+    }
+}
+
+        /*
         for (HelpSection.Info txt: field) {
             Pane pane = new Pane();
             Double height = 0.;
@@ -82,5 +122,4 @@ public class HelpPageController {
             }
             vboxForInfoText.getChildren().add(vboxForInfoText.getChildren().size(), pane);
         }
-    }
-}
+         */
