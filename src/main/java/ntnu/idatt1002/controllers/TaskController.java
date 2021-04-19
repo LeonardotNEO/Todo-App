@@ -27,7 +27,6 @@ public class TaskController {
     private long taskId;
     @FXML private Text taskName;
     @FXML private Label taskDescription;
-    private double taskDescriptionHeight;
     @FXML private Text project;
     @FXML private Text category;
     @FXML private Text startdate;
@@ -39,7 +38,7 @@ public class TaskController {
     @FXML private Text attachedFiles;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
-    @FXML private Label taskRepeat;
+    @FXML private Text taskRepeat;
     @FXML private Pane background;
     @FXML private HBox toolsHBox;
 
@@ -49,13 +48,6 @@ public class TaskController {
     public void initialize(){
         addClickTaskListener();
         displayMinimizedTask();
-        // We set the height for taskDescription to its initial value (the height when Task UI is loaded), then we save this value to use it later for when we maximize task view.
-        // But after we have set the height value for opening the task maximized in the future, we can then display the minimized task.
-        /*taskDescription.heightProperty().addListener((ob, oldValue, newValue) -> {
-            taskDescriptionHeight = newValue.doubleValue();
-            displayMinimizedTask();
-        });*/
-
     }
 
     /**
@@ -64,11 +56,22 @@ public class TaskController {
      * @return On if a notification is checked, Off is no notification is checked.
      */
     public String checkNotification(Task task) {
-        if (task.isNotification1Hour() || task.isNotification24Hours() || task.isNotification7Days()) {
-            return "On";
-        } else {
-            return "Off";
+        String notificationString = "";
+
+        if (task.isNotification1Hour()) {
+            notificationString += "Notification 1 hour before duedate: yes\n";
         }
+        if(task.isNotification24Hours()){
+            notificationString += "Notification 24 hours before duedate: yes\n";
+        }
+        if(task.isNotification7Days()){
+            notificationString += "Notification 7 days before duedate: yes\n";
+        }
+        if(notificationString.isEmpty()){
+            notificationString += "No notifications";
+        }
+
+        return notificationString;
     }
 
     /**
@@ -84,28 +87,7 @@ public class TaskController {
         duedate.setText("Due date: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());
-
-        String yesNo;
-        if(task.isNotification1Hour()){
-            yesNo = "Yes";
-        } else {
-            yesNo = "No";
-        }
-        notification1hour.setText("Notification 1 hour: " + yesNo);
-
-        if(task.isNotification24Hours()){
-            yesNo = "Yes";
-        } else {
-            yesNo = "No";
-        }
-        notification24hours.setText("Notification 24 hours: " + yesNo);
-
-        if(task.isNotification7Days()){
-            yesNo = "Yes";
-        } else {
-            yesNo = "No";
-        }
-        notification7days.setText("Notification 7 days: " + yesNo);
+        notification.setText(checkNotification(task));
         // tags
         String tagsString = "";
         ArrayList<String> tagsList = task.getTags();
@@ -129,6 +111,7 @@ public class TaskController {
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
+        taskRepeat.setText("Task repeat: ");
     }
 
     /**
@@ -152,6 +135,10 @@ public class TaskController {
         notification.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
+        attachedFiles.setVisible(false);
+        attachedFiles.setManaged(false);
+        taskRepeat.setVisible(false);
+        taskRepeat.setManaged(false);
 
         fullDisplayed = false;
     }
@@ -177,6 +164,10 @@ public class TaskController {
         notification.setManaged(true);
         tags.setVisible(true);
         tags.setManaged(true);
+        attachedFiles.setVisible(true);
+        attachedFiles.setManaged(true);
+        taskRepeat.setVisible(true);
+        taskRepeat.setManaged(true);
 
         fullDisplayed = true;
     }
@@ -314,14 +305,14 @@ public class TaskController {
             taskDescription.setTextFill(Paint.valueOf("white"));
             taskDate.setTextFill(Paint.valueOf("white"));
             taskPriority.setTextFill(Paint.valueOf("white"));
-            taskRepeat.setTextFill(Paint.valueOf("white"));
+            taskRepeat.setFill(Paint.valueOf("white"));
             taskName.setFill(Paint.valueOf("white"));
             toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
         } else {
             taskDescription.setTextFill(Paint.valueOf("black"));
             taskDate.setTextFill(Paint.valueOf("black"));
             taskPriority.setTextFill(Paint.valueOf("black"));
-            taskRepeat.setTextFill(Paint.valueOf("black"));
+            taskRepeat.setFill(Paint.valueOf("black"));
             taskName.setFill(Paint.valueOf("black"));
             toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
         }

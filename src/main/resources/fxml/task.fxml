@@ -63,28 +63,29 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text fx:id="notification1hour" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 1 hour before duedate" wrappingWidth="385.0703125">
+            <Text fx:id="notification" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 1 hour before duedate" wrappingWidth="385.0703125">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text fx:id="notification7days" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 7 days before duedate" wrappingWidth="385.0703125">
+            <Text fx:id="attachedFiles" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="files" wrappingWidth="385.0703125">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text fx:id="notification24hours" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 24 before duedate" wrappingWidth="375.0703125">
+            <Text fx:id="taskRepeat" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="task repeat" wrappingWidth="385.0703125">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
+            <AnchorPane>
+               <children>
+                  <Label fx:id="taskDate" text="date" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" />
+                  <Label fx:id="taskPriority" prefHeight="17.0" prefWidth="58.0" text="Priority" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
          </children>
-         <padding>
-            <Insets bottom="20.0" />
-         </padding>
       </VBox>
-      <Label fx:id="taskDate" text="date" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" />
-      <Label fx:id="taskPriority" prefHeight="17.0" prefWidth="58.0" text="Priority" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0" />
       <HBox fx:id="toolsHBox" alignment="CENTER" layoutX="149.0" prefHeight="0.0" prefWidth="101.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button mnemonicParsing="false" onAction="#clickFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
