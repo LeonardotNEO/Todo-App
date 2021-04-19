@@ -37,7 +37,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <VBox fx:id="vboxForInfoText" layoutX="3.0" layoutY="89.0" prefHeight="376.0" prefWidth="493.0" />
+                        <VBox fx:id="vboxForInfoText" layoutX="3.0" layoutY="89.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
                      </children>
                   </AnchorPane>
               </content>

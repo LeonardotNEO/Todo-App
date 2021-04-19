@@ -57,7 +57,7 @@ public class HelpPageController {
         for (HelpSection.Info txt: field) {
             Pane pane = new Pane();
             if (txt.getText() != null) {
-                Text text = new Text("This is text: " + txt.getText() + "\n");
+                TextArea text = new TextArea("This is text: " + txt.getText() + "\n");
                 pane.getChildren().add(text);
             }
             if (txt.getImage() != null) {
