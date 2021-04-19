@@ -9,18 +9,10 @@ public class HelpPageDAOTest {
 
     @Test
     public void kappa() {
-        try {
-            HelpPageDAO.getData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelpPageDAO.getData();
     }
     @Test
     public void test() {
-        try {
-            HelpPageDAO.getSections().forEach(System.out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelpPageDAO.getSections().forEach(System.out::println);
     }
 }
