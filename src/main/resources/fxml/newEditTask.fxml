@@ -91,7 +91,7 @@
          <content>
             <AnchorPane>
                <children>
-                  <VBox alignment="CENTER" layoutX="66.0" layoutY="2.0" prefWidth="600.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" layoutX="66.0" layoutY="2.0" prefHeight="554.0" prefWidth="602.0" spacing="5.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TextField fx:id="titleTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Title">
                            <font>
@@ -118,6 +118,16 @@
                               <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="2" />
                               <MenuItem mnemonicParsing="false" onAction="#clickPriority" text="3" />
                            </items>
+                        </MenuButton>
+                        <MenuButton fx:id="repeatMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" styleClass="background-color_1" text="Repeat task" textFill="WHITE">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#clickRepeat" text="None" />
+                            <MenuItem mnemonicParsing="false" onAction="#clickRepeat" text="Repeat Daily" />
+                              <MenuItem mnemonicParsing="false" onAction="#clickRepeat" text="Repeat Weekly" />
+                          </items>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </MenuButton>
                         <HBox fx:id="timeBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="525.0" spacing="10.0">
                            <children>
@@ -199,8 +209,7 @@
                               </Text>
                               <JFXCheckBox fx:id="notification1Hour" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 hour" />
                               <JFXCheckBox fx:id="notification24Hours" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="24 hours" />
-                              <JFXCheckBox fx:id="notification7Days" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 week" />
-                           </children>
+                              <JFXCheckBox fx:id="notification7Days" checkedColor="#001021" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="1 week" /></children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>

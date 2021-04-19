@@ -138,7 +138,7 @@ public class Task implements Serializable {
      *
      * @return the getTimeRepeat field stored in the task.
      */
-    public Long getTimeRepeat() {return timeRepeat;}
+    public long getTimeRepeat() {return timeRepeat;}
 
     /**
      * A method to set a new id for the task.
@@ -289,7 +289,7 @@ public class Task implements Serializable {
      *
      * @param timeRepeat the new amount of repeat times.
      */
-    public void setTimeRepeat(Long timeRepeat) {
+    public void setTimeRepeat(long timeRepeat) {
         this.timeRepeat = timeRepeat;
     }
 
@@ -387,7 +387,7 @@ public class Task implements Serializable {
 
         // Repetable
         private boolean isRepeatable = false;
-        private Long timeRepeat;
+        private long timeRepeat;
 
         // Notifications
         private boolean notification1Hour;
@@ -457,7 +457,7 @@ public class Task implements Serializable {
          * @param timeRepeat of often it should repeat in ms.
          * @return the TaskBuilder.
          */
-        public TaskBuilder repeatable(Boolean isRepeatable, Long timeRepeat) {
+        public TaskBuilder repeatable(Boolean isRepeatable, long timeRepeat) {
             this.isRepeatable = isRepeatable;
             this.timeRepeat = timeRepeat;
             return this;

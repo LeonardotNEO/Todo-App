@@ -49,6 +49,7 @@ public class NewEditTaskController {
     @FXML private JFXDatePicker datePicker;
     @FXML private JFXTimePicker timePicker;
     @FXML private MenuButton priorityMenu;
+    @FXML private MenuButton repeatMenu;
     @FXML private JFXCheckBox notification1Hour;
     @FXML private JFXCheckBox notification24Hours;
     @FXML private JFXCheckBox notification7Days;
@@ -130,6 +131,9 @@ public class NewEditTaskController {
 
         // set priority prompt
         this.priorityMenu.setText(Integer.toString(task.getPriority()));
+
+        //set repeatTime
+        this.repeatMenu.setText(TaskService.convertTimeRepeatToString(task));
 
         // set notification booleans
         this.notification1Hour.setSelected(task.isNotification1Hour());
@@ -288,7 +292,9 @@ public class NewEditTaskController {
             ArrayList<String> tagsList = new ArrayList<>();
             tags.getChips().forEach(tag -> {
                 System.out.println(tag.toString());
+                tagsList.add(tag.toString());
             });
+            //oldTask.setTags(tagsList);
 
             // set the category and project of task
             String projectString = "";
@@ -318,6 +324,12 @@ public class NewEditTaskController {
             if(notification1Hour.isSelected()) builder.notification1Hour();
             if(notification24Hours.isSelected()) builder.notification24Hours();
             if(notification7Days.isSelected()) builder.notification7Days();
+            if(!repeatMenu.getText().equals("None") && !repeatMenu.getText().isEmpty() && !repeatMenu.getText().equals("Repeat task")) {
+                builder.repeatable(true,TaskService.convertTimeRepeatToLong(repeatMenu.getText()));
+            } else {
+                builder.repeatable(false, 0L);
+            }
+
 
             // Create the task:
             Task newTask = builder.build();
@@ -356,6 +368,8 @@ public class NewEditTaskController {
         locationTextField.setManaged(false);
         priorityMenu.setVisible(false);
         priorityMenu.setManaged(false);
+        repeatMenu.setVisible(false);
+        repeatMenu.setManaged(false);
         colorBox.setVisible(false);
         colorBox.setManaged(false);
         tagsBox.setVisible(false);
@@ -374,6 +388,8 @@ public class NewEditTaskController {
         locationTextField.setManaged(true);
         priorityMenu.setVisible(true);
         priorityMenu.setManaged(true);
+        repeatMenu.setVisible(true);
+        repeatMenu.setManaged(true);
         colorBox.setVisible(true);
         colorBox.setManaged(true);
         tagsBox.setVisible(true);
@@ -392,6 +408,10 @@ public class NewEditTaskController {
     public void clickPriority(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         priorityMenu.setText(menuItem.getText());
+    }
+    public void clickRepeat(ActionEvent event) throws IOException{
+        MenuItem menuItem = (MenuItem) event.getSource();
+        repeatMenu.setText(menuItem.getText());
     }
 
     /**
