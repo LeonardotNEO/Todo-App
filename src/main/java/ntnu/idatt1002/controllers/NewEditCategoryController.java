@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.service.CategoryService;
+import ntnu.idatt1002.service.ProjectService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 
@@ -20,7 +21,8 @@ import java.io.IOException;
  */
 public class NewEditCategoryController {
 
-    @FXML private TextField titleTextField;
+    private String projectName = "";
+    @FXML private TextField categoryTitle;
     @FXML private Label errorMessage;
     @FXML private Text headerText;
     @FXML private Button button;
@@ -38,19 +40,23 @@ public class NewEditCategoryController {
         });
     }
 
-    public void intializeEditCategory(String categoryName){
+    public void intializeEditCategory(String categoryName, String projectName){
         headerText.setText("Edit category");
 
         button.setText("Edit category");
         button.setOnAction(event -> {
             try {
-                buttonEditCategory();
+                if(projectName.isEmpty()){
+                    buttonEditCategory();
+                } else {
+                    buttonEditCategoryUnderProject(projectName);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
-        titleTextField.setText(categoryName);
+        categoryTitle.setText(categoryName);
     }
 
     /**
@@ -66,11 +72,19 @@ public class NewEditCategoryController {
      * @throws IOException
      */
     public void buttonNewCategory() throws IOException {
-        String categoryTitle = titleTextField.getText();
+        if(CategoryService.validateCategoryTitleSyntax(categoryTitle.getText())){
+            // if projectname is not empty, when now that we have to add this category to a project
+            if(projectName.isEmpty()){
+                CategoryService.addCategoryToCurrentUser(categoryTitle.getText());
+                UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle.getText());
+            } else {
+                CategoryService.addCategoryToCurrentUser(projectName, categoryTitle.getText());
 
-        if(CategoryService.validateCategoryTitleSyntax(categoryTitle)){
-            CategoryService.addCategoryToCurrentUser(categoryTitle);
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle);
+                UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryTitle.getText());
+                UserStateService.getCurrentUser().setCurrentlySelectedProject(projectName);
+            }
+
+            // load dashboard back in
             DashboardController.getInstance().initialize();
         } else {
             errorMessage.setText("Title need to be between 0 and 24 characters");
@@ -83,18 +97,44 @@ public class NewEditCategoryController {
      * @throws IOException
      */
     public void buttonEditCategory() throws IOException {
-        if(CategoryService.validateCategoryTitleSyntax(titleTextField.getText())){
+        if(CategoryService.validateCategoryTitleSyntax(categoryTitle.getText())){
             // Make new category
-            CategoryService.addCategoryToCurrentUser(titleTextField.getText());
+            CategoryService.addCategoryToCurrentUser(categoryTitle.getText());
 
             // Move tasks in old category to new category
-            TaskService.editCategoryOfTasks(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()), titleTextField.getText());
+            TaskService.editCategoryOfTasks(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()), categoryTitle.getText());
 
             // Delete old category
             CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
 
             // Set current category to new one
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(titleTextField.getText());
+            UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle.getText());
+
+            // Load dashboard into mainContent
+            DashboardController.getInstance().initialize();
+        } else {
+            errorMessage.setText("Title need to be between 0 and 24 characters");
+        }
+    }
+
+    /**
+     * Edit category button allows one to edit a category which is already created under a project, by recreating a new one with the
+     * changes in its place
+     * @throws IOException
+     */
+    public void buttonEditCategoryUnderProject(String projectName) throws IOException {
+        if(CategoryService.validateCategoryTitleSyntax(categoryTitle.getText())){
+            // Make new category
+            CategoryService.addCategoryToCurrentUser(categoryTitle.getText(), projectName);
+
+            // Move tasks in old category to new category
+            TaskService.editCategoryOfTasks(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), projectName), categoryTitle.getText());
+
+            // Delete old category
+            CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory());
+
+            // Set current category to new one
+            UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryTitle.getText());
 
             // Load dashboard into mainContent
             DashboardController.getInstance().initialize();
@@ -114,5 +154,9 @@ public class NewEditCategoryController {
                 ioe.printStackTrace();
             }
         }
+    }
+
+    public void setProjectName(String projectName){
+        this.projectName = projectName;
     }
 }

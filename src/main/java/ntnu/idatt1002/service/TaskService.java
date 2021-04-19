@@ -5,6 +5,7 @@ import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserLogDAO;
 import ntnu.idatt1002.utils.DateUtils;
 
+import java.lang.reflect.Array;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -61,7 +62,13 @@ public class TaskService {
      */
     public static void editCategoryOfTask(Task task, String newCategory){
         TaskDAO.delete(task);
-        task.setCategory(newCategory);
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            task.setCategory(newCategory);
+            task.setProject(null);
+        } else {
+            task.setCategory(newCategory);
+        }
+
         TaskDAO.serialize(task);
         UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
@@ -74,12 +81,26 @@ public class TaskService {
      */
     public static ArrayList<Task> getTasksByCategory(String category){
         ArrayList<Task> tasksResult = new ArrayList<>();
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
-            tasksResult = TaskService.getTasksByCurrentUser();
-        } else {
-            tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
+                tasksResult = TaskService.getTasksByCurrentUser();
+            } else {
+                tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+            }
         }
+
         return tasksResult;
+    }
+
+    /**
+     * Get tasks that have a given category and project name.
+     *
+     * @param category The category that the tasks should be in.
+     * @return The tasks that were found with the given category.
+     */
+    public static ArrayList<Task> getTasksByCategory(String category, String project){
+        return TaskDAO.list(UserStateService.getCurrentUserUsername(), project, category);
     }
 
     /**
@@ -301,7 +322,7 @@ public class TaskService {
         if(title.length() < 1 || title.length() > 30){
             errorsCodes.add(1);
         }
-        if(description.length() > 170){
+        if(description.length() > 5000){
             errorsCodes.add(2);
         }
         try{

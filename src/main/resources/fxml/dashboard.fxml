@@ -4,6 +4,8 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -16,45 +18,71 @@
 
 <BorderPane fx:id="borderPane" prefHeight="500.0" prefWidth="1000.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.DashboardController">
    <left>
-      <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="250.0" styleClass="background-color_3" BorderPane.alignment="TOP_LEFT">
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="background-color_3" BorderPane.alignment="TOP_LEFT">
          <children>
             <AnchorPane prefWidth="250.0" AnchorPane.bottomAnchor="15.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox prefWidth="250.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefWidth="250.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-min-height: 0;" stylesheets="@../css/category_scrollbar.css">
-                           <content>
-                              <VBox fx:id="categories" prefWidth="215.0" spacing="10.0">
-                                 <padding>
-                                    <Insets left="15.0" top="15.0" />
-                                 </padding></VBox>
-                           </content>
-                        </ScrollPane>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewCategory" prefHeight="35.0" prefWidth="200.0" style="-fx-min-height: 35;" styleClass="button1" text="New category">
-                           <graphic>
-                              <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </JFXButton>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewProject" prefHeight="35.0" prefWidth="200.0" style="-fx-min-height: 35;" styleClass="button1" text="New project">
-                           <graphic>
-                              <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </JFXButton>
+                        <VBox minHeight="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Categories" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="-5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent;" stylesheets="@../css/category_scrollbar.css">
+                                 <content>
+                                    <VBox fx:id="categories" prefWidth="215.0" spacing="5.0" />
+                                 </content>
+                                 <VBox.margin>
+                                    <Insets left="-10.0" />
+                                 </VBox.margin>
+                              </ScrollPane>
+                              <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewCategory" style="-fx-background-radius: 30; -fx-text-fill: white; -fx-font-size: 14;" styleClass="background-color_1" stylesheets="@../css/main.css" text="New category" textFill="LIME">
+                                 <graphic>
+                                    <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets left="55.0" top="5.0" />
+                                 </VBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                        <VBox minHeight="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Projects" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="-5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent;" stylesheets="@../css/category_scrollbar.css">
+                                 <content>
+                                    <VBox fx:id="projects" prefWidth="215.0" spacing="10.0" />
+                                 </content>
+                                 <VBox.margin>
+                                    <Insets left="-10.0" />
+                                 </VBox.margin>
+                              </ScrollPane>
+                              <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewProject" style="-fx-background-radius: 30; -fx-text-fill: white; -fx-font-size: 14;" styleClass="background-color_1" text="New project">
+                                 <graphic>
+                                    <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <VBox.margin>
+                                    <Insets bottom="-10.0" left="60.0" top="5.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                           </children>
+                        </VBox>
                      </children>
                      <padding>
-                        <Insets left="15.0" />
+                        <Insets left="10.0" top="5.0" />
                      </padding>
                   </VBox>
                </children>
@@ -74,45 +102,82 @@
                   </Text>
                </children>
             </AnchorPane>
-            <HBox fx:id="categoryHBox" alignment="CENTER_LEFT" layoutX="250.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="325.0" spacing="10.0">
+            <VBox alignment="CENTER_LEFT" layoutX="251.0" layoutY="3.0" prefHeight="70.0">
                <children>
-                  <Text fx:id="categoryName" strokeType="OUTSIDE" strokeWidth="0.0" text="categoryName">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <JFXButton fx:id="buttonEditCategory" onAction="#buttonEditCategory" prefHeight="43.0" prefWidth="72.0" styleClass="button1" text="Edit">
-                     <graphic>
-                        <FontAwesomeIconView id="icon" fill="WHITE" glyphName="EDIT" wrappingWidth="13.0" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </JFXButton>
-                  <JFXButton fx:id="buttonDeleteCategory" onAction="#buttonDeleteCategory" prefHeight="43.0" prefWidth="88.0" styleClass="button1" text="Delete">
-                     <graphic>
-                        <FontAwesomeIconView id="icon" fill="WHITE" glyphName="TIMES" size="18" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </JFXButton>
+                  <HBox fx:id="projectHBox" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" spacing="10.0">
+                     <children>
+                        <Label text="Project:" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="17.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="projectName" text="dfd">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="buttonEditProject" onAction="#buttonEditProject" style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white;" styleClass="background-color_1" text="Edit">
+                           <graphic>
+                              <FontAwesomeIconView id="icon" fill="ORANGE" glyphName="EDIT" selectionFill="YELLOW" wrappingWidth="13.0" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="buttonDeleteProject" onAction="#buttonDeleteProject" style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white;" styleClass="background-color_1" text="Delete">
+                           <graphic>
+                              <FontAwesomeIconView id="icon" fill="RED" glyphName="TIMES" size="12" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets left="18.0" right="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox fx:id="categoryHBox" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" spacing="10.0">
+                     <children>
+                        <Label text="Category:" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="categoryName" text="dfd">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="buttonEditCategory" onAction="#buttonEditCategory" prefWidth="54.0" style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white;" styleClass="background-color_1" text="Edit">
+                           <graphic>
+                              <FontAwesomeIconView id="icon" fill="ORANGE" glyphName="EDIT" selectionFill="YELLOW" wrappingWidth="13.0" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="buttonDeleteCategory" onAction="#buttonDeleteCategory" style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white;" styleClass="background-color_1" text="Delete">
+                           <graphic>
+                              <FontAwesomeIconView id="icon" fill="RED" glyphName="TIMES" size="12" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets left="18.0" right="10.0" />
+                     </padding>
+                  </HBox>
                </children>
-               <padding>
-                  <Insets left="18.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="taskHBox" alignment="CENTER_RIGHT" layoutX="624.0" maxWidth="-Infinity" prefHeight="75.0" prefWidth="376.0" spacing="10.0" AnchorPane.leftAnchor="624.0" AnchorPane.rightAnchor="0.0">
+            </VBox>
+            <HBox fx:id="taskHBox" alignment="CENTER_RIGHT" layoutX="758.0" maxWidth="-Infinity" prefHeight="75.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <JFXButton onAction="#buttonNewTask" prefHeight="43.0" prefWidth="106.0" styleClass="button1" text="New task">
-                     <graphic>
-                        <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </JFXButton>
-                  <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="43.0" prefWidth="75.0" styleClass="background-color_1" text="Sort" textFill="WHITE">
+                  <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-font-size: 15; -fx-background-radius: 10;" styleClass="background-color_1" text="Sort" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -123,10 +188,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MenuButton>
-                  <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="111.0" promptText="Search..." styleClass="button1">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
+                  <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="120.0" promptText="Search..." style="-fx-font-size: 15; -fx-background-radius: 10; -fx-text-fill: white; -fx-font-style: none;" styleClass="background-color_1">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -140,6 +202,6 @@
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="625.0" prefWidth="750.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="TOP_LEFT" />
+      <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="625.0" styleClass="background-color_grey" BorderPane.alignment="TOP_LEFT" />
    </center>
 </BorderPane>
