@@ -9,19 +9,16 @@ import javafx.scene.text.Text;
 public class InfoFieldController {
     @FXML ImageView imageView;
     @FXML Text text;
-    @FXML AnchorPane anchor;
 
     public void initialize() {
         System.out.println("I am listening");
-        text.wrappingWidthProperty().bind(anchor.widthProperty());
+        //text.wrappingWidthProperty().bind(anchor.widthProperty());
     }
     public void setImageView(Image image) {
         imageView.setImage(image);
     }
 
-    public AnchorPane getAnchor() {
-        return anchor;
-    }
+
 
     public void setText(String text) {
         this.text.setText(text);

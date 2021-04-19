@@ -7,36 +7,40 @@
 
 <BorderPane minHeight="425.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.HelpPageController">
    <left>
-      <ScrollPane fx:id="helpMenuScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="250.0" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="helpMenuScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="helpMenuVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="250.0" />
          </content>
       </ScrollPane>
    </left>
    <center>
-      <ScrollPane BorderPane.alignment="CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <cursor>
+            <Cursor fx:constant="CROSSHAIR" />
+         </cursor>
          <content>
-            <AnchorPane>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="1000.0" minWidth="1000.0">
                <children>
-                  <Text fx:id="headerText" layoutX="294.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Header" wrappingWidth="157.77081298828125">
+                  <Text fx:id="headerText" layoutX="309.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="115.2413330078125">
                      <font>
-                        <Font size="32.0" />
+                        <Font size="31.0" />
                      </font>
                   </Text>
-                  <Text fx:id="descriptionText" layoutX="182.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description" textAlignment="CENTER" wrappingWidth="380.3564453125">
+                  <Text fx:id="descriptionText" layoutX="337.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
                   </Text>
+                  <VBox fx:id="vboxForInfoText" fillWidth="false" layoutX="-2.0" layoutY="62.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="342.0" prefWidth="750.0">
+                     <cursor>
+                        <Cursor fx:constant="MOVE" />
+                     </cursor></VBox>
                </children>
                <cursor>
                   <Cursor fx:constant="WAIT" />
                </cursor>
-            </AnchorPane>
+            </VBox>
          </content>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
       </ScrollPane>
    </center>
 </BorderPane>

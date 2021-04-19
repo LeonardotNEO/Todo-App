@@ -68,10 +68,10 @@ public class HelpPageController {
         for(HelpSection.Info field: fields) {
             // Load controller and AnchorPane
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/infoField.fxml"));
-            AnchorPane infoField = loader.load();
+            VBox infoField = loader.load();
             InfoFieldController infoFieldController = loader.getController();
 
-            AnchorPane p = infoFieldController.getAnchor();
+            //AnchorPane p = infoFieldController.getAnchor();
 
             //Add text if it exists
             if(field.getText() != null) {
