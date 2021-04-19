@@ -51,13 +51,12 @@ public class HelpPageController {
         HelpSection helpSection = HelpService.getSection(section);
         headerText.setText(helpSection.getSection());
         descriptionText.setText(helpSection.getDescription());
-        new Text(helpSection.getFields().toString());
         ArrayList<HelpSection.Info> field = helpSection.getFields();
-        String info = "";
         for (HelpSection.Info txt: field) {
             Pane pane = new Pane();
+            Double height = 0.;
             if (txt.getText() != null) {
-                TextArea text = new TextArea("This is text: " + txt.getText() + "\n");
+                Text text = new Text("This is text: " + txt.getText() + "\n");
                 pane.getChildren().add(text);
             }
             if (txt.getImage() != null) {
@@ -65,8 +64,17 @@ public class HelpPageController {
                     InputStream stream = new FileInputStream(txt.getImage());
                     Image image = new Image(stream);
                     ImageView imageView = new ImageView();
-                    //Setting image to the image view
                     imageView.setImage(image);
+                    //imageView.fitWidthProperty().bind(vboxForInfoText.widthProperty());
+                    imageView.setPreserveRatio(true);
+                    imageView.fitWidthProperty().bind(vboxForInfoText.widthProperty());
+                    double a = image.heightProperty().get();
+                    double b = image.widthProperty().get();
+                    double c = a/b;
+                    //imageView.setFitHeight();
+                    //imageView.fitHeightProperty().bindBidirectional(imageView.getFitWidth()*c);
+                    imageView.setAccessibleHelp("Arrow pointing on the register button found in the middle bottom of the image");
+                    //imageView.autosize();
                     pane.getChildren().add(imageView);
                 } catch (IOException e) {
                     e.printStackTrace();

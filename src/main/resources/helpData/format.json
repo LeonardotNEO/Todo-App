@@ -1,15 +1,12 @@
 [
   {
-    "section": "task",
-    "title": "New Task",
-    "description": "This page informs you about",
+    "section": "Account",
+    "title": "Register new account",
+    "description": "This page will take you through the process of creating a new account.",
     "fields": [
       {
-        "image": "src/main/resources/images/logo.PNG",
-        "text": "This is a help page for task. I will help you get much data fro free"
-      },{
-        "image": "src/main/resources/images/logo.PNG",
-        "text": "Another information field. This is fucking poggers"
+        "image": "src/main/resources/images/register.png",
+        "text": "To start the registering process click the \"Register button\". This is found in the bottom middle of the page"
       }
     ]
   },
