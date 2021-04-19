@@ -5,10 +5,10 @@
     "description": "This page informs you about",
     "fields": [
       {
-        "image": null,
+        "image": "src/main/resources/images/logo.PNG",
         "text": "This is a help page for task. I will help you get much data fro free"
       },{
-        "image": null,
+        "image": "src/main/resources/images/logo.PNG",
         "text": "Another information field. This is fucking poggers"
       }
     ]
