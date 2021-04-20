@@ -73,9 +73,18 @@ public class HelpPageController {
 
             //AnchorPane p = infoFieldController.getAnchor();
 
+            // Add title if it exists
+            if(field.getTitle() != null) {
+                infoFieldController.setTitle(field.getTitle());
+            } else {
+                infoFieldController.hideTitle();
+            }
+
             //Add text if it exists
             if(field.getText() != null) {
                 infoFieldController.setText(field.getText());
+            } else {
+                infoFieldController.hideText();
             }
 
             //Add image if it exists

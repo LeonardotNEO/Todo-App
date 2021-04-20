@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 public class InfoFieldController {
     @FXML ImageView imageView;
     @FXML Text text;
+    @FXML Text subTitleText;
 
     public void initialize() {
         System.out.println("I am listening");
@@ -20,6 +21,16 @@ public class InfoFieldController {
         imageView.setVisible(false);
     }
 
+    public void hideTitle() {
+        subTitleText.setManaged(false);
+        subTitleText.setVisible(false);
+    }
+
+    public void hideText() {
+        subTitleText.setManaged(false);
+        subTitleText.setVisible(false);
+    }
+
     public void setImageView(Image image) {
         imageView.setImage(image);
     }
@@ -29,4 +40,9 @@ public class InfoFieldController {
     public void setText(String text) {
         this.text.setText(text);
     }
+
+    public void setTitle(String title) {
+        this.subTitleText.setText(title);
+    }
+
 }
