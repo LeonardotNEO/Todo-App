@@ -42,7 +42,7 @@
    <center>
       <AnchorPane fx:id="content" prefHeight="276.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox fx:id="simpleView" layoutX="14.0" layoutY="12.0" spacing="20.0" style="-fx-background-radius: 10 10 10 10;" styleClass="background-color_grey" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <HBox fx:id="simpleView" layoutX="14.0" layoutY="12.0" spacing="20.0" style="-fx-background-radius: 10 10 10 10;" styleClass="background-color_grey" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
                   <AnchorPane prefWidth="1000.0">
                      <children>
@@ -51,7 +51,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-radius: 10 0 0 10;" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="33.0" style="-fx-background-radius: 10 0 0 10;" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueThisWeek" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
@@ -67,7 +67,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-radius: 0;" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" style="-fx-background-radius: 0;" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueNext7Days" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
@@ -84,7 +84,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-radius: 0 0 10 0;" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="33.0" style="-fx-background-radius: 0 0 10 0;" styleClass="overview-scrollpanes" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
                            <content>
                               <VBox fx:id="dueThisMonth" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0" />
                            </content>
@@ -99,7 +99,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <AnchorPane fx:id="calenderView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="calenderView" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane fx:id="calenderViewGrid" hgap="5.0" layoutX="10.0" layoutY="28.0" prefHeight="336.0" prefWidth="780.0" style="-fx-background-radius: 10;" styleClass="background-color_grey" vgap="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0">
                     <columnConstraints>
