@@ -5,7 +5,7 @@
     "description": "This page will take you through the process of creating a new account.",
     "fields": [
       {
-        "title": "Hello",
+        "title": null,
         "image": "src/main/resources/images/register.png",
         "text": "To start the registering process click the \"Register button\". This is found at the bottom-middle of the start page. This will take you to a new page. "
       },
@@ -15,14 +15,9 @@
         "text": "On this page there are three input fields in the middle of the page. One for  a \"Username\", a \"Password\" and a field for \"Repeat password\". There are also two checkboxes below the fields. The checkboxes are for \"No password\" and \"Remember me\". With the \"No password\"-box checked the only field needed for a registration is the \"Username\" field, else a password must also be made. The \"Remember me\" checkbox, if checked, allows a user to be instantly logged in to their account after it has been made. "
       },
       {
-        "title": "hello2",
+        "title": null,
         "image": null,
         "text": "When the necessary fields have been filled the next step is to press the \"Register\"-button. This button is located below the checkboxes and at the bottom of the blue box. When pressed the account will be created and you will be taken to the \"Dashboard\"-page."
-      },
-      {
-        "title": null,
-        "image": "src/main/resources/images/register.png",
-        "text": "To start the registering process click the \"Register button\". This is found in the bottom middle of the page. To start the registering process click the \"Register button\". This is found in the bottom middle of the page To start the registering process click the \"Register button\". This is found in the bottom middle of the page To start the registering process click the \"Register button\". This is found in the bottom middle of the pageTo start the registering process click the \"Register button\". This is found in the bottom middle of the pageTo start the registering process click the \"Register button\". This is found in the bottom middle of the pageTo start the registering process click the \"Register button\". This is found in the bottom middle of the page"
       }
     ]
   },
