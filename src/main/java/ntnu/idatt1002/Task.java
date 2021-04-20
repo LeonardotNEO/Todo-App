@@ -23,7 +23,9 @@ public class Task implements Serializable {
     private long startDate;
     private long deadline;
     private String project;
+    private String originalProject;
     private String category;
+    private String originalCategory;
     private String color;
     private String location;
     private boolean notification1Hour;
@@ -84,7 +86,7 @@ public class Task implements Serializable {
 
 
     /**
-     * A method to get the field category.
+     * A method to get the field project.
      *
      * @return
      */
@@ -92,11 +94,30 @@ public class Task implements Serializable {
         return project;
     }
 
-    /**A method to get the field category
+    /**
+     * A method to get the field project.
+     *
+     * @return
+     */
+    public String getOriginalProject() {
+        return originalProject;
+    }
+
+    /**
+     * A method to get the field category.
      *
      * @return the category of the task.
      */
     public String getCategory() {return category;}
+
+    /**
+     * A method to get the field originalCategory.
+     *
+     * @return the original category of the task.
+     */
+    public String getOriginalCategory() {
+        return originalCategory;
+    }
 
     /**
      * A method to get the field color.
@@ -189,7 +210,21 @@ public class Task implements Serializable {
      */
     public void setStartDate(long startDate) {this.startDate = startDate;}
 
+    /**
+     * A method to set the project value
+     *
+     * @param project String project name
+     */
     public void setProject(String project) {this.project = project;}
+
+    /**
+     * A method to set the original project value
+     *
+     * @param originalProject String original project name
+     */
+    public void setOriginalProject(String originalProject) {
+        this.originalProject = originalProject;
+    }
 
     /**
      * A method to set a new category.
@@ -197,6 +232,15 @@ public class Task implements Serializable {
      * @param category the new category for the task.
      */
     public void setCategory(String category) {this.category = category;}
+
+    /**
+     * A method to set the original category.
+     *
+     * @param originalCategory the original category for the task.
+     */
+    public void setOriginalCategory(String originalCategory) {
+        this.originalCategory = originalCategory;
+    }
 
     /**
      * A method to set a new color.
@@ -394,6 +438,10 @@ public class Task implements Serializable {
         private boolean notification24Hours;
         private boolean notification7Days;
 
+        //Originals
+        private String originalProject;
+        private String originalCategory;
+
         /**
          * Constructor for the class TaskBuilder.
          * This constructors requires the bare minimum data required to create a task.
@@ -554,6 +602,16 @@ public class Task implements Serializable {
             return this;
         }
 
+        public TaskBuilder originalProject(String originalProject) {
+            this.originalProject = originalProject;
+            return this;
+        }
+
+        public TaskBuilder originalCategory(String originalCategory) {
+            this.originalCategory = originalCategory;
+            return this;
+        }
+
         /**
          * Method that creates a task and returns it.
          * If a value is not set it will default to. 0, false, null depending on the variable type.
@@ -581,6 +639,10 @@ public class Task implements Serializable {
             task.filePaths = this.filePaths;
             task.isRepeatable = this.isRepeatable;
             task.timeRepeat = this.timeRepeat;
+
+            // Originals
+            task.originalProject = this.originalProject;
+            task.originalCategory = this.originalCategory;
 
             // generate id
             task.id = task.generateId();

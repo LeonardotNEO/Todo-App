@@ -88,9 +88,9 @@
             </AnchorPane>
          </children>
       </VBox>
-      <HBox fx:id="toolsHBox" alignment="CENTER" layoutX="149.0" prefHeight="0.0" prefWidth="101.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="toolsHBox" alignment="CENTER" layoutX="149.0" prefHeight="0.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#clickFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
+            <Button fx:id="buttonFinishTask" mnemonicParsing="false" onAction="#clickFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="#04ff00" glyphName="CHECK" size="20" />
                </graphic>
@@ -98,7 +98,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#buttonEditTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
+            <Button fx:id="buttonEditTask" mnemonicParsing="false" onAction="#buttonEditTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="ORANGE" glyphName="PENCIL" size="18" />
                </graphic>
@@ -106,9 +106,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#clickDeleteButton" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
+            <Button fx:id="buttonDeleteTask" mnemonicParsing="false" onAction="#clickDeleteButton" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" size="18" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="buttonRestoreTask" mnemonicParsing="false" onAction="#clickRestoreTask" style="-fx-background-color: transparent;">
+               <graphic>
+                  <FontAwesomeIconView fill="#04ff00" glyphName="RETWEET" size="18" />
                </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />
