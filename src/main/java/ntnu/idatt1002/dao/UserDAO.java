@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public final class UserDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
     private static final String FILETYPE = ".ser";
-    private static final String[] DIRECTORIES = {"Categories","Notifications","Projects"};
+    private static final String[] DIRECTORIES = {"Categories","Notifications","Projects","Images"};
 
     /**
      * Get a list of all users in storage
@@ -85,6 +85,7 @@ public final class UserDAO {
         result = ProjectDAO.deleteByUser(username);
         result = TaskDAO.deleteByUser(username);
         result = NotificationDAO.deleteByUser(username);
+        result = ImageDAO.deleteByUser(username);
 
         //Directories
         for(String directory : DIRECTORIES){

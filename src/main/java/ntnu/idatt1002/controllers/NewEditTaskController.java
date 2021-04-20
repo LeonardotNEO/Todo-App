@@ -45,11 +45,11 @@ public class NewEditTaskController {
     @FXML private TextField titleTextField;
     @FXML private TextField locationTextField;
     @FXML private TextArea descriptionTextArea;
-    @FXML private MenuButton categoryMenu;
     @FXML private HBox timeBox;
     @FXML private JFXDatePicker datePicker;
     @FXML private JFXTimePicker timePicker;
     @FXML private MenuButton priorityMenu;
+    @FXML private MenuButton repeatMenu;
     @FXML private JFXCheckBox notification1Hour;
     @FXML private JFXCheckBox notification24Hours;
     @FXML private JFXCheckBox notification7Days;
@@ -74,12 +74,9 @@ public class NewEditTaskController {
     /**
      * Method used for initializing new task page.
      */
-    public void initializeNewTask(){
+    public void initializeNewTask(String category, String project){
         // show simple template first
         buttonSimpleTemplate();
-
-        // fill MenuButton categoryMenu with categories
-        setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
 
         // Changes the date format of the datePicker
         this.datePicker.setConverter(new DateConverter());
@@ -121,25 +118,24 @@ public class NewEditTaskController {
         // set location prompt
         this.locationTextField.setText(task.getLocation());
 
-        // set categories in menuButton
-        setCategoryMenu(CategoryService.getCategoriesCurrentUserWithoutPremades());
-
         setTaskWithFiles(task);
 
-        // set category prompt
-        this.categoryMenu.setText(task.getCategory());
-
         // set datepicker prompt and DateConverter
-        this.datePicker.setValue(LocalDate.parse(DateUtils.getFormattedDate(task.getDeadline()), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        LocalDate date = task.getDeadline() == 0l ? null : LocalDate.parse(DateUtils.getFormattedDate(task.getDeadline()), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.datePicker.setValue(date);
         this.datePicker.setConverter(new DateConverter());
 
         // set timePicker
-        this.timePicker.setValue(LocalTime.parse(DateUtils.getFormattedTime(task.getDeadline()), DateTimeFormatter.ofPattern("HH:mm")));
+        LocalTime time = task.getDeadline() == 0l ? null : LocalTime.parse(DateUtils.getFormattedTime(task.getDeadline()), DateTimeFormatter.ofPattern("HH:mm"));
+        this.timePicker.setValue(time);
         this.timePicker.setConverter(new TimeConverter());
         this.timePicker.set24HourView(true);
 
         // set priority prompt
         this.priorityMenu.setText(Integer.toString(task.getPriority()));
+
+        //set repeatTime
+        this.repeatMenu.setText(TaskService.convertTimeRepeatToString(task));
 
         // set notification booleans
         this.notification1Hour.setSelected(task.isNotification1Hour());
@@ -285,7 +281,7 @@ public class NewEditTaskController {
         long deadlineTime = datePicker.getValue() == null ? 0l : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
 
         // check if there is any errorcodes
-        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
+        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime, TaskService.convertTimeRepeatToLong(repeatMenu.getText()));
 
         // handling if priority is set to empty
         if(errorCodes.contains(3)){
@@ -298,7 +294,20 @@ public class NewEditTaskController {
             ArrayList<String> tagsList = new ArrayList<>();
             tags.getChips().forEach(tag -> {
                 System.out.println(tag.toString());
+                tagsList.add(tag.toString());
             });
+            //oldTask.setTags(tagsList);
+
+            // set the category and project of task
+            String projectString = "";
+            String categoryString = "";
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+                categoryString = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
+                projectString = UserStateService.getCurrentUser().getCurrentlySelectedProject();
+            } else {
+                categoryString = UserStateService.getCurrentUser().getCurrentlySelectedCategory();
+                projectString = null;
+            }
 
             // TaskBuilder
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
@@ -306,7 +315,8 @@ public class NewEditTaskController {
                     .deadline(deadlineTime)
                     .priority(Integer.parseInt(priorityMenu.getText()))
                     .startDate(DateUtils.getAsMs(LocalDate.now()))
-                    .category(categoryMenu.getText())
+                    .category(categoryString)
+                    .project(projectString)
                     .color(ColorUtil.getCorrectColorFormat(color.getValue().toString()))
                     .location(locationTextField.getText())
                     .tags(tagsList)
@@ -316,6 +326,12 @@ public class NewEditTaskController {
             if(notification1Hour.isSelected()) builder.notification1Hour();
             if(notification24Hours.isSelected()) builder.notification24Hours();
             if(notification7Days.isSelected()) builder.notification7Days();
+            if(!repeatMenu.getText().equals("None") && !repeatMenu.getText().isEmpty() && !repeatMenu.getText().equals("Repeat task")) {
+                builder.repeatable(true,TaskService.convertTimeRepeatToLong(repeatMenu.getText()));
+            } else {
+                builder.repeatable(false, 0L);
+            }
+
 
             // Create the task:
             Task newTask = builder.build();
@@ -336,9 +352,6 @@ public class NewEditTaskController {
 
             // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
             if(result){
-                // set current category to this tasks category
-                UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryMenu.getText());
-
                 // navigate back to tasks
                 DashboardController.getInstance().initialize();
             }
@@ -357,6 +370,8 @@ public class NewEditTaskController {
         locationTextField.setManaged(false);
         priorityMenu.setVisible(false);
         priorityMenu.setManaged(false);
+        repeatMenu.setVisible(false);
+        repeatMenu.setManaged(false);
         colorBox.setVisible(false);
         colorBox.setManaged(false);
         tagsBox.setVisible(false);
@@ -375,34 +390,14 @@ public class NewEditTaskController {
         locationTextField.setManaged(true);
         priorityMenu.setVisible(true);
         priorityMenu.setManaged(true);
+        repeatMenu.setVisible(true);
+        repeatMenu.setManaged(true);
         colorBox.setVisible(true);
         colorBox.setManaged(true);
         tagsBox.setVisible(true);
         tagsBox.setManaged(true);
         attachBox.setVisible(true);
         attachBox.setManaged(true);
-    }
-
-    /**
-     * Loads categories into categoryMenuButton.
-     *
-     * @param categories
-     */
-    public void setCategoryMenu(ArrayList<String> categories) {
-        for (String category : categories) {
-            MenuItem menuItem = new MenuItem();
-            menuItem.setText(category);
-            menuItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    categoryMenu.setText(category);
-                }
-            });
-
-            categoryMenu.getItems().add(menuItem);
-        }
-
-        categoryMenu.setText(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
     }
 
     /**
@@ -415,6 +410,10 @@ public class NewEditTaskController {
     public void clickPriority(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         priorityMenu.setText(menuItem.getText());
+    }
+    public void clickRepeat(ActionEvent event) throws IOException{
+        MenuItem menuItem = (MenuItem) event.getSource();
+        repeatMenu.setText(menuItem.getText());
     }
 
     /**

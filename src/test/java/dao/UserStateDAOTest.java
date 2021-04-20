@@ -46,7 +46,7 @@ public class UserStateDAOTest {
         }
 
         @Test
-        public void _addLoggedUsers(){
+        public void add_logged_users(){
             String[] oldUsers = {"joseph", "maria", "judas", "adam"};
             UserStateDAO.setLoggedInUsers(oldUsers);
             UserStateDAO.addLoggedUser("homer");
@@ -56,7 +56,7 @@ public class UserStateDAOTest {
         }
 
         @Test
-        public void _removeFromList(){
+        public void remove_from_list(){
             String[] oldUsers = {"joseph", "maria", "judas", "adam"};
             UserStateDAO.setLoggedInUsers(oldUsers);
             UserStateDAO.removeFromList("adam");
@@ -66,7 +66,7 @@ public class UserStateDAOTest {
         }
 
         @Test
-        public void _clearList(){
+        public void clear_list(){
             String[] oldUsers = {"joseph", "maria", "judas", "adam"};
             UserStateDAO.setLoggedInUsers(oldUsers);
             UserStateDAO.clearList();

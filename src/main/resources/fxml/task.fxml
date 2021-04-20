@@ -1,36 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="background" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="-Infinity" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
+<AnchorPane fx:id="background" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
    <children>
-      <Text fx:id="taskName" fill="ORANGE" layoutX="5.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="task_name" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Text fx:id="taskDescription" fill="WHITE" layoutX="5.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="task_description" wrappingWidth="239.0703125" AnchorPane.leftAnchor="5.0">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Label fx:id="taskDate" layoutX="5.0" layoutY="78.0" text="date" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
-      <Label fx:id="taskPriority" layoutX="184.0" layoutY="78.0" prefHeight="17.0" prefWidth="58.0" text="Priority" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-      <Text fx:id="taskLocation" fill="WHITE" layoutX="5.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="location" wrappingWidth="239.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
+      <VBox fx:id="vbox" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fx:id="taskName" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" text="task_name">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Label fx:id="taskDescription" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Text fx:id="taskLocation" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="location" wrappingWidth="239.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="startdate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="startdate" wrappingWidth="239.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="duedate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="tags" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="tags: ....." wrappingWidth="281.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="color" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="color" wrappingWidth="239.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="project" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="project" wrappingWidth="239.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="category" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="category" wrappingWidth="239.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="notification" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 1 hour before duedate" wrappingWidth="385.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="taskRepeat" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="task repeat" wrappingWidth="385.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="attachedFiles" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="files" wrappingWidth="385.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <FlowPane fx:id="flowPaneForFiles" />
+            <AnchorPane>
+               <children>
+                  <Label fx:id="taskDate" text="date" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" />
+                  <Label fx:id="taskPriority" prefHeight="17.0" prefWidth="58.0" text="Priority" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
       <HBox fx:id="toolsHBox" alignment="CENTER" layoutX="149.0" prefHeight="0.0" prefWidth="101.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#buttonFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
+            <Button mnemonicParsing="false" onAction="#clickFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="#04ff00" glyphName="CHECK" size="20" />
                </graphic>
@@ -46,7 +106,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#buttonDeleteTask" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
+            <Button mnemonicParsing="false" onAction="#clickDeleteButton" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" size="18" />
                </graphic>
@@ -56,47 +116,6 @@
             </Button>
          </children>
       </HBox>
-      <Text fx:id="notification1hour" fill="WHITE" layoutX="6.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 1 hour before duedate" wrappingWidth="385.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="startdate" fill="WHITE" layoutX="5.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="startdate" wrappingWidth="239.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="notification24hours" fill="WHITE" layoutX="6.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 24 before duedate" wrappingWidth="375.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="notification7days" fill="WHITE" layoutX="6.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 7 days before duedate" wrappingWidth="385.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="duedate" fill="WHITE" layoutX="5.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="tags" fill="WHITE" layoutX="6.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tags: ....." wrappingWidth="281.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="color" fill="WHITE" layoutX="5.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="color" wrappingWidth="239.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="category" fill="WHITE" layoutX="5.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="category" wrappingWidth="239.0703125">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <AnchorPane fx:id="spacer" layoutX="98.0" layoutY="297.0" prefHeight="28.0" prefWidth="174.0" />
    </children>
    <cursor>
       <Cursor fx:constant="HAND" />

@@ -3,6 +3,7 @@
   -fx-color-2: #001933;
   -fx-color-3: #00254d;
   -fx-color-4: orange;
+  -fx-color-5: #e6e6e6;
 }
 
 /* GENERAL */
@@ -42,6 +43,9 @@
   -fx-background-color: white;
 }
 
+.background-color_grey {
+  -fx-background-color: -fx-color-5;
+}
 
 /* DASHBOARD */
 
@@ -64,7 +68,7 @@
   -fx-background-color:  transparent;
   -fx-font-size: 18;
   -fx-text-fill: -fx-color-4;
-  -fx-padding: 6 0 6 -6;
+  -fx-padding: 6 0 6 12;
 }
 
 .categoryButton-selected #icon {
@@ -163,7 +167,7 @@
 
 .simple-advanced-background {
   -fx-background-radius: 20;
-  -fx-background-color: linear-gradient(#f5f1f1, #dfeadf);
+  -fx-background-color: linear-gradient(#e7dede, #d0d9d0);
 }
 
 .overview-navbar {
@@ -172,7 +176,7 @@
 }
 
 .overview-scrollpanes {
-  -fx-background-color: #e2eae2;
+  -fx-background-color: #dae3da;
   -fx-background: transparent;
   -fx-background-radius: 10 0 0 0;
 }

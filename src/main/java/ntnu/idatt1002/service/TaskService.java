@@ -3,7 +3,9 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.dao.UserLogDAO;
+import ntnu.idatt1002.utils.DateUtils;
 
+import java.lang.reflect.Array;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,7 +19,7 @@ public class TaskService {
     /**
      * Methode to validate if a task was successfully added. 
      * Returns true if the task was added.
-     * @param newTask Task being validated.
+     * @param  newTask that is being added.
      * @return boolean depending on the validation was successful.
      */
     public static boolean newTask(Task newTask) {
@@ -60,7 +62,13 @@ public class TaskService {
      */
     public static void editCategoryOfTask(Task task, String newCategory){
         TaskDAO.delete(task);
-        task.setCategory(newCategory);
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            task.setCategory(newCategory);
+            task.setProject(null);
+        } else {
+            task.setCategory(newCategory);
+        }
+
         TaskDAO.serialize(task);
         UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
@@ -73,12 +81,26 @@ public class TaskService {
      */
     public static ArrayList<Task> getTasksByCategory(String category){
         ArrayList<Task> tasksResult = new ArrayList<>();
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
-            tasksResult = TaskService.getTasksByCurrentUser();
-        } else {
-            tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
+                tasksResult = TaskService.getTasksByCurrentUser();
+            } else {
+                tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+            }
         }
+
         return tasksResult;
+    }
+
+    /**
+     * Get tasks that have a given category and project name.
+     *
+     * @param category The category that the tasks should be in.
+     * @return The tasks that were found with the given category.
+     */
+    public static ArrayList<Task> getTasksByCategory(String category, String project){
+        return TaskDAO.list(UserStateService.getCurrentUserUsername(), project, category);
     }
 
     /**
@@ -179,6 +201,7 @@ public class TaskService {
         userTasks.sort((o1, o2) -> {
             long task1Date = o1.getDeadline();
             long task2Date = o2.getDeadline();
+            if(task1Date == 0) return 1; // If the task got no deadline put it at the end of the list
             if (task1Date > task2Date) {
                 return 1;
             }
@@ -208,7 +231,7 @@ public class TaskService {
      * @return Lists of all tasks within the given interval
      */
     public static ArrayList<Task> getTasksBetweenDates(long start, long end) {
-        return getTasksBetweenDates(getTasksByCurrentUser(),start,end);
+        return getTasksInDateInterval(getTasksByCurrentUser(),start,end);
     }
 
     /**
@@ -219,10 +242,24 @@ public class TaskService {
      * @param end interval end time in ms.
      * @return Lists of all tasks within the given interval.
      */
-    public static ArrayList<Task> getTasksBetweenDates(ArrayList<Task> tasks, long start, long end){
+    public static ArrayList<Task> getTasksInDateInterval(ArrayList<Task> tasks, long start, long end){
+        ArrayList<String> unWantedCategories = new ArrayList();
+        unWantedCategories.add("Finished tasks");
+        unWantedCategories.add("Trash bin");
+        tasks.addAll(getRepeatTasks(getTasksExcludingCategories(tasks,unWantedCategories),end));
         return tasks.stream()
                 .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Finds all tasks withing a given interval. It uses all the tasks that the user has currently active.
+     * @param start interval start time in ms
+     * @param end interval end time in ms
+     * @return Lists of all tasks within the given interval
+     */
+    public static ArrayList<Task> getTasksInDateInterval(long start, long end) {
+        return getTasksInDateInterval(getTasksByCurrentUser(),start,end);
     }
 
     /**
@@ -232,19 +269,9 @@ public class TaskService {
      * @param dateLong The date.
      * @return An ArrayList of all the tasks that occurs that date.
      */
-    public static ArrayList<Task> getTasksByDate(ArrayList<Task> tasks, long dateLong){
-        ArrayList<Task> tasksByDate = new ArrayList<>();
 
-        for(Task task : tasks){
-            LocalDate dateInput = Instant.ofEpochMilli(dateLong).atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate dateTask = Instant.ofEpochMilli(task.getDeadline()).atZone(ZoneId.systemDefault()).toLocalDate();
-
-            if(dateInput.getDayOfMonth() == dateTask.getDayOfMonth() && dateInput.getMonthValue() == dateTask.getMonthValue() && dateInput.getYear() == dateTask.getYear()){
-                tasksByDate.add(task);
-            }
-        }
-
-        return tasksByDate;
+    public static ArrayList<Task> getTasksOnGivenDate(ArrayList<Task> tasks, long dateLong){
+        return getTasksInDateInterval(tasks,dateLong,dateLong+24*60*60*1000);
     }
 
     /**
@@ -280,6 +307,7 @@ public class TaskService {
     public static void deleteTask(Task task){
         TaskDAO.delete(task);
         UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
+
     }
 
     /**
@@ -289,13 +317,13 @@ public class TaskService {
      * @param description Description of the task.
      * @return an ArrayList of errorCodes. ErrorCodes can be used i front end to display an errormessage for each scenario.
      */
-    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority, long deadlineTime){
+    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority, long deadlineTime, long repeatTime){
         ArrayList<Integer> errorsCodes = new ArrayList<>();
 
         if(title.length() < 1 || title.length() > 30){
             errorsCodes.add(1);
         }
-        if(description.length() > 170){
+        if(description.length() > 5000){
             errorsCodes.add(2);
         }
         try{
@@ -303,12 +331,18 @@ public class TaskService {
         } catch (NumberFormatException nfe) {
             errorsCodes.add(3);
         }
+        if(deadlineTime == 0 && repeatTime > 0 ) {
+            errorsCodes.add(6);
+        } else if (deadlineTime > 0 && deadlineTime < new Date().getTime()) {
+            errorsCodes.add(4);
+        }
+        /*
         if(deadlineTime == 0) {
             errorsCodes.add(5);
         } else if(deadlineTime < new Date().getTime()) {
             errorsCodes.add(4);
         }
-
+        */
         return errorsCodes;
     }
 
@@ -333,9 +367,13 @@ public class TaskService {
                     errorMessageDisplayString.append("- Priority must be chosen \n");
                     break;
                 case 4:
-                    errorMessageDisplayString.append("- Deadline cannot be in the past. Please choose a date in the future");
+                    errorMessageDisplayString.append("- Due time cannot be in the past. Please choose a date in the future\n");
+                    break;
                 case 5:
-                    errorMessageDisplayString.append("- Please select a date");
+                    errorMessageDisplayString.append("- Please select a date\n");
+                    break;
+                case 6:
+                    errorMessageDisplayString.append("- A repeatable task needs a due time\n");
                 default:
                     break;
             }
@@ -351,19 +389,95 @@ public class TaskService {
      * @param end The limit date of where the repeatable tasks are stopped being cloned.
      * @return A ArrayList of all the cloned Repeatable tasks, with new deadlines.
      */
-    public ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
+    public static ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
         ArrayList arrayWithAllClones = new ArrayList();
-        ArrayListOfTasks.stream().filter(x->x.isRepeatable());//fix this to include the entire expression
-        for(Task T: ArrayListOfTasks) {
 
-            for (int i=0; T.getStartDate()+i*T.getTimeRepeat()<= end;i++) {
-                Task temp = T;
-                temp.setDeadline(T.getDeadline()+i*T.getTimeRepeat());
-                arrayWithAllClones.add(temp);
-            }
+
+        ArrayList<Task> ArrayListOfRepeat = ArrayListOfTasks.stream()
+                .filter(t->t.isRepeatable())
+                .collect(Collectors.toCollection(ArrayList::new));
+        for(Task T: ArrayListOfRepeat) {
+
+            T.setDeadline(T.getDeadline()+1);// this is to counteract a bug that happens when the deadline is set to 0000:
+                for (int i=1; (T.getDeadline() + i * T.getTimeRepeat()) <= end; i++) {
+
+                    Task temp = new Task.TaskBuilder(T.getUserName(), T.getName())
+                            .deadline(T.getDeadline() + i * T.getTimeRepeat())
+                            .color(T.getColor())
+                            .description(T.getDescription())
+                            .category(T.getCategory())
+                            .filePaths(T.getFilePaths())
+                            .location(T.getLocation())
+                            .priority(T.getPriority())
+                            .project(T.getProject())
+                            .tags(T.getTags())
+                            .startDate(T.getStartDate())
+                            .build();
+                            if(T.isNotification1Hour()){
+                                temp.setNotification1Hour(true);
+                            }if(T.isNotification24Hours()){
+                                temp.setNotification24Hours(true);
+                            }if(T.isNotification7Days()){
+                                temp.setNotification7Days(true);
+                            }
+
+                    arrayWithAllClones.add(temp);
+                }
 
         }
         return arrayWithAllClones;
+    }
+
+    /**
+     * Methode that generates the next occurrence of a repeatable task. This is used when a repeatable task is deleted.
+     * This is so that completing or deleting a repeating task, wont delete the chain of repeatable tasks.
+     * the task is saved directly into the save files.
+     * @param taskId to find a specific task in the database.
+     */
+    public static void nextRepeatableTask(long taskId){
+        Task T= TaskService.getTaskByCurrentUser(taskId);
+        if(T.isRepeatable()) {
+            if (T.getTimeRepeat() != 0L) {
+                Task t = TaskDAO.deserialize(T.getUserName(), T.getCategory(), T.getId());
+                t.setDeadline(t.getDeadline() + T.getTimeRepeat());
+                t.setId(t.generateId());
+                TaskService.newTask(t);
+            }
+        }
+    }
+
+    /**
+     * takes a description of a repeatable task, and turns it into Millis based on what the string is.
+     * @param TimeRepeatString The description of the repetition. (Repeat Daily/Repeat Weekly).
+     * @return A long representing a week or a day. or 0L if the input is not valid.
+     */
+    public static long convertTimeRepeatToLong(String TimeRepeatString){
+
+        if (TimeRepeatString.equals("Repeat Daily")){
+            return 1000*60*60*24L;
+        }
+        else if (TimeRepeatString.equals("Repeat Weekly")){
+            return 1000*60*60*24*7L;
+        }
+        else{
+            return 0L;
+        }
+    }
+
+    /**
+     * Converts a repetition time of a task, into a String which description the timeframe of repetition.
+     * @param T the Task which repetition time you want to convert
+     * @return a String reflecting the repetition time, or None if the time is invalid.
+     */
+    public static String convertTimeRepeatToString(Task T){
+        if(T.getTimeRepeat() == 1000*60*60*24L){
+            return "Repeat Daily";
+        }else if(T.getTimeRepeat() == 1000*60*60*24*7L){
+            return "Repeat Weekly";
+        }
+        else{
+            return "None";
+        }
     }
 }
 

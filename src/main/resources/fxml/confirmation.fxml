@@ -12,11 +12,21 @@
       <Button fx:id="noButton" layoutX="230.0" layoutY="121.0" mnemonicParsing="false" onAction="#noOption" text="No, it was a mistake!" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="45.0" />
       <Button fx:id="yesButton" layoutX="48.0" layoutY="121.0" mnemonicParsing="false" onAction="#yesOption" text="Yes, delete it!" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="45.0" />
       <CheckBox fx:id="checkBox" layoutX="68.0" layoutY="122.0" mnemonicParsing="false" onAction="#dontShowAgain" text="This message is annoying, dont show it again!" textAlignment="CENTER" textFill="#a4a4a4" />
-      <Text fx:id="confirmQuestion" fill="WHITE" layoutX="71.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete this task?" textAlignment="CENTER">
+      <Text fx:id="confirmQuestion" fill="WHITE" layoutX="71.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete this task?" textAlignment="CENTER" wrappingWidth="360.0126953125" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="extraText" fill="WHITE" layoutX="27.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="It wil only go in to the trash bin for now..." textAlignment="CENTER" wrappingWidth="360.0126953125" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font size="14.0" />
-         </font></Text>
-      <Text fx:id="extraText" fill="WHITE" layoutX="91.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="It wil only go in to the trash bin for now..." textAlignment="CENTER" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="20.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Future Repeatable Tasks will NOT be deleted by doing so!" textAlignment="CENTER" wrappingWidth="360.0126953125" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
    </children>
    <opaqueInsets>
       <Insets />

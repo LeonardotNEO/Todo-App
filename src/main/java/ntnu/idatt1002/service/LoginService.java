@@ -53,15 +53,6 @@ public class LoginService {
         // Set UserState
         UserStateService.setCurrentUserUsername(username);
 
-        // set current category if it is empty
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            if(CategoryService.getCategoriesCurrentUserWithoutPremades().size() > 0){
-                UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getCategoriesCurrentUserWithoutPremades().get(0));
-            } else {
-                UserStateService.getCurrentUser().setCurrentlySelectedCategory(CategoryService.getPremadeCategories().get(0));
-            }
-        }
-
         UserStateService.getCurrentUser().setRememberMe(rememberMe);
     }
 
@@ -75,7 +66,7 @@ public class LoginService {
     /**
      * Method for logging the user in
      * @param username
-     * @param rememberMe
+     * @param rememberMe if the remember me box was checked they will log in automatically
      * @throws IOException
      */
     public static void login(String username, boolean rememberMe) throws IOException {

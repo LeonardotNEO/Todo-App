@@ -78,7 +78,7 @@ public class LoginRegisterController {
      * If password is empty (No password is set) it will auto log inn instead of going through the login page
      */
     public void displayLoginWithAccounts(){
-        pageHeader.setText("Login");
+        pageHeader.setText("Accounts");
         buttonNavigateToRegister.setVisible(true);
         buttonNavigateToLogin.setVisible(false);
 

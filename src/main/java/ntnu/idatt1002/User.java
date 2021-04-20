@@ -21,10 +21,14 @@ public class User implements Serializable {
 
     // settings
     String currentlySelectedCategory = "";
+    String currentlySelectedProject = "";
+    String currentlySelectedProjectCategory = "";
     String currentlySelectedSort = "";
+    String currentlySelectedBackground = "-fx-background-color: #e6e6e6";
     boolean rememberMe = false;
     String theme = "";
     boolean deleteTaskDontShowAgainCheckbox;
+    boolean finishTaskDontShowAgainCheckbox;
 
     public User(){}
 
@@ -60,6 +64,8 @@ public class User implements Serializable {
         this.salt = user.getSalt();
         this.dateCreated = user.getDateCreated();
         this.currentlySelectedCategory = user.getCurrentlySelectedCategory();
+        this.currentlySelectedProject = user.getCurrentlySelectedProject();
+        this.currentlySelectedProjectCategory = user.getCurrentlySelectedProjectCategory();
         this.currentlySelectedSort = user.currentlySelectedSort;
         this.rememberMe = user.isRememberMe();
         this.theme = user.getTheme();
@@ -133,6 +139,32 @@ public class User implements Serializable {
     public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedCategory = currentlySelectedCategory;
+        this.currentlySelectedProjectCategory = "";
+        this.currentlySelectedProject = "";
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public String getCurrentlySelectedProject() {
+        return currentlySelectedProject;
+    }
+
+    public void setCurrentlySelectedProject(String currentlySelectedProject) {
+        User userBeforeChanges = new User(this);
+        this.currentlySelectedProject = currentlySelectedProject;
+        this.currentlySelectedCategory = "";
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public String getCurrentlySelectedProjectCategory() {
+        return currentlySelectedProjectCategory;
+    }
+
+    public void setCurrentlySelectedProjectCategory(String currentlySelectedProjectCategory) {
+        User userBeforeChanges = new User(this);
+        this.currentlySelectedProjectCategory = currentlySelectedProjectCategory;
+        this.currentlySelectedCategory = "";
 
         UserService.editUser(userBeforeChanges, this);
     }
@@ -148,6 +180,17 @@ public class User implements Serializable {
         UserService.editUser(userBeforeChanges, this);
     }
 
+    public String getCurrentlySelectedBackground() {
+        return currentlySelectedBackground;
+    }
+
+    public void setCurrentlySelectedBackground(String currentlySelectedBackground) {
+        User userBeforeChanges = new User(this);
+        this.currentlySelectedBackground = currentlySelectedBackground;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
     // For deleteTask popup
     public boolean isDeleteTaskDontShowAgainCheckbox() {
         return deleteTaskDontShowAgainCheckbox;
@@ -157,6 +200,19 @@ public class User implements Serializable {
     public void setDeleteTaskDontShowAgainCheckbox(boolean checkbox) {
         User userBeforeChanges = new User(this);
         this.deleteTaskDontShowAgainCheckbox = checkbox;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    // For finishTask popup
+    public boolean isFinishTaskDontShowAgainCheckbox() {
+        return finishTaskDontShowAgainCheckbox;
+    }
+
+    // For finishTask popup
+    public void setFinishTaskDontShowAgainCheckbox(boolean checkbox) {
+        User userBeforeChanges = new User(this);
+        this.finishTaskDontShowAgainCheckbox = checkbox;
 
         UserService.editUser(userBeforeChanges, this);
     }

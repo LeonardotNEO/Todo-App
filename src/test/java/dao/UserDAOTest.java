@@ -15,21 +15,21 @@ public class UserDAOTest {
     private final static User userA = new User("olanormann");
 
     @BeforeAll
-    public static void setup(){
+    public static void test_data(){
         UserDAO.serialize(userA);
     }
 
     @Nested
     public class serializing_and_deserializing{
         @Test
-        public void _deserialize(){
+        public void deserializing_user(){
             User userB = UserDAO.deserialize("olanormann");
 
             assertEquals(userA, userB);
         }
 
         @Test
-        public void _getUsers(){
+        public void get_user(){
             ArrayList<User> users = UserDAO.list();
 
             assertFalse(users.isEmpty());
@@ -46,12 +46,12 @@ public class UserDAOTest {
         @Nested
         public class wrong_arguments{
             @Test
-            public void _deserialize(){
+            public void deserializing_none_existing_user(){
                 assertNull(UserDAO.deserialize("joseph"));
             }
 
             @Test
-            public void _delete(){
+            public void delete_none_existing_user(){
                 assertFalse(UserDAO.delete("joseph"));
             }
         }
@@ -107,7 +107,7 @@ public class UserDAOTest {
     }
 
     @AfterAll
-    public static void cleanup(){
+    public static void delete_test_data(){
         boolean result = UserDAO.delete("olanormann");
     }
 }

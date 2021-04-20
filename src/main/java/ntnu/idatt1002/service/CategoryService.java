@@ -22,7 +22,7 @@ public class CategoryService {
 
     /**
      * Get categories by current user
-     * @return
+     * @return String[] of all the categories that the user has
      */
     public static String[] getCategoriesCurrentUser(){
         String[] categories = CategoryDAO.list(UserStateDAO.getUsername());
@@ -30,8 +30,31 @@ public class CategoryService {
     }
 
     /**
-     * Method for getting all categories without the premades one defined in premadeCategories objectvariable
-     * @return
+     * get the categories in a project, by the current user
+     * @param projectName name of the project
+     * @return String[] of all the categories within the project
+     */
+    public static String[] getCategoriesByProjectCurrentUser(String projectName){
+        return CategoryDAO.list(UserStateService.getCurrentUser().getUsername(), projectName);
+    }
+
+    /**
+     * get the categories in a project, by the current user
+     * @param projectName name of the project
+     * @return ArrayList <String> of all the categories within the project
+     */
+    public static ArrayList<String> getCategoriesByProjectCurrentUserArraylist(String projectName){
+        ArrayList<String> categories = new ArrayList<>();
+
+        for(String category : getCategoriesByProjectCurrentUser(projectName)){
+            categories.add(category);
+        }
+        return categories;
+    }
+
+    /**
+     * Method for getting all categories without the pre-made one defined in pre-made Categories object variable
+     * @return all categories excluding pre-mades
      */
     public static ArrayList<String> getCategoriesCurrentUserWithoutPremades(){
         ArrayList<String> categoriesWithoutPremades = new ArrayList<>();
@@ -49,28 +72,51 @@ public class CategoryService {
 
     /**
      * Delete categories by current user
-     * @param categoryName
+     * @param categoryName the name of the category that is being deleted
      */
     public static void deleteCategoryCurrentUser(String categoryName){
         String username = UserStateDAO.getUsername();
         CategoryDAO.delete(username, categoryName);
         UserLogDAO.setCategoryRemoved(username, categoryName);
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory("");
+    }
+
+    /**
+     * Delete categories by current user inside project
+     * @param categoryName name of category
+     * @param projectName name of project
+     */
+    public static void deleteCategoryCurrentUser(String categoryName, String projectName){
+        String username = UserStateService.getCurrentUser().getUsername();
+        CategoryDAO.delete(username, projectName, categoryName);
+        UserLogDAO.setCategoryRemoved(username, categoryName);
+        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory("");
     }
 
     /**
      * Add new category to current user
-     * @param categoryName
+     * @param categoryName name of category
      */
     public static void addCategoryToCurrentUser(String categoryName){
-        String username = UserStateDAO.getUsername();
-        CategoryDAO.add(username, categoryName);
-        UserLogDAO.setCategoryAdded(username, categoryName);
+        CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), categoryName);
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryName);
+        UserLogDAO.setCategoryAdded(UserStateService.getCurrentUser().getUsername(), categoryName);
     }
 
     /**
-     * Validate syntax of categoryTitle. Must be a length of more than 0 and less than 30.
-     * @param categoryTitle
-     * @return
+     * Add new category to current user under project
+     * @param projectName project name
+     * @param categoryName the new category name
+     */
+    public static void addCategoryToCurrentUser(String projectName, String categoryName){
+        CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), projectName, categoryName);
+        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryName);
+    }
+
+    /**
+     * Validate syntax of categoryTitle. Must be a length of more than 0 and less than 24.
+     * @param categoryTitle the name of the category
+     * @return boolean according to if the Category title is less that 24 letters, and more than 0.
      */
     public static boolean validateCategoryTitleSyntax(String categoryTitle){
         if(categoryTitle.length() > 0 && categoryTitle.length() < 24){

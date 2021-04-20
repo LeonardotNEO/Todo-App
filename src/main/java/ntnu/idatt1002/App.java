@@ -3,6 +3,7 @@ package ntnu.idatt1002;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,10 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         // set stage objectvariable
         this.stage = stage;
+
+        // Set icon
+        Image logo = new Image(getClass().getResourceAsStream("/images/logo.PNG"));
+        stage.getIcons().add(logo);
 
         // Load custom font, Roboto
         Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Roboto/Roboto-Light.ttf"), 14);

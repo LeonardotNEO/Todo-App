@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CategoryDAOTest {
     @BeforeAll
-    public static void setup(){
+    public static void test_data(){
         UserDAO.serialize(new User("olanormann"));
         CategoryDAO.add("olanormann", "Home");
         CategoryDAO.add("olanormann", "Work");
@@ -25,7 +25,7 @@ public class CategoryDAOTest {
     }
 
     @Test
-    public void _list(){
+    public void list_element_in_categoryDAO(){
         String[] regular = CategoryDAO.list("olanormann");
         String[] project = CategoryDAO.list("olanormann", "Build house");
 
@@ -36,32 +36,32 @@ public class CategoryDAOTest {
     @Nested
     public class wrong_arguments{
         @Test
-        public void _list(){
+        public void list_with_false_arguments(){
             assertNull(CategoryDAO.list("joseph"));
             assertNull(CategoryDAO.list("joseph", "Build house"));
             assertNull(CategoryDAO.list("olanormann", "Start business"));
         }
 
         @Test
-        public void _add(){
+        public void add_with_false_arguments(){
             assertFalse(CategoryDAO.add("joseph", "Home"));
             assertFalse(CategoryDAO.add("joseph", "Build house", "Foundation"));
             assertFalse(CategoryDAO.add("olanormann", "Start business", "Take loan"));
         }
 
         @Test
-        public void _deleteByUser(){
+        public void delete_user_with_false_argument(){
             assertFalse(CategoryDAO.deleteByUser("joseph"));
         }
 
         @Test
-        public void _deleteByProject(){
+        public void delete_project_with_false_arguments(){
             assertFalse(CategoryDAO.deleteByProject("joseph", "Build house"));
             assertFalse(CategoryDAO.deleteByProject("olanormann", "Start business"));
         }
 
         @Test
-        public void _delete(){
+        public void delete_category_with_false_arguments(){
             assertFalse(CategoryDAO.delete("joseph", "Home"));
             assertFalse(CategoryDAO.delete("olanormann", "Cabin"));
             assertFalse(CategoryDAO.delete("joseph", "Build house", "Foundation"));
@@ -71,7 +71,7 @@ public class CategoryDAOTest {
     }
 
     @AfterAll
-    public static void cleanup(){
+    public static void delete_test_data(){
         UserDAO.delete("olanormann");
     }
 }

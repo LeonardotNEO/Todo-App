@@ -4,11 +4,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 
@@ -22,13 +27,28 @@ public class TasksController {
 
     @FXML private VBox tasksVBox;
     @FXML private ScrollPane scrollpane;
+    @FXML private Button buttonAddTask;
+    @FXML private Text messageText;
+    @FXML private VBox background;
 
+    public void initialize(){
+        // make vbox inside scrollpanes resizeable
+        addScrollpaneListener();
+
+        // decide if we show the addTaskButton
+        showAddTaskButton();
+
+        // set background
+        background.setStyle(UserStateService.getCurrentUser().getCurrentlySelectedBackground());
+    }
 
     /**
-     * Method that runs when this controller is initialized
+     * method for initializing Tasks UI when we have a category and project
+     * @param category
+     * @param project
      */
-    public void initialize(){
-        addScrollpaneListener();
+    public void initializeTasksController(String category, String project){
+        setAddTaskButton(category, project);
     }
 
     /**
@@ -43,13 +63,53 @@ public class TasksController {
         TaskController taskController = loader.getController();
 
         // add id to task anchorpane. A task is identified in TaskDAO as the taskobject's hashcode
-        task.setId(Integer.toString(taskObject.hashCode()));
+        task.setId(Long.toString(taskObject.getId()));
 
         // use controller to display task
         taskController.display(taskObject);
 
         // adding the task to tasks
         tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);
+    }
+
+    public void setAddTaskButton(String category, String project){
+        buttonAddTask.setOnAction(event -> {
+            // Load newEditTask page. get fxml variable and controller variable
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
+            Node node = null;
+            try {
+                node = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            NewEditTaskController newEditTaskController = loader.getController();
+
+            // load the task part of newEditTaskController
+            newEditTaskController.initializeNewTask(category, project);
+
+            // set dashboard content to editMenu
+            try {
+                DashboardController.getInstance().setCenterContent(node);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void showAddTaskButton(){
+        // set button to hidden as default
+        buttonAddTask.setVisible(false);
+        buttonAddTask.setManaged(false);
+
+        if(!UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
+            buttonAddTask.setVisible(true);
+            buttonAddTask.setManaged(true);
+        }
+        if(!UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty() && !CategoryService.getPremadeCategories().contains(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
+            buttonAddTask.setVisible(true);
+            buttonAddTask.setManaged(true);
+        }
+
     }
 
     /**
@@ -74,30 +134,23 @@ public class TasksController {
      * If currently selected category is set to null, we show guide to add new category.
      */
     public void tasksIsEmpty(){
-        Text text = new Text();
-
         if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null) {
             switch (UserStateService.getCurrentUser().getCurrentlySelectedCategory()){
                 case "Trash bin":
-                    text.setText("There are no tasks in trash bin!");
+                    showMessage("There are no tasks in trash bin!");
                     break;
                 case "Finished tasks":
-                    text.setText("There are no finished tasks!");
+                    showMessage("There are no finished tasks!");
                     break;
                 case "All tasks":
-                    text.setText("You have no tasks!");
+                    showMessage("You have no tasks!");
                     break;
                 default:
-                    text.setText("Theres no tasks in this category...\nClick on New-Task-button to add a new task!");
+                    showMessage(null);
+                    break;
             }
-
-            text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
-            tasksVBox.getChildren().add(text);
         } else {
-            text.setText("No category is created yet...\nYou need to add a category first, before adding an task!");
-            text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
-
-            tasksVBox.getChildren().add(text);
+            showMessage("No category is created yet...\nYou need to add a category first, before adding an task!");
         }
     }
 
@@ -105,10 +158,7 @@ public class TasksController {
      * Method for displaying UI in tasks when we are using searchbar
      */
     public void tasksIsEmptySearch(){
-        Text text = new Text();
-        text.setText("No task matching your search!");
-        text.setStyle("-fx-font-size: 25; -fx-text-fill: white;");
-        tasksVBox.getChildren().add(text);
+        showMessage("No task matching your search!");
     }
 
     /**
@@ -121,5 +171,14 @@ public class TasksController {
                 tasksVBox.setPrefWidth(scrollpane.getWidth() - 15);
             }
         });
+    }
+
+    public void showMessage(String message){
+        if(message == null){
+            messageText.setVisible(false);
+            messageText.setManaged(false);
+        } else {
+            messageText.setText(message);
+        }
     }
 }
