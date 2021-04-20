@@ -2,6 +2,7 @@ package ntnu.idatt1002.dao;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.User;
+import ntnu.idatt1002.utils.DateUtils;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
@@ -52,8 +53,8 @@ public final class ExcelDAO {
                             task.getCategory(),
                             task.getDescription(),
                             task.getPriority(),
-                            task.getStartDate(),
-                            task.getDeadline(),
+                            DateUtils.getFormattedDate(task.getStartDate()),
+                            DateUtils.getFormattedDate(task.getDeadline()),
                             task.getLocation()
                     );
                 }
@@ -67,11 +68,14 @@ public final class ExcelDAO {
     }
 
     /**
-     * Get user csv file
-     * @return a {@link File} object referencing the csv file, or {@code null} if file does not exist
+     * Get user csv file from storage
+     * @param username {@code username} variable for a {@link User}
+     * @return A {@link File} object referencing the csv file, or {@code null} if file does not exist
      */
     public static File read(String username){
-        return null;
+        File file = new File(filepath(username));
+        if(!file.exists()){ return null; }
+        else{ return file; }
     }
 
     //Get paths
