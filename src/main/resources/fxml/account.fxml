@@ -144,7 +144,7 @@
                            <content>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: transparent;">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#buttonNoBackground" prefHeight="60.0" prefWidth="60.0" styleClass="background-color_grey" text="None">
+                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonNoBackground" prefHeight="60.0" prefWidth="60.0" styleClass="background-color_grey" text="None">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
