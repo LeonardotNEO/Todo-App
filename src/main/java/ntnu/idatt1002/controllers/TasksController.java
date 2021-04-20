@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
@@ -27,6 +29,7 @@ public class TasksController {
     @FXML private ScrollPane scrollpane;
     @FXML private Button buttonAddTask;
     @FXML private Text messageText;
+    @FXML private VBox background;
 
     public void initialize(){
         // make vbox inside scrollpanes resizeable
@@ -34,6 +37,9 @@ public class TasksController {
 
         // decide if we show the addTaskButton
         showAddTaskButton();
+
+        // set background
+        background.setStyle(UserStateService.getCurrentUser().getCurrentlySelectedBackground());
     }
 
     /**

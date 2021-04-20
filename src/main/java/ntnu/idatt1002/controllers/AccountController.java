@@ -1,26 +1,31 @@
 package ntnu.idatt1002.controllers;
 
+import javafx.css.Stylesheet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.*;
 import ntnu.idatt1002.utils.DateUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * A class which contains the buttons related to a user account
@@ -33,6 +38,8 @@ public class AccountController {
     @FXML private Text taskCount;
     @FXML private Text categoryCount;
     @FXML private VBox information;
+    @FXML private HBox backgrounds;
+    @FXML private BorderPane background;
 
     // edit account
     @FXML private VBox editUserPage;
@@ -52,6 +59,9 @@ public class AccountController {
     public void initialize(){
         // load information page
         showInformationPage();
+
+        // set background of page
+        setBackground(UserStateService.getCurrentUser().getCurrentlySelectedBackground());
     }
 
     /**
@@ -111,6 +121,48 @@ public class AccountController {
         showInformationPage();
     }
 
+    public void buttonAddBackground(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Add background image");
+        File file = fileChooser.showOpenDialog(App.getStage());
+
+        ImageService.addImageToCurrentUser(file);
+
+        initialize();
+    }
+
+    public void displayBackgrounds(){
+        // remove background if there are any
+        removeBackgroundImages();
+
+        ArrayList<File> files = ImageService.getAllImagesCurrentUser();
+
+        files.forEach(file -> {
+            try {
+                Button button = (Button) App.loadFXML("backgroundButton");
+                button.setOnAction(event -> {
+                    UserStateService.getCurrentUser().setCurrentlySelectedBackground("-fx-background-image: url(\"" + file.toURI().toString() + "\");-fx-background-size: stretch; -fx-background-color: #e6e6e6;");
+                    initialize();
+                });
+                ImageView imageView = (ImageView) button.getGraphic();
+                imageView.setImage(new Image(file.toURI().toString()));
+
+                backgrounds.getChildren().add(button);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void removeBackgroundImages(){
+        backgrounds.getChildren().removeAll(backgrounds.getChildren());
+    }
+
+    public void buttonNoBackground(){
+        UserStateService.getCurrentUser().setCurrentlySelectedBackground("-fx-background-color: #e6e6e6;");
+        initialize();
+    }
+
     /**
      * Method used for showing the information page
      */
@@ -122,6 +174,7 @@ public class AccountController {
         dateCreated.setText(DateUtils.getFormattedDate(UserStateService.getCurrentUser().getDateCreated()));
         taskCount.setText(Integer.toString(TaskService.getTasksByCurrentUser().size()));
         categoryCount.setText(Integer.toString(CategoryService.getCategoriesCurrentUserWithoutPremades().size()));
+        displayBackgrounds();
     }
 
     /**
@@ -149,6 +202,10 @@ public class AccountController {
                 node.setManaged(false);
             }
         }
+    }
+
+    public void setBackground(String style){
+        background.setStyle(style);
     }
 
     /**
