@@ -130,7 +130,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Text>
-                              <JFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonAddBackground" style="-fx-background-color: #001933;" text="Background" textFill="WHITE">
+                              <JFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonAddBackground" styleClass="background-color_1" text="Background" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
