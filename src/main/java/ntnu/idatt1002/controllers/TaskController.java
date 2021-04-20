@@ -133,7 +133,7 @@ public class TaskController {
         }
         tags.setText("Tags: " + tagsString);
         attachedFiles.setText(("Attached files: "));
-        taskDate.setText("This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline()));
+        taskDate.setText( (task.getDeadline() == 0 ? "This task got no deadline" : "This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline())));
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());

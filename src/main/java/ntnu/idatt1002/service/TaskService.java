@@ -316,7 +316,7 @@ public class TaskService {
      * @param description Description of the task.
      * @return an ArrayList of errorCodes. ErrorCodes can be used i front end to display an errormessage for each scenario.
      */
-    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority, long deadlineTime){
+    public static ArrayList<Integer> validateTaskInput(String title, String description, String priority, long deadlineTime, long repeatTime){
         ArrayList<Integer> errorsCodes = new ArrayList<>();
 
         if(title.length() < 1 || title.length() > 30){
@@ -330,12 +330,18 @@ public class TaskService {
         } catch (NumberFormatException nfe) {
             errorsCodes.add(3);
         }
+        if(deadlineTime == 0 && repeatTime > 0 ) {
+            errorsCodes.add(6);
+        } else if (deadlineTime > 0 && deadlineTime < new Date().getTime()) {
+            errorsCodes.add(4);
+        }
+        /*
         if(deadlineTime == 0) {
             errorsCodes.add(5);
         } else if(deadlineTime < new Date().getTime()) {
             errorsCodes.add(4);
         }
-
+        */
         return errorsCodes;
     }
 
@@ -360,9 +366,13 @@ public class TaskService {
                     errorMessageDisplayString.append("- Priority must be chosen \n");
                     break;
                 case 4:
-                    errorMessageDisplayString.append("- Deadline cannot be in the past. Please choose a date in the future");
+                    errorMessageDisplayString.append("- Due time cannot be in the past. Please choose a date in the future\n");
+                    break;
                 case 5:
-                    errorMessageDisplayString.append("- Please select a date");
+                    errorMessageDisplayString.append("- Please select a date\n");
+                    break;
+                case 6:
+                    errorMessageDisplayString.append("- A repeatable task needs a due time\n");
                 default:
                     break;
             }

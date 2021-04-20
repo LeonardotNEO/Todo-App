@@ -121,11 +121,13 @@ public class NewEditTaskController {
         setTaskWithFiles(task);
 
         // set datepicker prompt and DateConverter
-        this.datePicker.setValue(LocalDate.parse(DateUtils.getFormattedDate(task.getDeadline()), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        LocalDate date = task.getDeadline() == 0l ? null : LocalDate.parse(DateUtils.getFormattedDate(task.getDeadline()), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.datePicker.setValue(date);
         this.datePicker.setConverter(new DateConverter());
 
         // set timePicker
-        this.timePicker.setValue(LocalTime.parse(DateUtils.getFormattedTime(task.getDeadline()), DateTimeFormatter.ofPattern("HH:mm")));
+        LocalTime time = task.getDeadline() == 0l ? null : LocalTime.parse(DateUtils.getFormattedTime(task.getDeadline()), DateTimeFormatter.ofPattern("HH:mm"));
+        this.timePicker.setValue(time);
         this.timePicker.setConverter(new TimeConverter());
         this.timePicker.set24HourView(true);
 
@@ -279,7 +281,7 @@ public class NewEditTaskController {
         long deadlineTime = datePicker.getValue() == null ? 0l : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
 
         // check if there is any errorcodes
-        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime);
+        ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime, TaskService.convertTimeRepeatToLong(repeatMenu.getText()));
 
         // handling if priority is set to empty
         if(errorCodes.contains(3)){
