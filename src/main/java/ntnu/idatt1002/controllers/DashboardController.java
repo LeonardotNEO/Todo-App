@@ -63,13 +63,7 @@ public class DashboardController {
         projectCategory = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
         project = UserStateService.getCurrentUser().getCurrentlySelectedProject();
 
-        if(!normalCategory.isEmpty()){
-            loadTasksPage(normalCategory, null);
-        } else if(!projectCategory.isEmpty()) {
-            loadTasksPage(projectCategory, project);
-        } else {
-            loadTasksPage(null, null);
-        }
+        loadTasksPage(null);
 
         // load category buttons to categories VBox
         loadNormalCategoryButtons();
@@ -82,6 +76,9 @@ public class DashboardController {
 
         // initialize searchbar
         initializeSearchbar();
+
+        // update MenuButton sort with newest arraylists<Task>
+        updateSortingOptions();
     }
 
     /**
@@ -326,7 +323,7 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        if(normalCategory.isEmpty()){
+        if(normalCategory.isEmpty() && !projectCategory.isEmpty()){
             sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(projectCategory, project))));
             sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(projectCategory, project))));
             sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(projectCategory, project))));
@@ -356,16 +353,18 @@ public class DashboardController {
      * Loads an empty Tasks UI elements, adds task UI elements to it. Then we set center content of dashboard to tasks.fxml
      * @throws IOException
      */
-    public void loadTasksPage(String category, String project) throws IOException {
+    public void loadTasksPage(ArrayList<Task> taskArrayList) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
         BorderPane borderPane = loader.load();
         TasksController tasksController = loader.getController();
 
         ArrayList<Task> tasks = new ArrayList<>();
-        if(project == null){
-            tasks = TaskService.getTasksByCategory(category);
-        } else {
-            tasks = TaskService.getTasksByCategory(category, project);
+        if(taskArrayList != null){
+            tasks = taskArrayList;
+        } else if(!projectCategory.isEmpty()) {
+            tasks = TaskService.getTasksByCategory(projectCategory, project);
+        } else if(!normalCategory.isEmpty()){
+            tasks = TaskService.getTasksByCategory(normalCategory);
         }
 
         if(tasks == null || tasks.contains(null) || tasks.isEmpty()){
@@ -376,34 +375,6 @@ public class DashboardController {
 
             // show no message when loaded tasks are not equals 0
             tasksController.showMessage(null);
-
-            // update MenuButton sort with newest arraylists<Task>
-            updateSortingOptions();
-        }
-
-        setCenterContent((Node) borderPane);
-    }
-
-    /**
-     * Loads an empty Tasks UI elements, adds task UI elements to it. Then we set center content of dashboard to tasks.fxml
-     * @throws IOException
-     */
-    public void loadTasksPage(ArrayList<Task> tasks) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
-        BorderPane borderPane = loader.load();
-        TasksController tasksController = loader.getController();
-
-        if(tasks == null || tasks.contains(null) || tasks.isEmpty()){
-            tasksController.tasksIsEmptySearch();
-        } else {
-            // add tasks to generated taskspage
-            tasksController.addTasks(tasks);
-
-            // show no message when loaded tasks are not equals 0
-            tasksController.showMessage(null);
-
-            // update MenuButton sort with newest arraylists<Task>
-            updateSortingOptions();
         }
 
         setCenterContent((Node) borderPane);
