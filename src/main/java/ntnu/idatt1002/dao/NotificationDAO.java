@@ -18,8 +18,7 @@ public final class NotificationDAO {
 
     /**
      * Returns a {@link ArrayList} of all {@link Notification} objects under a {@link User}.
-     * @param username the {@code username} variable in a {@link User} corresponding to the
-     *                 {@code username} variable in each {@link Notification}.
+     * @param username the {@code username} variable in a {@link User}.
      * @return an {@link ArrayList}, will be empty if no objects are stored or if the user doesn't exist.
      */
     public static ArrayList<Notification> list(String username){
@@ -70,8 +69,7 @@ public final class NotificationDAO {
     /**
      * Deserialize a {@link Notification} object from the given filepath.
      * @param filepath the {@link Notification}'s filepath
-     * @return a {@link Notification} object, or {@code null} if file could not be found,
-     * either the user or a notification with the given {@code id} doesn't exist.
+     * @return a {@link Notification} object, or {@code null} if file could not be found.
      */
     private static Notification deserialize(String filepath){
         return (Notification) GenericDAO.deserialize(filepath);
