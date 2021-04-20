@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -167,9 +169,9 @@
                         <Insets left="5.0" right="5.0" top="-10.0" />
                      </padding>
                   </GridPane>
-                  <HBox alignment="CENTER" layoutX="288.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="288.0">
+                  <StackPane layoutX="303.0" layoutY="8.0" AnchorPane.leftAnchor="303.0" AnchorPane.rightAnchor="302.0">
                      <children>
-                        <AnchorPane style="-fx-background-radius: 10;" styleClass="background-color_grey">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" style="-fx-background-radius: 10 10 0 0;" styleClass="background-color_grey">
                            <children>
                               <Button mnemonicParsing="false" onAction="#buttonChangeMonthLeft" prefHeight="33.0" prefWidth="0.0" style="-fx-background-color: transparent;" styleClass="overview-arrows" textFill="#0a20ae">
                                  <graphic>
@@ -179,12 +181,12 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Text fx:id="month" layoutX="38.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="month" wrappingWidth="151.1953125">
+                              <Label fx:id="month" text="Label">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
-                              </Text>
-                              <Button layoutX="194.0" mnemonicParsing="false" onAction="#buttonChangeMonthRight" prefHeight="25.0" prefWidth="38.0" style="-fx-background-color: transparent;" styleClass="overview-arrows" textFill="#0a20ae">
+                              </Label>
+                              <Button mnemonicParsing="false" onAction="#buttonChangeMonthRight" prefHeight="25.0" prefWidth="38.0" style="-fx-background-color: transparent;" styleClass="overview-arrows" textFill="#0a20ae">
                                  <graphic>
                                     <FontAwesomeIconView fill="#192579" glyphName="ARROW_CIRCLE_RIGHT" selectionFill="BLACK" size="25" styleClass="overview-arrows" wrappingWidth="22.428571701049805" />
                                  </graphic>
@@ -193,9 +195,9 @@
                                  </cursor>
                               </Button>
                            </children>
-                        </AnchorPane>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </StackPane>
                </children>
             </AnchorPane>
          </children></AnchorPane>
