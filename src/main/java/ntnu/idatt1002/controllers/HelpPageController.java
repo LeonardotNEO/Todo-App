@@ -68,7 +68,7 @@ public class HelpPageController {
         for(HelpSection.Info field: fields) {
             // Load controller and AnchorPane
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/infoField.fxml"));
-            VBox infoField = loader.load();
+            AnchorPane infoField = loader.load();
             InfoFieldController infoFieldController = loader.getController();
 
             //AnchorPane p = infoFieldController.getAnchor();
@@ -83,6 +83,8 @@ public class HelpPageController {
                 InputStream stream = new FileInputStream(field.getImage());
                 Image image = new Image(stream);
                 infoFieldController.setImageView(image);
+            } else {
+                infoFieldController.hideImage();
             }
 
             // Adding it to the vbox

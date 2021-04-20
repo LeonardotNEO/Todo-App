@@ -14,6 +14,12 @@ public class InfoFieldController {
         System.out.println("I am listening");
         //text.wrappingWidthProperty().bind(anchor.widthProperty());
     }
+
+    public void hideImage() {
+        imageView.setManaged(false);
+        imageView.setVisible(false);
+    }
+
     public void setImageView(Image image) {
         imageView.setImage(image);
     }
