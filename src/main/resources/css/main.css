@@ -47,7 +47,6 @@
   -fx-background-color: -fx-color-5;
 }
 
-
 /* DASHBOARD */
 
 .categoryButton{
@@ -177,7 +176,7 @@
 }
 
 .overview-scrollpanes {
-  -fx-background-color: #e2eae2;
+  -fx-background-color: #dae3da;
   -fx-background: transparent;
   -fx-background-radius: 10 0 0 0;
 }

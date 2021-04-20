@@ -24,6 +24,7 @@ public class User implements Serializable {
     String currentlySelectedProject = "";
     String currentlySelectedProjectCategory = "";
     String currentlySelectedSort = "";
+    String currentlySelectedBackground = "-fx-background-color: #e6e6e6";
     boolean rememberMe = false;
     String theme = "";
     boolean deleteTaskDontShowAgainCheckbox;
@@ -175,6 +176,17 @@ public class User implements Serializable {
     public void setCurrentlySelectedSort(String currentlySelectedSort) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedSort = currentlySelectedSort;
+
+        UserService.editUser(userBeforeChanges, this);
+    }
+
+    public String getCurrentlySelectedBackground() {
+        return currentlySelectedBackground;
+    }
+
+    public void setCurrentlySelectedBackground(String currentlySelectedBackground) {
+        User userBeforeChanges = new User(this);
+        this.currentlySelectedBackground = currentlySelectedBackground;
 
         UserService.editUser(userBeforeChanges, this);
     }

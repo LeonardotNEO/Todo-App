@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
+import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
@@ -52,8 +53,12 @@ public class OverviewController {
      * @throws IOException
      */
     public void initialize() throws IOException {
+        // set simple view to load as standard
         initializeSimpleView();
         currentDate = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth());
+
+        // set background
+        content.setStyle(UserStateService.getCurrentUser().getCurrentlySelectedBackground());
     }
 
     /**

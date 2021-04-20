@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import ntnu.idatt1002.Notification;
 import ntnu.idatt1002.service.NotificationService;
+import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.awt.*;
@@ -24,6 +25,7 @@ public class NotificationHistoryController {
 
     @FXML private VBox notificationsVBox;
     @FXML private ScrollPane scrollpane;
+    @FXML private BorderPane background;
 
     /**
      * At initializing of NotificationHistory.fxml we load in all notifications of the user
@@ -34,6 +36,9 @@ public class NotificationHistoryController {
 
         // add listener to scrollpane
         addScrollpaneListener();
+
+        // set background
+        background.setStyle(UserStateService.getCurrentUser().getCurrentlySelectedBackground());
     }
 
     /**
