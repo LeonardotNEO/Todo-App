@@ -3,13 +3,17 @@ package ntnu.idatt1002.dao;
 import java.io.*;
 
 /**
- * Generic default class for common methods in the DAO package
+ * The class {@code GenericDAO} provides static methods for serializing and deserializing objects.
+ * The access is set to default, so only classes within the 'dao' package can utilize it.
+ * To function as a generic method provider the methods takes and gives {@link Object} instances.
+ * Therefore he classes utilizing these methods needs to make sure that the objects handled are
+ * serializable, and that the objects get cast to their correct classes after deserializing.
  */
 final class GenericDAO {
     /**
-     * Write object to storage
-     * @param obj Class that implements serializable
-     * @param filepath filepath starting with "src/"
+     * Serialize an {@link Object} to the given filepath.
+     * @param obj an object which implements {@link Serializable}.
+     * @param filepath where the object will be stored and it's filename. Needs to start with "src/".
      */
     static void serialize(Object obj, String filepath){
         File file = new File(filepath);
@@ -27,9 +31,11 @@ final class GenericDAO {
     }
 
     /**
-     * Read object from storage, ready to be cast as it's original class
-     * @param filepath filepath starting with "src/"
-     * @return {@code Object} instance read from file
+     * Returns an {@link Object} deserialized from the given filepath.
+     * Make sure this gets cast to it's correct class.
+     * @param filepath where the object is stored and it's filename. Needs to start with "src/".
+     *                 The used filetype is ".ser".
+     * @return an {@link Object}. Will be {@code null} if the filepath is not valid.
      */
     static Object deserialize(String filepath){
         File file = new File(filepath);
