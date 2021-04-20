@@ -127,26 +127,6 @@ public class TaskController {
                     }
                 });
 
-                //                Button clickFile = new Button(fileName[fileName.length -1]);
-                //
-                //                //Specifies what the clickFile-button will do
-                //                clickFile.setOnAction(event -> {
-                //                    try {
-                //                        File open = new File(file);
-                //
-                //                        //Using the desktop library to open a file with the desktop
-                //                        if (!Desktop.isDesktopSupported()) {
-                //
-                //                        }
-                //                        Desktop desktop = Desktop.getDesktop();
-                //                        if(open.exists()) {
-                //                            desktop.open(open);
-                //                        }
-                //                    } catch (Exception exception) {
-                //                        exception.printStackTrace();
-                //                    }
-                //                });
-
                 //Adds the button to the vbox
                 flowPaneForFiles.getChildren().add(clickFile);
             }
