@@ -428,6 +428,12 @@ public class TaskService {
         return arrayWithAllClones;
     }
 
+    /**
+     * Methode that generates the next occurrence of a repeatable task. This is used when a repeatable task is deleted.
+     * This is so that completing or deleting a repeating task, wont delete the chain of repeatable tasks.
+     * the task is saved directly into the save files.
+     * @param taskId to find a specific task in the database.
+     */
     public static void nextRepeatableTask(long taskId){
         Task T= TaskService.getTaskByCurrentUser(taskId);
         if(T.isRepeatable()) {
@@ -439,6 +445,12 @@ public class TaskService {
             }
         }
     }
+
+    /**
+     * takes a description of a repeatable task, and turns it into Millis based on what the string is.
+     * @param TimeRepeatString The description of the repetition. (Repeat Daily/Repeat Weekly).
+     * @return A long representing a week or a day. or 0L if the input is not valid.
+     */
     public static long convertTimeRepeatToLong(String TimeRepeatString){
 
         if (TimeRepeatString.equals("Repeat Daily")){
@@ -451,6 +463,12 @@ public class TaskService {
             return 0L;
         }
     }
+
+    /**
+     * Converts a repetition time of a task, into a String which description the timeframe of repetition.
+     * @param T the Task which repetition time you want to convert
+     * @return a String reflecting the repetition time, or None if the time is invalid.
+     */
     public static String convertTimeRepeatToString(Task T){
         if(T.getTimeRepeat() == 1000*60*60*24L){
             return "Repeat Daily";

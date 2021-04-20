@@ -21,6 +21,10 @@ public class UserStateService {
         }
     }
 
+    /**
+     * methode for calling getting the current user
+     * @return
+     */
     public static User getCurrentUser(){
         return UserDAO.deserialize(UserStateService.getCurrentUserUsername());
     }

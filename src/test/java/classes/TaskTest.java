@@ -16,7 +16,6 @@ public class TaskTest {
         Task t = new Task.TaskBuilder("admin", "This is the task title")
                 .category("test")
                 .build();
-        System.out.println(t);
-
+        assertTrue(t.getCategory().equals("test")&&t.getUserName().equals("admin")&&t.getName().equals("This is the task title"));
     }
 }

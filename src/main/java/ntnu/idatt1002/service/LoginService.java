@@ -66,7 +66,7 @@ public class LoginService {
     /**
      * Method for logging the user in
      * @param username
-     * @param rememberMe
+     * @param rememberMe if the remember me box was checked they will log in automatically
      * @throws IOException
      */
     public static void login(String username, boolean rememberMe) throws IOException {
