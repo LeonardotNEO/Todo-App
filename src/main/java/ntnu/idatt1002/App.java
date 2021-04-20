@@ -34,7 +34,7 @@ public class App extends Application {
         this.stage = stage;
 
         // Set icon
-        Image logo = new Image(getClass().getResourceAsStream("/images/logo.PNG"));
+        Image logo = new Image(getClass().getResourceAsStream("/images/displayLogo.png"));
         stage.getIcons().add(logo);
 
         // Load custom font, Roboto
