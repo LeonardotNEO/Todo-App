@@ -18,7 +18,7 @@ public final class CategoryDAO {
     /**
      * Returns a {@link String}[] of all normal categories under a {@link User} folder.
      * Categories inside projects are not included in this method.
-     * @param username variable referencing the {@code username} variable in a {@link User}.
+     * @param username the {@code username} variable in a {@link User}.
      * @return an array of categories. Returns {@code null} if folder is empty.
      */
     public static String[] list(String username){
