@@ -20,15 +20,15 @@
          <content>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="411.0" prefWidth="750.0">
                <children>
-                  <Text fx:id="headerText" strokeType="OUTSIDE" strokeWidth="0.0" text="Header" wrappingWidth="513.1041107177734">
+                  <Text fx:id="headerText" strokeType="OUTSIDE" strokeWidth="0.0" text="Help Pages" wrappingWidth="513.1041107177734">
                      <font>
-                        <Font size="31.0" />
+                        <Font size="32.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="20.0" />
                      </VBox.margin>
                   </Text>
-                  <Text fx:id="descriptionText" strokeType="OUTSIDE" strokeWidth="0.0" text="description" wrappingWidth="380.3564453125">
+                  <Text fx:id="descriptionText" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on one of the buttons to the left to see helpfull information" wrappingWidth="559.6897583007812">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -36,7 +36,10 @@
                         <Insets left="20.0" />
                      </VBox.margin>
                   </Text>
-                  <VBox fx:id="vboxForInfoText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="342.0" prefWidth="750.0" />
+                  <VBox fx:id="vboxForInfoText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="342.0" prefWidth="750.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></VBox>
                </children>
             </VBox>
          </content>
