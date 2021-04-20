@@ -98,7 +98,7 @@
       {
         "title": "Calendar view",
         "image": null,
-        "text": "By clicking on the \"Calendar view\"-button you will be sent to the \"Calendar view\" page. On this page all tasks will be under their deadline. Thus if a task’s deadline is on the 15th day of this month then it will be visible under the 15th day. This page will also allow you to check future dates and task-deadlines. For instance you can check what tasks you have for the next month or next year."
+        "text": "By clicking on the \"Calendar view\"-button you will be sent to the \"Calendar view\" page. On this page all tasks will be under their deadline. Thus if the deadline of a task is on the 15th day of this month then it will be visible under the 15th day. This page will also allow you to check future dates and task-deadlines. For instance you can check what tasks you have for the next month or next year."
       },
       {
         "title": null,
@@ -156,6 +156,53 @@
         "title": null,
         "image": null,
         "text": "Lastly at the bottom-center of the page, there is a \"Cancel\"-button. By pressing this button all unsaved changes will be deleted and you will be returned back to the \"Account\"-page."
+      }
+    ]
+  },
+  {
+    "section": "New / Edit task",
+    "title": "New / Edit task",
+    "description": "This page gives info about how to create and edit a task, as well as the contents of a task",
+    "fields": [
+      {
+        "title": "Creat a new task",
+        "image": null,
+        "text": "Create a new task by clicking the \"Task\" button. This button is located at the center-boarder of the category you are currently in."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "This opens the \"New task\" page. Here you can select either advanced or simple format by pressing ether. They are both located to the right of the center at the top of this page. By clicking on either word the page will change to that format. The default in \"New task\" is the simple format."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "The task title is the first field. It can max be x characters long. This is the only field that is required to create a task."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "Below the task title field there is a due date field and due time field. These can either be blank or a time can be set. To set the due date you either click on the calendar icon to the left of the field, or click on the field and write the date yourself. If you click on the calendar icon simply click on the desired due date and it will be set. To set the due time you either click on the clock icon to the left of the field, or click on the field and write the time yourself. If you click on the clock simply click on the desired due time yourself and it will be set."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "Below the due time and due date fields there are three checkboxes. These checkboxes are for reminders of the task. When checked they will send a notification about the task when the due date is within the checked time. Thus if the deadline of a task is within the next 24 hours and the 24 hours box is checked, you will receive a notification about the task. Multiple boxes can be checked for a single task."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "At the bottom-center of the \"New task\" page there are two buttons. They are the \"+ New task\"-button and \"Cancel\"-button. When clicked the \"+ New task\"-button will create a new task with the information you provided. The \"Cancel\"-button will send you back to the category you were previously in, as well as deleting the task you were creating."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
       }
     ]
   },
