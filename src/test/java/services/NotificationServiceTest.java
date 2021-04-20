@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class NotificationServiceTest {
 
     @Test
-    public void addNotification(){
+    public void add_notification(){
         System.out.println("hello");
     }
 }
