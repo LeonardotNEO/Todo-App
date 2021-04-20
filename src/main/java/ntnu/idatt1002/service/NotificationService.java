@@ -61,7 +61,7 @@ public class NotificationService {
     /**
      * Setting the checked variable in notification specified by id to true
      * @param id
-     * @return
+     * @return boolean if the process was successful
      * @throws IOException
      */
     public static boolean checkNotification(int id) throws IOException {
@@ -72,6 +72,10 @@ public class NotificationService {
         return true;
     }
 
+    /**
+     * check if a notification has become active
+     * @param notifications
+     */
     public static void checkIfNotificationHasBecomeActive(ArrayList<Notification> notifications){
         notifications.forEach(notification -> {
             if(DateUtils.getAsMs(LocalDateTime.now()) > notification.getDateIssued() && !notification.getActive()){

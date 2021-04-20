@@ -28,7 +28,7 @@ public class CalenderElementController {
 
     /**
      * Method for adding task buttons to each calender element
-     * @param tasks
+     * @param tasks the task which the button represents
      */
     public void addButtonToCalenderElement(ArrayList<Task> tasks){
         for(Task task : tasks){
