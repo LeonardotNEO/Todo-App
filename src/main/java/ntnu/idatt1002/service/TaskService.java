@@ -84,7 +84,10 @@ public class TaskService {
 
         if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
             if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
-                tasksResult = TaskService.getTasksByCurrentUser();
+                ArrayList<String> avoidCategories = new ArrayList<>();
+                avoidCategories.add("Finished tasks");
+                avoidCategories.add("Trash bin");
+                tasksResult = TaskService.getTasksExcludingCategories(getTasksByCurrentUser(),avoidCategories);
             } else {
                 tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
             }
