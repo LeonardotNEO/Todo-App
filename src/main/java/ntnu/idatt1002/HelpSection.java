@@ -23,10 +23,13 @@ public class HelpSection {
     public class Info {
         public String image;
         public String text;
+        public String title;
 
         public String getImage() {return image;}
 
         public String getText() {return text;}
+
+        public String getTitle() {return title;}
 
         @Override
         public String toString() {
