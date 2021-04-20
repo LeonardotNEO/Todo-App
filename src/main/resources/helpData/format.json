@@ -71,6 +71,43 @@
     ]
   },
   {
+    "section": "Overview",
+    "title": "Overview",
+    "description": "This page gives information about the overview page and its contents",
+    "fields": [
+      {
+        "title": "How to access",
+        "image": null,
+        "text": "This page can be accessed by clicking the \"Overview\"-button located at the top of the application in the navigation bar."
+      },
+      {
+        "title": "Content and simple view",
+        "image": null,
+        "text": "On this page you can see two buttons. The are located in the upper left corner right below the application logo. These buttons are \"Simple view\" and \"Calendar view\"."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "The page you are currently on is the \"Simple view\" page, since this is the default overview page. Here you can see three containers with the text: \"Tasks due this week\", \"Tasks due the next 7 days\" and \"Tasks due this month\"."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "These containers will contain tasks with a deadline within the given time. Thus all not finished or deleted tasks which are due in the next 7 days will be in under the container \"Tasks due the next 7 days\". Similarly tasks which are due this month will be under \"Tasks due this month\" and the same for tasks under \"Tasks due this week\"."
+      },
+      {
+        "title": "Calendar view",
+        "image": null,
+        "text": "By clicking on the \"Calendar view\"-button you will be sent to the \"Calendar view\" page. On this page all tasks will be under their deadline. Thus if a task’s deadline is on the 15th day of this month then it will be visible under the 15th day. This page will also allow you to check future dates and task-deadlines. For instance you can check what tasks you have for the next month or next year."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "This is done by pressing the circle with the arrow button pointing to the right. This button is located in the upper-center of the \"Calendar view\" page. To the left of this button the currently viewed month and year is written. To the left of this again, a similar button with an arrow pointing to the left is located. By pressing this button you will be able to watch past months and years."
+      }
+    ]
+  },
+  {
     "section": "Account",
     "title": "Account",
     "description": "This page gives information about the account page and what it contains",
