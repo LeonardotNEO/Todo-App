@@ -43,15 +43,6 @@ public class TasksController {
     }
 
     /**
-     * method for initializing Tasks UI when we have a category and project
-     * @param category
-     * @param project
-     */
-    public void initializeTasksController(String category, String project){
-        setAddTaskButton(category, project);
-    }
-
-    /**
      * Method for adding a Task UI element to tasksVBox
      * @param taskObject A task object is turned into a UI element
      * @throws IOException
@@ -72,28 +63,27 @@ public class TasksController {
         tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);
     }
 
-    public void setAddTaskButton(String category, String project){
-        buttonAddTask.setOnAction(event -> {
-            // Load newEditTask page. get fxml variable and controller variable
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
-            Node node = null;
-            try {
-                node = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            NewEditTaskController newEditTaskController = loader.getController();
+    public void buttonAddTask(){
+        // Load newEditTask page. get fxml variable and controller variable
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
+        Node node = null;
+        try {
+            node = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            // load the task part of newEditTaskController
-            newEditTaskController.initializeNewTask(category, project);
+        NewEditTaskController newEditTaskController = loader.getController();
 
-            // set dashboard content to editMenu
-            try {
-                DashboardController.getInstance().setCenterContent(node);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        // load the task part of newEditTaskController
+        newEditTaskController.initializeNewTask();
+
+        // set dashboard content to editMenu
+        try {
+            DashboardController.getInstance().setCenterContent(node);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showAddTaskButton(){

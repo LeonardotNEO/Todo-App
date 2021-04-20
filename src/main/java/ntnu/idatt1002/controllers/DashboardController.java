@@ -330,7 +330,7 @@ public class DashboardController {
             sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(projectCategory, project))));
             sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(projectCategory, project))));
             sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(projectCategory, project))));
-        } else {
+        } else if(!normalCategory.isEmpty()) {
             sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(normalCategory))));
             sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(normalCategory))));
             sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(normalCategory))));
@@ -360,8 +360,6 @@ public class DashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
         BorderPane borderPane = loader.load();
         TasksController tasksController = loader.getController();
-
-        tasksController.initializeTasksController(category, project);
 
         ArrayList<Task> tasks = new ArrayList<>();
         if(project == null){

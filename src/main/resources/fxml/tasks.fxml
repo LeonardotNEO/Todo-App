@@ -31,7 +31,7 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </Text>
-            <Button fx:id="buttonAddTask" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-radius: 30;" styleClass="background-color_1" text="Task" textFill="WHITE">
+            <Button fx:id="buttonAddTask" mnemonicParsing="false" onAction="#buttonAddTask" prefWidth="150.0" style="-fx-background-radius: 30;" styleClass="background-color_1" text="Task" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="#09ff00" glyphName="PLUS" />
                </graphic>
