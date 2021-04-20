@@ -130,7 +130,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Text>
-                              <JFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonAddBackground" style="-fx-background-color: #001933;" text="Background" textFill="WHITE">
+                              <JFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonAddBackground" styleClass="background-color_1" text="Background" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -144,7 +144,7 @@
                            <content>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: transparent;">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#buttonNoBackground" prefHeight="60.0" prefWidth="60.0" styleClass="background-color_grey" text="None">
+                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonNoBackground" prefHeight="60.0" prefWidth="60.0" styleClass="background-color_grey" text="None">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
