@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
@@ -15,6 +17,8 @@ import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateUtils;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -41,6 +45,7 @@ public class TaskController {
     @FXML private Text taskRepeat;
     @FXML private Pane background;
     @FXML private HBox toolsHBox;
+    @FXML private FlowPane flowPaneForFiles;
 
     /**
      * At initializing of this UI, we display the minimized version
@@ -91,22 +96,63 @@ public class TaskController {
         // tags
         String tagsString = "";
         ArrayList<String> tagsList = task.getTags();
-        if(tagsList!=null) { // added this because tagList was null, null pointer error
+        if(tagsList!=null) { // null pointer exception when tagsList equals null
             for (String tag : tagsList) {
                 tagsString += tag + ", ";
             }
         }
         // files
-        String filesString = "\n";
         ArrayList<String> filesList = task.getFilePaths();
-        if(filesList!=null) { // null pointer exeption when file list equals null
+        if(filesList!=null) { // null pointer exception when file list equals null
             for (String file : filesList) {
+
+                //Using regex to split up the filepath-string to the last element, (the file name and type)
                 String[] fileName = file.split("\\\\");
-                filesString += "-" + fileName[fileName.length - 1] + ",\n ";
+                Hyperlink clickFile = new Hyperlink(fileName[fileName.length-1]);
+
+                clickFile.setOnAction(event -> {
+                    try {
+                        File open = new File(file);
+
+                        //Using the desktop library to open a file with the desktop
+                        if (!Desktop.isDesktopSupported()) {
+
+                        }
+                        Desktop desktop = Desktop.getDesktop();
+                        if(open.exists()) {
+                            desktop.open(open);
+                        }
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                });
+
+                //                Button clickFile = new Button(fileName[fileName.length -1]);
+                //
+                //                //Specifies what the clickFile-button will do
+                //                clickFile.setOnAction(event -> {
+                //                    try {
+                //                        File open = new File(file);
+                //
+                //                        //Using the desktop library to open a file with the desktop
+                //                        if (!Desktop.isDesktopSupported()) {
+                //
+                //                        }
+                //                        Desktop desktop = Desktop.getDesktop();
+                //                        if(open.exists()) {
+                //                            desktop.open(open);
+                //                        }
+                //                    } catch (Exception exception) {
+                //                        exception.printStackTrace();
+                //                    }
+                //                });
+
+                //Adds the button to the vbox
+                flowPaneForFiles.getChildren().add(clickFile);
             }
         }
         tags.setText("Tags: " + tagsString);
-        attachedFiles.setText(("Attached files: " + filesString));
+        attachedFiles.setText(("Attached files: "));
         taskDate.setText("This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline()));
         setTaskPriority(task.getPriority());
         taskId = task.getId();
@@ -139,6 +185,8 @@ public class TaskController {
         attachedFiles.setManaged(false);
         taskRepeat.setVisible(false);
         taskRepeat.setManaged(false);
+        flowPaneForFiles.setVisible(false);
+        flowPaneForFiles.setManaged(false);
 
         fullDisplayed = false;
     }
@@ -168,6 +216,8 @@ public class TaskController {
         attachedFiles.setManaged(true);
         taskRepeat.setVisible(true);
         taskRepeat.setManaged(true);
+        flowPaneForFiles.setVisible(true);
+        flowPaneForFiles.setManaged(true);
 
         fullDisplayed = true;
     }
