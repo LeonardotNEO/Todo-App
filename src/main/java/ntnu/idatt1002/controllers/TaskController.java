@@ -127,33 +127,13 @@ public class TaskController {
                     }
                 });
 
-                //                Button clickFile = new Button(fileName[fileName.length -1]);
-                //
-                //                //Specifies what the clickFile-button will do
-                //                clickFile.setOnAction(event -> {
-                //                    try {
-                //                        File open = new File(file);
-                //
-                //                        //Using the desktop library to open a file with the desktop
-                //                        if (!Desktop.isDesktopSupported()) {
-                //
-                //                        }
-                //                        Desktop desktop = Desktop.getDesktop();
-                //                        if(open.exists()) {
-                //                            desktop.open(open);
-                //                        }
-                //                    } catch (Exception exception) {
-                //                        exception.printStackTrace();
-                //                    }
-                //                });
-
                 //Adds the button to the vbox
                 flowPaneForFiles.getChildren().add(clickFile);
             }
         }
         tags.setText("Tags: " + tagsString);
         attachedFiles.setText(("Attached files: "));
-        taskDate.setText("This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline()));
+        taskDate.setText( (task.getDeadline() == 0 ? "This task got no deadline" : "This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline())));
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
