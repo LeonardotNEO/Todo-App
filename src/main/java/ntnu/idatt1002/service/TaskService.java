@@ -201,6 +201,7 @@ public class TaskService {
         userTasks.sort((o1, o2) -> {
             long task1Date = o1.getDeadline();
             long task2Date = o2.getDeadline();
+            if(task1Date == 0) return 1; // If the task got no deadline put it at the end of the list
             if (task1Date > task2Date) {
                 return 1;
             }
