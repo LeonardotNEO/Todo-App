@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -37,7 +38,7 @@ public class OverviewController {
 
     @FXML private AnchorPane calenderView;
     @FXML private GridPane calenderViewGrid;
-    @FXML private Text month;
+    @FXML private Label month;
 
     @FXML private AnchorPane content;
 
@@ -119,7 +120,7 @@ public class OverviewController {
         int row = 1;
 
         // change current month text
-        month.setText(currentTimeThisPage.getMonth().toString());
+        month.setText(currentTimeThisPage.getMonth().toString() + " " + currentTimeThisPage.getYear());
         month.setTextAlignment(TextAlignment.CENTER);
 
         // each day represent a number
