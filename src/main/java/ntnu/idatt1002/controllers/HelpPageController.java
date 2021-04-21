@@ -61,7 +61,7 @@ public class HelpPageController {
             // Add hover effects
             button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
             button.setOnMouseExited(e -> button.setStyle(idleStyle));
-            
+
             // Reset all other buttons
             button.setOnMouseClicked( event -> buttons.stream().filter(b -> b != button).forEach(b -> {
                 b.setOnMouseExited(e -> b.setStyle(idleStyle));
