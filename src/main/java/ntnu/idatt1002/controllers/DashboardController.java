@@ -179,6 +179,11 @@ public class DashboardController {
         } else if(project != null && category == null){
             categoryHBox.setVisible(false);
             categoryHBox.setManaged(false);
+        } else {
+            projectHBox.setVisible(false);
+            projectHBox.setManaged(false);
+            categoryHBox.setVisible(false);
+            categoryHBox.setManaged(false);
         }
     }
 
@@ -303,9 +308,9 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        //sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(category, project))));
-        //sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(category, project))));
-        //sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(category, project))));
+        sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(category, project))));
+        sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(category, project))));
+        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(category, project))));
     }
 
     /**
