@@ -337,7 +337,6 @@ public class DashboardController {
 
         // get tasks
         ArrayList<Task> tasks = TaskService.getTasksByCategory(category, project);
-        System.out.println(tasks.size());
 
         // add tasks to generated taskspage
         tasksController.addTasks(tasks);

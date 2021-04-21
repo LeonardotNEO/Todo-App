@@ -13,10 +13,9 @@ import java.util.TimerTask;
  */
 public class UpdateService {
     private static ArrayList<Notification> previousNotifications = new ArrayList<>();
+    private static Timer timer = new Timer();
 
     public static void start(){
-        Timer timer = new Timer();
-
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -44,4 +43,9 @@ public class UpdateService {
             }
         }, 0, 1000);
     }
+
+    public static void stop(){
+        timer.cancel();
+    }
+
 }

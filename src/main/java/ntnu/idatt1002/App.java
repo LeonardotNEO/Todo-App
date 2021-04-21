@@ -14,6 +14,7 @@ import ntnu.idatt1002.service.UpdateService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
+import java.util.Timer;
 
 /**
  * To-do app main class
@@ -69,11 +70,15 @@ public class App extends Application {
      * When application is stopped (not by logout button), we check if UserState is false, if it is we logOut()
      */
     public void stop(){
+        // check if we should log the user out when the application is stopped based on user settings
         if(UserStateService.checkIfUserState()){
             if(!UserStateService.getCurrentUser().isRememberMe()){
                 LoginService.logOut();
             }
         }
+
+        // stop timer in UpdateService
+        UpdateService.stop();
     }
 
     /**
