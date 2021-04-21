@@ -109,8 +109,7 @@ public class NewEditCategoryController {
                 CategoryService.addCategoryToCurrentUser(categoryTitle.getText());
 
                 // Move tasks in old category to new category
-                ArrayList<Task> tasksToMove = TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), null);
-                System.out.println(tasksToMove.size());
+                ArrayList<Task> tasksToMove = TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), null);
                 TaskService.editCategoryAndProjectOfTasks(tasksToMove, categoryTitle.getText(), null);
 
                 // Delete old category
