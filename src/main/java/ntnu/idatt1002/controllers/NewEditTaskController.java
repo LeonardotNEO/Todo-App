@@ -132,7 +132,7 @@ public class NewEditTaskController {
         this.timePicker.set24HourView(true);
 
         // set priority prompt
-        this.priorityMenu.setText(Integer.toString(task.getPriority()));
+        this.priorityMenu.setText(TaskService.convertPriorityIntToString(task.getPriority()));
 
         //set repeatTime
         this.repeatMenu.setText(TaskService.convertTimeRepeatToString(task));
@@ -285,7 +285,7 @@ public class NewEditTaskController {
 
         // handling if priority is set to empty
         if(errorCodes.contains(3)){
-            priorityMenu.setText("0");
+            priorityMenu.setText("None");
             errorCodes.remove(Integer.valueOf(3));
         }
 
@@ -313,7 +313,7 @@ public class NewEditTaskController {
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
                     .description(descriptionTextArea.getText())
                     .deadline(deadlineTime)
-                    .priority(Integer.parseInt(priorityMenu.getText()))
+                    .priority(TaskService.convertPriorityStringToInt(priorityMenu.getText()))
                     .startDate(DateUtils.getAsMs(LocalDate.now()))
                     .category(categoryString)
                     .project(projectString)
@@ -411,6 +411,13 @@ public class NewEditTaskController {
         MenuItem menuItem = (MenuItem) event.getSource();
         priorityMenu.setText(menuItem.getText());
     }
+    /**
+     * When RepeatMenuItem is clicked, we change the RepeatMenuButton to the selection.
+     *
+     * @param event
+     *
+     * @throws IOException
+     */
     public void clickRepeat(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         repeatMenu.setText(menuItem.getText());

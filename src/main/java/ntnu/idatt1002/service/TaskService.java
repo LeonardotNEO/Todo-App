@@ -118,7 +118,10 @@ public class TaskService {
 
         if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
             if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
-                tasksResult = TaskService.getTasksByCurrentUser();
+                ArrayList<String> avoidCategories = new ArrayList<>();
+                avoidCategories.add("Finished tasks");
+                avoidCategories.add("Trash bin");
+                tasksResult = TaskService.getTasksExcludingCategories(getTasksByCurrentUser(),avoidCategories);
             } else {
                 tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
             }
@@ -361,7 +364,7 @@ public class TaskService {
             errorsCodes.add(2);
         }
         try{
-            Integer.parseInt(priority);
+            convertPriorityStringToInt(priority);
         } catch (NumberFormatException nfe) {
             errorsCodes.add(3);
         }
@@ -486,15 +489,13 @@ public class TaskService {
      * @return A long representing a week or a day. or 0L if the input is not valid.
      */
     public static long convertTimeRepeatToLong(String TimeRepeatString){
-
-        if (TimeRepeatString.equals("Repeat Daily")){
-            return 1000*60*60*24L;
-        }
-        else if (TimeRepeatString.equals("Repeat Weekly")){
-            return 1000*60*60*24*7L;
-        }
-        else{
-            return 0L;
+        switch(TimeRepeatString){
+            case "Repeat Daily":
+                return 1000*60*60*24L;
+            case "Repeat Weekly":
+                return 1000*60*60*24*7L;
+            default:
+                return 0L;
         }
     }
 
@@ -511,6 +512,31 @@ public class TaskService {
         }
         else{
             return "None";
+        }
+    }
+
+    public static String convertPriorityIntToString(int priority){
+        switch (priority){
+            default:
+                return "None";
+            case 1:
+                return "Low";
+            case 2:
+                return "Medium";
+            case 3:
+                return "High";
+
+        }
+    }
+    public static int convertPriorityStringToInt(String Priority){
+        if(Priority.equals("Low")){
+            return 1;
+        }else if(Priority.equals("Medium")){
+            return 2;
+        }else if(Priority.equals("High")){
+            return 3;
+        }else{
+            return 0;
         }
     }
 }

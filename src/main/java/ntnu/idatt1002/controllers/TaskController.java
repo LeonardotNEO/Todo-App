@@ -142,8 +142,7 @@ public class TaskController {
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
-        taskRepeat.setText("Task repeat: ");
-
+        taskRepeat.setText("Task repeat: " + TaskService.convertTimeRepeatToString(task));
         setButtons();
     }
 
@@ -316,7 +315,7 @@ public class TaskController {
      * @param priority The priority of task
      */
     public void setTaskPriority(int priority) {
-        taskPriority.setText("Priority: " + priority);
+        taskPriority.setText("Priority: " + TaskService.convertPriorityIntToString(priority));
 
         switch(priority){
             case 0:
