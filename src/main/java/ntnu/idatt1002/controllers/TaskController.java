@@ -47,6 +47,11 @@ public class TaskController {
     @FXML private HBox toolsHBox;
     @FXML private FlowPane flowPaneForFiles;
 
+    @FXML private Button buttonFinishTask;
+    @FXML private Button buttonEditTask;
+    @FXML private Button buttonDeleteTask;
+    @FXML private Button buttonRestoreTask;
+
     /**
      * At initializing of this UI, we display the minimized version
      */
@@ -137,7 +142,8 @@ public class TaskController {
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
-        taskRepeat.setText("Task repeat: ");
+        taskRepeat.setText("Task repeat: " + TaskService.convertTimeRepeatToString(task));
+        setButtons();
     }
 
     /**
@@ -274,6 +280,28 @@ public class TaskController {
     }
 
     /**
+     * calls method restoreTask().
+     * @throws IOException
+     */
+    public void clickRestoreTask() throws IOException {
+        restoreTask();
+    }
+
+    /**
+     * Restores the task to its previous category (and project if applicable).
+     * calls TaskService.editCategoryAndProjectOfTask.
+     * @throws IOException
+     */
+    public void restoreTask() throws IOException {
+        // update category of task
+        TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId),
+                TaskService.getTaskByCurrentUser(taskId).getOriginalCategory(),
+                TaskService.getTaskByCurrentUser(taskId).getOriginalProject());
+        // update dashboard
+        DashboardController.getInstance().initialize();
+    }
+
+    /**
      * Updates center-content of dashboard to editTask.fxml and adds prompt attributes from task selected
      * @param event
      * @throws IOException
@@ -287,7 +315,7 @@ public class TaskController {
      * @param priority The priority of task
      */
     public void setTaskPriority(int priority) {
-        taskPriority.setText("Priority: " + priority);
+        taskPriority.setText("Priority: " + TaskService.convertPriorityIntToString(priority));
 
         switch(priority){
             case 0:
@@ -384,6 +412,44 @@ public class TaskController {
             taskDescription.setPrefHeight(label.getHeight());
             background.getChildren().removeAll(label);
         });
+    }
+
+    /**
+     * This method set visible and managed properties of task HBox buttons based on the tasks category.
+     * Three outcomes: Finished tasks, Trash bin and default(all other categories).
+     */
+    public void setButtons() {
+        switch (TaskService.getTaskByCurrentUser(taskId).getCategory()){
+            case "Finished tasks": //Shows only one button when in pre made category Finished tasks
+                buttonFinishTask.setVisible(false);
+                buttonFinishTask.setManaged(false);
+                buttonEditTask.setVisible(false);
+                buttonEditTask.setManaged(false);
+                buttonDeleteTask.setVisible(false);
+                buttonDeleteTask.setManaged(false);
+                buttonRestoreTask.setVisible(true);
+                buttonRestoreTask.setManaged(true);
+                break;
+            case "Trash bin": //Shows only one button when in pre made category Trash bin
+                buttonFinishTask.setVisible(false);
+                buttonFinishTask.setManaged(false);
+                buttonEditTask.setVisible(false);
+                buttonEditTask.setManaged(false);
+                buttonDeleteTask.setVisible(false);
+                buttonDeleteTask.setManaged(false);
+                buttonRestoreTask.setVisible(true);
+                buttonRestoreTask.setManaged(true);
+                break;
+            default: //Defaults to normal buttons
+                buttonFinishTask.setVisible(true);
+                buttonFinishTask.setManaged(true);
+                buttonEditTask.setVisible(true);
+                buttonEditTask.setManaged(true);
+                buttonDeleteTask.setVisible(true);
+                buttonDeleteTask.setManaged(true);
+                buttonRestoreTask.setVisible(false);
+                buttonRestoreTask.setManaged(false);
+        }
     }
 
 }
