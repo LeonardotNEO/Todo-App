@@ -330,7 +330,7 @@ public class TaskService {
             errorsCodes.add(2);
         }
         try{
-            Integer.parseInt(priority);
+            convertPriorityStringToInt(priority);
         } catch (NumberFormatException nfe) {
             errorsCodes.add(3);
         }
@@ -481,28 +481,28 @@ public class TaskService {
         }
     }
 
-    public static String convertPriorityIntToString(Task T){
-        switch (T.getPriority()){
-            case 0:
+    public static String convertPriorityIntToString(int priority){
+        switch (priority){
+            default:
                 return "None";
             case 1:
                 return "Low";
             case 2:
                 return "Medium";
-            default:
+            case 3:
                 return "High";
+
         }
     }
     public static int convertPriorityStringToInt(String Priority){
-        switch (Priority){
-            case "None":
-                return 0;
-            case "Low":
-                return 1;
-            case "Medium":
-                return 2;
-            default:
-                return 3;
+        if(Priority.equals("Low")){
+            return 1;
+        }else if(Priority.equals("Medium")){
+            return 2;
+        }else if(Priority.equals("High")){
+            return 3;
+        }else{
+            return 0;
         }
     }
 }
