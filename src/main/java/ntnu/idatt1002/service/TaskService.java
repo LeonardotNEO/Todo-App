@@ -291,18 +291,33 @@ public class TaskService {
     }
 
     /**
-     * Returns an ArrayList of Tasks that have a name that contains the a given string.
+     * Returns an ArrayList of Tasks that have a name or tag that contains the given string.
      * The methode is not case sensitive.
      *
      * @param DesiredName A part(or entire) string that is contained in the task(s) that you want to find.
-     * @return An ArrayList of all the tasks that contains the DesiredName in the title.
+     * @return An ArrayList of all the tasks that contains the DesiredName in the title or tag.
      */
     public static ArrayList<Task> containsDesiredNameInTitle(String DesiredName){
         ArrayList<Task> userTasks = getTasksByCurrentUser();
 
-        return userTasks.stream()
+        //Get task name matches
+        ArrayList<Task> nameMatch = userTasks.stream()
                 .filter(t-> t.getName().toLowerCase().contains(DesiredName.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
+
+        //Get task tag matches
+        ArrayList<Task> tagMatch = new ArrayList<>();
+        for (Task task : userTasks){
+            for(String tag : task.getTags()){
+                if(tag.toLowerCase().contains(DesiredName.toLowerCase())){
+                    tagMatch.add(task);
+                }
+            }
+        }
+
+        //Combine results, remove duplicates and return result
+        nameMatch.addAll(tagMatch);
+        return nameMatch.stream().distinct().collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
