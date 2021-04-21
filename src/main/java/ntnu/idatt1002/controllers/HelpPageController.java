@@ -31,6 +31,7 @@ public class HelpPageController {
     @FXML private Text descriptionText;
     @FXML private VBox vboxForInfoText;
     @FXML private ScrollPane helpMenuScroll;
+    @FXML private ScrollPane infoScrollBar;
 
     public void initialize() {
         fillMenuPage();
@@ -52,6 +53,10 @@ public class HelpPageController {
     }
 
     public void getInfoPage(String section) throws IOException {
+        // Reset the scrollbar
+        infoScrollBar.setHvalue(0);
+        infoScrollBar.setVvalue(0);
+
         // Clearing children
         vboxForInfoText.getChildren().clear();
 
