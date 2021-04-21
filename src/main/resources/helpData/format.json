@@ -51,7 +51,7 @@
   {
     "section": "Dashboard",
     "title": "The dashboard page and its content",
-    "description": "This page gives info about the dashboard page and its content",
+    "description": "This page gives information about the dashboard page and its content",
     "fields": [
       {
         "title": "How to access",
@@ -162,7 +162,7 @@
   {
     "section": "New / Edit task",
     "title": "New / Edit task",
-    "description": "This page gives info about how to create and edit a task, as well as the contents of a task",
+    "description": "This page gives information about how to create and edit a task, as well as the contents of a task",
     "fields": [
       {
         "title": "Creat a new task",
@@ -298,6 +298,50 @@
         "title": "Bottom buttons",
         "image": null,
         "text": "At the bottom-center of the \"Edit task\" page there are two buttons. They are the \"+ Edit task\"-button and \"Cancel\"-button. When clicked the \"+ Edit task\"-button will overwrite the current task with the information you provided. The \"Cancel\"-button will send you back to the category you were previously in, as well as deleting all unsaved changes you made in the \"Edit task\" page."
+      }
+    ]
+  },
+  {
+    "section": "Navigation bar at the top",
+    "title": "Navigation bar at the top",
+    "description": "This page gives information about the navigation bar at the top of the application",
+    "fields": [
+      {
+        "title": null,
+        "image": null,
+        "text": "The navigation bar at the top of the application allows for quick access to the main pages of the program. This bar is populated with our logo in the top left corner and 6 buttons to the right of this logo. These six buttons are: \"Dashboard\", \"Overview\", \"Account\", \"Help\", \"Log out\" and a bell-shaped button."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "By clicking on one of the buttons you will be sent to the corresponding page. For example if you click on the \"Account\"-button you will be sent to the \"Account\" page. For the \"Log out\"-button you will be logged out."
+      },
+      {
+        "title": "Notifications button",
+        "image": null,
+        "text": "Additionally the bell-shaped button is known as the \"Notification\"-button and will display your notifications. These notifications are displayed in a circle with a number in it, resting to the left about the bell. The number represents the amount of unchecked notifications."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "If you click on the bell a new popup will appear. This popup contains all your notifications and a button at the top which reads \"Notification History\". To remove a notification press the V-shaped button in the top right corner of the notification you wish to remove. If you press the \"Notification History\"-button you will be sent to the \"Notification History\" page."
+      }
+    ]
+  },
+  {
+    "section": "Notifications history",
+    "title": "Notifications history",
+    "description": "This page gives information about the notifications history page",
+    "fields": [
+      {
+        "title": "How to access",
+        "image": null,
+        "text": "This page is accessed by pressing the \"Notification History\"-button. This button is located at the top of the popup from the \"Notification bell\"-button."
+      },
+      {
+        "title": "Contents",
+        "image": null,
+        "text": "This page contains your entire notification history. All notifications you have received on this account will be saved here."
       }
     ]
   },
