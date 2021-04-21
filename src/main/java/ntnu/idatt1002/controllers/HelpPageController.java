@@ -57,6 +57,12 @@ public class HelpPageController {
         infoScrollBar.setHvalue(0);
         infoScrollBar.setVvalue(0);
 
+        // Changing the scrollbar scroll speed
+        infoScrollBar.getContent().setOnScroll(scrollEvent -> {
+            double deltaY = scrollEvent.getDeltaY() * 0.0003;
+            infoScrollBar.setVvalue(infoScrollBar.getVvalue() - deltaY);
+        });
+
         // Clearing children
         vboxForInfoText.getChildren().clear();
 
