@@ -27,5 +27,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Label fx:id="date" alignment="TOP_LEFT" layoutX="7.0" layoutY="48.0" text="date" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="7.0" />
    </children>
 </AnchorPane>

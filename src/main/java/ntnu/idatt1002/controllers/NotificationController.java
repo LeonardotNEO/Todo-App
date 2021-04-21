@@ -7,6 +7,7 @@ import ntnu.idatt1002.Notification;
 import ntnu.idatt1002.dao.NotificationDAO;
 import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.service.UserStateService;
+import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
 
@@ -18,11 +19,13 @@ public class NotificationController {
     private int notificationID;
     @FXML private Label title;
     @FXML private Label description;
+    @FXML private Label date;
 
     public void display(Notification notification){
         notificationID = notification.getNotifId();
         title.setText(notification.getTitle());
         description.setText(notification.getDescription());
+        date.setText(DateUtils.getFormattedFullDate(notification.getDateActive()));
     }
 
     public void checkNotification() throws IOException {
