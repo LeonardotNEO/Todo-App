@@ -363,37 +363,37 @@
       {
         "title": null,
         "image": null,
-        "text": ""
+        "text": "When the \"+ Create category\"-button is pressed the category will be created with the name from the title field. When the \"Cancel\"-button is pressed you will be sent back to the category you were previously in and the new category will not be created."
+      },
+      {
+        "title": "Category page content",
+        "image": null,
+        "text": "This page is accessed by clicking on the category name located in the sidebar in the \"Dashboard\" page. This will take you to the specific page for this category."
       },
       {
         "title": null,
         "image": null,
-        "text": ""
+        "text": "The category page contains a couple of important features. These are the category-navigation bar, the tasks in this category and the \"+ Task\"-button."
       },
       {
-        "title": null,
+        "title": "Category-navigation bar",
         "image": null,
-        "text": ""
+        "text": "The category-navigation bar contains a couple of elements. These are the name of the category, the \"Edit\"-button, the \"Delete\"-button, \"Sort\"-menu and \"Search...\"-field."
       },
       {
-        "title": null,
+        "title": "Category name",
         "image": null,
-        "text": ""
+        "text": "The name of the category is displayed in the top left corner, just to the left of the text \"Category:\"."
       },
       {
-        "title": null,
+        "title": "\"Edit\"-button",
         "image": null,
-        "text": ""
+        "text": "The \"Edit\"-button is located to the left of the category name. When clicked you will be taken to the \"Edit category\" page. The content of this page is equal to the \"Create category\" page. The current category name will be in the title field. By changing this and pressing the \"+ Edit category\"-button (replaces the \"+ Create category\"-button) or enter, the category name will be changed and you will be sent back to the category page."
       },
       {
-        "title": null,
+        "title": "\"Delete\"-button",
         "image": null,
-        "text": ""
-      },
-      {
-        "title": null,
-        "image": null,
-        "text": ""
+        "text": "The \"Delete\"-button is located to the right of the \"Edit\"-button. When pressed it will delete the category and all tasks within it."
       }
     ]
   },
