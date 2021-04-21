@@ -391,14 +391,11 @@ public class DashboardController {
     public MenuItem createSortingMenuItem(String name, ArrayList<Task> tasks){
         MenuItem menuItem = new MenuItem();
         menuItem.setText(name);
-        menuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    loadTasksPage(tasks);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        menuItem.setOnAction(event -> {
+            try {
+                loadTasksPage(tasks);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 

@@ -319,6 +319,7 @@ public class TaskService {
         TaskDAO.delete(task);
     }
 
+
     /**
      * Method that validates if task input is correct.
      *
@@ -501,14 +502,15 @@ public class TaskService {
         }
     }
     public static int convertPriorityStringToInt(String Priority){
-        if(Priority.equals("Low")){
-            return 1;
-        }else if(Priority.equals("Medium")){
-            return 2;
-        }else if(Priority.equals("High")){
-            return 3;
-        }else{
-            return 0;
+        switch (Priority) {
+            case "Low":
+                return 1;
+            case "Medium":
+                return 2;
+            case "High":
+                return 3;
+            default:
+                return 0;
         }
     }
 }

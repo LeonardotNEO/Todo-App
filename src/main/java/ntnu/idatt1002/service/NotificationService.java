@@ -1,4 +1,5 @@
 package ntnu.idatt1002.service;
+
 import ntnu.idatt1002.Notification;
 import ntnu.idatt1002.dao.NotificationDAO;
 import ntnu.idatt1002.utils.DateUtils;
@@ -56,12 +57,10 @@ public class NotificationService {
      * Communicates with NotificationDAO to add new notification to current user
      * @param title
      * @param description
-     * @return
      */
-    public static boolean newNotification(String title, String description, LocalDateTime issueDate){
+    public static void newNotification(String title, String description, LocalDateTime issueDate){
         Notification notification = new Notification(title, UserStateService.getCurrentUserUsername(), description, issueDate);
         NotificationDAO.serialize(notification);
-        return true;
     }
 
     /**
