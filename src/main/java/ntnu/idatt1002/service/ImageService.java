@@ -1,11 +1,11 @@
 package ntnu.idatt1002.service;
 
-import javafx.scene.image.Image;
 import ntnu.idatt1002.dao.ImageDAO;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ImageService {
 
@@ -13,9 +13,7 @@ public class ImageService {
         File[] files = ImageDAO.list(UserStateService.getCurrentUser().getUsername());
         ArrayList<File> images = new ArrayList<>();
 
-        for(File file : files){
-            images.add(file);
-        }
+        Collections.addAll(images, files);
 
         return images;
     }

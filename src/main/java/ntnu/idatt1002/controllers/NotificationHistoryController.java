@@ -81,12 +81,7 @@ public class NotificationHistoryController {
      * Adds a listener to scrollpane that makes the width of notificationsVBox change when scrollpane size changes
      */
     public void addScrollpaneListener(){
-        scrollpane.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                notificationsVBox.setPrefWidth(scrollpane.getWidth() - 15);
-            }
-        });
+        scrollpane.widthProperty().addListener((observableValue, number, t1) -> notificationsVBox.setPrefWidth(scrollpane.getWidth() - 15));
     }
 
 }

@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import ntnu.idatt1002.controllers.MainController;
 import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.UpdateService;
@@ -25,8 +24,8 @@ public class App extends Application {
 
     /**
      * A method to start the program
-     * @param stage
-     * @throws IOException
+     * @param stage Stage that is used to start program
+     * @throws IOException IOException when the stage is not found
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -78,7 +77,7 @@ public class App extends Application {
 
     /**
      * Main method
-     * @param args
+     * @param args input arguments
      */
     public static void main(String[] args) {launch();}
 
@@ -99,8 +98,7 @@ public class App extends Application {
      */
     public static Parent loadFXML(String fxml) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
-        Parent parent = fxmlLoader.load();
-        return parent;
+        return fxmlLoader.load();
     }
 
     /**
