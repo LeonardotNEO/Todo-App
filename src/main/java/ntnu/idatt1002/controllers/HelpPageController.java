@@ -1,25 +1,18 @@
 package ntnu.idatt1002.controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.HelpSection;
-import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.HelpService;
+import ntnu.idatt1002.service.UserStateService;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +23,6 @@ public class HelpPageController {
     @FXML private Text headerText;
     @FXML private Text descriptionText;
     @FXML private VBox vboxForInfoText;
-    @FXML private ScrollPane helpMenuScroll;
     @FXML private ScrollPane infoScrollBar;
 
     public void initialize() {
@@ -39,16 +31,58 @@ public class HelpPageController {
 
     public void fillMenuPage() {
         ArrayList<String> pages = HelpService.getSections();
+        ArrayList<Button> buttons = new ArrayList<>();
+
+        // Create color theme from the users current theme
+        String theme = UserStateService.getCurrentUser().getTheme();
+        String[] colorTheme =  theme.split(";");
+        String color = colorTheme[2].split(":")[1];
+        String hoverColor = colorTheme[3].split(":")[1];
+        String idleStyle = "-fx-background-color: " +  color + "; -fx-background-radius: 5; -fx-font-size: 16; -fx-text-fill: white; -fx-background-size: 100% 100%;";
+        String hoverStyle = "-fx-background-color: " +  color + ";-fx-text-fill: " +  hoverColor + "; -fx-background-radius: 5; -fx-font-size: 16; -fx-background-size: 100% 100%;";
+
+        // Set spacing
+        helpMenuVBox.setSpacing(5);
+
+        // Add all buttons
         pages.forEach(page -> {
-            Button b = new Button(page);
-            b.setOnAction(event -> {
+
+            // Create new button
+            Button button = new Button(page);
+            button.setMaxWidth(1.7976931348623157E308);
+            button.setPrefWidth(Region.USE_COMPUTED_SIZE);
+
+            // Add button to list of buttons
+            buttons.add(button);
+
+            // Set default style
+            button.setStyle(idleStyle);
+
+            // Add hover effects
+            button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
+            button.setOnMouseExited(e -> button.setStyle(idleStyle));
+            
+            // Reset all other buttons
+            button.setOnMouseClicked( event -> buttons.stream().filter(b -> b != button).forEach(b -> {
+                b.setOnMouseExited(e -> b.setStyle(idleStyle));
+                b.setStyle(idleStyle);
+            }));
+
+            // Add on action event
+            button.setOnAction(event -> {
                 try {
+                    // Make the button stay in on hover style
+                    button.setOnMouseExited(e -> {});
+
+                    // Load info pages
                     getInfoPage(page);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-            helpMenuVBox.getChildren().add(b);
+
+            // Add button to the vbox
+            helpMenuVBox.getChildren().add(button);
         });
     }
 
@@ -59,7 +93,7 @@ public class HelpPageController {
 
         // Changing the scrollbar scroll speed
         infoScrollBar.getContent().setOnScroll(scrollEvent -> {
-            double deltaY = scrollEvent.getDeltaY() * 0.0003;
+            double deltaY = scrollEvent.getDeltaY() * 0.0006;
             infoScrollBar.setVvalue(infoScrollBar.getVvalue() - deltaY);
         });
 
@@ -70,6 +104,7 @@ public class HelpPageController {
         HelpSection helpSection = HelpService.getSection(section);
 
         // Setting header and description
+        assert helpSection != null;
         headerText.setText(helpSection.getSection());
         descriptionText.setText(helpSection.getDescription());
 
@@ -81,8 +116,6 @@ public class HelpPageController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/infoField.fxml"));
             AnchorPane infoField = loader.load();
             InfoFieldController infoFieldController = loader.getController();
-
-            //AnchorPane p = infoFieldController.getAnchor();
 
             // Add title if it exists
             if(field.getTitle() != null) {
