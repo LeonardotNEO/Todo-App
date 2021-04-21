@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="background" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
+<AnchorPane fx:id="background" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
    <children>
       <VBox fx:id="vbox" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -83,14 +78,14 @@
             <AnchorPane>
                <children>
                   <Label fx:id="taskDate" text="date" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" />
-                  <Label fx:id="taskPriority" prefHeight="17.0" prefWidth="58.0" text="Priority" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0" />
+                  <Label fx:id="taskPriority" prefHeight="18.0" prefWidth="93.0" text="Priority" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <HBox fx:id="toolsHBox" alignment="CENTER" layoutX="149.0" prefHeight="0.0" prefWidth="101.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="toolsHBox" alignment="CENTER" layoutX="149.0" prefHeight="0.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#clickFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
+            <Button fx:id="buttonFinishTask" mnemonicParsing="false" onAction="#clickFinishTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="#04ff00" glyphName="CHECK" size="20" />
                </graphic>
@@ -98,7 +93,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#buttonEditTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
+            <Button fx:id="buttonEditTask" mnemonicParsing="false" onAction="#buttonEditTask" prefHeight="18.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="ORANGE" glyphName="PENCIL" size="18" />
                </graphic>
@@ -106,9 +101,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button mnemonicParsing="false" onAction="#clickDeleteButton" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
+            <Button fx:id="buttonDeleteTask" mnemonicParsing="false" onAction="#clickDeleteButton" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: transparent;">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" size="18" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="buttonRestoreTask" mnemonicParsing="false" onAction="#clickRestoreTask" style="-fx-background-color: transparent;">
+               <graphic>
+                  <FontAwesomeIconView fill="#04ff00" glyphName="RETWEET" size="18" />
                </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />

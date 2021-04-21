@@ -1,7 +1,6 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.dao.CategoryDAO;
-import ntnu.idatt1002.dao.UserLogDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.Arrays;
  */
 public class CategoryService {
 
-    private static ArrayList<String> premadeCategories = new ArrayList<>() {
+    private final static ArrayList<String> premadeCategories = new ArrayList<>() {
         {
             add("All tasks");
             add("Trash bin");
@@ -25,8 +24,7 @@ public class CategoryService {
      * @return String[] of all the categories that the user has
      */
     public static String[] getCategoriesCurrentUser(){
-        String[] categories = CategoryDAO.list(UserStateDAO.getUsername());
-        return categories;
+        return CategoryDAO.list(UserStateDAO.getUsername());
     }
 
     /**
@@ -44,12 +42,7 @@ public class CategoryService {
      * @return ArrayList <String> of all the categories within the project
      */
     public static ArrayList<String> getCategoriesByProjectCurrentUserArraylist(String projectName){
-        ArrayList<String> categories = new ArrayList<>();
-
-        for(String category : getCategoriesByProjectCurrentUser(projectName)){
-            categories.add(category);
-        }
-        return categories;
+        return new ArrayList<>(Arrays.asList(getCategoriesByProjectCurrentUser(projectName)));
     }
 
     /**
@@ -77,7 +70,6 @@ public class CategoryService {
     public static void deleteCategoryCurrentUser(String categoryName){
         String username = UserStateDAO.getUsername();
         CategoryDAO.delete(username, categoryName);
-        UserLogDAO.setCategoryRemoved(username, categoryName);
         UserStateService.getCurrentUser().setCurrentlySelectedCategory(null);
     }
 
@@ -89,7 +81,6 @@ public class CategoryService {
     public static void deleteCategoryCurrentUser(String categoryName, String projectName){
         String username = UserStateService.getCurrentUser().getUsername();
         CategoryDAO.delete(username, projectName, categoryName);
-        UserLogDAO.setCategoryRemoved(username, categoryName);
         UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(null);
     }
 
@@ -99,8 +90,6 @@ public class CategoryService {
      */
     public static void addCategoryToCurrentUser(String categoryName){
         CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), categoryName);
-
-        UserLogDAO.setCategoryAdded(UserStateService.getCurrentUser().getUsername(), categoryName);
     }
 
     /**
@@ -118,29 +107,22 @@ public class CategoryService {
      * @return boolean according to if the Category title is less that 24 letters, and more than 0.
      */
     public static boolean validateCategoryTitleSyntax(String categoryTitle){
-        if(categoryTitle.length() > 0 && categoryTitle.length() < 24){
-            return true;
-        } else {
-            return false;
-        }
+        return categoryTitle.length() > 0 && categoryTitle.length() < 24;
     }
 
     /**
      * Method that takes an Array of category-strings, turns it into an array and adds "Trash bin" and "Finished tasks" the the bottom
-     * @return
      */
     public static ArrayList<String> getArrayListCategoriesOrganized(){
         ArrayList<String> categoriesList = new ArrayList<>();
         for (String s : getCategoriesCurrentUser()) {
-            if(!premadeCategories.stream().anyMatch(s::equals)){
+            if(premadeCategories.stream().noneMatch(s::equals)){
                 categoriesList.add(s);
             }
         }
 
         // add premades at the bottom
-        for (String premadeCategory : premadeCategories) {
-            categoriesList.add(premadeCategory);
-        }
+        categoriesList.addAll(premadeCategories);
 
         return categoriesList;
     }

@@ -162,12 +162,10 @@ public class DashboardController {
     public void updateCategoryEditDeleteBar(){
         projectName.setText(project);
         categoryName.setText(category);
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-        categoryHBox.setVisible(true);
-        categoryHBox.setManaged(true);
 
         if(project == null && category != null){
+            categoryHBox.setVisible(true);
+            categoryHBox.setManaged(true);
             projectHBox.setVisible(false);
             projectHBox.setManaged(false);
 
@@ -177,8 +175,15 @@ public class DashboardController {
                 buttonDeleteCategory.setVisible(false);
             }
         } else if(project != null && category == null){
+            projectHBox.setVisible(true);
+            projectHBox.setManaged(true);
             categoryHBox.setVisible(false);
             categoryHBox.setManaged(false);
+        } else if(project != null && category != null){
+            projectHBox.setVisible(true);
+            projectHBox.setManaged(true);
+            categoryHBox.setVisible(true);
+            categoryHBox.setManaged(true);
         } else {
             projectHBox.setVisible(false);
             projectHBox.setManaged(false);
@@ -336,9 +341,6 @@ public class DashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
         BorderPane borderPane = loader.load();
         TasksController tasksController = loader.getController();
-
-        // initialize taskscontroller
-        tasksController.initializeTasksController(category, project);
 
         // get tasks
         ArrayList<Task> tasks = TaskService.getTasksByCategory(category, project);
