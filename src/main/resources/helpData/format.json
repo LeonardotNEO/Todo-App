@@ -348,6 +348,58 @@
   {
     "section": "Category",
     "title": "Category",
+    "description": "This page gives information about how to create, edit and delete a category, as well as the contents of the category",
+    "fields": [
+      {
+        "title": "Create a new category",
+        "image": null,
+        "text": "Create a new category by clicking the \"+ New category\"-button. This button is located below the \"Finished tasks\" category in the sidebar in the \"Dashboard\" page."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "When clicked it will open the \"Create category\" page. On this page there is one \"Category title\" field above the center of the page. The field has to be filled for a category to be made. This field represents the name of the category. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create category\"-button and the \"Cancel\"-button."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "section": "Ca",
+    "title": "Cary",
     "description": "This page gives info about how to create, add and delete a category",
     "fields": [
       {
