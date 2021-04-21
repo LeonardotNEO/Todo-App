@@ -102,7 +102,7 @@
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/overviewPageCalendarViewNextDate.png",
         "text": "This is done by pressing the circle with the arrow button pointing to the right. This button is located in the upper-center of the \"Calendar view\" page. To the left of this button the currently viewed month and year is written. To the left of this again, a similar button with an arrow pointing to the left is located. By pressing this button you will be able to watch past months and years."
       }
     ]
@@ -114,27 +114,27 @@
     "fields": [
       {
         "title": "How to access",
-        "image": null,
+        "image": "src/main/resources/images/dashboardPageAccountButton.png",
         "text": "This page can be accessed by clicking the \"Account\"-button located at the top of the application in the navigation bar."
       },
       {
         "title": "On the page",
-        "image": null,
+        "image": "src/main/resources/images/accountPageStatistics.png",
         "text": "On this page you have a few options. First are the four colored fields: \"Username\", \"Date account created\", \"Task count\" and \"Category count\". These fields represent, in order: the username of the account, the date the account was made, the amount of tasks created on this account and the amount of categories made on this account."
       },
       {
         "title": "Changing the color theme",
-        "image": null,
+        "image": "src/main/resources/images/accountPageChangeColorTheme.png",
         "text": "Below the statistics fields there will be multiple colored buttons. These buttons are called themes. On them there is a color written, representing the color of the button. By clicking a button you will change the color theme of the application to the color of the button."
       },
       {
         "title": "Custom background",
-        "image": null,
+        "image": "src/main/resources/images/accountPageCustomBackground.png",
         "text": "Right below the themes buttons there is another button with the text \"+ Background\" written on it. By clicking on it a new \"file explorer\"-window will be opened. Here you can choose a picture on your computer. A miniature version of the picture will be added to the right of the button, just below the theme-buttons. By clicking on the picture you choose, the background of the application will change to that picture. If you wish to revert the change just click on the small picture with \"None\" written in it. It will be to the right of the \"+ Background\"-button and to the left of any custom backgrounds you have chosen."
       },
       {
         "title": "Edit account",
-        "image": null,
+        "image": "src/main/resources/images/accountPageEditAccountButton.png",
         "text": "Lastly at the bottom-center of the page there is a button with the text \"Edit account\" written on it. By clicking it you will be transported to the \"Edit account\"-page."
       },
       {
@@ -144,17 +144,17 @@
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/accountPageEditAccountOptions.png",
         "text": "Below these fields there is a \"No password\"-checkbox. When checked this account will no longer need a password before login. The current password will also be deleted."
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/accountPageEditAccountEditAccountButton.png",
         "text": "Below this checkbox there is a button with the text \"Edit account\" written on it. When pressed the changes made on this page will be saved."
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/accountPageEditAccountCancelButton.png",
         "text": "Lastly at the bottom-center of the page, there is a \"Cancel\"-button. By pressing this button all unsaved changes will be deleted and you will be returned back to the \"Account\"-page."
       }
     ]
