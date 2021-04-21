@@ -14,11 +14,7 @@ public class UserStateService {
      * @return true if there currently is a saved user
      */
     public static boolean checkIfUserState(){
-        if(UserStateDAO.getUsername() != null){
-            return true;
-        } else {
-            return false;
-        }
+        return UserStateDAO.getUsername() != null;
     }
 
     /**

@@ -20,25 +20,22 @@ public class UpdateService {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                javafx.application.Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        // only run when there actually is an user is userstate
-                        if(UserStateService.checkIfUserState()){
+                javafx.application.Platform.runLater(() -> {
+                    // only run when there actually is an user is userstate
+                    if(UserStateService.checkIfUserState()){
 
-                            // NOTIFICATIONS
-                            // If the current list of unchecked notifications changes, we update navbar UI
-                            if(!(previousNotifications.equals(NotificationService.getActiveAndNotCheckedNotifications()))){
-                                previousNotifications = NotificationService.getActiveAndNotCheckedNotifications();
-                                try {
-                                    MainController.getInstance().setNavbar("navbar");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                        // NOTIFICATIONS
+                        // If the current list of unchecked notifications changes, we update navbar UI
+                        if(!(previousNotifications.equals(NotificationService.getActiveAndNotCheckedNotifications()))){
+                            previousNotifications = NotificationService.getActiveAndNotCheckedNotifications();
+                            try {
+                                MainController.getInstance().setNavbar("navbar");
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                            // check if new notifications have become active
-                            NotificationService.checkIfNotificationHasBecomeActive(NotificationService.getNotificationsByUser());
                         }
+                        // check if new notifications have become active
+                        NotificationService.checkIfNotificationHasBecomeActive(NotificationService.getNotificationsByUser());
                     }
                 });
             }

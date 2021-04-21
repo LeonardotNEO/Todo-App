@@ -1,7 +1,6 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
-import ntnu.idatt1002.dao.CategoryDAO;
 import ntnu.idatt1002.dao.ProjectDAO;
 
 public class ProjectService {
@@ -21,11 +20,7 @@ public class ProjectService {
     }
 
     public static boolean validateTitle(String title){
-        if(title.length() > 0 && title.length() < 30){
-            return true;
-        } else {
-            return false;
-        }
+        return title.length() > 0 && title.length() < 30;
     }
 
     public static void editProject(String oldname, String newName){
