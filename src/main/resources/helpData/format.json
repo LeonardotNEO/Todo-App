@@ -51,7 +51,7 @@
   {
     "section": "Dashboard",
     "title": "The dashboard page and its content",
-    "description": "This page gives info about the dashboard page and its content",
+    "description": "This page gives information about the dashboard page and its content",
     "fields": [
       {
         "title": "How to access",
@@ -162,7 +162,7 @@
   {
     "section": "New / Edit task",
     "title": "New / Edit task",
-    "description": "This page gives info about how to create and edit a task, as well as the contents of a task",
+    "description": "This page gives information about how to create and edit a task, as well as the contents of a task",
     "fields": [
       {
         "title": "Creat a new task",
