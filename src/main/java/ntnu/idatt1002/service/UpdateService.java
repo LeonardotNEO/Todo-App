@@ -25,7 +25,6 @@ public class UpdateService {
                 javafx.application.Platform.runLater(() -> {
                     // only run when there actually is an user is userstate
                     if(UserStateService.checkIfUserState()){
-
                         // NOTIFICATIONS
                         // If the current list of unchecked notifications changes, we update navbar UI
                         if(!(previousNotifications.equals(NotificationService.getActiveAndNotCheckedNotifications()))){
@@ -36,8 +35,9 @@ public class UpdateService {
                                 e.printStackTrace();
                             }
                         }
+
                         // check if new notifications have become active
-                        NotificationService.checkIfNotificationHasBecomeActive(NotificationService.getActiveNotificationsByCurrentUser());
+                        NotificationService.checkIfNotificationHasBecomeActive(NotificationService.getNotificationsByCurrentUser());
                     }
                 });
             }

@@ -18,7 +18,7 @@ public class NotificationService {
      * @return
      */
     public static ArrayList<Notification> getNotificationsByCurrentUser(){
-        return NotificationDAO.list(UserStateService.getCurrentUserUsername());
+        return NotificationDAO.list(UserStateService.getCurrentUser().getUsername());
     }
 
     /**
