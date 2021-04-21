@@ -304,7 +304,7 @@
   {
     "section": "Navigation bar at the top",
     "title": "Navigation bar at the top",
-    "description": "This page gives info about the navigation bar at the top of the application",
+    "description": "This page gives information about the navigation bar at the top of the application",
     "fields": [
       {
         "title": null,
@@ -325,6 +325,23 @@
         "title": null,
         "image": null,
         "text": "If you click on the bell a new popup will appear. This popup contains all your notifications and a button at the top which reads \"Notification History\". To remove a notification press the V-shaped button in the top right corner of the notification you wish to remove. If you press the \"Notification History\"-button you will be sent to the \"Notification History\" page."
+      }
+    ]
+  },
+  {
+    "section": "Notifications history",
+    "title": "Notifications history",
+    "description": "This page gives information about the notifications history page",
+    "fields": [
+      {
+        "title": "How to access",
+        "image": null,
+        "text": "This page is accessed by pressing the \"Notification History\"-button. This button is located at the top of the popup from the \"Notification bell\"-button."
+      },
+      {
+        "title": "Contents",
+        "image": null,
+        "text": "This page contains your entire notification history. All notifications you have received on this account will be saved here."
       }
     ]
   },
