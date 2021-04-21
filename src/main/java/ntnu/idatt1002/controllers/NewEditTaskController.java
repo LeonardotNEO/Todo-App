@@ -74,7 +74,7 @@ public class NewEditTaskController {
     /**
      * Method used for initializing new task page.
      */
-    public void initializeNewTask(String category, String project){
+    public void initializeNewTask(){
         // show simple template first
         buttonSimpleTemplate();
 

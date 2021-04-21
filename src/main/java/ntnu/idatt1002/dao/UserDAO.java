@@ -10,7 +10,10 @@ import java.security.spec.KeySpec;
 import java.util.ArrayList;
 
 /**
- * Static class to access user objects in storage
+ * The class {@code UserDAO} provides static methods for handling {@link User} objects.
+ * In the storage system each user is saved as folders inside the 'resources/saves/' directory.
+ * Inside each user folder the {@link User} object gets serialized, along with the directories
+ * 'Categories', 'Notifications', 'Projects' and 'Images'.
  */
 public final class UserDAO {
     private static final String SAVEPATH = "src/main/resources/saves";
@@ -18,8 +21,8 @@ public final class UserDAO {
     private static final String[] DIRECTORIES = {"Categories","Notifications","Projects","Images"};
 
     /**
-     * Get a list of all users in storage
-     * @return an {@code ArrayList} of {@code User} objects
+     * Returns an {@link ArrayList} of all {@link User}'s stored.
+     * @return an {@link ArrayList}.
      */
     public static ArrayList<User> list(){
         ArrayList<User> users = new ArrayList<>();
@@ -40,8 +43,11 @@ public final class UserDAO {
     }
 
     /**
-     * Save user to storage. Will overwrite if equal user already is stored.
-     * @param user {@code User} object
+     * Serialize a {@link User} object to storage. The file will be stored under the user folder.
+     * If the user is new all necessary directories will be created. It's important that the user's
+     * {@code password} variable is the hashed version and not the plaintext, since this will be stored
+     * in the computers harddrive.
+     * @param user the {@link User} object.
      */
     public static void serialize(User user){
         String username = user.getUsername();
@@ -60,8 +66,9 @@ public final class UserDAO {
     }
 
     /**
-     * Get user object from storage.
-     * @return {@code User} object, {@code null} if user could not be found.
+     * Get a {@link User} object from storage with the given username.
+     * @param username the username.
+     * @return a {@link User} object, will be {@code null} if the user doesn't exist.
      */
     public static User deserialize(String username){
         User user = null;
@@ -72,8 +79,10 @@ public final class UserDAO {
     }
 
     /**
-     * Delete a user and all its files.
-     * @return {@code false} if the user folder could not be deleted
+     * Delete a {@link User} from storage with all its contents.
+     * @param username the username.
+     * @return {@code True} if succesfull. {@code False} if some or all of the files/directories couldn't
+     * be deleted, normally since the user doesn't exist.
      */
     public static boolean delete(String username){
         if(!exists(username)){ return false; }
@@ -107,8 +116,9 @@ public final class UserDAO {
     }
 
     /**
-     * Check if given user exists in storage
-     * @return true or false
+     * Check if the given {@link User} exists in storage.
+     * @param username the username.
+     * @return {@code true} or {@code false}.
      */
     static boolean exists(String username){
         File userDir = new File(userDir(username));
@@ -116,9 +126,12 @@ public final class UserDAO {
     }
 
     //PASSWORD SALT & HASHING
+
     /**
-     * Generate a random salt to store in a user.
-     * @return a random salt.
+     * Returns a {@code byte[]} to be passed into the {@link #hashPassword(String, byte[])} method as salt.
+     * This needs to be stored in a {@link User} object along with the hashed password for later
+     * verification.
+     * @return a {@code byte[]} with 16 random bytes.
      */
     public static byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
@@ -127,12 +140,15 @@ public final class UserDAO {
         return salt;
     }
 
+    //SALT & HASH METHODS
+    //-------------------------
     /**
-     * PBKDF2 method to hash a password with salt. Needs equal salt and equal password to produce
-     * the same has.
-     * @param password password in clear-text
-     * @param salt a users personal salt
-     * @return Hashed password in String format, {@code null} if an error occured.
+     * Returns a {@link String} with the hashed password using the given plaintext and salt.
+     * Salt can be generated with the {@link #generateSalt()} method.
+     * This method uses PBKDF2.
+     * @param password plaintext password.
+     * @param salt {@code salt} for a {@link User}.
+     * @return a {@link String} containing the hashed password, or {@code null} if an error occured.
      */
     public static String hashPassword(String password, byte[] salt){
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
@@ -153,17 +169,11 @@ public final class UserDAO {
         }
     }
 
-    //PRIVATE FUNCTIONS
-    /**
-     * Get user directory
-     */
+    //Get paths
     private static String userDir(String username){
         return (SAVEPATH + "/" + username + "/");
     }
 
-    /**
-     * Get file path
-     */
     private static String filePath(String username){
         return (userDir(username) + username + FILETYPE);
     }

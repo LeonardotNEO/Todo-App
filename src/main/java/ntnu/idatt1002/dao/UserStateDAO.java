@@ -1,55 +1,62 @@
 package ntnu.idatt1002.dao;
 
+import ntnu.idatt1002.User;
+
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Access what state the program is in, like which user is logged in and what category is selected
+ * The class {@code UserStateDAO} provides static methods for handling the two state files under
+ * 'resources/saves/': 'userstate.ser' and 'loggedusers.ser'.
+ * 'userstates.ser' keeps track of the programs state: user currently logged in, category
+ *  selected, sorting method selected and if the user has pressed 'remember me'.
+ *  'loggedusers.ser' contains every user that is logged in, and is used to easily log in and out from
+ *  different users at the login screen.
  */
 public final class UserStateDAO {
     private static final String SAVEFILE1 = "src/main/resources/saves/userstate.ser";
     private static final String SAVEFILE2 = "src/main/resources/saves/loggedusers.ser";
 
     /**
-     * Get which user is logged in
-     * @return String of username, {@code null} if value is not stored
+     * Returns the {@code username} of the {@link User} currently logged in to the program.
+     * @return a {@link String} containing the username. {@code null} if nobody is logged in.
      */
     public static String getUsername(){
         return getUserState(0);
     }
 
     /**
-     * Get which category is selected by user
-     * @return String of selected category, {@code null} if value is not stored
+     * Returns the currently selected category.
+     * @return a {@link String} containing the category. {@code null} if no category is selected.
      */
     public static String getSelectedCategory(){
         return getUserState(1);
     }
 
     /**
-     * Get which sorting method is selected by user
-     * @return String of selected sorting, {@code null} if value is not stored
+     * Returns the currently selected sorting method.
+     * @return a {@link String} containing the sorting method. {@code null} if no sorting method is
+     * selected.
      */
     public static String getSelectedSort(){
         return getUserState(2);
     }
 
     /**
-     * Get if rememberMe is true or false
-     * @return true or false, {@code null} if value is not stored
+     * Check if the 'remember me' button has been checked.
+     * @return {@code true} or {@code false}.
      */
     public static boolean getRememberMe(){
         return Boolean.parseBoolean(getUserState(3));
     }
 
     /**
-     * Returns a saved state
+     * Returns a stored state based on the given argument.
      * @param index <p>0: username<br>
      *              1: selectedCategory<br>
      *              2: selectedSort<br>
      *              3: rememberMe</p>
-     * @return String with chosen value, {@code null} if value is not stored
+     * @return a {@link String} containing the state, or {@code null} if the state is not stored.
      */
     private static String getUserState(int index){
         String[] userstate = null;
@@ -66,11 +73,11 @@ public final class UserStateDAO {
     }
 
     /**
-     * Set current state
-     * @param username user currently logged in
-     * @param selectedCategory what category is selected
-     * @param selectedSort what sorting method is selected
-     * @param rememberMe if user will be remembered to next start up
+     * Set current state of the program.
+     * @param username user currently logged in.
+     * @param selectedCategory what category is selected.
+     * @param selectedSort what sorting method is selected.
+     * @param rememberMe if the user will be remembered to next start up.
      */
     public static void setUserState(String username, String selectedCategory, String selectedSort,
                                     boolean rememberMe){
@@ -79,21 +86,24 @@ public final class UserStateDAO {
     }
 
     /**
-     * Get all users who are logged in
+     * Returns a {@link String}[] of the usernames of all {@link User}'s logged in.
+     * @return an array of usernames.
      */
     public static String[] getLoggedInUsers(){
         return (String[]) GenericDAO.deserialize(SAVEFILE2);
     }
 
     /**
-     * Set all users who are logged in. Will overwrite previous save.
+     * Set all users who are logged in. This will overwrite previous save.
+     * @param usernames a {@link String}[] of all usernames.
      */
     public static void setLoggedInUsers(String[] usernames){
         GenericDAO.serialize(usernames, SAVEFILE2);
     }
 
     /**
-     * Add user to list over which users are logged in
+     * Add a user to the list over which users are logged in.
+     * @param username the username.
      */
     public static void addLoggedUser(String username){
         String[] oldUsers = getLoggedInUsers();
@@ -104,7 +114,8 @@ public final class UserStateDAO {
     }
 
     /**
-     * Remove user from list over users who are logged in
+     * Remove a user from the list over users who are logged in.
+     * @param username the username.
      */
     public static void removeFromList(String username){
         String[] oldUsers = getLoggedInUsers();
@@ -117,15 +128,15 @@ public final class UserStateDAO {
     }
 
     /**
-     * Clear list over which users who are logged in
+     * Clear the list over which users who are logged in.
      */
     public static void clearList(){
         setLoggedInUsers(new String[0]);
     }
 
     /**
-     * Check if user state file exists
-     * @return true or false
+     * Check if the user state file exists.
+     * @return {@code true} or {@code false}.
      */
     public static boolean fileExists(){
         File file = new File(SAVEFILE1);
