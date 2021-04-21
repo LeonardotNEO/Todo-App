@@ -15,6 +15,9 @@ public class UpdateService {
     private static ArrayList<Notification> previousNotifications = new ArrayList<>();
     private static Timer timer = new Timer();
 
+    /**
+     * Method for starting the update function in the background when app is running
+     */
     public static void start(){
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -44,6 +47,9 @@ public class UpdateService {
         }, 0, 1000);
     }
 
+    /**
+     * Method for stopping the update function running in the background
+     */
     public static void stop(){
         timer.cancel();
     }
