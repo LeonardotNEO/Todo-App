@@ -482,6 +482,31 @@ public class TaskService {
             return "None";
         }
     }
+
+    public static String convertPriorityIntToString(Task T){
+        switch (T.getPriority()){
+            case 0:
+                return "None";
+            case 1:
+                return "Low";
+            case 2:
+                return "Medium";
+            default:
+                return "High";
+        }
+    }
+    public static int convertPriorityStringToInt(String Priority){
+        switch (Priority){
+            case "None":
+                return 0;
+            case "Low":
+                return 1;
+            case "Medium":
+                return 2;
+            default:
+                return 3;
+        }
+    }
 }
 
 
