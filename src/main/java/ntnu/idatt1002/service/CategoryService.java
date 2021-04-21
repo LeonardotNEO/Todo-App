@@ -78,7 +78,7 @@ public class CategoryService {
         String username = UserStateDAO.getUsername();
         CategoryDAO.delete(username, categoryName);
         UserLogDAO.setCategoryRemoved(username, categoryName);
-        UserStateService.getCurrentUser().setCurrentlySelectedCategory("");
+        UserStateService.getCurrentUser().setCurrentlySelectedCategory(null);
     }
 
     /**
@@ -90,7 +90,7 @@ public class CategoryService {
         String username = UserStateService.getCurrentUser().getUsername();
         CategoryDAO.delete(username, projectName, categoryName);
         UserLogDAO.setCategoryRemoved(username, categoryName);
-        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory("");
+        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(null);
     }
 
     /**
@@ -99,7 +99,7 @@ public class CategoryService {
      */
     public static void addCategoryToCurrentUser(String categoryName){
         CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), categoryName);
-        UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryName);
+
         UserLogDAO.setCategoryAdded(UserStateService.getCurrentUser().getUsername(), categoryName);
     }
 
@@ -110,7 +110,6 @@ public class CategoryService {
      */
     public static void addCategoryToCurrentUser(String projectName, String categoryName){
         CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), projectName, categoryName);
-        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryName);
     }
 
     /**

@@ -238,7 +238,7 @@ public class TaskController {
             TaskService.nextRepeatableTask(taskId);
         }
         // update category of task to 'Finished tasks'
-        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks");
+        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks", null);
         // update dashboard
         DashboardController.getInstance().initialize();
     }
@@ -268,7 +268,7 @@ public class TaskController {
             TaskService.nextRepeatableTask(taskId);
         }
         // update category of task to 'Trash bin'
-        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
+        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin", null);
         // update dashboard
         DashboardController.getInstance().initialize();
     }

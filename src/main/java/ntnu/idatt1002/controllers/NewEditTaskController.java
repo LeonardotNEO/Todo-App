@@ -69,6 +69,8 @@ public class NewEditTaskController {
     private File selectedFiles;
     private ArrayList<String> listOfFiles = new ArrayList<>();
     private Task taskWithFiles;
+    private boolean isNewTask;
+    private Task currentTask;
 
 
     /**
@@ -98,6 +100,9 @@ public class NewEditTaskController {
 
         // set header
         this.header.setText("New task");
+
+        // set boolean to show which page we are on
+        isNewTask = true;
     }
 
     /**
@@ -106,6 +111,9 @@ public class NewEditTaskController {
      * @param task the task that's going to be edited.
      */
     public void initializeEditTask(Task task){
+        // set current task
+        currentTask = task;
+
         // when editing, we want to show advanced template
         buttonAdvancedTemplate();
 
@@ -165,6 +173,9 @@ public class NewEditTaskController {
 
         // set header
         header.setText("Edit task");
+
+        // set boolean to show which page we are on
+        isNewTask = false;
     }
 
     /**
@@ -299,9 +310,9 @@ public class NewEditTaskController {
             //oldTask.setTags(tagsList);
 
             // set the category and project of task
-            String projectString = "";
-            String categoryString = "";
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            String projectString;
+            String categoryString;
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() == null){
                 categoryString = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
                 projectString = UserStateService.getCurrentUser().getCurrentlySelectedProject();
             } else {
@@ -447,7 +458,11 @@ public class NewEditTaskController {
     public void onKeyPressed(KeyEvent event){
         if(event.getCode().equals(KeyCode.ENTER)){
             try {
-                buttonNewTask();
+                if(isNewTask){
+                    buttonNewTask();
+                } else {
+                    buttonEditTask(currentTask);
+                }
             }catch (IOException ioe) {
                 ioe.printStackTrace();
             }
