@@ -270,7 +270,7 @@ public class TaskController {
      * @throws IOException
      */
     public void deleteTask(ActionEvent event) throws IOException {
-        if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
+        if(TaskService.getTaskByCurrentUser(taskId).isRepeatable() ){
             TaskService.nextRepeatableTask(taskId);
         }
         // update category of task to 'Trash bin'
@@ -278,6 +278,7 @@ public class TaskController {
         // update dashboard
         DashboardController.getInstance().initialize();
     }
+
 
     /**
      * calls method restoreTask().

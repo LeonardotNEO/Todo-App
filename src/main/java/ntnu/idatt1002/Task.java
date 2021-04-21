@@ -35,6 +35,7 @@ public class Task implements Serializable {
     private boolean isRepeatable = false;
     private Long timeRepeat;
     private ArrayList<String> filePaths;
+    private boolean deleteRepeat = false;
 
     /**
      * The constructor for this class.
@@ -160,6 +161,14 @@ public class Task implements Serializable {
      * @return the getTimeRepeat field stored in the task.
      */
     public long getTimeRepeat() {return timeRepeat;}
+
+    /**
+     * A methode to get the field IsDeleteRepeat
+     * @return the value of the isDeleteRepeat field stored in the task
+     */
+    public boolean isDeleteRepeat() {
+        return deleteRepeat;
+    }
 
     /**
      * A method to set a new id for the task.
