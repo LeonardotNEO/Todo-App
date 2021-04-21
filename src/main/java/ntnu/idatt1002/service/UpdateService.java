@@ -37,7 +37,7 @@ public class UpdateService {
                                 }
                             }
                             // check if new notifications have become active
-                            NotificationService.checkIfNotificationHasBecomeActive(NotificationService.getNotificationsByUser());
+                            NotificationService.checkIfNotificationHasBecomeActive(NotificationService.getNotificationsByCurrentUser());
                         }
                     }
                 });

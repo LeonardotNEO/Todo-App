@@ -160,7 +160,7 @@ public class NavbarController {
                 NotificationController notificationController = loader.getController();
 
                 // use the controller to display notification UI
-                notificationController.display(notification);
+                notificationController.display(notification, true);
 
                 // add notifcationUI to notificationMenuPopup
                 popup.getChildren().add(notificationNode);

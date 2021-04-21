@@ -4,10 +4,8 @@ import ntnu.idatt1002.dao.NotificationDAO;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.TimeZone;
 
 /**
  * A class which provides some necessary features which utilises notification-data
@@ -18,8 +16,24 @@ public class NotificationService {
      * Communicates with NotificationDAO to fetch notifications for current user
      * @return
      */
-    public static ArrayList<Notification> getNotificationsByUser(){
+    public static ArrayList<Notification> getNotificationsByCurrentUser(){
         return NotificationDAO.list(UserStateService.getCurrentUserUsername());
+    }
+
+    /**
+     * Method for getting the active notifications by current user
+     * @return
+     */
+    public static ArrayList<Notification> getActiveNotificationsByCurrentUser(){
+        ArrayList<Notification> notifications = new ArrayList<>();
+
+        getNotificationsByCurrentUser().forEach(notification -> {
+            if(notification.getActive()){
+                notifications.add(notification);
+            }
+        });
+
+        return notifications;
     }
 
     /**
@@ -29,7 +43,7 @@ public class NotificationService {
     public static ArrayList<Notification> getActiveAndNotCheckedNotifications(){
         ArrayList<Notification> notificationsChecked = new ArrayList<>();
 
-        getNotificationsByUser().forEach(notification -> {
+        getNotificationsByCurrentUser().forEach(notification -> {
             if(!notification.getChecked() && notification.getActive()){
                 notificationsChecked.add(notification);
             }

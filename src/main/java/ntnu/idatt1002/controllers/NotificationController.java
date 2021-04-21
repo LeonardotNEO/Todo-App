@@ -1,6 +1,7 @@
 package ntnu.idatt1002.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import ntnu.idatt1002.Notification;
@@ -20,12 +21,18 @@ public class NotificationController {
     @FXML private Label title;
     @FXML private Label description;
     @FXML private Label date;
+    @FXML private Button checkNotification;
 
-    public void display(Notification notification){
+    public void display(Notification notification, boolean showCheckmark){
         notificationID = notification.getNotifId();
         title.setText(notification.getTitle());
         description.setText(notification.getDescription());
         date.setText(DateUtils.getFormattedFullDate(notification.getDateActive()));
+
+        if(!showCheckmark){
+            checkNotification.setVisible(false);
+            checkNotification.setManaged(false);
+        }
     }
 
     public void checkNotification() throws IOException {
@@ -37,4 +44,5 @@ public class NotificationController {
         VBox notificationMenuVBox = (VBox) NavbarController.getNotificationMenuPopup().getChildren().get(1);
         NavbarController.updateNotificationBellPopup(notificationMenuVBox);
     }
+
 }
