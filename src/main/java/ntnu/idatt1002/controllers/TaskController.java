@@ -137,7 +137,7 @@ public class TaskController {
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
-        taskRepeat.setText("Task repeat: ");
+        taskRepeat.setText("Task repeat: " + TaskService.convertTimeRepeatToString(task));
     }
 
     /**

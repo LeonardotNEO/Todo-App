@@ -455,15 +455,13 @@ public class TaskService {
      * @return A long representing a week or a day. or 0L if the input is not valid.
      */
     public static long convertTimeRepeatToLong(String TimeRepeatString){
-
-        if (TimeRepeatString.equals("Repeat Daily")){
-            return 1000*60*60*24L;
-        }
-        else if (TimeRepeatString.equals("Repeat Weekly")){
-            return 1000*60*60*24*7L;
-        }
-        else{
-            return 0L;
+        switch(TimeRepeatString){
+            case "Repeat Daily":
+                return 1000*60*60*24L;
+            case "Repeat Weekly":
+                return 1000*60*60*24*7L;
+            default:
+                return 0L;
         }
     }
 
