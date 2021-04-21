@@ -329,11 +329,11 @@ public class DashboardController {
         if(normalCategory.isEmpty()){
             sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(projectCategory, project))));
             sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(projectCategory, project))));
-            sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(projectCategory, project))));
+            sort.getItems().add(createSortingMenuItem("Alphabetically", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(projectCategory, project))));
         } else {
             sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(normalCategory))));
             sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(normalCategory))));
-            sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(normalCategory))));
+            sort.getItems().add(createSortingMenuItem("Alphabetically", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(normalCategory))));
         }
     }
 
