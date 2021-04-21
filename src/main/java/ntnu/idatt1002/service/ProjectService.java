@@ -15,8 +15,8 @@ public class ProjectService {
 
     public static void deleteProjectCurrentUser(String projectName){
         ProjectDAO.delete(UserStateService.getCurrentUser().getUsername(), projectName);
-        UserStateService.getCurrentUser().setCurrentlySelectedProject("");
-        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory("");
+        UserStateService.getCurrentUser().setCurrentlySelectedProject(null);
+        UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(null);
     }
 
     public static boolean validateTitle(String title){

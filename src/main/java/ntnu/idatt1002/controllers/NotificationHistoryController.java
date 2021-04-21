@@ -12,9 +12,7 @@ import javafx.scene.layout.VBox;
 import ntnu.idatt1002.Notification;
 import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.service.UserStateService;
-import ntnu.idatt1002.utils.DateUtils;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -32,7 +30,7 @@ public class NotificationHistoryController {
      */
     public void initialize(){
         // When notificationHistoryPage is loaded, put in notifications to VBox
-        addNotificationsToPanel(NotificationService.getNotificationsByUser());
+        addNotificationsToPanel(NotificationService.getActiveNotificationsByCurrentUser());
 
         // add listener to scrollpane
         addScrollpaneListener();
@@ -68,7 +66,7 @@ public class NotificationHistoryController {
             NotificationController notificationController = loader.getController();
 
             // add properties to notification UI
-            notificationController.display(notification);
+            notificationController.display(notification, false);
 
             // add notifUI to VBox
             notificationsVBox.getChildren().add(notif);

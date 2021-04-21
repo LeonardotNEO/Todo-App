@@ -34,47 +34,29 @@ public class TaskService {
      * A method to change the category assigned to the task.
      *
      * @param tasks The Array of tasks with the current category.
-     * @param newCategory New category name.
+     * @param category New category name.
      */
-    public static void editCategoryOfTasks(ArrayList<Task> tasks, String newCategory){
-        tasks.forEach(task -> editCategoryOfTask(task, newCategory));
+    public static void editCategoryAndProjectOfTasks(ArrayList<Task> tasks, String category, String project){
+        if(tasks != null){
+            tasks.forEach(task -> editCategoryAndProjectOfTask(task, category, project));
+        }
     }
 
     /**
      * A method to edit the category of a single task.
      *
      * @param task the task object we want to edit.
-     * @param newCategory the new category for the task.
+     * @param category the new category for the task.
      */
-    public static void editCategoryOfTask(Task task, String newCategory){
+    public static void editCategoryAndProjectOfTask(Task task, String category, String project){
         TaskDAO.delete(task);
         setOriginals(task);
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            task.setCategory(newCategory);
+        if(project == null){
+            task.setCategory(category);
             task.setProject(null);
         } else {
-            task.setCategory(newCategory);
-        }
-
-        TaskDAO.serialize(task);
-    }
-
-    /**
-     * A method to edit the category and project of a single task.
-     *
-     * @param task the task object we want to edit.
-     * @param newCategory the new category for the task.
-     * @param newProject the new project for the task.
-     */
-    public static void editCategoryAndProjectOfTask(Task task, String newCategory, String newProject){
-        TaskDAO.delete(task);
-        setOriginals(task);
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            task.setCategory(newCategory);
-            task.setProject(null);
-        } else {
-            task.setCategory(newCategory);
-            task.setProject(newProject);
+            task.setCategory(category);
+            task.setProject(project);
         }
 
         TaskDAO.serialize(task);
@@ -97,31 +79,29 @@ public class TaskService {
      * @param category The category that the tasks should be in.
      * @return The tasks that were found with the given category.
      */
-    public static ArrayList<Task> getTasksByCategory(String category){
-        ArrayList<Task> tasksResult = new ArrayList<>();
+    public static ArrayList<Task> getTasksByCategory(String category, String project){
+        ArrayList<Task> tasksResult = null;
 
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
-                ArrayList<String> avoidCategories = new ArrayList<>();
-                avoidCategories.add("Finished tasks");
-                avoidCategories.add("Trash bin");
-                tasksResult = TaskService.getTasksExcludingCategories(getTasksByCurrentUser(),avoidCategories);
+        if(category != null){
+            if(project == null){
+                if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
+                    ArrayList<String> avoidCategories = new ArrayList<>();
+                    avoidCategories.add("Finished tasks");
+                    avoidCategories.add("Trash bin");
+                    tasksResult = TaskService.getTasksExcludingCategories(getTasksByCurrentUser(),avoidCategories);
+                } else {
+                    tasksResult = TaskDAO.list(UserStateService.getCurrentUser().getUsername(), category);
+                }
             } else {
-                tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+                tasksResult = TaskDAO.list(UserStateService.getCurrentUser().getUsername(), project, category);
             }
         }
 
-        return tasksResult;
-    }
+        if(tasksResult == null){
+            tasksResult = new ArrayList<>();
+        }
 
-    /**
-     * Get tasks that have a given category and project name.
-     *
-     * @param category The category that the tasks should be in.
-     * @return The tasks that were found with the given category.
-     */
-    public static ArrayList<Task> getTasksByCategory(String category, String project){
-        return TaskDAO.list(UserStateService.getCurrentUserUsername(), project, category);
+        return tasksResult;
     }
 
     /**
@@ -148,7 +128,7 @@ public class TaskService {
      * @return an ArrayList of task-objects by the current user.
      */
     public static ArrayList<Task> getTasksByCurrentUser(){
-        return TaskDAO.list(UserStateService.getCurrentUserUsername());
+        return TaskDAO.list(UserStateService.getCurrentUser().getUsername());
     }
 
     /**

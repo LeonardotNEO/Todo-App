@@ -102,9 +102,9 @@
                   </Text>
                </children>
             </AnchorPane>
-            <VBox alignment="CENTER_LEFT" layoutX="251.0" layoutY="3.0" prefHeight="70.0">
+            <VBox alignment="CENTER_LEFT" layoutX="251.0" layoutY="3.0" prefHeight="70.0" spacing="5.0">
                <children>
-                  <HBox fx:id="projectHBox" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" spacing="10.0">
+                  <HBox fx:id="projectHBox" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                      <children>
                         <Label text="Project:" underline="true">
                            <font>
@@ -140,7 +140,7 @@
                         <Insets left="18.0" right="10.0" />
                      </padding>
                   </HBox>
-                  <HBox fx:id="categoryHBox" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" spacing="10.0">
+                  <HBox fx:id="categoryHBox" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                      <children>
                         <Label text="Category:" underline="true">
                            <font>

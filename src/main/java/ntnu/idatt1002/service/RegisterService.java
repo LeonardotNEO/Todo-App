@@ -28,9 +28,6 @@ public class RegisterService {
             CategoryService.addCategoryToCurrentUser(premadeCategory);
         }
 
-        // set current category to empty
-        UserStateService.getCurrentUser().setCurrentlySelectedCategory("");
-
         return true;
     }
 

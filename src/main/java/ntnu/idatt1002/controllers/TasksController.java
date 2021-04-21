@@ -92,11 +92,11 @@ public class TasksController {
         buttonAddTask.setVisible(false);
         buttonAddTask.setManaged(false);
 
-        if(!UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
+        if(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory() != null){
             buttonAddTask.setVisible(true);
             buttonAddTask.setManaged(true);
         }
-        if(!UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty() && !CategoryService.getPremadeCategories().contains(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null && !CategoryService.getPremadeCategories().contains(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
             buttonAddTask.setVisible(true);
             buttonAddTask.setManaged(true);
         }
@@ -108,7 +108,7 @@ public class TasksController {
      * @param tasks
      */
     public void addTasks(ArrayList<Task> tasks){
-        if(tasks != null){
+        if(!tasks.isEmpty()){
             tasks.forEach(t -> {
                 try {
                     addTask(t);

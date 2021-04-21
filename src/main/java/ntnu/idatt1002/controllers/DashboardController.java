@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
@@ -26,8 +27,7 @@ import java.util.ArrayList;
 public class DashboardController {
     //VARIABLES
     private static DashboardController instance;
-    private String normalCategory;
-    private String projectCategory;
+    private String category;
     private String project;
 
     //FXML
@@ -48,21 +48,22 @@ public class DashboardController {
         instance = this;
     }
 
-
-
     /**
      * The initialize method used to load dashboard.
      *
      * @throws IOException
      */
     public void initialize() throws IOException {
-        // load tasks
         // we differentiate between loading normal categories and project categories
-        normalCategory = UserStateService.getCurrentUser().getCurrentlySelectedCategory();
-        projectCategory = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
         project = UserStateService.getCurrentUser().getCurrentlySelectedProject();
+        if(project == null){
+            category = UserStateService.getCurrentUser().getCurrentlySelectedCategory();
+        } else {
+            category = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
+        }
 
-        loadTasksPage(null);
+        // load tasks
+        loadTasksPage(category, project);
 
         // load category buttons to categories VBox
         loadNormalCategoryButtons();
@@ -75,9 +76,6 @@ public class DashboardController {
 
         // initialize searchbar
         initializeSearchbar();
-
-        // update MenuButton sort with newest arraylists<Task>
-        updateSortingOptions();
     }
 
     /**
@@ -125,8 +123,10 @@ public class DashboardController {
             projectMenuButtonController.initializeProject(project);
 
             // load each categorybutton into projectMenuButton
-            if(UserStateService.getCurrentUser().getCurrentlySelectedProject().equals(project)){
-                loadProjectCategoryButtons(project, projectMenuButtonController);
+            if(this.project != null){
+                if(this.project.equals(project)){
+                    loadProjectCategoryButtons(project, projectMenuButtonController);
+                }
             }
 
             // add project button to vbox
@@ -160,42 +160,30 @@ public class DashboardController {
      * Update update category/task edit/delete bar according to UserStateService values
      */
     public void updateCategoryEditDeleteBar(){
-        if(!UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
-            projectName.setText(UserStateService.getCurrentUser().getCurrentlySelectedProject());
-            projectHBox.setVisible(true);
-            projectHBox.setManaged(true);
+        projectName.setText(project);
+        categoryName.setText(category);
 
-            categoryName.setText(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory());
+        if(project == null && category != null){
             categoryHBox.setVisible(true);
             categoryHBox.setManaged(true);
-        } else if(!UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            categoryName.setText(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
-            categoryHBox.setVisible(true);
-            categoryHBox.setManaged(true);
-            taskHBox.setVisible(true);
-
             projectHBox.setVisible(false);
             projectHBox.setManaged(false);
 
             // If any of the premade categories is selected, we wont show edit/delete button
-            if(CategoryService.getPremadeCategories().contains(UserStateService.getCurrentUser().getCurrentlySelectedCategory())){
+            if(CategoryService.getPremadeCategories().contains(category)){
                 buttonEditCategory.setVisible(false);
                 buttonDeleteCategory.setVisible(false);
-            } else {
-                buttonEditCategory.setVisible(true);
-                buttonDeleteCategory.setVisible(true);
             }
-        } else if(!UserStateService.getCurrentUser().getCurrentlySelectedProject().isEmpty() && UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().isEmpty()){
-            projectName.setText(UserStateService.getCurrentUser().getCurrentlySelectedProject());
+        } else if(project != null && category == null){
             projectHBox.setVisible(true);
             projectHBox.setManaged(true);
             categoryHBox.setVisible(false);
             categoryHBox.setManaged(false);
-        } else {
-            categoryHBox.setVisible(false);
-            categoryHBox.setManaged(false);
-            projectHBox.setVisible(false);
-            projectHBox.setManaged(false);
+        } else if(project != null && category != null){
+            projectHBox.setVisible(true);
+            projectHBox.setManaged(true);
+            categoryHBox.setVisible(true);
+            categoryHBox.setManaged(true);
         }
     }
 
@@ -208,6 +196,9 @@ public class DashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditCategory.fxml"));
         Node node = loader.load();
         NewEditCategoryController newEditCategoryController = loader.getController();
+
+        // since we clicked the new category button on the dashboard, that means that we dont want to add the category to a project, we set project to null in user settings
+        UserStateService.getCurrentUser().setCurrentlySelectedProject(null);
 
         // load the newCategory part of newEditCategoryController
         newEditCategoryController.intializeNewCategory();
@@ -227,12 +218,7 @@ public class DashboardController {
         NewEditCategoryController newEditCategoryController = loader.getController();
 
         // load the editCategory part of newEditCategoryController
-        // we differentiate between when project category and ordinary category is selected
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            newEditCategoryController.intializeEditCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject());
-        } else {
-            newEditCategoryController.intializeEditCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject());
-        }
+        newEditCategoryController.intializeEditCategory();
 
         // set dashboard content to editMenu
         setCenterContent(node);
@@ -243,10 +229,10 @@ public class DashboardController {
      * We differentiate between a normal category and a category under a project
      */
     public void buttonDeleteCategory() throws IOException {
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), UserStateService.getCurrentUser().getCurrentlySelectedProject());
+        if(project == null){
+            CategoryService.deleteCategoryCurrentUser(category);
         } else {
-            CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+            CategoryService.deleteCategoryCurrentUser(category, project);
         }
 
         // reload dashboard
@@ -284,7 +270,7 @@ public class DashboardController {
     }
 
     public void buttonDeleteProject() throws IOException {
-        ProjectService.deleteProjectCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProject());
+        ProjectService.deleteProjectCurrentUser(project);
 
         // reload dashboard
         initialize();
@@ -322,15 +308,9 @@ public class DashboardController {
      * Method that adds sortingOptions to sort MenuButton
      */
     public void addSortingOptions(){
-        if(normalCategory.isEmpty() && !projectCategory.isEmpty()){
-            sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(projectCategory, project))));
-            sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(projectCategory, project))));
-            sort.getItems().add(createSortingMenuItem("Alphabetically", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(projectCategory, project))));
-        } else if(!normalCategory.isEmpty()) {
-            sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(normalCategory))));
-            sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(normalCategory))));
-            sort.getItems().add(createSortingMenuItem("Alphabetically", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(normalCategory))));
-        }
+        sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(category, project))));
+        sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(category, project))));
+        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(category, project))));
     }
 
     /**
@@ -352,28 +332,47 @@ public class DashboardController {
      * Loads an empty Tasks UI elements, adds task UI elements to it. Then we set center content of dashboard to tasks.fxml
      * @throws IOException
      */
-    public void loadTasksPage(ArrayList<Task> taskArrayList) throws IOException {
+    public void loadTasksPage(String category, String project) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
         BorderPane borderPane = loader.load();
         TasksController tasksController = loader.getController();
 
-        ArrayList<Task> tasks = new ArrayList<>();
-        if(taskArrayList != null){
-            tasks = taskArrayList;
-        } else if(!projectCategory.isEmpty()) {
-            tasks = TaskService.getTasksByCategory(projectCategory, project);
-        } else if(!normalCategory.isEmpty()){
-            tasks = TaskService.getTasksByCategory(normalCategory);
-        }
+        // get tasks
+        ArrayList<Task> tasks = TaskService.getTasksByCategory(category, project);
+
+        // add tasks to generated taskspage
+        tasksController.addTasks(tasks);
+
+        // show no message when loaded tasks are not equals 0
+        tasksController.showMessage(null);
+
+        // update MenuButton sort with newest arraylists<Task>
+        updateSortingOptions();
+
+        // add tasksController UI to dashboard center
+        setCenterContent((Node) borderPane);
+    }
+
+    /**
+     * Loads an empty Tasks UI elements, adds task UI elements to it. Then we set center content of dashboard to tasks.fxml
+     * @throws IOException
+     */
+    public void loadTasksPage(ArrayList<Task> tasks) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
+        BorderPane borderPane = loader.load();
+        TasksController tasksController = loader.getController();
 
         if(tasks == null || tasks.contains(null) || tasks.isEmpty()){
-            tasksController.tasksIsEmpty();
+            tasksController.tasksIsEmptySearch();
         } else {
             // add tasks to generated taskspage
             tasksController.addTasks(tasks);
 
             // show no message when loaded tasks are not equals 0
             tasksController.showMessage(null);
+
+            // update MenuButton sort with newest arraylists<Task>
+            updateSortingOptions();
         }
 
         setCenterContent((Node) borderPane);
