@@ -74,6 +74,18 @@ public class TaskService {
     }
 
     /**
+     * Used to set the isRepeatable value of a given task and update the save files at the same time.
+     *
+     * @param task      Task object to change
+     * @param value     boolean new value for task.isRepeatable
+     */
+    public static void setRepeatable(Task task, boolean value) {
+        TaskDAO.delete(task);
+        task.setRepeatable(value);
+        TaskDAO.serialize(task);
+    }
+
+    /**
      * Get tasks that have a given category.
      *
      * @param category The category that the tasks should be in.

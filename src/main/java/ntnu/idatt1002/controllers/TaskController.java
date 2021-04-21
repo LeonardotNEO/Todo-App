@@ -220,16 +220,21 @@ public class TaskController {
     }
 
     /**
+     * Checks if task is repeatable. Displays confirmation popup for repeatable task if true. Else:
      * Checks for confirmation popup settings. Calls this.finishTask() if true.
      * Displays confirmation popup if false.
      * @param event
      * @throws IOException
      */
     public void clickFinishTask(ActionEvent event) throws IOException {
-        if (UserStateService.getCurrentUser().isFinishTaskDontShowAgainCheckbox()) {
-            this.finishTask(event);
+        if (TaskService.getTaskByCurrentUser(taskId).isRepeatable()) {
+            ConfirmationRepeatDelController.display(this, "finish");
         } else {
-            ConfirmationController.display(this, "finish");
+            if (UserStateService.getCurrentUser().isFinishTaskDontShowAgainCheckbox()) {
+                this.finishTask(event);
+            } else {
+                ConfirmationController.display(this, "finish");
+            }
         }
     }
 
@@ -250,16 +255,21 @@ public class TaskController {
     }
 
     /**
+     * Checks if task is repeatable. Displays confirmation popup for repeatable task if true. Else:
      * Checks for confirmation popup settings. Calls this.deleteTask() if true.
      * Displays confirmation popup if false.
      * @param event
      * @throws IOException
      */
     public void clickDeleteButton(ActionEvent event) throws IOException {
-        if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
-            deleteTask(event);
-        } else {
-            ConfirmationController.display(this, "delete");
+        if (TaskService.getTaskByCurrentUser(taskId).isRepeatable()) {
+            ConfirmationRepeatDelController.display(this, "delete");
+        } else  {
+            if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
+                deleteTask(event);
+            } else {
+                ConfirmationController.display(this, "delete");
+            }
         }
     }
 
@@ -299,6 +309,14 @@ public class TaskController {
                 TaskService.getTaskByCurrentUser(taskId).getOriginalProject());
         // update dashboard
         DashboardController.getInstance().initialize();
+    }
+
+    /**
+     * Used to set the tasks repeatable value.
+     * @param value     boolean new value of isRepeatable for this taskId.
+     */
+    public void setTaskIsRepeatable(boolean value) {
+        TaskService.setRepeatable(TaskService.getTaskByCurrentUser(taskId), value);
     }
 
     /**
