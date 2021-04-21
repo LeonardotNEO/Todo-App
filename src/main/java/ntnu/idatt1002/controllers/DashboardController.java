@@ -184,11 +184,6 @@ public class DashboardController {
             projectHBox.setManaged(true);
             categoryHBox.setVisible(true);
             categoryHBox.setManaged(true);
-        } else {
-            projectHBox.setVisible(false);
-            projectHBox.setManaged(false);
-            categoryHBox.setVisible(false);
-            categoryHBox.setManaged(false);
         }
     }
 
