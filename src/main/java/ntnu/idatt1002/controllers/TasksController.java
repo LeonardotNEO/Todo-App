@@ -141,7 +141,7 @@ public class TasksController {
                     break;
             }
         } else {
-            showMessage("No category is created yet...\nYou need to add a category first, before adding an task!");
+            showMessage(null);
         }
     }
 

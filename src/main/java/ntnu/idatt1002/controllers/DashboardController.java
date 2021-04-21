@@ -162,6 +162,10 @@ public class DashboardController {
     public void updateCategoryEditDeleteBar(){
         projectName.setText(project);
         categoryName.setText(category);
+        projectHBox.setVisible(true);
+        projectHBox.setManaged(true);
+        categoryHBox.setVisible(true);
+        categoryHBox.setManaged(true);
 
         if(project == null && category != null){
             categoryHBox.setVisible(true);
@@ -173,6 +177,9 @@ public class DashboardController {
             if(CategoryService.getPremadeCategories().contains(category)){
                 buttonEditCategory.setVisible(false);
                 buttonDeleteCategory.setVisible(false);
+            } else {
+                buttonEditCategory.setVisible(true);
+                buttonDeleteCategory.setVisible(true);
             }
         } else if(project != null && category == null){
             projectHBox.setVisible(true);
@@ -184,6 +191,11 @@ public class DashboardController {
             projectHBox.setManaged(true);
             categoryHBox.setVisible(true);
             categoryHBox.setManaged(true);
+        } else {
+            projectHBox.setVisible(false);
+            projectHBox.setManaged(false);
+            categoryHBox.setVisible(false);
+            categoryHBox.setManaged(false);
         }
     }
 
@@ -340,14 +352,18 @@ public class DashboardController {
         // get tasks
         ArrayList<Task> tasks = TaskService.getTasksByCategory(category, project);
 
-        // add tasks to generated taskspage
-        tasksController.addTasks(tasks);
+        if(tasks.size() == 0){
+            tasksController.tasksIsEmpty();
+        } else {
+            // add tasks to generated taskspage
+            tasksController.addTasks(tasks);
 
-        // show no message when loaded tasks are not equals 0
-        tasksController.showMessage(null);
+            // show no message when loaded tasks are not equals 0
+            tasksController.showMessage(null);
 
-        // update MenuButton sort with newest arraylists<Task>
-        updateSortingOptions();
+            // update MenuButton sort with newest arraylists<Task>
+            updateSortingOptions();
+        }
 
         // add tasksController UI to dashboard center
         setCenterContent((Node) borderPane);
