@@ -62,6 +62,7 @@ public class TaskService {
      */
     public static void editCategoryOfTask(Task task, String newCategory){
         TaskDAO.delete(task);
+        setOriginals(task);
         if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
             task.setCategory(newCategory);
             task.setProject(null);
@@ -71,6 +72,39 @@ public class TaskService {
 
         TaskDAO.serialize(task);
         UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
+    }
+
+    /**
+     * A method to edit the category and project of a single task.
+     *
+     * @param task the task object we want to edit.
+     * @param newCategory the new category for the task.
+     * @param newProject the new project for the task.
+     */
+    public static void editCategoryAndProjectOfTask(Task task, String newCategory, String newProject){
+        TaskDAO.delete(task);
+        setOriginals(task);
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            task.setCategory(newCategory);
+            task.setProject(null);
+        } else {
+            task.setCategory(newCategory);
+            task.setProject(newProject);
+        }
+
+        TaskDAO.serialize(task);
+        UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
+    }
+
+    /**
+     * Sets original Project and Category for the given task.
+     * Useful for restoring categories and projects.
+     *
+     * @param task Task to set originals for
+     */
+    public static void setOriginals(Task task) {
+        task.setOriginalProject(task.getProject());
+        task.setOriginalCategory(task.getCategory());
     }
 
     /**
