@@ -1,6 +1,7 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.dao.CategoryDAO;
+import ntnu.idatt1002.dao.UserLogDAO;
 import ntnu.idatt1002.dao.UserStateDAO;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Arrays;
  */
 public class CategoryService {
 
-    private final static ArrayList<String> premadeCategories = new ArrayList<>() {
+    private static ArrayList<String> premadeCategories = new ArrayList<>() {
         {
             add("All tasks");
             add("Trash bin");
@@ -24,7 +25,8 @@ public class CategoryService {
      * @return String[] of all the categories that the user has
      */
     public static String[] getCategoriesCurrentUser(){
-        return CategoryDAO.list(UserStateDAO.getUsername());
+        String[] categories = CategoryDAO.list(UserStateDAO.getUsername());
+        return categories;
     }
 
     /**
@@ -42,7 +44,12 @@ public class CategoryService {
      * @return ArrayList <String> of all the categories within the project
      */
     public static ArrayList<String> getCategoriesByProjectCurrentUserArraylist(String projectName){
-        return new ArrayList<>(Arrays.asList(getCategoriesByProjectCurrentUser(projectName)));
+        ArrayList<String> categories = new ArrayList<>();
+
+        for(String category : getCategoriesByProjectCurrentUser(projectName)){
+            categories.add(category);
+        }
+        return categories;
     }
 
     /**
@@ -109,22 +116,29 @@ public class CategoryService {
      * @return boolean according to if the Category title is less that 24 letters, and more than 0.
      */
     public static boolean validateCategoryTitleSyntax(String categoryTitle){
-        return categoryTitle.length() > 0 && categoryTitle.length() < 24;
+        if(categoryTitle.length() > 0 && categoryTitle.length() < 24){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * Method that takes an Array of category-strings, turns it into an array and adds "Trash bin" and "Finished tasks" the the bottom
+     * @return
      */
     public static ArrayList<String> getArrayListCategoriesOrganized(){
         ArrayList<String> categoriesList = new ArrayList<>();
         for (String s : getCategoriesCurrentUser()) {
-            if(premadeCategories.stream().noneMatch(s::equals)){
+            if(!premadeCategories.stream().anyMatch(s::equals)){
                 categoriesList.add(s);
             }
         }
 
         // add premades at the bottom
-        categoriesList.addAll(premadeCategories);
+        for (String premadeCategory : premadeCategories) {
+            categoriesList.add(premadeCategory);
+        }
 
         return categoriesList;
     }

@@ -72,8 +72,6 @@ public final class NotificationDAO {
      * @return a {@link Notification} object, or {@code null} if file could not be found.
      */
     private static Notification deserialize(String filepath){
-        File file = new File(filepath);
-        if(!file.exists()){ return null; }
         return (Notification) GenericDAO.deserialize(filepath);
     }
 

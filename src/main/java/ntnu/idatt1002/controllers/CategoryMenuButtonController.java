@@ -36,7 +36,7 @@ public class CategoryMenuButtonController {
         // add listener when clicking buttonAddTask
         buttonAddTask.setOnAction(event -> {
             try {
-                buttonAddTask();
+                buttonAddTask(category, "");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -69,7 +69,7 @@ public class CategoryMenuButtonController {
         // add listener when clicking buttonAddTask
         buttonAddTask.setOnAction(event -> {
             try {
-                buttonAddTask();
+                buttonAddTask(category, project);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -79,14 +79,14 @@ public class CategoryMenuButtonController {
         setStyleOfButtonProject(buttonClickCategory);
     }
 
-    public void buttonAddTask() throws IOException {
+    public void buttonAddTask(String category, String project) throws IOException {
         // Load newEditTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
         Node node = loader.load();
         NewEditTaskController newEditTaskController = loader.getController();
 
         // load the task part of newEditTaskController
-        newEditTaskController.initializeNewTask();
+        newEditTaskController.initializeNewTask(category, project);
 
         // set dashboard content to editMenu
         DashboardController.getInstance().setCenterContent(node);

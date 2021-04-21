@@ -2,6 +2,7 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
 import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.UserLogDAO;
 
 public class RegisterService {
 
@@ -16,6 +17,7 @@ public class RegisterService {
 
         // Update savefiles to include this new user
         UserDAO.serialize(newUser);
+        UserLogDAO.setUserRegistration(name);
 
         // Set current user to this username
         UserStateService.setCurrentUserUsername(name);
@@ -41,7 +43,11 @@ public class RegisterService {
      * @return
      */
     public static boolean checkIfPasswordValidSyntax(String password, String repeatPassword){
-        return password.length() > 6 || repeatPassword.length() > 6;
+        if(password.length() > 6 || repeatPassword.length() > 6){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -51,7 +57,11 @@ public class RegisterService {
      * @return
      */
     public static boolean checkIfPasswordValid(String password, String repeatPassword){
-        return password.equals(repeatPassword);
+        if(password.equals(repeatPassword)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -60,7 +70,11 @@ public class RegisterService {
      * @return
      */
     public static boolean checkIfUsernameValidSyntax(String username){
-        return username.length() > 0;
+        if(username.length() > 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -72,9 +86,8 @@ public class RegisterService {
         boolean result = true;
 
         for(User user : UserDAO.list()){
-            if (user.getUsername().equals(username)) {
+            if(user.getUsername().equals(username)){
                 result = false;
-                break;
             }
         }
 

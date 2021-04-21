@@ -165,8 +165,6 @@ public final class TaskDAO {
      * @return a {@link Task} object, or {@code null} if the file doesn't exist.
      */
     private static Task deserialize(String filepath){
-        File file = new File(filepath);
-        if(!file.exists()){ return null; }
         return (Task) GenericDAO.deserialize(filepath);
     }
 
