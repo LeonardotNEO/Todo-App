@@ -11,12 +11,12 @@
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/registerPageHelp.png",
         "text": "On this page there are three input fields in the middle of the page. One for  a \"Username\", a \"Password\" and a field for \"Repeat password\". There are also two checkboxes below the fields. The checkboxes are for \"No password\" and \"Remember me\". With the \"No password\"-box checked the only field needed for a registration is the \"Username\" field, else a password must also be made. The \"Remember me\" checkbox, if checked, allows a user to be instantly logged in to their account after it has been made."
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/registerPageRegisterButtonHelp.png",
         "text": "When the necessary fields have been filled the next step is to press the \"Register\"-button. This button is located below the checkboxes and at the bottom of the box. When pressed the account will be created and you will be taken to the \"Dashboard\"-page."
       }
     ]
@@ -28,7 +28,7 @@
     "fields": [
       {
         "title": "Login to an existing account",
-        "image": null,
+        "image": "src/main/resources/images/loginPageLoginButton.png",
         "text": "To login to an existing account you first have to press the \"Login\"-button. This button is located to the right side of the account you want to login to. A registered account will be in a white field, with the username on the left and the \"Login\"-button on the right. When pressed one of two things can happen."
       },
       {
@@ -38,7 +38,7 @@
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/loginPageHelp.png",
         "text": "The \"Login with password\"-page also has a \"Remember me\"-checkbox. When checked and you have logged in to the account, the program will automatically log you in to this account the next time you start the program. There is also an arrow pointing to the left at the top left corner of the box. This arrow, when clicked, will take you back to the \"Users overview\"-page. For information about the button on the bottom-center of the page, see \"Register\" help-page."
       },
       {
@@ -55,17 +55,17 @@
     "fields": [
       {
         "title": "How to access",
-        "image": null,
+        "image": "src/main/resources/images/dashboardPageDashboardButton.png",
         "text": "The main page and default page for the application. From this page you can access the rest of the application. To access this page from another page in the application simply click the \"Dashboard\"-button located at the top of the application within the navigation bar."
       },
       {
         "title": "The sidebar to the left",
-        "image": null,
+        "image": "src/main/resources/images/dashboardPageLeftNavbar.png",
         "text": "If you look to the left side of the page you can see a sidebar containing your categories and the premade categories \"All tasks\", \"Trash bin\" and \"Finished tasks\". There will also be two buttons on this bar: \"+ New Category\" and \"+ New project\". For more information about these see \"Category\" help-page."
       },
       {
         "title": "The navigation bar at the top",
-        "image": null,
+        "image": "src/main/resources/images/dashboardPageTopNavbar.png",
         "text": "For information about the navigation bar at the top of the application see the \"Navigation bar at the top\" help-page."
       }
     ]
@@ -77,12 +77,12 @@
     "fields": [
       {
         "title": "How to access",
-        "image": null,
+        "image": "src/main/resources/images/dashboardPageOverviewButton.png",
         "text": "This page can be accessed by clicking the \"Overview\"-button located at the top of the application in the navigation bar."
       },
       {
         "title": "Content and simple view",
-        "image": null,
+        "image": "src/main/resources/images/overviewPageSimpleViewButtons.png",
         "text": "On this page you can see two buttons. The are located in the upper left corner right below the application logo. These buttons are \"Simple view\" and \"Calendar view\"."
       },
       {
@@ -92,7 +92,7 @@
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/overviewPageSimpleViewTables.png",
         "text": "These containers will contain tasks with a deadline within the given time. Thus all not finished or deleted tasks which are due in the next 7 days will be in under the container \"Tasks due the next 7 days\". Similarly tasks which are due this month will be under \"Tasks due this month\" and the same for tasks under \"Tasks due this week\"."
       },
       {
