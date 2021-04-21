@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
@@ -29,7 +28,7 @@ public class TasksController {
     @FXML private VBox tasksVBox;
     @FXML private ScrollPane scrollpane;
     @FXML private Button buttonAddTask;
-    @FXML private Label messageText;
+    @FXML private Text messageText;
     @FXML private VBox background;
 
     public void initialize(){
@@ -41,6 +40,15 @@ public class TasksController {
 
         // set background
         background.setStyle(UserStateService.getCurrentUser().getCurrentlySelectedBackground());
+    }
+
+    /**
+     * method for initializing Tasks UI when we have a category and project
+     * @param category
+     * @param project
+     */
+    public void initializeTasksController(String category, String project){
+        setAddTaskButton(category, project);
     }
 
     /**
@@ -64,27 +72,28 @@ public class TasksController {
         tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);
     }
 
-    public void buttonAddTask(){
-        // Load newEditTask page. get fxml variable and controller variable
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void setAddTaskButton(String category, String project){
+        buttonAddTask.setOnAction(event -> {
+            // Load newEditTask page. get fxml variable and controller variable
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
+            Node node = null;
+            try {
+                node = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            NewEditTaskController newEditTaskController = loader.getController();
 
-        NewEditTaskController newEditTaskController = loader.getController();
+            // load the task part of newEditTaskController
+            newEditTaskController.initializeNewTask(category, project);
 
-        // load the task part of newEditTaskController
-        newEditTaskController.initializeNewTask();
-
-        // set dashboard content to editMenu
-        try {
-            DashboardController.getInstance().setCenterContent(node);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            // set dashboard content to editMenu
+            try {
+                DashboardController.getInstance().setCenterContent(node);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void showAddTaskButton(){

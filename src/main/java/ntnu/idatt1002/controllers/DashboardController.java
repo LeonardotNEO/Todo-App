@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
@@ -75,9 +76,6 @@ public class DashboardController {
 
         // initialize searchbar
         initializeSearchbar();
-
-        // update MenuButton sort with newest arraylists<Task>
-        updateSortingOptions();
     }
 
     /**
@@ -352,7 +350,7 @@ public class DashboardController {
      * Loads an empty Tasks UI elements, adds task UI elements to it. Then we set center content of dashboard to tasks.fxml
      * @throws IOException
      */
-    public void loadTasksPage(ArrayList<Task> taskArrayList) throws IOException {
+    public void loadTasksPage(String category, String project) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tasks.fxml"));
         BorderPane borderPane = loader.load();
         TasksController tasksController = loader.getController();

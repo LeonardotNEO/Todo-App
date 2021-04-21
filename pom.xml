@@ -56,13 +56,6 @@
             <version>2.0.26-9.1.2</version>
         </dependency>
 
-        <!-- Apache commons -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>1.8</version>
-        </dependency>
-
         <!-- JFoeniX -->
         <dependency>
             <groupId>com.jfoenix</groupId>
