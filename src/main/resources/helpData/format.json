@@ -167,7 +167,7 @@
       {
         "title": "Creat a new task",
         "image": null,
-        "text": "Create a new task by clicking the \"Task\" button. This button is located at the center-boarder of the category you are currently in."
+        "text": "Create a new task by clicking the \"Task\" button. This button is located at the center-boarder of the category you are currently in. This button is also located to the right of the category name in the sidebar in the \"Dashboard\" page."
       },
       {
         "title": null,
@@ -394,6 +394,31 @@
         "title": "\"Delete\"-button",
         "image": null,
         "text": "The \"Delete\"-button is located to the right of the \"Edit\"-button. When pressed it will delete the category and all tasks within it."
+      },
+      {
+        "title": "Sorting menu",
+        "image": null,
+        "text": "The \"Sort\"-menu is located towards the right corner of the category-navigation bar just left of the \"Search...\"-field. This menu allows for sorting of all the tasks in the category. When pressed it will show three options for sorting. These are: \"Priority\", \"Date\" and \"Alphabetical\"."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "The \"Priority\" option will sort the tasks by their priority with the highest priority at the top and lowest priority at the bottom."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "The \"Date\" option will sort the tasks by their deadline. Those without a deadline will be at the top, followed by those with the closest deadline. The task with the deadline farthest from the current date will be at the bottom."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "The \"Alphabetical\" option will sort the tasks by the alphabetical order of their task-title. Thus an A as the first title letter of the task will guarantee that the task will be placed at the top. If multiple tasks have the same first letter in the task-title then these tasks will be alphabetically sorted by the next title letter and so on."
+      },
+      {
+        "title": "\"Search...\"-field",
+        "image": null,
+        "text": "The \"Search...\"-field is located in the right corner of the category-navigation bar. By clicking it you will be able to type in it. The letters and words typed will automatically be used for searching among the tasks in the category. The \"Search...\"-field searches among the task titles and task tags. Any task that fits the searched criteria will appear in the category while all other tasks will temporarily disappear."
       }
     ]
   },

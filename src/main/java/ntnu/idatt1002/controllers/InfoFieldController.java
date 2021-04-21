@@ -11,11 +11,6 @@ public class InfoFieldController {
     @FXML Text text;
     @FXML Text subTitleText;
 
-    public void initialize() {
-        System.out.println("I am listening");
-        //text.wrappingWidthProperty().bind(anchor.widthProperty());
-    }
-
     public void hideImage() {
         imageView.setManaged(false);
         imageView.setVisible(false);
