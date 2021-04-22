@@ -3,10 +3,7 @@ package ntnu.idatt1002.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -17,8 +14,6 @@ import ntnu.idatt1002.App;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.service.UserStateService;
-import ntnu.idatt1002.utils.DateUtils;
-
 
 import java.awt.*;
 import java.io.IOException;
@@ -160,7 +155,7 @@ public class NavbarController {
                 NotificationController notificationController = loader.getController();
 
                 // use the controller to display notification UI
-                notificationController.display(notification);
+                notificationController.display(notification, true);
 
                 // add notifcationUI to notificationMenuPopup
                 popup.getChildren().add(notificationNode);

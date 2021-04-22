@@ -8,7 +8,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import ntnu.idatt1002.controllers.MainController;
 import ntnu.idatt1002.dao.UserStateDAO;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.UpdateService;
@@ -16,6 +15,7 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Timer;
 
 /**
  * To-do app main class
@@ -27,8 +27,8 @@ public class App extends Application {
 
     /**
      * A method to start the program
-     * @param stage
-     * @throws IOException
+     * @param stage Stage that is used to start program
+     * @throws IOException IOException when the stage is not found
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -86,16 +86,20 @@ public class App extends Application {
      * When application is stopped (not by logout button), we check if UserState is false, if it is we logOut()
      */
     public void stop(){
+        // check if we should log the user out when the application is stopped based on user settings
         if(UserStateService.checkIfUserState()){
             if(!UserStateService.getCurrentUser().isRememberMe()){
                 LoginService.logOut();
             }
         }
+
+        // stop timer in UpdateService
+        UpdateService.stop();
     }
 
     /**
      * Main method
-     * @param args
+     * @param args input arguments
      */
     public static void main(String[] args) {launch();}
 
@@ -116,8 +120,7 @@ public class App extends Application {
      */
     public static Parent loadFXML(String fxml) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
-        Parent parent = fxmlLoader.load();
-        return parent;
+        return fxmlLoader.load();
     }
 
     /**

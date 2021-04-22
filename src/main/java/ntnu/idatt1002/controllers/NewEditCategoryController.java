@@ -1,7 +1,5 @@
 package ntnu.idatt1002.controllers;
 
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,12 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
-import ntnu.idatt1002.service.ProjectService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * A class which contains the buttons related to the creation of a new category
@@ -28,6 +27,7 @@ public class NewEditCategoryController {
     @FXML private Button button;
 
     public void intializeNewCategory(){
+        projectName = UserStateService.getCurrentUser().getCurrentlySelectedProject();
         headerText.setText("Create category");
 
         button.setText("Create category");
@@ -40,23 +40,24 @@ public class NewEditCategoryController {
         });
     }
 
-    public void intializeEditCategory(String categoryName, String projectName){
+    public void intializeEditCategory(){
+        projectName = UserStateService.getCurrentUser().getCurrentlySelectedProject();
         headerText.setText("Edit category");
 
         button.setText("Edit category");
         button.setOnAction(event -> {
             try {
-                if(projectName.isEmpty()){
-                    buttonEditCategory();
-                } else {
-                    buttonEditCategoryUnderProject(projectName);
-                }
+                buttonEditCategory();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
-        categoryTitle.setText(categoryName);
+        if(projectName == null){
+            categoryTitle.setText(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+        } else {
+            categoryTitle.setText(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory());
+        }
     }
 
     /**
@@ -73,13 +74,18 @@ public class NewEditCategoryController {
      */
     public void buttonNewCategory() throws IOException {
         if(CategoryService.validateCategoryTitleSyntax(categoryTitle.getText())){
-            // if projectname is not empty, when now that we have to add this category to a project
-            if(projectName.isEmpty()){
+            // we specify if this category should go to a project
+            if(projectName == null){
+                // add new category
                 CategoryService.addCategoryToCurrentUser(categoryTitle.getText());
+
+                // set currently selected category to the new one
                 UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle.getText());
             } else {
+                // add new category
                 CategoryService.addCategoryToCurrentUser(projectName, categoryTitle.getText());
 
+                // set currently selected category to the new one
                 UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryTitle.getText());
                 UserStateService.getCurrentUser().setCurrentlySelectedProject(projectName);
             }
@@ -98,43 +104,33 @@ public class NewEditCategoryController {
      */
     public void buttonEditCategory() throws IOException {
         if(CategoryService.validateCategoryTitleSyntax(categoryTitle.getText())){
-            // Make new category
-            CategoryService.addCategoryToCurrentUser(categoryTitle.getText());
+            if(projectName == null){
+                // Make new category
+                CategoryService.addCategoryToCurrentUser(categoryTitle.getText());
 
-            // Move tasks in old category to new category
-            TaskService.editCategoryOfTasks(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory()), categoryTitle.getText());
+                // Move tasks in old category to new category
+                ArrayList<Task> tasksToMove = TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), null);
+                TaskService.editCategoryAndProjectOfTasks(tasksToMove, categoryTitle.getText(), null);
 
-            // Delete old category
-            CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+                // Delete old category
+                CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
 
-            // Set current category to new one
-            UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle.getText());
+                // Set current category to new one
+                UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle.getText());
+            } else {
+                // Make new category
+                CategoryService.addCategoryToCurrentUser(projectName, categoryTitle.getText());
 
-            // Load dashboard into mainContent
-            DashboardController.getInstance().initialize();
-        } else {
-            errorMessage.setText("Title need to be between 0 and 24 characters");
-        }
-    }
+                // Move tasks in old category to new category
+                ArrayList<Task> tasksToMove = TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), projectName);
+                TaskService.editCategoryAndProjectOfTasks(tasksToMove, categoryTitle.getText(), projectName);
 
-    /**
-     * Edit category button allows one to edit a category which is already created under a project, by recreating a new one with the
-     * changes in its place
-     * @throws IOException
-     */
-    public void buttonEditCategoryUnderProject(String projectName) throws IOException {
-        if(CategoryService.validateCategoryTitleSyntax(categoryTitle.getText())){
-            // Make new category
-            CategoryService.addCategoryToCurrentUser(categoryTitle.getText(), projectName);
+                // Delete old category
+                CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), projectName);
 
-            // Move tasks in old category to new category
-            TaskService.editCategoryOfTasks(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), projectName), categoryTitle.getText());
-
-            // Delete old category
-            CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory());
-
-            // Set current category to new one
-            UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryTitle.getText());
+                // Set current category to new one
+                UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryTitle.getText());
+            }
 
             // Load dashboard into mainContent
             DashboardController.getInstance().initialize();
@@ -154,9 +150,5 @@ public class NewEditCategoryController {
                 ioe.printStackTrace();
             }
         }
-    }
-
-    public void setProjectName(String projectName){
-        this.projectName = projectName;
     }
 }

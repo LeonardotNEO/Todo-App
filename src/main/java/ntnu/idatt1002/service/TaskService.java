@@ -2,11 +2,7 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.dao.UserLogDAO;
-import ntnu.idatt1002.utils.DateUtils;
 
-import java.lang.reflect.Array;
-import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,24 +16,14 @@ public class TaskService {
      * Methode to validate if a task was successfully added. 
      * Returns true if the task was added.
      * @param  newTask that is being added.
-     * @return boolean depending on the validation was successful.
      */
-    public static boolean newTask(Task newTask) {
-        String username = UserStateService.getCurrentUser().getUsername();
+    public static void newTask(Task newTask) {
         TaskDAO.serialize(newTask);
-        UserLogDAO.setTaskAdded(username, newTask.getName());
-        return true;
     }
 
     /**
-<<<<<<< HEAD
-     * Method for editing task. This will override Previous task object variables.
-     *
-     * @param task
-=======
      * Method for editing task. this will override previous task object variables
      * @param task Task that is being edited.
->>>>>>> master
      */
     public static void editTask(Task task, long taskId){
         task.setId(taskId);
@@ -48,52 +34,32 @@ public class TaskService {
      * A method to change the category assigned to the task.
      *
      * @param tasks The Array of tasks with the current category.
-     * @param newCategory New category name.
+     * @param category New category name.
      */
-    public static void editCategoryOfTasks(ArrayList<Task> tasks, String newCategory){
-        tasks.forEach(task -> editCategoryOfTask(task, newCategory));
+    public static void editCategoryAndProjectOfTasks(ArrayList<Task> tasks, String category, String project){
+        if(tasks != null){
+            tasks.forEach(task -> editCategoryAndProjectOfTask(task, category, project));
+        }
     }
 
     /**
      * A method to edit the category of a single task.
      *
      * @param task the task object we want to edit.
-     * @param newCategory the new category for the task.
+     * @param category the new category for the task.
      */
-    public static void editCategoryOfTask(Task task, String newCategory){
+    public static void editCategoryAndProjectOfTask(Task task, String category, String project){
         TaskDAO.delete(task);
         setOriginals(task);
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            task.setCategory(newCategory);
+        if(project == null){
+            task.setCategory(category);
             task.setProject(null);
         } else {
-            task.setCategory(newCategory);
+            task.setCategory(category);
+            task.setProject(project);
         }
 
         TaskDAO.serialize(task);
-        UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
-    }
-
-    /**
-     * A method to edit the category and project of a single task.
-     *
-     * @param task the task object we want to edit.
-     * @param newCategory the new category for the task.
-     * @param newProject the new project for the task.
-     */
-    public static void editCategoryAndProjectOfTask(Task task, String newCategory, String newProject){
-        TaskDAO.delete(task);
-        setOriginals(task);
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
-            task.setCategory(newCategory);
-            task.setProject(null);
-        } else {
-            task.setCategory(newCategory);
-            task.setProject(newProject);
-        }
-
-        TaskDAO.serialize(task);
-        UserLogDAO.setTaskMoved(task.getUserName(), newCategory);
     }
 
     /**
@@ -108,33 +74,46 @@ public class TaskService {
     }
 
     /**
+     * Used to set the isRepeatable value of a given task and update the save files at the same time.
+     *
+     * @param task      Task object to change
+     * @param value     boolean new value for task.isRepeatable
+     */
+    public static void setRepeatable(Task task, boolean value) {
+        TaskDAO.delete(task);
+        task.setRepeatable(value);
+        TaskDAO.serialize(task);
+    }
+
+    /**
      * Get tasks that have a given category.
      *
      * @param category The category that the tasks should be in.
      * @return The tasks that were found with the given category.
      */
-    public static ArrayList<Task> getTasksByCategory(String category){
-        ArrayList<Task> tasksResult = new ArrayList<>();
+    public static ArrayList<Task> getTasksByCategory(String category, String project){
+        ArrayList<Task> tasksResult = null;
 
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
-                tasksResult = TaskService.getTasksByCurrentUser();
+        if(category != null){
+            if(project == null){
+                if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals("All tasks")){
+                    ArrayList<String> avoidCategories = new ArrayList<>();
+                    avoidCategories.add("Finished tasks");
+                    avoidCategories.add("Trash bin");
+                    tasksResult = TaskService.getTasksExcludingCategories(getTasksByCurrentUser(),avoidCategories);
+                } else {
+                    tasksResult = TaskDAO.list(UserStateService.getCurrentUser().getUsername(), category);
+                }
             } else {
-                tasksResult = TaskDAO.list(UserStateService.getCurrentUserUsername(), category);
+                tasksResult = TaskDAO.list(UserStateService.getCurrentUser().getUsername(), project, category);
             }
         }
 
-        return tasksResult;
-    }
+        if(tasksResult == null){
+            tasksResult = new ArrayList<>();
+        }
 
-    /**
-     * Get tasks that have a given category and project name.
-     *
-     * @param category The category that the tasks should be in.
-     * @return The tasks that were found with the given category.
-     */
-    public static ArrayList<Task> getTasksByCategory(String category, String project){
-        return TaskDAO.list(UserStateService.getCurrentUserUsername(), project, category);
+        return tasksResult;
     }
 
     /**
@@ -161,7 +140,7 @@ public class TaskService {
      * @return an ArrayList of task-objects by the current user.
      */
     public static ArrayList<Task> getTasksByCurrentUser(){
-        return TaskDAO.list(UserStateService.getCurrentUserUsername());
+        return TaskDAO.list(UserStateService.getCurrentUser().getUsername());
     }
 
     /**
@@ -209,8 +188,7 @@ public class TaskService {
      */
     public static ArrayList<Task> TaskSortedByCategory(String CategoryName){
         ArrayList<Task> usersTasks = getTasksByCurrentUser();
-        ArrayList<Task> tasksSortedByCat = (ArrayList<Task>) usersTasks.stream().filter(t -> t.getCategory().equals(CategoryName));
-        return tasksSortedByCat;
+        return (ArrayList<Task>) usersTasks.stream().filter(t -> t.getCategory().equals(CategoryName));
     }
 
     /**
@@ -218,9 +196,8 @@ public class TaskService {
      * @return an Array of all the tasks sorted by their priority.
      */
     public static ArrayList<Task> getTasksSortedByPriority(ArrayList<Task> tasks){
-        ArrayList<Task> userTasks = tasks;
-        Collections.sort(userTasks, (o1, o2) -> o1.getPriority() > o2.getPriority() ? -1 : (o1.getPriority() < o2.getPriority()) ? 1 : 0);
-        return userTasks;
+        tasks.sort((o1, o2) -> Integer.compare(o2.getPriority(), o1.getPriority()));
+        return tasks;
     }
 
     /**
@@ -231,8 +208,7 @@ public class TaskService {
      * @return An ArrayList of all tasks in the currently selected category, sorted by date.
      */
     public static ArrayList<Task> getTasksSortedByDate(ArrayList<Task> tasks){
-        ArrayList<Task> userTasks = tasks;
-        userTasks.sort((o1, o2) -> {
+        tasks.sort((o1, o2) -> {
             long task1Date = o1.getDeadline();
             long task2Date = o2.getDeadline();
             if(task1Date == 0) return 1; // If the task got no deadline put it at the end of the list
@@ -241,7 +217,7 @@ public class TaskService {
             }
             return -1;
         });
-        return userTasks;
+        return tasks;
     }
 
     /**
@@ -251,10 +227,8 @@ public class TaskService {
      * @return an ArrayList of tasks that is sorted alphabetically by the title of the task. it only sorts the
      */
     public static ArrayList<Task> getTasksSortedAlphabetically(ArrayList<Task> tasks){
-        
-        ArrayList<Task> userTasksInCategory = tasks;
-        userTasksInCategory.sort(Comparator.comparing(Task::getName));
-        return userTasksInCategory;
+        tasks.sort(Comparator.comparing(Task::getName));
+        return tasks;
     }
 
     /**
@@ -277,7 +251,7 @@ public class TaskService {
      * @return Lists of all tasks within the given interval.
      */
     public static ArrayList<Task> getTasksInDateInterval(ArrayList<Task> tasks, long start, long end){
-        ArrayList<String> unWantedCategories = new ArrayList();
+        ArrayList<String> unWantedCategories = new ArrayList<>();
         unWantedCategories.add("Finished tasks");
         unWantedCategories.add("Trash bin");
         tasks.addAll(getRepeatTasks(getTasksExcludingCategories(tasks,unWantedCategories),end));
@@ -309,18 +283,33 @@ public class TaskService {
     }
 
     /**
-     * Returns an ArrayList of Tasks that have a name that contains the a given string.
+     * Returns an ArrayList of Tasks that have a name or tag that contains the given string.
      * The methode is not case sensitive.
      *
      * @param DesiredName A part(or entire) string that is contained in the task(s) that you want to find.
-     * @return An ArrayList of all the tasks that contains the DesiredName in the title.
+     * @return An ArrayList of all the tasks that contains the DesiredName in the title or tag.
      */
     public static ArrayList<Task> containsDesiredNameInTitle(String DesiredName){
         ArrayList<Task> userTasks = getTasksByCurrentUser();
 
-        return userTasks.stream()
+        //Get task name matches
+        ArrayList<Task> nameMatch = userTasks.stream()
                 .filter(t-> t.getName().toLowerCase().contains(DesiredName.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
+
+        //Get task tag matches
+        ArrayList<Task> tagMatch = new ArrayList<>();
+        for (Task task : userTasks){
+            for(String tag : task.getTags()){
+                if(tag.toLowerCase().contains(DesiredName.toLowerCase())){
+                    tagMatch.add(task);
+                }
+            }
+        }
+
+        //Combine results, remove duplicates and return result
+        nameMatch.addAll(tagMatch);
+        return nameMatch.stream().distinct().collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -340,9 +329,8 @@ public class TaskService {
      */
     public static void deleteTask(Task task){
         TaskDAO.delete(task);
-        UserLogDAO.setTaskRemoved(task.getUserName(), task.getName());
-
     }
+
 
     /**
      * Method that validates if task input is correct.
@@ -361,7 +349,7 @@ public class TaskService {
             errorsCodes.add(2);
         }
         try{
-            Integer.parseInt(priority);
+            convertPriorityStringToInt(priority);
         } catch (NumberFormatException nfe) {
             errorsCodes.add(3);
         }
@@ -424,11 +412,11 @@ public class TaskService {
      * @return A ArrayList of all the cloned Repeatable tasks, with new deadlines.
      */
     public static ArrayList<Task> getRepeatTasks(ArrayList<Task> ArrayListOfTasks, long end){
-        ArrayList arrayWithAllClones = new ArrayList();
+        ArrayList<Task> arrayWithAllClones = new ArrayList<>();
 
 
         ArrayList<Task> ArrayListOfRepeat = ArrayListOfTasks.stream()
-                .filter(t->t.isRepeatable())
+                .filter(Task::isRepeatable)
                 .collect(Collectors.toCollection(ArrayList::new));
         for(Task T: ArrayListOfRepeat) {
 
@@ -486,15 +474,13 @@ public class TaskService {
      * @return A long representing a week or a day. or 0L if the input is not valid.
      */
     public static long convertTimeRepeatToLong(String TimeRepeatString){
-
-        if (TimeRepeatString.equals("Repeat Daily")){
-            return 1000*60*60*24L;
-        }
-        else if (TimeRepeatString.equals("Repeat Weekly")){
-            return 1000*60*60*24*7L;
-        }
-        else{
-            return 0L;
+        switch(TimeRepeatString){
+            case "Repeat Daily":
+                return 1000*60*60*24L;
+            case "Repeat Weekly":
+                return 1000*60*60*24*7L;
+            default:
+                return 0L;
         }
     }
 
@@ -511,6 +497,32 @@ public class TaskService {
         }
         else{
             return "None";
+        }
+    }
+
+    public static String convertPriorityIntToString(int priority){
+        switch (priority){
+            default:
+                return "None";
+            case 1:
+                return "Low";
+            case 2:
+                return "Medium";
+            case 3:
+                return "High";
+
+        }
+    }
+    public static int convertPriorityStringToInt(String Priority){
+        switch (Priority) {
+            case "Low":
+                return 1;
+            case "Medium":
+                return 2;
+            case "High":
+                return 3;
+            default:
+                return 0;
         }
     }
 }

@@ -118,10 +118,12 @@ public class CategoryMenuButtonController {
             buttonAddTask.setVisible(false);
             buttonAddTask.setManaged(false);
         }
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals(button.getText())){
-            button.getStyleClass().removeAll(button.getStyleClass());
-            button.getStyleClass().add("categoryButton-selected");
-            icon.getStyleClass().add("categoryButton-selected #icon");
+        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null){
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().equals(button.getText())){
+                button.getStyleClass().removeAll(button.getStyleClass());
+                button.getStyleClass().add("categoryButton-selected");
+                icon.getStyleClass().add("categoryButton-selected #icon");
+            }
         }
     }
 
@@ -129,10 +131,12 @@ public class CategoryMenuButtonController {
         // set icons for trash bin and finished tasks
         FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
 
-        if(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().equals(button.getText())){
-            button.getStyleClass().removeAll(button.getStyleClass());
-            button.getStyleClass().add("categoryButton-selected");
-            icon.getStyleClass().add("categoryButton-selected #icon");
+        if(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory() != null){
+            if(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory().equals(button.getText())){
+                button.getStyleClass().removeAll(button.getStyleClass());
+                button.getStyleClass().add("categoryButton-selected");
+                icon.getStyleClass().add("categoryButton-selected #icon");
+            }
         }
     }
 
