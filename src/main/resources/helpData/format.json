@@ -70,7 +70,7 @@
         "title": "The sidebar to the left",
         "image": "src/main/resources/images/dashboardPageLeftNavbar.png",
         "altText": "Image showing a red square encircling the sidebar to the left in the dashboard page",
-        "text": "If you look to the left side of the page you can see a sidebar containing your categories and the premade categories \"All tasks\", \"Trash bin\" and \"Finished tasks\". There will also be two buttons on this bar: \"+ New Category\" and \"+ New project\". For more information about these see \"Category\" help-page."
+        "text": "If you look to the left side of the page you can see a sidebar containing your categories and the premade categories \"All tasks\", \"Trash bin\" and \"Finished tasks\". There will also be two buttons on this bar: \"+ New Category\" and \"+ New project\". For more information about these see the \"Category\" help-page and the \"Project\" help page."
       },
       {
         "title": "The navigation bar at the top",
@@ -150,7 +150,7 @@
         "title": "Custom background",
         "image": "src/main/resources/images/accountPageCustomBackground.png",
         "altText": "Image showing two red dots containing numbers. The dot with number 1 is located to the left of the background-button. The dot with number 2 is located to the right of the None-background",
-        "text": "Right below the themes buttons there is another button with the text \"+ Background\"(1) written on it. By clicking on it a new \"file explorer\"-window will be opened. Here you can choose a picture on your computer. A miniature version of the picture will be added to the right of the button, just below the theme-buttons. By clicking on the picture you choose, the background of the application will change to that picture. If you wish to revert the change just click on the small picture with \"None\"(2) written in it. It will be to the right of the \"+ Background\"(1)-button and to the left of any custom backgrounds you have chosen."
+        "text": "Right below the themes buttons there is another button with the text \"+ Background\"(1) written on it. By clicking on it a new \"file explorer\"-window will be opened. Here you can choose a picture or gif on your computer. A miniature version of the file will be added to the right of the button, just below the theme-buttons. By clicking on the file you choose, the background of the application will change to that picture or gif. If you wish to revert the change just click on the small picture with \"None\"(2) written in it. It will be to the right of the \"+ Background\"(1)-button and to the left of any custom backgrounds you have chosen."
       },
       {
         "title": "Edit account",
@@ -162,7 +162,7 @@
         "title": null,
         "image": null,
         "altText": null,
-        "text": "On this page are three input fields. The first field is for the account username(1). The second(2) and third(3) fields are for changing the password or making a brand new password for the account."
+        "text": "On this page there are three input fields. The first field is for the account username(1). The second(2) and third(3) fields are for changing the password or making a brand new password for the account."
       },
       {
         "title": null,
@@ -205,7 +205,7 @@
         "title": null,
         "image": null,
         "altText": null,
-        "text": "The task title(1) is the first field. It can max be x characters long. This is the only field that is required to create a task."
+        "text": "The task title(1) is the first field. It can max be 30 characters long. This is the only field that is required to create a task."
       },
       {
         "title": null,
@@ -241,7 +241,7 @@
         "title": null,
         "image": null,
         "altText": null,
-        "text": "The task title is the first field at the top of the page. It can max be x characters long. This is the only field that is required to edit a task."
+        "text": "The task title is the first field at the top of the page. It can max be 30 characters long. This is the only field that is required to edit a task."
       },
       {
         "title": "Content (Optional)",
@@ -424,7 +424,7 @@
         "title": null,
         "image": "src/main/resources/images/categoryCreateNewCategory.png",
         "altText": "Image showing a numbered red dot representing the category title field located at the top of the create category page. There are also two numbered arrows pointing at the create category and cancel buttons located at the bottom center of the create category page.",
-        "text": "When the \"+ Create category\"(2)-button is pressed the category will be created with the name from the title field. When the \"Cancel\"(3)-button is pressed you will be sent back to the category you were previously in and the new category will not be created."
+        "text": "When the \"+ Create category\"(2)-button is pressed the category will be created with the name from the title field. When the \"Cancel\"(3)-button is pressed you will be sent back to the page you were previously on and the new category will not be created."
       },
       {
         "title": "Category page content",
@@ -509,7 +509,7 @@
         "title": "\"All tasks\"(1)",
         "image": null,
         "altText": null,
-        "text": "The \"All tasks\" category gives you an overview of all your tasks. This overview will however, exclude tasks in the \"Trash bin\" and \"Finished tasks\". In this overview you can also still access the \"Edit task\", \"Delete task\" and \"Finish task\" buttons. You will also be able to sort and search through all your tasks."
+        "text": "The \"All tasks\" category gives you an overview of all your tasks. This overview will however, exclude tasks in the \"Trash bin\" and \"Finished tasks\" categories. In this overview you can also still access the \"Edit task\", \"Delete task\" and \"Finish task\" buttons. You will also be able to sort and search through all your tasks."
       },
       {
         "title": "\"Trash bin\"(2)",
