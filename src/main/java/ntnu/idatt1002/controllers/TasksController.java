@@ -146,13 +146,13 @@ public class TasksController {
                     showMessage("You have no tasks!");
                     break;
                 default:
-                    showMessage("There are no tasks in " + category + " yet, create a new task!");
+                    showMessage("There are no tasks in \"" + category + "\" yet, create a new task!");
                     break;
             }
         } else if(project != null && category == null){
-            showMessage("Select a category under this project (" + project + "), or create a new one In the bar to the left!");
+            showMessage("Select a category under project \"" + project + "\", or create a new one In the bar to the left!");
         } else if(project != null && category != null){
-            showMessage("There are no tasks in this project(" + project + ") category(" + category + ") yet, create a new task!");
+            showMessage("There are no tasks in project \"" + project + "\" and category \"" + category + "\" yet, create a new task!");
         } else {
             showMessage(null);
         }
