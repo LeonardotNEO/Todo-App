@@ -163,6 +163,8 @@ public class DashboardController {
         projectHBox.setManaged(true);
         categoryHBox.setVisible(true);
         categoryHBox.setManaged(true);
+        buttonEditCategory.setVisible(true);
+        buttonDeleteCategory.setVisible(true);
 
         if(project == null && category != null){
             categoryHBox.setVisible(true);

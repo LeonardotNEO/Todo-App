@@ -22,7 +22,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="buttonNewCategory" mnemonicParsing="false" onAction="#buttonNewCategory" style="-fx-background-radius: 10;" styleClass="background-color_1" text="Category" textFill="WHITE">
+                  <Button fx:id="buttonNewCategory" mnemonicParsing="false" onAction="#buttonNewCategory" style="-fx-background-radius: 10; -fx-font-size: 12;" styleClass="button1" text="Category" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="#09ff00" glyphName="PLUS" />
                      </graphic>

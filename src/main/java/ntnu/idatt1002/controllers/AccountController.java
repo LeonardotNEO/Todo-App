@@ -221,21 +221,21 @@ public class AccountController {
      * Change the users theme in their user settings variables, and then update UI
      */
     public void buttonBlueTheme(){
-        App.updateThemeCurrentUser("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d; -fx-color-4: orange;");
+        App.updateThemeCurrentUser("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
     public void buttonGreenTheme(){
-        App.updateThemeCurrentUser("-fx-color-1: #004d00; -fx-color-2: #006600; -fx-color-3: #008000; -fx-color-4: orange;");
+        App.updateThemeCurrentUser("-fx-color-1: #004d00; -fx-color-2: #006600; -fx-color-3: #008000; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
     public void buttonRedTheme(){
-        App.updateThemeCurrentUser("-fx-color-1: #660011; -fx-color-2: #800015; -fx-color-3: #99001a; -fx-color-4: orange;");
+        App.updateThemeCurrentUser("-fx-color-1: #660011; -fx-color-2: #800015; -fx-color-3: #99001a; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
     public void buttonPinkTheme(){
-        App.updateThemeCurrentUser("-fx-color-1: #ff99aa; -fx-color-2: #ffb3bf; -fx-color-3: #ffc0cb; -fx-color-4: black;");
+        App.updateThemeCurrentUser("-fx-color-1: #ff99aa; -fx-color-2: #ffb3bf; -fx-color-3: #ffc0cb; -fx-text-hover-color: #404040; -fx-color-text-color: black");
     }
     public void buttonBrownTheme(){
-        App.updateThemeCurrentUser("-fx-color-1: #3d1010; -fx-color-2: #511515; -fx-color-3: #651b1b; -fx-color-4: orange;");
+        App.updateThemeCurrentUser("-fx-color-1: #3d1010; -fx-color-2: #511515; -fx-color-3: #651b1b; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
     public void buttonPurpleTheme(){
-        App.updateThemeCurrentUser("-fx-color-1: #4d004d; -fx-color-2: #660066; -fx-color-3: #800080; -fx-color-4: orange;");
+        App.updateThemeCurrentUser("-fx-color-1: #4d004d; -fx-color-2: #660066; -fx-color-3: #800080; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
 }

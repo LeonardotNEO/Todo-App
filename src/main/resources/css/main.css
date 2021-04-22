@@ -2,8 +2,9 @@
   -fx-color-1: #001021;
   -fx-color-2: #001933;
   -fx-color-3: #00254d;
-  -fx-color-4: orange;
+  -fx-text-hover-color: orange;
   -fx-color-5: #e6e6e6;
+  -fx-color-text-color: white;
 }
 
 /* GENERAL */
@@ -12,20 +13,24 @@
   -fx-background-color:  -fx-color-1;
   -fx-background-radius: 5;
   -fx-font-size: 16;
-  -fx-text-fill: white;
+  -fx-text-fill: -fx-color-text-color;
 }
 
 .button1:visited {
-  -fx-text-fill: white;
+  -fx-text-fill: -fx-color-text-color;
 }
 
 .button1:hover {
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: -fx-text-hover-color;
   -fx-background-color:  -fx-color-1;
 }
 
 .button1:hover #icon {
-  -fx-fill: -fx-color-4;
+  -fx-fill: -fx-text-hover-color;
+}
+
+#icon {
+  -fx-fill: -fx-color-text-color;
 }
 
 .background-color_1{
@@ -47,32 +52,37 @@
   -fx-background-color: -fx-color-5;
 }
 
+.text-color {
+  -fx-text-fill: -fx-color-text-color;
+  -fx-fill: -fx-color-text-color;
+}
+
 /* DASHBOARD */
 
 .categoryButton{
   -fx-background-color:  transparent;
   -fx-font-size: 18;
-  -fx-text-fill: white;
+  -fx-text-fill: -fx-color-text-color;
 }
 
 .categoryButton:hover {
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: -fx-text-hover-color;
 }
 
 .categoryButton:hover #icon{
-  -fx-fill: -fx-color-4;
+  -fx-fill: -fx-text-hover-color;
 }
 
 /* categorybutton selected */
 .categoryButton-selected {
   -fx-background-color:  transparent;
   -fx-font-size: 18;
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: -fx-text-hover-color;
   -fx-padding: 6 0 6 12;
 }
 
 .categoryButton-selected #icon {
-  -fx-fill: -fx-color-4;
+  -fx-fill: -fx-text-hover-color;
 }
 
 /* finishedtasks categorybutton */
@@ -85,11 +95,11 @@
 }
 
 .categoryButton-finished:hover {
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: -fx-text-hover-color;
 }
 
 .categoryButton-finished:hover #icon{
-  -fx-fill: -fx-color-4;
+  -fx-fill: -fx-text-hover-color;
 }
 
 /* trashbin categorybutton */
@@ -102,11 +112,11 @@
 }
 
 .categoryButton-trashbin:hover {
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: -fx-text-hover-color;
 }
 
 .categoryButton-trashbin:hover #icon{
-  -fx-fill: -fx-color-4;
+  -fx-fill: -fx-text-hover-color;
 }
 
 /* alltasks categorybutton */
@@ -119,32 +129,33 @@
 }
 
 .categoryButton-alltasks:hover {
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: -fx-text-hover-color;
 }
 
 .categoryButton-alltasks:hover #icon{
-  -fx-fill: -fx-color-4;
+  -fx-fill: -fx-text-hover-color;
 }
 
 /* NAVBAR */
 
 .navbarButton{
   -fx-background-color: transparent;
+  -fx-text-fill: -fx-color-text-color;
   -fx-font-size: 18;
 }
 
 .navbarButton:focused {
-  -fx-text-fill: white;
+  -fx-text-fill: -fx-color-text-color;
   -fx-font-size: 18;
 }
 
 #navbarButton:hover {
-  -fx-text-fill: -fx-color-4;
+  -fx-text-fill: -fx-text-hover-color;
   -fx-background-color:  transparent;
 }
 
 #navbarButton:hover #icon {
-  -fx-fill: -fx-color-4;
+  -fx-fill: -fx-text-hover-color;
 }
 
 #notificationBell {
@@ -152,7 +163,7 @@
 }
 
 #notificationBell:hover #icon{
-  -fx-fill: -fx-color-4;
+  -fx-fill: -fx-text-hover-color;
 }
 
 /* OVERVIEW PAGE */
