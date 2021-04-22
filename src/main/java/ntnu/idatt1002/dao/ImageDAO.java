@@ -25,7 +25,8 @@ public final class ImageDAO {
         if(UserDAO.exists(username) && image.exists()) {
             BufferedImage bufferedImage = null;
             bufferedImage = ImageIO.read(image);
-            ImageIO.write(bufferedImage, "png", new File(removeExtension(filepath(username, image)) + ".png"));
+            String extension = getExtension(image.getName());
+            ImageIO.write(bufferedImage, extension, new File(removeExtension(filepath(username, image)) + "." + extension));
         }
     }
 
@@ -107,5 +108,10 @@ public final class ImageDAO {
         int pos = filename.lastIndexOf('.');
         if(pos == -1){ return filename; }
         return filename.substring(0, pos);
+    }
+
+    private static String getExtension(String filename){
+        int pos = filename.lastIndexOf('.');
+        return filename.substring(pos+1).toLowerCase();
     }
 }
