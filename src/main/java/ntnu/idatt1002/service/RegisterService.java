@@ -1,7 +1,8 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.Storage;
+import ntnu.idatt1002.utils.Crypto;
 
 public class RegisterService {
 
@@ -12,10 +13,10 @@ public class RegisterService {
      * @return
      */
     public static boolean registerNewUser(String name, String password, boolean rememberMe){
-        User newUser = new User(name, password, UserDAO.generateSalt());
+        User newUser = new User(name, password, Crypto.generateSalt());
 
         // Update savefiles to include this new user
-        UserDAO.serialize(newUser);
+        Storage.newUser(newUser);
 
         // Set current user to this username
         UserStateService.setCurrentUserUsername(name);
@@ -68,7 +69,7 @@ public class RegisterService {
     public static boolean checkIfUsernameValid(String username){
         boolean result = true;
 
-        for(User user : UserDAO.list()){
+        for(User user : Storage.listUsers()){
             if (user.getUsername().equals(username)) {
                 result = false;
                 break;

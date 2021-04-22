@@ -91,7 +91,7 @@ public class LoginRegisterController {
         userVbox.getChildren().clear();
 
         // Populate the Vbox with users
-        ArrayList<User> users = Storage.readUsers();
+        ArrayList<User> users = Storage.listUsers();
         users.forEach(u -> {
             // Create user pane
             AnchorPane pane = null;
