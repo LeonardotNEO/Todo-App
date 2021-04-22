@@ -378,7 +378,7 @@
       {
         "title": "Category-navigation bar",
         "image": "src/main/resources/images/categoryMenuBar.png",
-        "text": "The category-navigation bar contains a couple of elements. These are the name of the category, the \"Edit\"-button, the \"Delete\"-button, \"Sort\"-menu and \"Search...\"-field."
+        "text": "The category-navigation bar contains a couple of elements. These are the name of the category(1), the \"Edit\"(2)-button, the \"Delete\"(3)-button, \"Sort\"(4)-menu and \"Search...\"(5)-field."
       },
       {
         "title": "Category name",
