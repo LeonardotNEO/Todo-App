@@ -62,7 +62,7 @@ public final class Storage {
      * @return {@code true} or {@code false}.
      */
     public static boolean deleteUser(String username){
-        return true;
+        return userStorage.delete(username);
     }
 
     /**
@@ -145,9 +145,40 @@ public final class Storage {
             serialize(newUser);
         }
 
+        static boolean delete(String username){
+            if(!userExists(username)){ return false; }
+
+            //Method calls
+            taskStorage.deleteByUser(username);
+            notifStorage.deleteByUser(username);
+            ImageDAO.deleteByUser(username);
+
+            //Directories
+            for(String directory : DIRECTORIES){
+                File dir = new File(userDir(username) + directory);
+                dir.delete();
+            }
+
+            //User files and directory
+            File userDir = new File(userDir(username));
+            File[] files = userDir.listFiles();
+
+            if(files != null){
+                for(File file : files){
+                    file.delete();
+                }
+            }
+
+            return userDir.delete();
+        }
+
         //Get paths
+        private static String userDir(String username){
+            return (SAVEPATH + username + "/");
+        }
+
         private static String userFile(String username){
-            return (SAVEPATH + username + "/" + username + FILETYPE);
+            return (userDir(username) + username + FILETYPE);
         }
     }
 
@@ -158,7 +189,96 @@ public final class Storage {
          * @return a HashMap.
          */
         static HashMap<String, HashMap<String, ArrayList<Task>>> list(String username){
-            return null;
+            HashMap<String, HashMap<String, ArrayList<Task>>> projects = new HashMap<>();
+
+            File projectsDir = new File(projectsDir(username));
+            String[] projs = projectsDir.list();
+            if(projs != null){
+                for(String project : projs){
+                    projects.put(project, list(username, project));
+                }
+            }
+
+            return projects;
+        }
+
+        /**
+         * Get a HashMap with categories and tasks for a {@link User}.
+         * @param username the users username.
+         * @param project the project name.
+         * @return a HashMap.
+         */
+        private static HashMap<String, ArrayList<Task>> list(String username, String project){
+            HashMap<String, ArrayList<Task>> categories = new HashMap<>();
+
+            File projectDir = new File(projectsDir(username) + project + "/");
+            String[] cats = projectDir.list();
+            if(cats != null){
+                for(String cat : cats){
+                    categories.put(cat, list(username, project, cat));
+                }
+            }
+
+            return categories;
+        }
+
+        /**
+         * Get an ArrayList with tasks for a {@link User}.
+         * @param username the users username.
+         * @param project the project name.
+         * @param category the category name.
+         * @return an ArrayList.
+         */
+        private static ArrayList<Task> list(String username, String project, String category){
+            ArrayList<Task> tasks = new ArrayList<>();
+
+            File categoryDir = new File(projectsDir(username) + project + "/" + category + "/");
+            File[] filepaths = categoryDir.listFiles();
+            if(filepaths != null){
+                for(File file : filepaths){
+                    tasks.add((Task) GenericDAO.deserialize(file.getPath()));
+                }
+            }
+
+            return tasks;
+        }
+
+        static void deleteByUser(String username){
+            File projectsDir = new File(projectsDir(username));
+            String[] projects = projectsDir.list();
+            if(projects != null) {
+                for (String project : projects) {
+                    deleteByProject(username, project);
+                    File dir = new File(projectsDir.getPath() + "/" + project);
+                    dir.delete();
+                }
+            }
+        }
+
+        static void deleteByProject(String username, String project){
+            File projectDir = new File(projectsDir(username) + project);
+            String[] categories = projectDir.list();
+            if(categories != null){
+                for(String category : categories){
+                    deleteByCategory(username, project, category);
+                    File dir = new File(projectDir.getPath() + "/" + category);
+                    dir.delete();
+                }
+            }
+        }
+
+        static void deleteByCategory(String username, String project, String category){
+            File categoryDir = new File(projectsDir(username) + project + "/" + category + "/");
+            File[] tasks = categoryDir.listFiles();
+            if(tasks != null){
+                for(File task : tasks){
+                    task.delete();
+                }
+            }
+        }
+
+        private static String projectsDir(String username){
+            return (SAVEPATH + username + "/Projects/");
         }
     }
 
@@ -170,6 +290,10 @@ public final class Storage {
          */
         static ArrayList<Notification> list(String username){
             return null;
+        }
+
+        static void deleteByUser(String username){
+
         }
     }
 }
