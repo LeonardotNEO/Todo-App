@@ -5,6 +5,7 @@ import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -98,7 +99,7 @@ public class TaskService {
         TaskDAO.delete(task);
         task.setFinished(value);
         if (value) {
-            task.setFinishDate(DateUtils.getAsMs(LocalDate.now()));
+            task.setFinishDate(DateUtils.getAsMs(LocalDateTime.now()));
         } else {
             task.setFinishDate(0);
         }

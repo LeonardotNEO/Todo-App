@@ -98,7 +98,7 @@ public class TaskController {
         category.setText("Category: " + task.getCategory());
         project.setText("Project: " + task.getProject());
         startdate.setText("Start date: " + DateUtils.getFormattedFullDate(task.getStartDate()));
-        duedate.setText("Due date: " + DateUtils.getFormattedFullDate(task.getDeadline()));
+        duedate.setText("Due date: " + (task.getDeadline() == 0 ? "This task got no deadline" : DateUtils.getFormattedFullDate(task.getDeadline()) ) );
         finishDate.setText("Finish date: " + DateUtils.getFormattedFullDate(task.getFinishDate()));
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());
