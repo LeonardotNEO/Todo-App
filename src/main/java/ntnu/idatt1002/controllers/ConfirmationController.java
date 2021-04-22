@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import ntnu.idatt1002.App;
+import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
@@ -25,7 +26,6 @@ public class ConfirmationController {
     @FXML private CheckBox checkBox;
     @FXML private Text confirmQuestion;
     @FXML private Text extraText;
-
 
     Popup popup = new Popup();
 
@@ -71,6 +71,10 @@ public class ConfirmationController {
                     "\nbut as of now, there is no way to restore it.");
             controllerInstance.yesButton.setText("Yes, move it!");
             controllerInstance.noButton.setText("No, wait!");
+        } else if(operation.equalsIgnoreCase("deleteDeletedTask")){
+            controllerInstance.confirmQuestion.setText("Are you sure you want to delete this task?");
+            controllerInstance.extraText.setText("It will be permanently deleted");
+            controllerInstance.checkBox.setText("This message is annoying, dont show it again!");
         }
 
         controllerInstance.popup.getContent().add(root);
@@ -94,12 +98,16 @@ public class ConfirmationController {
                 UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
             } else if (operation.equalsIgnoreCase("finish")) {
                 UserStateService.getCurrentUser().setFinishTaskDontShowAgainCheckbox(true);
+            } else if(operation.equalsIgnoreCase("deleteDeletedTask")){
+                UserStateService.getCurrentUser().setDeleteDeletedTaskDontShowAgainCheckbox(true);
             }
         }
         if (operation.equalsIgnoreCase("delete")) {
             this.task.deleteTask(event);
         } else if (operation.equalsIgnoreCase("finish")) {
             this.task.finishTask(event);
+        } else if (operation.equalsIgnoreCase("deleteDeletedTask")){
+            this.task.deleteTask(event);
         }
         popup.hide();
     }
@@ -115,6 +123,8 @@ public class ConfirmationController {
                 UserStateService.getCurrentUser().setDeleteTaskDontShowAgainCheckbox(true);
             } else if (operation.equalsIgnoreCase("finish")) {
                 UserStateService.getCurrentUser().setFinishTaskDontShowAgainCheckbox(true);
+            } else if (operation.equalsIgnoreCase("deleteDeletedTask")){
+                UserStateService.getCurrentUser().setDeleteDeletedTaskDontShowAgainCheckbox(true);
             }
         }
         popup.hide();
@@ -187,4 +197,5 @@ public class ConfirmationController {
     public void setExtraText(String newText) {
         this.extraText.setText(newText);
     }
+
 }

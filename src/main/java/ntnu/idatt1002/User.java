@@ -29,6 +29,7 @@ public class User implements Serializable {
     String theme = null;
     boolean deleteTaskDontShowAgainCheckbox;
     boolean finishTaskDontShowAgainCheckbox;
+    boolean deleteDeletedTaskDontShowAgainCheckbox;
 
     public User(){}
 
@@ -204,6 +205,7 @@ public class User implements Serializable {
         UserService.editUser(userBeforeChanges, this);
     }
 
+
     // For finishTask popup
     public boolean isFinishTaskDontShowAgainCheckbox() {
         return finishTaskDontShowAgainCheckbox;
@@ -215,6 +217,13 @@ public class User implements Serializable {
         this.finishTaskDontShowAgainCheckbox = checkbox;
 
         UserService.editUser(userBeforeChanges, this);
+    }
+
+    public boolean isDeleteDeletedTaskDontShowAgainCheckbox(){return isDeleteTaskDontShowAgainCheckbox();}
+
+    public void setDeleteDeletedTaskDontShowAgainCheckbox(boolean deleteDeletedTaskDontShowAgainCheckbox) {
+        User userBeforeChanges = new User(this);
+        this.deleteDeletedTaskDontShowAgainCheckbox = deleteDeletedTaskDontShowAgainCheckbox;
     }
 
     public String getTheme() {
