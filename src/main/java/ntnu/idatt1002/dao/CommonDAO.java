@@ -125,6 +125,56 @@ public final class CommonDAO {
     }
 
     /**
+     * Search entire task list for a task with a specific id. Much more efficient if category and eventually
+     * project is known.
+     * @param id the {@link Task} id.
+     * @return the {@link Task} object, or {@code null} if none is found.
+     */
+    public static Task getTask(long id){
+        ArrayList<Task> allTasks = listTasks();
+        for(Task task : allTasks){
+            if (task.getId() == id){ return task; }
+        }
+        return null;
+    }
+
+    /**
+     * Get a task by the given arguments. Will not search in projects.
+     * @param category the category name.
+     * @param id the {@link Task} id.
+     * @return the {@link Task} object, or {@code null} if none is found.
+     */
+    public static Task getTask(String category, long id){
+        return getTask("Standard", category, id);
+    }
+
+    /**
+     * Get a task by the given arguments.
+     * @param project the project name.
+     * @param category the category name.
+     * @param id the {@link Task} id.
+     * @return the {@link Task} object, or {@code null} if none is found.
+     */
+    public static Task getTask(String project, String category, long id){
+        ArrayList<Task> allTasks = listTasks(project, category);
+        for(Task task : allTasks){
+            if(task.getId() == id){ return task; }
+        }
+        return null;
+    }
+
+    /**
+     * Change the owner of all tasks
+     * @param username the new username.
+     */
+    static void edit(String username){
+        ArrayList<Task> allTasks = listTasks();
+        for(Task task : allTasks){
+            task.setUserName(username);
+        }
+    }
+
+    /**
      * Delete a project from the logged in user. Can't delete 'Standard' project.
      * @param project the project name.
      */
