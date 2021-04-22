@@ -6,7 +6,7 @@ import java.io.*;
  * The class {@code GenericDAO} provides static methods for serializing and deserializing objects.
  * The access is set to default, so only classes within the 'dao' package can utilize it.
  * To function as a generic method provider the methods takes and gives {@link Object} instances.
- * Therefore he classes utilizing these methods needs to make sure that the objects handled are
+ * Therefore the classes utilizing these methods needs to make sure that the objects handled are
  * serializable, and that the objects get cast to their correct classes after deserializing.
  */
 final class GenericDAO {
