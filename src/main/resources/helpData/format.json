@@ -438,14 +438,14 @@
         "text": "The \"All tasks\" category gives you an overview of all your tasks. This overview will however, exclude tasks in the \"Trash bin\" and \"Finished tasks\". In this overview you can also still access the \"Edit task\", \"Delete task\" and \"Finish task\" buttons. You will also be able to sort and search through all your tasks."
       },
       {
-        "title": null,
+        "title": "\"Trash bin\"",
         "image": null,
-        "text": ""
+        "text": "The \"Trash bin\" category contains all your deleted tasks. They are temporarily stored here in case you made a mistake when pressing the \"Delete\"-button on the task. If you wish to restore a task simply press the \"Recycle\"-button located in the top right corner of the task you wish to restore."
       },
       {
-        "title": null,
+        "title": "\"Finished tasks\"",
         "image": null,
-        "text": ""
+        "text": "The \"Finished tasks\" category contains all your finished tasks. A task will be sent here when you use the \"Finish\" button on a task. This button is shaped like a \"V\" and is located in the top right corner of every task. It is the leftmost button among the three. In the \"Finished tasks\" category the finish date will also be recorded on a task. Lastly if you wish to restore a task, simply press the \"Recycle\"-button located in the top right corner of the task you wish to restore."
       }
     ]
   },
