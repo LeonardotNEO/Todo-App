@@ -540,7 +540,7 @@
         "title": null,
         "image": "src/main/resources/images/projectCreateNewProject.png",
         "altText": "Image showing a numbered red dot representing the project title field located at the top of the create project page. There are also two numbered arrows pointing at the create project and cancel buttons located at the bottom center of the create project page.",
-        "text": "When clicked it will open the \"Create project\" page. On this page there is one \"Project title\" field above the center of the page. The field has to be filled for a new project to be made. This field represents the name of the project. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create project\"-button and the \"Cancel\"-button. When the \"+ Create project\"-button is pressed the project will be created with the name from the title field. When the \"Cancel\"-button is pressed you will be sent back to the page you were previously at and the new project will not be created."
+        "text": "When clicked it will open the \"Create project\" page. On this page there is one \"Project title\"(1) field above the center of the page. The field has to be filled for a new project to be made. This field represents the name of the project. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create project\"(2)-button and the \"Cancel\"(3)-button. When the \"+ Create project\"(2)-button is pressed the project will be created with the name from the title field. When the \"Cancel\"(3)-button is pressed you will be sent back to the page you were previously at and the new project will not be created."
       },
       {
         "title": "Project page and content",
