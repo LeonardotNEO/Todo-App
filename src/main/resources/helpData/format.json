@@ -38,13 +38,13 @@
         "title": "Account with a Password",
         "image": null,
         "altText": null,
-        "text": "If the user created a password for their account you will be taken to a new page. On this page there will be a field with the username of the user and an empty \"Password\"-field. You must input the correct password for the user in the \"Password\"-field before you can login to the account. This is done by pressing the \"Login\"-button located at the bottom-center of the box. After this is done you will be taken to the \"Dashboard\"-page for this account."
+        "text": "If the user created a password for their account you will be taken to a new page. On this page there will be a field with the username of the user and an empty \"Password\"(1)-field. You must input the correct password for the user in the \"Password\"(1)-field before you can login to the account. This is done by pressing the \"Login\"(3)-button located at the bottom-center of the box. After this is done you will be taken to the \"Dashboard\"-page for this account."
       },
       {
         "title": null,
         "image": "src/main/resources/images/loginPageHelp.png",
         "altText": null,
-        "text": "The \"Login with password\"-page also has a \"Remember me\"-checkbox. When checked and you have logged in to the account, the program will automatically log you in to this account the next time you start the program. There is also an arrow pointing to the left at the top left corner of the box. This arrow, when clicked, will take you back to the \"Users overview\"-page. For information about the button on the bottom-center of the page, see \"Register\" help-page."
+        "text": "The \"Login with password\"-page also has a \"Remember me\"(2)-checkbox. When checked and you have logged in to the account, the program will automatically log you in to this account the next time you start the program. There is also an arrow pointing to the left at the top left corner of the box. This arrow, when clicked, will take you back to the \"Users overview\"-page. For information about the button on the bottom-center of the page, see \"Register\" help-page."
       },
       {
         "title": "Account without a Password",
@@ -149,7 +149,7 @@
         "title": "Custom background",
         "image": "src/main/resources/images/accountPageCustomBackground.png",
         "altText": null,
-        "text": "Right below the themes buttons there is another button with the text \"+ Background\" written on it. By clicking on it a new \"file explorer\"-window will be opened. Here you can choose a picture on your computer. A miniature version of the picture will be added to the right of the button, just below the theme-buttons. By clicking on the picture you choose, the background of the application will change to that picture. If you wish to revert the change just click on the small picture with \"None\" written in it. It will be to the right of the \"+ Background\"-button and to the left of any custom backgrounds you have chosen."
+        "text": "Right below the themes buttons there is another button with the text \"+ Background\"(1) written on it. By clicking on it a new \"file explorer\"-window will be opened. Here you can choose a picture on your computer. A miniature version of the picture will be added to the right of the button, just below the theme-buttons. By clicking on the picture you choose, the background of the application will change to that picture. If you wish to revert the change just click on the small picture with \"None\"(2) written in it. It will be to the right of the \"+ Background\"(1)-button and to the left of any custom backgrounds you have chosen."
       },
       {
         "title": "Edit account",
@@ -161,13 +161,13 @@
         "title": null,
         "image": null,
         "altText": null,
-        "text": "On this page are three input fields. The first field is for the account username. The second and third fields are for changing the password or making a brand new password for the account."
+        "text": "On this page are three input fields. The first field is for the account username(1). The second(2) and third(3) fields are for changing the password or making a brand new password for the account."
       },
       {
         "title": null,
         "image": "src/main/resources/images/accountPageEditAccountOptions.png",
         "altText": null,
-        "text": "Below these fields there is a \"No password\"-checkbox. When checked this account will no longer need a password before login. The current password will also be deleted."
+        "text": "Below these fields there is a \"No password\"(4)-checkbox. When checked this account will no longer need a password before login. The current password will also be deleted."
       },
       {
         "title": null,
@@ -373,13 +373,13 @@
         "title": "Notifications button",
         "image": null,
         "altText": null,
-        "text": "Additionally the bell-shaped button is known as the \"Notification\"-button and will display your notifications. These notifications are displayed in a circle with a number in it, resting to the left about the bell. The number represents the amount of unchecked notifications."
+        "text": "Additionally the bell-shaped button is known as the \"Notification\"-button and will display your notifications. These notifications are displayed in a circle with a number in it, resting to the left above the bell. The number represents the amount of unchecked notifications."
       },
       {
         "title": null,
         "image": "src/main/resources/images/navbarNotificationHistory.png",
         "altText": null,
-        "text": "If you click on the bell a new popup will appear. This popup contains all your notifications and a button at the top which reads \"Notification History\". To remove a notification press the V-shaped button in the top right corner of the notification you wish to remove. If you press the \"Notification History\"-button you will be sent to the \"Notification History\" page."
+        "text": "If you click on the bell a new popup will appear. This popup contains all your notifications and a button at the top which reads \"Notification History\"(1). To remove a notification press the V-shaped(2) button in the top right corner of the notification you wish to remove. If you press the \"Notification History\"(1)-button you will be sent to the \"Notification History\" page."
       }
     ]
   },
@@ -417,13 +417,13 @@
         "title": null,
         "image": null,
         "altText": null,
-        "text": "When clicked it will open the \"Create category\" page. On this page there is one \"Category title\" field above the center of the page. The field has to be filled for a category to be made. This field represents the name of the category. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create category\"-button and the \"Cancel\"-button."
+        "text": "When clicked it will open the \"Create category\" page. On this page there is one \"Category title\"(1) field above the center of the page. The field has to be filled for a category to be made. This field represents the name of the category. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create category\"(2)-button and the \"Cancel\"(3)-button."
       },
       {
         "title": null,
         "image": "src/main/resources/images/categoryCreateNewCategory.png",
         "altText": null,
-        "text": "When the \"+ Create category\"-button is pressed the category will be created with the name from the title field. When the \"Cancel\"-button is pressed you will be sent back to the category you were previously in and the new category will not be created."
+        "text": "When the \"+ Create category\"(2)-button is pressed the category will be created with the name from the title field. When the \"Cancel\"(3)-button is pressed you will be sent back to the category you were previously in and the new category will not be created."
       },
       {
         "title": "Category page content",
@@ -441,7 +441,7 @@
         "title": "Category-navigation bar",
         "image": "src/main/resources/images/categoryMenuBar.png",
         "altText": null,
-        "text": "The category-navigation bar contains a couple of elements. These are the name of the category, the \"Edit\"-button, the \"Delete\"-button, \"Sort\"-menu and \"Search...\"-field."
+        "text": "The category-navigation bar contains a couple of elements. These are the name of the category(1), the \"Edit\"(2)-button, the \"Delete\"(3)-button, \"Sort\"(4)-menu and \"Search...\"(5)-field."
       },
       {
         "title": "Category name",
