@@ -25,8 +25,8 @@ public class HelpPageController {
     @FXML private VBox vboxForInfoText;
     @FXML private ScrollPane infoScrollBar;
 
-    private final String DEFAULT_HOVER = "#00254d";
-    private final String DEFAULT_IDLE = "orange";
+    private final String DEFAULT_HOVER = "orange";
+    private final String DEFAULT_IDLE = "#00254d";
     public void initialize() {
         fillMenuPage();
     }
@@ -40,7 +40,7 @@ public class HelpPageController {
         String hoverColor = DEFAULT_HOVER;
 
         // Create color theme from the users current theme
-        if(UserStateService.getCurrentUser() != null) {
+        if(UserStateService.checkIfUserState()) {
             String theme = UserStateService.getCurrentUser().getTheme();
             String[] colorTheme =  theme.split(";");
             color = colorTheme[2].split(":")[1];

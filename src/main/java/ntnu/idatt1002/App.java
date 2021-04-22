@@ -57,23 +57,26 @@ public class App extends Application {
         } else {
             scene = new Scene(loadFXML("loginRegister"));
         }
+
+        // If f1 is clicked create a new help window
         scene.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode().equals(KeyCode.F1)) {
                 System.out.println("Im clicking!");
                 try {
                     Stage helpStage = new Stage();
                     helpStage.setScene(new Scene(loadFXML("helpPage")));
+                    helpStage.getIcons().add(logo);
                     helpStage.setTitle("ToDo-App Help");
                     helpStage.setMinHeight(640);
                     helpStage.setMinWidth(1020);
-                    helpStage.setMaximized(true);
                     helpStage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
-        // fill stage with the scene choosen above. Set properties of the stage.
+
+        // fill stage with the scene chosen above. Set properties of the stage.
         stage.setScene(scene);
         stage.setTitle("ToDo-App");
         stage.setMinHeight(640);
