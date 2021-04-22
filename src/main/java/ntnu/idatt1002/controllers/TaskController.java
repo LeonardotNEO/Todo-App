@@ -72,16 +72,16 @@ public class TaskController {
         String notificationString = "";
 
         if (task.isNotification1Hour()) {
-            notificationString += "Notification 1 hour before duedate: yes\n";
+            notificationString += "Notification: 1 hour before due date\n";
         }
         if(task.isNotification24Hours()){
-            notificationString += "Notification 24 hours before duedate: yes\n";
+            notificationString += "Notification: 24 hours before due date\n";
         }
         if(task.isNotification7Days()){
-            notificationString += "Notification 7 days before duedate: yes\n";
+            notificationString += "Notification: 7 days before due date\n";
         }
         if(notificationString.isEmpty()){
-            notificationString += "No notifications";
+            notificationString += "Notification: None";
         }
 
         return notificationString;
@@ -96,9 +96,9 @@ public class TaskController {
         taskDescription.setText(task.getDescription());
         taskName.setText(task.getName());
         category.setText("Category: " + task.getCategory());
-        project.setText("Project: " + task.getProject());
+        project.setText("Project: " + (task.getProject() == null ? "None" : task.getProject()) );
         startdate.setText("Start date: " + DateUtils.getFormattedFullDate(task.getStartDate()));
-        duedate.setText("Due date: " + (task.getDeadline() == 0 ? "This task got no deadline" : DateUtils.getFormattedFullDate(task.getDeadline()) ) );
+        duedate.setText("Due date: " + (task.getDeadline() == 0 ? "None" : DateUtils.getFormattedFullDate(task.getDeadline()) ));
         finishDate.setText("Finish date: " + DateUtils.getFormattedFullDate(task.getFinishDate()));
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());

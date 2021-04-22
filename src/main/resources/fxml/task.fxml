@@ -39,7 +39,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text fx:id="duedate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
+            <Text fx:id="duedate" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
                <font>
                   <Font size="16.0" />
                </font>
