@@ -1,20 +1,20 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
-import ntnu.idatt1002.dao.ProjectDAO;
+import ntnu.idatt1002.dao.CommonDAO;
 
 public class ProjectService {
 
     public static String[] getProjectsCurrentUser(){
-        return ProjectDAO.list(UserStateService.getCurrentUser().getUsername());
+        return CommonDAO.listProjects();
     }
 
     public static void addNewProjectCurrentUser(String projectName){
-        ProjectDAO.add(UserStateService.getCurrentUser().getUsername(), projectName);
+        CommonDAO.addProject(projectName);
     }
 
     public static void deleteProjectCurrentUser(String projectName){
-        ProjectDAO.delete(UserStateService.getCurrentUser().getUsername(), projectName);
+        CommonDAO.deleteProject(projectName);
         UserStateService.getCurrentUser().setCurrentlySelectedProject(null);
         UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(null);
     }

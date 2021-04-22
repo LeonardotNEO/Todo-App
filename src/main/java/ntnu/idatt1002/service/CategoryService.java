@@ -1,7 +1,6 @@
 package ntnu.idatt1002.service;
 
-import ntnu.idatt1002.dao.CategoryDAO;
-import ntnu.idatt1002.dao.UserStateDAO;
+import ntnu.idatt1002.dao.CommonDAO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +23,7 @@ public class CategoryService {
      * @return String[] of all the categories that the user has
      */
     public static String[] getCategoriesCurrentUser(){
-        return CategoryDAO.list(UserStateDAO.getUsername());
+        return CommonDAO.listCategories();
     }
 
     /**
@@ -33,7 +32,7 @@ public class CategoryService {
      * @return String[] of all the categories within the project
      */
     public static String[] getCategoriesByProjectCurrentUser(String projectName){
-        return CategoryDAO.list(UserStateService.getCurrentUser().getUsername(), projectName);
+        return CommonDAO.listCategories(projectName);
     }
 
     /**
@@ -68,8 +67,7 @@ public class CategoryService {
      * @param categoryName the name of the category that is being deleted
      */
     public static void deleteCategoryCurrentUser(String categoryName){
-        String username = UserStateDAO.getUsername();
-        CategoryDAO.delete(username, categoryName);
+        CommonDAO.deleteCategory(categoryName);
         UserStateService.getCurrentUser().setCurrentlySelectedCategory(null);
     }
 
@@ -79,8 +77,7 @@ public class CategoryService {
      * @param projectName name of project
      */
     public static void deleteCategoryCurrentUser(String categoryName, String projectName){
-        String username = UserStateService.getCurrentUser().getUsername();
-        CategoryDAO.delete(username, projectName, categoryName);
+        CommonDAO.deleteCategory(projectName, categoryName);
         UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(null);
     }
 
@@ -89,7 +86,7 @@ public class CategoryService {
      * @param categoryName name of category
      */
     public static void addCategoryToCurrentUser(String categoryName){
-        CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), categoryName);
+        CommonDAO.addCategory(categoryName);
     }
 
     /**
@@ -98,7 +95,7 @@ public class CategoryService {
      * @param categoryName the new category name
      */
     public static void addCategoryToCurrentUser(String projectName, String categoryName){
-        CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), projectName, categoryName);
+        CommonDAO.addCategory(projectName, categoryName);
     }
 
     /**

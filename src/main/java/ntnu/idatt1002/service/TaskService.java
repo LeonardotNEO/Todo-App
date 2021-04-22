@@ -1,7 +1,7 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
-import ntnu.idatt1002.dao.TaskDAO;
+import ntnu.idatt1002.dao.CommonDAO;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,12 +13,11 @@ import java.util.stream.Collectors;
 public class TaskService {
 
     /**
-     * Methode to validate if a task was successfully added. 
-     * Returns true if the task was added.
+     * Method to add a new task.
      * @param  newTask that is being added.
      */
     public static void newTask(Task newTask) {
-        TaskDAO.serialize(newTask);
+        CommonDAO.addTask(newTask);
     }
 
     /**
@@ -27,7 +26,7 @@ public class TaskService {
      */
     public static void editTask(Task task, long taskId){
         task.setId(taskId);
-        TaskDAO.serialize(task);
+        CommonDAO.addTask(task);
     }
 
     /**
@@ -49,7 +48,7 @@ public class TaskService {
      * @param category the new category for the task.
      */
     public static void editCategoryAndProjectOfTask(Task task, String category, String project){
-        TaskDAO.delete(task);
+        CommonDAO.deleteTask(task);
         setOriginals(task);
         if(project == null){
             task.setCategory(category);
@@ -59,7 +58,7 @@ public class TaskService {
             task.setProject(project);
         }
 
-        TaskDAO.serialize(task);
+        CommonDAO.addTask(task);
     }
 
     /**
@@ -80,9 +79,9 @@ public class TaskService {
      * @param value     boolean new value for task.isRepeatable
      */
     public static void setRepeatable(Task task, boolean value) {
-        TaskDAO.delete(task);
+        CommonDAO.deleteTask(task);
         task.setRepeatable(value);
-        TaskDAO.serialize(task);
+        CommonDAO.addTask(task);
     }
 
     /**
@@ -102,10 +101,10 @@ public class TaskService {
                     avoidCategories.add("Trash bin");
                     tasksResult = TaskService.getTasksExcludingCategories(getTasksByCurrentUser(),avoidCategories);
                 } else {
-                    tasksResult = TaskDAO.list(UserStateService.getCurrentUser().getUsername(), category);
+                    tasksResult = CommonDAO.listTasksByCategory(category);
                 }
             } else {
-                tasksResult = TaskDAO.list(UserStateService.getCurrentUser().getUsername(), project, category);
+                tasksResult = CommonDAO.listTasks(project, category);
             }
         }
 
@@ -140,7 +139,7 @@ public class TaskService {
      * @return an ArrayList of task-objects by the current user.
      */
     public static ArrayList<Task> getTasksByCurrentUser(){
-        return TaskDAO.list(UserStateService.getCurrentUser().getUsername());
+        return CommonDAO.listTasks();
     }
 
     /**
@@ -319,7 +318,7 @@ public class TaskService {
      * @return the task-object.
      */
     public static Task getTaskByCurrentUser(long id){
-        return TaskDAO.deserialize(UserStateService.getCurrentUserUsername(), id);
+        return CommonDAO.getTask(id);
     }
 
     /**
@@ -328,7 +327,7 @@ public class TaskService {
      * @param task The task that is going to be deleted.
      */
     public static void deleteTask(Task task){
-        TaskDAO.delete(task);
+        CommonDAO.deleteTask(task);
     }
 
 
@@ -460,7 +459,7 @@ public class TaskService {
         Task T= TaskService.getTaskByCurrentUser(taskId);
         if(T.isRepeatable()) {
             if (T.getTimeRepeat() != 0L) {
-                Task t = TaskDAO.deserialize(T.getUserName(), T.getCategory(), T.getId());
+                Task t = CommonDAO.getTask(T.getCategory(), T.getId());
                 t.setDeadline(t.getDeadline() + T.getTimeRepeat());
                 t.setId(t.generateId());
                 TaskService.newTask(t);
