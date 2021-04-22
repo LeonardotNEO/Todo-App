@@ -198,7 +198,7 @@
       {
         "title": null,
         "image": "src/main/resources/images/newEditTaskSimpleAdvancedButton.png",
-        "altText": null,
+        "altText": "Image showing two red dots containing numbers. The two dots are located to the left and right of the simple / advanced format buttons, which can be found at the top right corner of the create and edit task pages.",
         "text": "This opens the \"New task\" page. Here you can select either advanced or simple format by pressing ether. They are both located to the right of the center at the top of this page. By clicking on either word the page will change to that format. The default in \"New task\" is the simple format."
       },
       {
@@ -216,19 +216,19 @@
       {
         "title": null,
         "image": "src/main/resources/images/newEditTaskSimpleOptions.png",
-        "altText": null,
+        "altText": "Image showing four red dots containing numbers. They represent, in order: the title field, due date, due time and remind me checkboxes in the simple format for the create and edit task pages.",
         "text": "Below the due time and due date fields there are three checkboxes. These checkboxes are for reminders of the task. When checked they will send a notification about the task when the due date is within the checked time. Thus if the deadline of a task is within the next 24 hours and the 24 hours box is checked, you will receive a notification about the task. Multiple boxes can be checked for a single task."
       },
       {
         "title": null,
         "image": "src/main/resources/images/newEditTaskSimpleConfirmCancelButton.png",
-        "altText": null,
+        "altText": "Two numbered arrows pointing at the new task and cancel task buttons located at the bottom-center of the create task page.",
         "text": "At the bottom-center of the \"New task\" page there are two buttons. They are the \"+ New task\"-button and \"Cancel\"-button. When clicked the \"+ New task\"-button will create a new task with the information you provided. The \"Cancel\"-button will send you back to the category you were previously in, as well as deleting the task you were creating."
       },
       {
         "title": "Edit a task",
         "image": "src/main/resources/images/categoryEditTaskButton.png",
-        "altText": null,
+        "altText": "Arrow pointing at the edit task button, located in the upper right corner of a task.",
         "text": "A task can be edited by clicking on the pencil shaped button. This button is located in the upper right corner of the task."
       },
       {
@@ -246,7 +246,7 @@
       {
         "title": "Content (Optional)",
         "image": "src/main/resources/images/newEditTaskOptionalOptions.png",
-        "altText": null,
+        "altText": "Image showing ten red dots each containing a number. They represents all the different fields, checkboxes and menus accessible in the edit task page.",
         "text": ""
       },
       {
@@ -300,7 +300,7 @@
       {
         "title": null,
         "image": "src/main/resources/images/newEditTaskTimeAndDatePicker.png",
-        "altText": null,
+        "altText": "Image showing red dots containing numbers in the date and time picker page. Number 1 represents the year field, numbers 2 and 3 represents the arrows for changing month, numbers 4 and 5 represents the hour and at what minute for the due date.",
         "text": "To set the due time you either click on the clock icon to the left of the field, or click on the field and write the time yourself. If you click on the clock simply click on the desired due time yourself and it will be set."
       },
       {
@@ -318,7 +318,7 @@
       {
         "title": null,
         "image": "src/main/resources/images/newEditTaskColorPicker.png",
-        "altText": null,
+        "altText": "Image showing numbered red dots. Number 1 represents the custom color button located on the bottom of the color picker popup. The number 2 and 3 represents the specific color values for color formatting.",
         "text": "This will take you to a menu that opens a color picker and lets you insert color in the formats RGB, HSB and HEX."
       },
       {
@@ -336,7 +336,7 @@
       {
         "title": null,
         "image": "src/main/resources/images/newEditTaskClickFilePopup.png",
-        "altText": null,
+        "altText": "Image showing the files options popup window. There are two red dots on the image, number 1 represents the open file button, located to the left bottom corner. Number 2 represents the remove file button located to the right bottom corner.",
         "text": "By clicking on a file, a new popup will appear. Here you have three options. Two buttons at the bottom of the popup and a X-shaped button in the top right corner. The two buttons are the \"Open file\" button and the \"Remove file\" button. Click the \"Open file\" button to open the file and click the \"Remove file\" button to remove the file from the task. The X-shaped button will close the popup. The popup will also close if you click any other place on the page than the popup."
       },
       {
