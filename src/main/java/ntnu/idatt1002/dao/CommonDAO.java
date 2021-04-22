@@ -50,6 +50,16 @@ public final class CommonDAO {
     }
 
     /**
+     * Add a task to the logged in user.
+     * @param task the {@link Task} object.
+     */
+    public static void addTask(Task task){
+        String project = (task.getProject().isEmpty() ? "Standard" : task.getProject());
+        String category = task.getCategory();
+        tasks.get(project).get(category).add(task);
+    }
+
+    /**
      * Get an array of all projects for the logged in user.
      * @return a {@link String}[] of project names.
      */
@@ -75,6 +85,46 @@ public final class CommonDAO {
     }
 
     /**
+     * Get an ArrayList of all tasks for the logged in user.
+     * @return an {@link ArrayList}{@code <>} of {@link Task} objects.
+     */
+    public static ArrayList<Task> listTasks(){
+        ArrayList<Task> allTasks = new ArrayList<>();
+        tasks.values().forEach(h -> h.values().forEach(allTasks::addAll));
+        return allTasks;
+    }
+
+    /**
+     * Get an ArrayList of all tasks within a project for the logged in user.
+     * @param project the project name.
+     * @return an {@link ArrayList}{@code <>} of {@link Task} objects.
+     */
+    public static ArrayList<Task> listTasks(String project){
+        ArrayList<Task> projectTasks = new ArrayList<>();
+        tasks.get(project).values().forEach(projectTasks::addAll);
+        return projectTasks;
+    }
+
+    /**
+     * Get an ArrayList of all tasks within a project category for the logged in user.
+     * @param project the project name.
+     * @param category the category name.
+     * @return an {@link ArrayList}{@code <>} of {@link Task} objects.
+     */
+    public static ArrayList<Task> listTasks(String project, String category){
+        return tasks.get(project).get(category);
+    }
+
+    /**
+     * Get an ArrayList of all tasks within a standard category for the logged in user.
+     * @param category the category name.
+     * @return an {@link ArrayList}{@code <>} of {@link Task} objects.
+     */
+    public static ArrayList<Task> listTasksByCategory(String category){
+        return listTasks("Standard", category);
+    }
+
+    /**
      * Delete a project from the logged in user. Can't delete 'Standard' project.
      * @param project the project name.
      */
@@ -97,5 +147,15 @@ public final class CommonDAO {
      */
     public static void deleteCategory(String project, String category){
         tasks.get(project).remove(category);
+    }
+
+    /**
+     * Delete a task from the logged in user.
+     * @param task the {@link Task} object.
+     */
+    public static void deleteTask(Task task){
+        String project = (task.getProject().isEmpty() ? "Standard" : task.getProject());
+        String category = task.getCategory();
+        tasks.get(project).get(category).remove(task);
     }
  }
