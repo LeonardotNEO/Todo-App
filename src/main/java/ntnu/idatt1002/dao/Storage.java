@@ -66,6 +66,18 @@ public final class Storage {
     }
 
     /**
+     * Check if given user exists in storage
+     * @param username the username to check.
+     * @return {@code true} or {@code false}.
+     */
+    static boolean userExists(String username){
+        for(User user : listUsers()){
+            if(user.getUsername().equals(username)){ return true; }
+        }
+        return false;
+    }
+
+    /**
      * Call this method on login. This will set the current user in CommonDAO and populate its
      * variables.
      */
