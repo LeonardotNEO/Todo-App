@@ -319,7 +319,7 @@ public class DashboardController {
     public void addSortingOptions(){
         sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(category, project))));
         sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(category, project))));
-        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(category, project))));
+        sort.getItems().add(createSortingMenuItem("Alphabetically", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(category, project))));
     }
 
     /**
