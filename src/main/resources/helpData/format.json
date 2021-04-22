@@ -319,12 +319,12 @@
       {
         "title": "Notifications button",
         "image": null,
-        "text": "Additionally the bell-shaped button is known as the \"Notification\"-button and will display your notifications. These notifications are displayed in a circle with a number in it, resting to the left about the bell. The number represents the amount of unchecked notifications."
+        "text": "Additionally the bell-shaped button is known as the \"Notification\"-button and will display your notifications. These notifications are displayed in a circle with a number in it, resting to the left above the bell. The number represents the amount of unchecked notifications."
       },
       {
         "title": null,
         "image": "src/main/resources/images/navbarNotificationHistory.png",
-        "text": "If you click on the bell a new popup will appear. This popup contains all your notifications and a button at the top which reads \"Notification History\". To remove a notification press the V-shaped button in the top right corner of the notification you wish to remove. If you press the \"Notification History\"-button you will be sent to the \"Notification History\" page."
+        "text": "If you click on the bell a new popup will appear. This popup contains all your notifications and a button at the top which reads \"Notification History\"(1). To remove a notification press the V-shaped(2) button in the top right corner of the notification you wish to remove. If you press the \"Notification History\"(1)-button you will be sent to the \"Notification History\" page."
       }
     ]
   },
