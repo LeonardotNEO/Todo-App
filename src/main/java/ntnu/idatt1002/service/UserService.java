@@ -29,7 +29,7 @@ public class UserService {
      * @param oldUser
      * @param newUser
      */
-    public static boolean editUser(User oldUser, User newUser){
+    public static void editUser(User oldUser, User newUser){
         // check if new users username already exists
         if(RegisterService.checkIfUsernameValid(newUser.getUsername()) || UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){
             // create new user
@@ -40,7 +40,7 @@ public class UserService {
             for(String category : categories){
                 CategoryDAO.add(newUser.getUsername(), category);
             }
-
+            
             // transfer notifications
             ArrayList<Notification> notifications = NotificationDAO.list(oldUser.getUsername());
             notifications.forEach(notif -> notif.setUsername(newUser.getUsername()));
@@ -70,9 +70,6 @@ public class UserService {
 
             // update UserStateService
             UserStateService.setCurrentUserUsername(newUser.getUsername());
-            return true;
-        } else {
-            return false;
         }
     }
 }
