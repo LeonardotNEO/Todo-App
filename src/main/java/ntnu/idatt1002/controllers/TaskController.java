@@ -12,6 +12,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
+import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.ColorUtil;
@@ -101,11 +102,11 @@ public class TaskController {
         color.setText("Color: " + task.getColor());
         notification.setText(checkNotification(task));
         // tags
-        String tagsString = "";
+        StringBuilder tagsString = new StringBuilder();
         ArrayList<String> tagsList = task.getTags();
         if(tagsList!=null) { // null pointer exception when tagsList equals null
             for (String tag : tagsList) {
-                tagsString += tag + ", ";
+                tagsString.append(tag).append(", ");
             }
         }
         // files
@@ -122,9 +123,7 @@ public class TaskController {
                         File open = new File(file);
 
                         //Using the desktop library to open a file with the desktop
-                        if (!Desktop.isDesktopSupported()) {
-
-                        }
+                        Desktop.isDesktopSupported();
                         Desktop desktop = Desktop.getDesktop();
                         if(open.exists()) {
                             desktop.open(open);
@@ -276,7 +275,7 @@ public class TaskController {
     }
 
     /**
-     * Moves task to 'Trash bin' folder.
+     * Moves task to 'Trash bin' folder. or deletes task if it already is in delete folder.
      * Creates new repeatable task if task is repeatable.
      * @param event
      * @throws IOException
@@ -285,9 +284,13 @@ public class TaskController {
         if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
             TaskService.nextRepeatableTask(taskId);
         }
-        // update category of task to 'Trash bin'
-        TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin", null);
-        // update dashboard
+        if(TaskService.getTaskByCurrentUser(taskId).getCategory().equals("Trash bin")){
+            TaskDAO.delete(TaskService.getTaskByCurrentUser(taskId));
+        }else {
+            // update category of task to 'Trash bin'
+            TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin", null);
+            // update dashboard
+        }
         DashboardController.getInstance().initialize();
     }
 
@@ -397,9 +400,7 @@ public class TaskController {
     }
 
     public void addClickTaskListener(){
-        background.setOnMouseClicked(mouseEvent -> {
-            clickTask();
-        });
+        background.setOnMouseClicked(mouseEvent -> clickTask());
     }
 
     public void editTask() throws IOException {
@@ -455,8 +456,8 @@ public class TaskController {
                 buttonFinishTask.setManaged(false);
                 buttonEditTask.setVisible(false);
                 buttonEditTask.setManaged(false);
-                buttonDeleteTask.setVisible(false);
-                buttonDeleteTask.setManaged(false);
+                buttonDeleteTask.setVisible(true);
+                buttonDeleteTask.setManaged(true);
                 buttonRestoreTask.setVisible(true);
                 buttonRestoreTask.setManaged(true);
                 break;

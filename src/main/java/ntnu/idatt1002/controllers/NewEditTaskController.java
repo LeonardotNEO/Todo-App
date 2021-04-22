@@ -278,9 +278,6 @@ public class NewEditTaskController {
      * @throws IOException
      */
     public void addEditTask(Task oldTask) throws IOException {
-        // result
-        boolean result = false;
-
         // If no input in timePicker set it to current time
         if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
 
