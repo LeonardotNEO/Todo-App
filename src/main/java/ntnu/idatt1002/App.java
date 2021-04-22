@@ -61,7 +61,6 @@ public class App extends Application {
         // If f1 is clicked create a new help window
         scene.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode().equals(KeyCode.F1)) {
-                System.out.println("Im clicking!");
                 try {
                     Stage helpStage = new Stage();
                     helpStage.setScene(new Scene(loadFXML("helpPage")));

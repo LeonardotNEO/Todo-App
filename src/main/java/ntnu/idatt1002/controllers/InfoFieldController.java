@@ -46,6 +46,9 @@ public class InfoFieldController {
         imageView.setImage(image);
     }
 
+    public void setImageAltText(String text) {
+        imageView.setAccessibleText(text);
+    }
 
     /**
      * Method that sets the text of this field
