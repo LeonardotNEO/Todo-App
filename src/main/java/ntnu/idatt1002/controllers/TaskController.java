@@ -265,10 +265,18 @@ public class TaskController {
     public void clickDeleteButton(ActionEvent event) throws IOException {
         if (TaskService.getTaskByCurrentUser(taskId).isRepeatable()) {
             ConfirmationRepeatDelController.display(this, "delete");
-        } else if (TaskService.getTaskByCurrentUser(taskId).getCategory().equalsIgnoreCase("trash bin")&& !UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
-                ConfirmationController.display(this,"deleteDeletedTask");
-        } else {
-                ConfirmationController.display(this, "delete");
+
+        } else if (TaskService.getTaskByCurrentUser(taskId).getCategory().equalsIgnoreCase("Trash bin") &&
+                UserStateService.getCurrentUser().isDeleteDeletedTaskDontShowAgainCheckbox()){
+            deleteTask(event);
+        } else if(TaskService.getTaskByCurrentUser(taskId).getCategory().equalsIgnoreCase("Trash bin")){
+            ConfirmationController.display(this,"deleteDeletedTask");
+
+        } else if(UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()){
+            deleteTask(event);
+
+        }  else{
+            ConfirmationController.display(this,"delete");
         }
     }
 

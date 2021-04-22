@@ -215,15 +215,15 @@ public class User implements Serializable {
     public void setFinishTaskDontShowAgainCheckbox(boolean checkbox) {
         User userBeforeChanges = new User(this);
         this.finishTaskDontShowAgainCheckbox = checkbox;
-
         UserService.editUser(userBeforeChanges, this);
     }
 
-    public boolean isDeleteDeletedTaskDontShowAgainCheckbox(){return isDeleteTaskDontShowAgainCheckbox();}
+    public boolean isDeleteDeletedTaskDontShowAgainCheckbox(){return deleteDeletedTaskDontShowAgainCheckbox;}
 
     public void setDeleteDeletedTaskDontShowAgainCheckbox(boolean deleteDeletedTaskDontShowAgainCheckbox) {
         User userBeforeChanges = new User(this);
         this.deleteDeletedTaskDontShowAgainCheckbox = deleteDeletedTaskDontShowAgainCheckbox;
+        UserService.editUser(userBeforeChanges, this);
     }
 
     public String getTheme() {

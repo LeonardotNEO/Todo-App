@@ -67,14 +67,15 @@ public class ConfirmationController {
             controllerInstance.checkBox.setText("This message is annoying, dont show it again!");
         } else if (operation.equalsIgnoreCase("finish")) {
             controllerInstance.confirmQuestion.setText("Please confirm:");
-            controllerInstance.extraText.setText("The task can still be found in the \"finished tasks\" folder," +
-                    "\nbut as of now, there is no way to restore it.");
+            controllerInstance.extraText.setText("The task can still be found in the \"finished tasks\" folder");
             controllerInstance.yesButton.setText("Yes, move it!");
             controllerInstance.noButton.setText("No, wait!");
         } else if(operation.equalsIgnoreCase("deleteDeletedTask")){
             controllerInstance.confirmQuestion.setText("Are you sure you want to delete this task?");
             controllerInstance.extraText.setText("It will be permanently deleted");
             controllerInstance.checkBox.setText("This message is annoying, dont show it again!");
+            controllerInstance.yesButton.setText("Yes, delete it!");
+            controllerInstance.noButton.setText("No, wait!");
         }
 
         controllerInstance.popup.getContent().add(root);
