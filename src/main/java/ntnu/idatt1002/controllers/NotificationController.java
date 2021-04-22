@@ -36,7 +36,7 @@ public class NotificationController {
     }
 
     public void checkNotification() throws IOException {
-        Notification notification = NotificationDAO.deserialize(UserStateService.getCurrentUser().getUsername(), notificationID);
+        Notification notification = NotificationDAO.get(notificationID);
         notification.setChecked(true);
         NotificationService.editNotification(notification);
 

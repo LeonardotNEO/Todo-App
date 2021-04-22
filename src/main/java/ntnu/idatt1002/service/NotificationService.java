@@ -18,7 +18,7 @@ public class NotificationService {
      * @return
      */
     public static ArrayList<Notification> getNotificationsByCurrentUser(){
-        return NotificationDAO.list(UserStateService.getCurrentUser().getUsername());
+        return NotificationDAO.list();
     }
 
     /**
@@ -60,7 +60,7 @@ public class NotificationService {
      */
     public static void newNotification(String title, String description, LocalDateTime issueDate){
         Notification notification = new Notification(title, UserStateService.getCurrentUserUsername(), description, issueDate);
-        NotificationDAO.serialize(notification);
+        NotificationDAO.add(notification);
     }
 
     /**
@@ -68,7 +68,7 @@ public class NotificationService {
      * @param notification
      */
     public static void editNotification(Notification notification){
-        NotificationDAO.serialize(notification);
+        NotificationDAO.add(notification);
     }
 
     /**
@@ -78,9 +78,9 @@ public class NotificationService {
      * @throws IOException
      */
     public static boolean checkNotification(int id) throws IOException {
-        Notification notification = NotificationDAO.deserialize(UserStateService.getCurrentUserUsername(), id);
+        Notification notification = NotificationDAO.get(id);
         notification.setChecked(true);
-        NotificationDAO.serialize(notification);
+        NotificationDAO.add(notification);
 
         return true;
     }
