@@ -130,7 +130,7 @@
       {
         "title": "Custom background",
         "image": "src/main/resources/images/accountPageCustomBackground.png",
-        "text": "Right below the themes buttons there is another button with the text \"+ Background\" written on it. By clicking on it a new \"file explorer\"-window will be opened. Here you can choose a picture on your computer. A miniature version of the picture will be added to the right of the button, just below the theme-buttons. By clicking on the picture you choose, the background of the application will change to that picture. If you wish to revert the change just click on the small picture with \"None\" written in it. It will be to the right of the \"+ Background\"-button and to the left of any custom backgrounds you have chosen."
+        "text": "Right below the themes buttons there is another button with the text \"+ Background\"(1) written on it. By clicking on it a new \"file explorer\"-window will be opened. Here you can choose a picture on your computer. A miniature version of the picture will be added to the right of the button, just below the theme-buttons. By clicking on the picture you choose, the background of the application will change to that picture. If you wish to revert the change just click on the small picture with \"None\"(2) written in it. It will be to the right of the \"+ Background\"(1)-button and to the left of any custom backgrounds you have chosen."
       },
       {
         "title": "Edit account",
@@ -140,12 +140,12 @@
       {
         "title": null,
         "image": null,
-        "text": "On this page are three input fields. The first field is for the account username. The second and third fields are for changing the password or making a brand new password for the account."
+        "text": "On this page are three input fields. The first field is for the account username(1). The second(2) and third(3) fields are for changing the password or making a brand new password for the account."
       },
       {
         "title": null,
         "image": "src/main/resources/images/accountPageEditAccountOptions.png",
-        "text": "Below these fields there is a \"No password\"-checkbox. When checked this account will no longer need a password before login. The current password will also be deleted."
+        "text": "Below these fields there is a \"No password\"(4)-checkbox. When checked this account will no longer need a password before login. The current password will also be deleted."
       },
       {
         "title": null,
@@ -358,12 +358,12 @@
       {
         "title": null,
         "image": null,
-        "text": "When clicked it will open the \"Create category\" page. On this page there is one \"Category title\" field above the center of the page. The field has to be filled for a category to be made. This field represents the name of the category. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create category\"-button and the \"Cancel\"-button."
+        "text": "When clicked it will open the \"Create category\" page. On this page there is one \"Category title\"(1) field above the center of the page. The field has to be filled for a category to be made. This field represents the name of the category. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create category\"(2)-button and the \"Cancel\"(3)-button."
       },
       {
         "title": null,
         "image": "src/main/resources/images/categoryCreateNewCategory.png",
-        "text": "When the \"+ Create category\"-button is pressed the category will be created with the name from the title field. When the \"Cancel\"-button is pressed you will be sent back to the category you were previously in and the new category will not be created."
+        "text": "When the \"+ Create category\"(2)-button is pressed the category will be created with the name from the title field. When the \"Cancel\"(3)-button is pressed you will be sent back to the category you were previously in and the new category will not be created."
       },
       {
         "title": "Category page content",
