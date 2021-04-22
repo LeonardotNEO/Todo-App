@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -26,10 +27,14 @@
                      <children>
                         <VBox minHeight="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Categories" textFill="WHITE">
+                              <Button mnemonicParsing="false" prefWidth="240.0" text="Categories" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets left="-5.0" />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="background-color_2" />
+                                    <String fx:value="text-color" />
+                                 </styleClass>
                               </Button>
                               <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent;" stylesheets="@../css/category_scrollbar.css">
                                  <content>
@@ -39,9 +44,9 @@
                                     <Insets left="-10.0" />
                                  </VBox.margin>
                               </ScrollPane>
-                              <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewCategory" style="-fx-background-radius: 30; -fx-text-fill: white; -fx-font-size: 14;" styleClass="background-color_1" stylesheets="@../css/main.css" text="New category" textFill="LIME">
+                              <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewCategory" style="-fx-background-radius: 30; -fx-font-size: 14;" stylesheets="@../css/main.css" text="New category" textFill="LIME">
                                  <graphic>
-                                    <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
+                                    <FontAwesomeIconView fill="LIME" glyphName="PLUS" />
                                  </graphic>
                                  <VBox.margin>
                                     <Insets left="55.0" top="5.0" />
@@ -49,15 +54,23 @@
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                 <styleClass>
+                                    <String fx:value="text-color" />
+                                    <String fx:value="button1" />
+                                 </styleClass>
                               </JFXButton>
                            </children>
                         </VBox>
                         <VBox minHeight="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefWidth="240.0" styleClass="background-color_2" text="Projects" textFill="WHITE">
+                              <Button mnemonicParsing="false" prefWidth="240.0" text="Projects" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets left="-5.0" />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="background-color_2" />
+                                    <String fx:value="text-color" />
+                                 </styleClass>
                               </Button>
                               <ScrollPane maxHeight="1.7976931348623157E308" minHeight="0.0" prefWidth="235.0" style="-fx-background: transparent; -fx-background-color: transparent;" stylesheets="@../css/category_scrollbar.css">
                                  <content>
@@ -67,9 +80,9 @@
                                     <Insets left="-10.0" />
                                  </VBox.margin>
                               </ScrollPane>
-                              <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewProject" style="-fx-background-radius: 30; -fx-text-fill: white; -fx-font-size: 14;" styleClass="background-color_1" text="New project">
+                              <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonNewProject" style="-fx-background-radius: 30; -fx-font-size: 14;" text="New project">
                                  <graphic>
-                                    <FontAwesomeIconView id="icon" fill="LIME" glyphName="PLUS" />
+                                    <FontAwesomeIconView fill="LIME" glyphName="PLUS" />
                                  </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -77,6 +90,10 @@
                                  <VBox.margin>
                                     <Insets bottom="-10.0" left="60.0" top="5.0" />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="button1" />
+                                    <String fx:value="text-color" />
+                                 </styleClass>
                               </JFXButton>
                            </children>
                         </VBox>
@@ -95,7 +112,7 @@
          <children>
             <AnchorPane prefHeight="75.0" prefWidth="250.0" styleClass="background-color_2">
                <children>
-                  <Text fill="WHITE" layoutX="62.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard" textAlignment="CENTER">
+                  <Text fill="WHITE" layoutX="62.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Dashboard" textAlignment="CENTER">
                      <font>
                         <Font size="26.0" />
                      </font>
@@ -119,21 +136,29 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <JFXButton fx:id="buttonEditProject" onAction="#buttonEditProject" style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white;" styleClass="background-color_1" text="Edit">
+                        <JFXButton fx:id="buttonEditProject" onAction="#buttonEditProject" style="-fx-font-size: 12; -fx-background-radius: 10;" text="Edit">
                            <graphic>
-                              <FontAwesomeIconView id="icon" fill="ORANGE" glyphName="EDIT" selectionFill="YELLOW" wrappingWidth="13.0" />
+                              <FontAwesomeIconView fill="ORANGE" glyphName="EDIT" selectionFill="YELLOW" wrappingWidth="13.0" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <styleClass>
+                              <String fx:value="text-color" />
+                              <String fx:value="button1" />
+                           </styleClass>
                         </JFXButton>
-                        <JFXButton fx:id="buttonDeleteProject" onAction="#buttonDeleteProject" style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white;" styleClass="background-color_1" text="Delete">
+                        <JFXButton fx:id="buttonDeleteProject" onAction="#buttonDeleteProject" style="-fx-font-size: 12; -fx-background-radius: 10;" text="Delete">
                            <graphic>
-                              <FontAwesomeIconView id="icon" fill="RED" glyphName="TIMES" size="12" />
+                              <FontAwesomeIconView fill="RED" glyphName="TIMES" size="12" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <styleClass>
+                              <String fx:value="text-color" />
+                              <String fx:value="button1" />
+                           </styleClass>
                         </JFXButton>
                      </children>
                      <padding>
@@ -152,21 +177,29 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <JFXButton fx:id="buttonEditCategory" onAction="#buttonEditCategory" prefWidth="54.0" style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white;" styleClass="background-color_1" text="Edit">
+                        <JFXButton fx:id="buttonEditCategory" onAction="#buttonEditCategory" prefWidth="54.0" style="-fx-font-size: 12; -fx-background-radius: 10;" text="Edit">
                            <graphic>
-                              <FontAwesomeIconView id="icon" fill="ORANGE" glyphName="EDIT" selectionFill="YELLOW" wrappingWidth="13.0" />
+                              <FontAwesomeIconView fill="ORANGE" glyphName="EDIT" selectionFill="YELLOW" wrappingWidth="13.0" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <styleClass>
+                              <String fx:value="text-color" />
+                              <String fx:value="button1" />
+                           </styleClass>
                         </JFXButton>
-                        <JFXButton fx:id="buttonDeleteCategory" onAction="#buttonDeleteCategory" style="-fx-font-size: 12; -fx-background-radius: 10; -fx-text-fill: white;" styleClass="background-color_1" text="Delete">
+                        <JFXButton fx:id="buttonDeleteCategory" onAction="#buttonDeleteCategory" style="-fx-font-size: 12; -fx-background-radius: 10;" text="Delete">
                            <graphic>
-                              <FontAwesomeIconView id="icon" fill="RED" glyphName="TIMES" size="12" />
+                              <FontAwesomeIconView fill="RED" glyphName="TIMES" size="12" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <styleClass>
+                              <String fx:value="text-color" />
+                              <String fx:value="button1" />
+                           </styleClass>
                         </JFXButton>
                      </children>
                      <padding>
@@ -177,7 +210,7 @@
             </VBox>
             <HBox fx:id="taskHBox" alignment="CENTER_RIGHT" layoutX="758.0" maxWidth="-Infinity" prefHeight="75.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-font-size: 15; -fx-background-radius: 10;" styleClass="background-color_1" text="Sort" textFill="WHITE">
+                  <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-font-size: 15; -fx-background-radius: 10;" text="Sort" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -187,11 +220,19 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <styleClass>
+                        <String fx:value="background-color_1" />
+                        <String fx:value="text-color" />
+                     </styleClass>
                   </MenuButton>
-                  <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="120.0" promptText="Search..." style="-fx-font-size: 15; -fx-background-radius: 10; -fx-text-fill: white; -fx-font-style: none;" styleClass="background-color_1">
+                  <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="120.0" promptText="Search..." style="-fx-font-size: 15; -fx-background-radius: 10; -fx-font-style: none;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <styleClass>
+                        <String fx:value="background-color_1" />
+                        <String fx:value="text-color" />
+                     </styleClass>
                   </TextField>
                </children>
                <padding>

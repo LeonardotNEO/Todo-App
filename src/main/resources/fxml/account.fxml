@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -21,30 +22,16 @@
    <center>
       <AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="information" prefHeight="225.0" prefWidth="600.0" spacing="5.0" style="-fx-background-radius: 10;" styleClass="background-color_grey">
+            <VBox fx:id="information" prefHeight="225.0" prefWidth="600.0" spacing="5.0" style="-fx-background-radius: 10;" styleClass="background-color_grey" visible="false">
                <children>
                   <AnchorPane minHeight="-Infinity" prefHeight="51.0" prefWidth="600.0" style="-fx-background-radius: 10 10 0 0;" styleClass="background-color_1">
                      <children>
-                        <Text fill="WHITE" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="217.1130514705883">
+                        <Text fill="WHITE" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Username" wrappingWidth="217.1130514705883">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <Text fx:id="username" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.1130514705883">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane minHeight="-Infinity" prefHeight="51.0" prefWidth="600.0" styleClass="background-color_1">
-                     <children>
-                        <Text fill="WHITE" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date account created" wrappingWidth="217.1130514705883">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="dateCreated" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.1130514705883">
+                        <Text fx:id="username" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" wrappingWidth="144.1130514705883">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -53,12 +40,12 @@
                   </AnchorPane>
                   <AnchorPane minHeight="-Infinity" prefHeight="51.0" prefWidth="600.0" styleClass="background-color_1">
                      <children>
-                        <Text fill="WHITE" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task count" wrappingWidth="217.1130514705883">
+                        <Text fill="WHITE" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Date account created" wrappingWidth="217.1130514705883">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <Text fx:id="taskCount" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.1130514705883">
+                        <Text fx:id="dateCreated" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" wrappingWidth="144.1130514705883">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -67,12 +54,26 @@
                   </AnchorPane>
                   <AnchorPane minHeight="-Infinity" prefHeight="51.0" prefWidth="600.0" styleClass="background-color_1">
                      <children>
-                        <Text fill="WHITE" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category count" wrappingWidth="217.1130514705883">
+                        <Text fill="WHITE" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Task count" wrappingWidth="217.1130514705883">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <Text fx:id="categoryCount" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.1130514705883">
+                        <Text fx:id="taskCount" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" wrappingWidth="144.1130514705883">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="-Infinity" prefHeight="51.0" prefWidth="600.0" styleClass="background-color_1">
+                     <children>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Category count" wrappingWidth="217.1130514705883">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="categoryCount" fill="WHITE" layoutX="442.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" wrappingWidth="144.1130514705883">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -130,13 +131,17 @@
                                     <Font size="20.0" />
                                  </font>
                               </Text>
-                              <JFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonAddBackground" styleClass="background-color_1" text="Background" textFill="WHITE">
+                              <JFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#buttonAddBackground" text="Background" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                                  <graphic>
                                     <FontAwesomeIconView fill="#00ff09" glyphName="PLUS" />
                                  </graphic>
+                                 <styleClass>
+                                    <String fx:value="background-color_1" />
+                                    <String fx:value="text-color" />
+                                 </styleClass>
                               </JFXButton>
                            </children>
                         </VBox>
@@ -160,7 +165,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <VBox fx:id="editUserPage" alignment="CENTER" spacing="10.0" style="-fx-background-radius: 10;" styleClass="background-color_grey" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="editUserPage" alignment="CENTER" spacing="10.0" style="-fx-background-radius: 10;" styleClass="background-color_grey" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <TextField fx:id="editUsername" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username">
                      <font>
@@ -187,7 +192,13 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton onAction="#confirmEditUser" styleClass="button1" text="Edit account" />
+                  <JFXButton onAction="#confirmEditUser" styleClass="button1" text="Edit account">
+                     <graphic>
+                        <FontAwesomeIconView fill="ORANGE" glyphName="EDIT" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -222,11 +233,23 @@
                      <font>
                         <Font name="Microsoft JhengHei" size="14.0" />
                      </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="ORANGE" glyphName="EDIT" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button fx:id="buttonCancel" mnemonicParsing="false" onAction="#buttonCancel" prefHeight="39.0" prefWidth="187.0" styleClass="button1" text="Cancel" textFill="WHITE">
                      <font>
                         <Font name="Microsoft JhengHei" size="14.0" />
                      </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="RED" glyphName="BAN" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
             </HBox>
