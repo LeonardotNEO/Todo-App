@@ -1,7 +1,7 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.Storage;
 import ntnu.idatt1002.dao.UserStateDAO;
 
 /**
@@ -22,7 +22,7 @@ public class UserStateService {
      * @return
      */
     public static User getCurrentUser(){
-        return UserDAO.deserialize(UserStateService.getCurrentUserUsername());
+        return Storage.getUser(UserStateService.getCurrentUserUsername());
     }
 
     /**
@@ -30,7 +30,7 @@ public class UserStateService {
      * @return
      */
     public static String getCurrentUserUsername(){
-        return UserDAO.deserialize(UserStateDAO.getUsername()).getUsername();
+        return UserStateDAO.getUsername();
     }
 
     /**
