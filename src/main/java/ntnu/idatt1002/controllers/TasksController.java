@@ -150,7 +150,7 @@ public class TasksController {
                     break;
             }
         } else if(project != null && category == null){
-            showMessage("Select a category under project \"" + project + "\", or create a new one In the bar to the left!");
+            showMessage("Select a category under project \"" + project + "\", or create a new one in the bar to the left!");
         } else if(project != null && category != null){
             showMessage("There are no tasks in project \"" + project + "\" and category \"" + category + "\" yet, create a new task!");
         } else {
