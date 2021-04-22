@@ -30,6 +30,7 @@ import ntnu.idatt1002.utils.TimeConverter;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -321,7 +322,7 @@ public class NewEditTaskController {
                     .description(descriptionTextArea.getText())
                     .deadline(deadlineTime)
                     .priority(TaskService.convertPriorityStringToInt(priorityMenu.getText()))
-                    .startDate(DateUtils.getAsMs(LocalDate.now()))
+                    .startDate(DateUtils.getAsMs(LocalDateTime.now()))
                     .category(categoryString)
                     .project(projectString)
                     .color(ColorUtil.getCorrectColorFormat(color.getValue().toString()))

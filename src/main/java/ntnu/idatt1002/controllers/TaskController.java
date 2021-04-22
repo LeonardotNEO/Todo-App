@@ -20,6 +20,7 @@ import ntnu.idatt1002.utils.DateUtils;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +37,7 @@ public class TaskController {
     @FXML private Text category;
     @FXML private Text startdate;
     @FXML private Text duedate;
+    @FXML private Text finishDate;
     @FXML private Text taskLocation;
     @FXML private Text color;
     @FXML private Text notification;
@@ -70,16 +72,16 @@ public class TaskController {
         String notificationString = "";
 
         if (task.isNotification1Hour()) {
-            notificationString += "Notification 1 hour before duedate: yes\n";
+            notificationString += "Notification: 1 hour before due date\n";
         }
         if(task.isNotification24Hours()){
-            notificationString += "Notification 24 hours before duedate: yes\n";
+            notificationString += "Notification: 24 hours before due date\n";
         }
         if(task.isNotification7Days()){
-            notificationString += "Notification 7 days before duedate: yes\n";
+            notificationString += "Notification: 7 days before due date\n";
         }
         if(notificationString.isEmpty()){
-            notificationString += "No notifications";
+            notificationString += "Notification: None";
         }
 
         return notificationString;
@@ -94,9 +96,10 @@ public class TaskController {
         taskDescription.setText(task.getDescription());
         taskName.setText(task.getName());
         category.setText("Category: " + task.getCategory());
-        project.setText("Project: " + task.getProject());
+        project.setText("Project: " + (task.getProject() == null ? "None" : task.getProject()) );
         startdate.setText("Start date: " + DateUtils.getFormattedFullDate(task.getStartDate()));
-        duedate.setText("Due date: " + DateUtils.getFormattedFullDate(task.getDeadline()));
+        duedate.setText("Due date: " + (task.getDeadline() == 0 ? "None" : DateUtils.getFormattedFullDate(task.getDeadline()) ));
+        finishDate.setText("Finish date: " + DateUtils.getFormattedFullDate(task.getFinishDate()));
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());
         notification.setText(checkNotification(task));
@@ -161,6 +164,8 @@ public class TaskController {
         startdate.setManaged(false);
         duedate.setVisible(false);
         duedate.setManaged(false);
+        finishDate.setVisible(false);
+        finishDate.setManaged(false);
         taskLocation.setVisible(false);
         taskLocation.setManaged(false);
         color.setVisible(false);
@@ -192,6 +197,11 @@ public class TaskController {
         startdate.setManaged(true);
         duedate.setVisible(true);
         duedate.setManaged(true);
+        // Check if task is finished, display finishDate field if true.
+        if (task.isFinished()) {
+            finishDate.setVisible(true);
+            finishDate.setManaged(true);
+        }
         taskLocation.setVisible(true);
         taskLocation.setManaged(true);
         color.setVisible(true);
@@ -242,6 +252,7 @@ public class TaskController {
 
     /**
      * Moves task to 'Finished tasks' folder.
+     * Setting finish date.
      * Creates new repeatable task if task is repeatable.
      * @param event
      * @throws IOException
@@ -250,6 +261,7 @@ public class TaskController {
         if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
             TaskService.nextRepeatableTask(taskId);
         }
+        TaskService.setFinished(task, true);
         // update category of task to 'Finished tasks'
         TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks", null);
         // update dashboard
@@ -305,6 +317,7 @@ public class TaskController {
      * @throws IOException
      */
     public void restoreTask() throws IOException {
+        TaskService.setFinished(task, false);
         // update category of task
         TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId),
                 TaskService.getTaskByCurrentUser(taskId).getOriginalCategory(),

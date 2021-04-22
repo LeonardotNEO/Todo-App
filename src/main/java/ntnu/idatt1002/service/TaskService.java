@@ -2,7 +2,10 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.TaskDAO;
+import ntnu.idatt1002.utils.DateUtils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -82,6 +85,24 @@ public class TaskService {
     public static void setRepeatable(Task task, boolean value) {
         TaskDAO.delete(task);
         task.setRepeatable(value);
+        TaskDAO.serialize(task);
+    }
+
+    /**
+     * Usedto set the isFinished value and the finishDate of the given task.
+     * Will set finish date to 0 if given value is false.
+     *
+     * @param task      Task object to change
+     * @param value     boolean new value for task.isFinished
+     */
+    public static void setFinished(Task task, boolean value) {
+        TaskDAO.delete(task);
+        task.setFinished(value);
+        if (value) {
+            task.setFinishDate(DateUtils.getAsMs(LocalDateTime.now()));
+        } else {
+            task.setFinishDate(0);
+        }
         TaskDAO.serialize(task);
     }
 
@@ -345,9 +366,10 @@ public class TaskService {
         if(title.length() < 1 || title.length() > 30){
             errorsCodes.add(1);
         }
+        /* TODO: Make better description validation? Restricting description length is not useful.
         if(description.length() > 5000){
             errorsCodes.add(2);
-        }
+        }*/
         try{
             convertPriorityStringToInt(priority);
         } catch (NumberFormatException nfe) {

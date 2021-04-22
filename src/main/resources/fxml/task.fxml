@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="background" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
+<AnchorPane fx:id="background" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
    <children>
       <VBox fx:id="vbox" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -34,7 +39,12 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text fx:id="duedate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
+            <Text fx:id="duedate" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="finishDate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="finishDate" wrappingWidth="239.0703125">
                <font>
                   <Font size="16.0" />
                </font>

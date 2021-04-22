@@ -22,6 +22,8 @@ public class Task implements Serializable {
     private int priority;
     private long startDate;
     private long deadline;
+    private long finishDate;
+    private boolean isFinished;
     private String project;
     private String originalProject;
     private String category;
@@ -84,6 +86,23 @@ public class Task implements Serializable {
      */
     public long getStartDate() {return startDate;}
 
+    /**
+     * A method to get the field finishDate
+     *
+     * @return long finishDate of the task.
+     */
+    public long getFinishDate() {
+        return finishDate;
+    }
+
+    /**
+     * A method to get the field isFinished.
+     *
+     * @return boolean isFinished = true if task is finished.
+     */
+    public boolean isFinished() {
+        return isFinished;
+    }
 
     /**
      * A method to get the field project.
@@ -209,6 +228,24 @@ public class Task implements Serializable {
      * @param startDate the new startDate for the task.
      */
     public void setStartDate(long startDate) {this.startDate = startDate;}
+
+    /**
+     * A method to set a new finishDate.
+     *
+     * @param finishDate long finishDate of the task.
+     */
+    public void setFinishDate(long finishDate) {
+        this.finishDate = finishDate;
+    }
+
+    /**
+     * A method to set if method is finished.
+     *
+     * @param finished boolean isFinished = true if task is finished.
+     */
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
 
     /**
      * A method to set the project value
@@ -428,6 +465,7 @@ public class Task implements Serializable {
         //Dates
         private long startDate;
         private long deadline;
+        private long finishDate;
 
         // Repetable
         private boolean isRepeatable = false;
@@ -532,6 +570,18 @@ public class Task implements Serializable {
          */
         public TaskBuilder startDate(long startDate) {
             this.startDate = startDate;
+            return this;
+        }
+
+        /**
+         * Method to set the task finishDate.
+         * The finishDate is ms since 1/1/1970 UTC +1.
+         *
+         * @param finishDate long finishDate of the task.
+         * @return the TaskBuilder.
+         */
+        public TaskBuilder finishDate(long finishDate) {
+            this.finishDate = finishDate;
             return this;
         }
 
