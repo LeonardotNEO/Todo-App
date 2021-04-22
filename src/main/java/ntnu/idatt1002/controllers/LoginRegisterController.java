@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.Storage;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.RegisterService;
 
@@ -91,7 +91,7 @@ public class LoginRegisterController {
         userVbox.getChildren().clear();
 
         // Populate the Vbox with users
-        ArrayList<User> users = UserDAO.list();
+        ArrayList<User> users = Storage.readUsers();
         users.forEach(u -> {
             // Create user pane
             AnchorPane pane = null;

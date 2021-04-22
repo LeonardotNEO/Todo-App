@@ -2,7 +2,7 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.Storage;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class LoginService {
      */
     public static boolean checkIfLoginValid(String username, String password){
         boolean result = false;
-        User user = UserDAO.deserialize(username);
+        User user = Storage.getUser(username);
 
         if(user != null) {
             if (user.getPassword().isEmpty() || user.getPassword().equals(password)) {
@@ -60,6 +60,7 @@ public class LoginService {
      * Sets userstate to null
      */
     public static void logOut(){
+        Storage.write();
         UserStateService.setCurrentUserUsername(null);
     }
 
@@ -70,6 +71,7 @@ public class LoginService {
      * @throws IOException
      */
     public static void login(String username, boolean rememberMe) throws IOException {
+        Storage.read();
         LoginService.saveLogin(username, rememberMe);
         App.setRoot("main");
         App.updateThemeCurrentUser(UserStateService.getCurrentUser().getTheme());
