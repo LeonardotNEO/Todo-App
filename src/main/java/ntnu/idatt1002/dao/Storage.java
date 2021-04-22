@@ -289,11 +289,27 @@ public final class Storage {
          * @return an ArrayList.
          */
         static ArrayList<Notification> list(String username){
-            return null;
+            ArrayList<Notification> notifs = new ArrayList<>();
+
+            File notifDir = new File(SAVEPATH + username + "/Notifications/");
+            File[] filepaths = notifDir.listFiles();
+            if(filepaths != null){
+                for(File file : filepaths){
+                    notifs.add((Notification) GenericDAO.deserialize(file.getPath()));
+                }
+            }
+
+            return notifs;
         }
 
         static void deleteByUser(String username){
-
+            File notifDir = new File(SAVEPATH + username + "/Notifications/");
+            File[] filepaths = notifDir.listFiles();
+            if(filepaths != null){
+                for(File file : filepaths){
+                    file.delete();
+                }
+            }
         }
     }
 }
