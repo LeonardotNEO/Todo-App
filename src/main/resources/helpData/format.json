@@ -34,12 +34,12 @@
       {
         "title": "Account with a Password",
         "image": null,
-        "text": "If the user created a password for their account you will be taken to a new page. On this page there will be a field with the username of the user and an empty \"Password\"-field. You must input the correct password for the user in the \"Password\"-field before you can login to the account. This is done by pressing the \"Login\"-button located at the bottom-center of the box. After this is done you will be taken to the \"Dashboard\"-page for this account."
+        "text": "If the user created a password for their account you will be taken to a new page. On this page there will be a field with the username of the user and an empty \"Password\"(1)-field. You must input the correct password for the user in the \"Password\"(1)-field before you can login to the account. This is done by pressing the \"Login\"(3)-button located at the bottom-center of the box. After this is done you will be taken to the \"Dashboard\"-page for this account."
       },
       {
         "title": null,
         "image": "src/main/resources/images/loginPageHelp.png",
-        "text": "The \"Login with password\"-page also has a \"Remember me\"-checkbox. When checked and you have logged in to the account, the program will automatically log you in to this account the next time you start the program. There is also an arrow pointing to the left at the top left corner of the box. This arrow, when clicked, will take you back to the \"Users overview\"-page. For information about the button on the bottom-center of the page, see \"Register\" help-page."
+        "text": "The \"Login with password\"-page also has a \"Remember me\"(2)-checkbox. When checked and you have logged in to the account, the program will automatically log you in to this account the next time you start the program. There is also an arrow pointing to the left at the top left corner of the box. This arrow, when clicked, will take you back to the \"Users overview\"-page. For information about the button on the bottom-center of the page, see \"Register\" help-page."
       },
       {
         "title": "Account without a Password",
