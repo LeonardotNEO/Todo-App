@@ -450,6 +450,43 @@
     ]
   },
   {
+    "section": "Project",
+    "title": "Project",
+    "description": "This page gives information about how to create, edit and delete a project, as well as the contents of the project",
+    "fields": [
+      {
+        "title": "New project",
+        "image": null,
+        "text": "Create a new project by clicking the \"+ New project\"-button. This button is located below the \"Projects\" folder in the sidebar in the \"Dashboard\" page."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "When clicked it will open the \"Create project\" page. On this page there is one \"Project title\" field above the center of the page. The field has to be filled for a new project to be made. This field represents the name of the project. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create project\"-button and the \"Cancel\"-button. When the \"+ Create project\"-button is pressed the project will be created with the name from the title field. When the \"Cancel\"-button is pressed you will be sent back to the page you were previously at and the new project will not be created."
+      },
+      {
+        "title": "Project page and content",
+        "image": null,
+        "text": "This page is accessed by clicking on the project name located in the sidebar in the \"Dashboard\" page. This will take you to the specific page for this project."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "The project page is mostly empty, with the exception of two new additions. The two new buttons in the top left corner of the project-navigation bar and the \"+ Category\"-button which has now appeared to the right of the project name in the sidebar."
+      },
+      {
+        "title": "Adding categories",
+        "image": null,
+        "text": "The \"+ Category\"-button allows you to make a new category in this project. A project can hold multiple different categories within itself. These categories will be shown below the project as long as you have that project chosen."
+      },
+      {
+        "title": null,
+        "image": null,
+        "text": "The two buttons at the top of the project bar will stay there even if you go into a category within that project. This is because you are still considered to be within this project. The two buttons are \"Edit\" and \"Delete\". Similarly to how they work in a category the \"Project Edit\" and \"Project Delete\" buttons allows you to edit the project name and delete the project."
+      }
+    ]
+  },
+  {
     "section": "Template",
     "title": "Template",
     "description": "This page gives information about how to create, add and delete a category",
