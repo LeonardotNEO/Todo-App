@@ -1,5 +1,6 @@
 package ntnu.idatt1002.dao;
 
+import ntnu.idatt1002.Notification;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.User;
 
@@ -40,8 +41,8 @@ public final class Storage {
     }
 
     /**
-     * Call this method when the current user is edited. This method rename the {@code username} variables
-     * of all the users tasks, rename the {@link User} objects username and its folder.
+     * Call this method when the current user is edited. This method renames the {@code username} variables
+     * of all the users tasks and notifications, and rename the {@link User} objects username and its folder.
      * @param newUser the new user object.
      */
     public static void editUser(User oldUser, User newUser){
@@ -51,6 +52,7 @@ public final class Storage {
             currentUser = newUser.getUsername();
             userStorage.editName(oldUser, newUser);
             CommonDAO.edit(currentUser);
+            NotificationDAO.edit(currentUser);
         }
     }
 
@@ -70,6 +72,7 @@ public final class Storage {
     public static void read(String username){
         currentUser = username;
         CommonDAO.setTasks(taskStorage.list(username));
+        NotificationDAO.setNotifs(notifStorage.list(username));
     }
 
     /**
@@ -143,6 +146,17 @@ public final class Storage {
          * @return a HashMap.
          */
         static HashMap<String, HashMap<String, ArrayList<Task>>> list(String username){
+            return null;
+        }
+    }
+
+    private static final class notifStorage{
+        /**
+         * Get an ArrayList with notifications for a {@link User}.
+         * @param username the users username.
+         * @return an ArrayList.
+         */
+        static ArrayList<Notification> list(String username){
             return null;
         }
     }
