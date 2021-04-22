@@ -210,7 +210,7 @@
             </VBox>
             <HBox fx:id="taskHBox" alignment="CENTER_RIGHT" layoutX="758.0" maxWidth="-Infinity" prefHeight="75.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-font-size: 15; -fx-background-radius: 10;" text="Sort" textFill="WHITE">
+                  <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-font-size: 15; -fx-background-radius: 10;" styleClass="background-color_1" text="Sort" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -220,10 +220,6 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <styleClass>
-                        <String fx:value="background-color_1" />
-                        <String fx:value="text-color" />
-                     </styleClass>
                   </MenuButton>
                   <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="120.0" promptText="Search..." style="-fx-font-size: 15; -fx-background-radius: 10; -fx-font-style: none;">
                      <HBox.margin>
