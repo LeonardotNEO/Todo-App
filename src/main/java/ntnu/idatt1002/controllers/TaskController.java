@@ -29,6 +29,7 @@ public class TaskController {
 
     private boolean fullDisplayed;
     private long taskId;
+    private Task task;
     @FXML private Text taskName;
     @FXML private Label taskDescription;
     @FXML private Text project;
@@ -89,6 +90,7 @@ public class TaskController {
      * @param task
      */
     public void display(Task task){
+        this.task = task;
         taskDescription.setText(task.getDescription());
         taskName.setText(task.getName());
         category.setText("Category: " + task.getCategory());
@@ -437,7 +439,7 @@ public class TaskController {
      * Three outcomes: Finished tasks, Trash bin and default(all other categories).
      */
     public void setButtons() {
-        switch (TaskService.getTaskByCurrentUser(taskId).getCategory()){
+        switch (task.getCategory()){
             case "Finished tasks": //Shows only one button when in pre made category Finished tasks
                 buttonFinishTask.setVisible(false);
                 buttonFinishTask.setManaged(false);
