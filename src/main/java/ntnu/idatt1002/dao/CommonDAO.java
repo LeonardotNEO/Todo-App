@@ -165,12 +165,12 @@ public final class CommonDAO {
 
     /**
      * Change the owner of all tasks
-     * @param username the new username.
+     * @param newUsername the new username.
      */
-    static void edit(String username){
+    static void edit(String newUsername){
         ArrayList<Task> allTasks = listTasks();
         for(Task task : allTasks){
-            task.setUserName(username);
+            task.setUserName(newUsername);
         }
     }
 
