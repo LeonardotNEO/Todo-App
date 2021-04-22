@@ -1,5 +1,6 @@
 package ntnu.idatt1002.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -27,6 +28,7 @@ public class HelpPageController {
 
     private final String DEFAULT_HOVER = "orange";
     private final String DEFAULT_IDLE = "#00254d";
+    private final double SCROLL_SPEED = 3;
     public void initialize() {
         fillMenuPage();
     }
@@ -100,15 +102,9 @@ public class HelpPageController {
         infoScrollBar.setHvalue(0);
         infoScrollBar.setVvalue(0);
 
-        // Changing the scrollbar scroll speed
-        infoScrollBar.getContent().setOnScroll(scrollEvent -> {
-            double deltaY = scrollEvent.getDeltaY() * 0.0006;
-            infoScrollBar.setVvalue(infoScrollBar.getVvalue() - deltaY);
-        });
-
         // Clearing children
         vboxForInfoText.getChildren().clear();
-
+        System.out.println( "After clear " + vboxForInfoText.getHeight());
         // Getting information
         HelpSection helpSection = HelpService.getSection(section);
 
@@ -148,9 +144,21 @@ public class HelpPageController {
             } else {
                 infoFieldController.hideImage();
             }
-
+            System.out.println(infoField.heightProperty());
             // Adding it to the vbox
             vboxForInfoText.getChildren().add(vboxForInfoText.getChildren().size(), infoField);
+            //System.out.println("I finished");
         }
+
+        // Changing the scrollbar scroll speed
+        Platform.runLater(() -> {
+            double height = vboxForInfoText.getHeight();
+            System.out.println(height);
+            infoScrollBar.getContent().setOnScroll(scrollEvent -> {
+                double deltaY = scrollEvent.getDeltaY() * SCROLL_SPEED/height;//(SCROLL_SPEED/718.4)/height  ;//*(718.4/height);// ((SCROLL_SPEED*718.4)/height);
+                System.out.println("Delta Y: " + scrollEvent.getDeltaY());
+                infoScrollBar.setVvalue(infoScrollBar.getVvalue() - deltaY);
+            });
+        });
     }
 }
