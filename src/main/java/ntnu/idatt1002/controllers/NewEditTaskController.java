@@ -30,6 +30,7 @@ import ntnu.idatt1002.utils.TimeConverter;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -278,9 +279,6 @@ public class NewEditTaskController {
      * @throws IOException
      */
     public void addEditTask(Task oldTask) throws IOException {
-        // result
-        boolean result = false;
-
         // If no input in timePicker set it to current time
         if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
 
@@ -300,10 +298,8 @@ public class NewEditTaskController {
             // get all the input tags and put them in a list
             ArrayList<String> tagsList = new ArrayList<>();
             tags.getChips().forEach(tag -> {
-                System.out.println(tag.toString());
                 tagsList.add(tag.toString());
             });
-            //oldTask.setTags(tagsList);
 
             // set the category and project of task
             String projectString;
@@ -321,7 +317,7 @@ public class NewEditTaskController {
                     .description(descriptionTextArea.getText())
                     .deadline(deadlineTime)
                     .priority(TaskService.convertPriorityStringToInt(priorityMenu.getText()))
-                    .startDate(DateUtils.getAsMs(LocalDate.now()))
+                    .startDate(DateUtils.getAsMs(LocalDateTime.now()))
                     .category(categoryString)
                     .project(projectString)
                     .color(ColorUtil.getCorrectColorFormat(color.getValue().toString()))

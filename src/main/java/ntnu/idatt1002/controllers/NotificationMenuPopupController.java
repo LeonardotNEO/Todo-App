@@ -1,8 +1,6 @@
 package ntnu.idatt1002.controllers;
 
 import javafx.event.ActionEvent;
-import ntnu.idatt1002.App;
-import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
