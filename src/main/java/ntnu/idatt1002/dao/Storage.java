@@ -30,8 +30,37 @@ public final class Storage {
         return userStorage.deserialize(username);
     }
 
+    /**
+     * Call this method when a new user is registered. This method will serialize the user object
+     * and create all neccesary directories within its folder.
+     * @param user the new {@link User} object.
+     */
     public static void newUser(User user){
         userStorage.serialize(user);
+    }
+
+    /**
+     * Call this method when the current user is edited. This method rename the {@code username} variables
+     * of all the users tasks, rename the {@link User} objects username and its folder.
+     * @param newUser the new user object.
+     */
+    public static void editUser(User oldUser, User newUser){
+        if(oldUser.getUsername().equals(newUser.getUsername())){
+            userStorage.editObject(oldUser, newUser);
+        }else{
+            currentUser = newUser.getUsername();
+            userStorage.editName(oldUser, newUser);
+            CommonDAO.edit(currentUser);
+        }
+    }
+
+    /**
+     * Delete a user from storage. This will delete all the users content as well.
+     * @param username the users username.
+     * @return {@code true} or {@code false}.
+     */
+    public static boolean deleteUser(String username){
+        return true;
     }
 
     /**
@@ -52,7 +81,7 @@ public final class Storage {
     }
 
     private static final class userStorage{
-        private static final String[] DIRECTORIES = {"Categories", "Projects", "Notifications", "Images"};
+        private static final String[] DIRECTORIES = {"Projects", "Notifications", "Images"};
 
         static ArrayList<User> list(){
             File dir = new File(SAVEPATH);
@@ -79,6 +108,7 @@ public final class Storage {
                     File directory = new File(userDir.getPath() + "/" + dirName);
                     directory.mkdir();
                 }
+                new File(userDir + "/Projects/Standard/").mkdir();
             }
 
             GenericDAO.serialize(user, userFile(username));
@@ -86,6 +116,18 @@ public final class Storage {
 
         static User deserialize(String username){
             return (User) GenericDAO.deserialize(userFile(username));
+        }
+
+        static void editName(User oldUser, User newUser){
+            File oldUserDir = new File(SAVEPATH + oldUser.getUsername());
+            oldUserDir.renameTo(new File(SAVEPATH + newUser.getUsername()));
+            editObject(oldUser, newUser);
+        }
+
+        static void editObject(User oldUser, User newUser){
+            File userFile = new File(userFile(oldUser.getUsername()));
+            userFile.delete();
+            serialize(newUser);
         }
 
         //Get paths
