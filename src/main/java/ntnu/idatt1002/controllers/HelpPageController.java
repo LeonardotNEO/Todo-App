@@ -158,6 +158,7 @@ public class HelpPageController {
                 InputStream stream = new FileInputStream(field.getImage());
                 Image image = new Image(stream);
                 infoFieldController.setImageView(image);
+                infoFieldController.setImageAltText(field.getAltText());
             } else {
                 infoFieldController.hideImage();
             }
