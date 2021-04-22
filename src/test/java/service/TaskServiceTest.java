@@ -2,7 +2,7 @@ package service;
 
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.Storage;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserService;
@@ -23,7 +23,7 @@ public class TaskServiceTest {
     @BeforeAll
     public static void test_data() {
         User user = new User("Test User");
-        UserDAO.serialize(user);
+        Storage.newUser(user);
         UserStateService.setCurrentUserUsername("Test User");
         assertDoesNotThrow(() -> {
             CategoryService.addCategoryToCurrentUser("home");

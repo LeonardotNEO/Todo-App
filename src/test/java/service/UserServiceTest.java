@@ -1,7 +1,7 @@
 package service;
 
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.Storage;
 import ntnu.idatt1002.service.UserService;
 import ntnu.idatt1002.service.UserStateService;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ public class UserServiceTest {
     public static void delete_user_that_is_already_logged_in() {
         // Create a new user, save and serialize it
         User user = new User("Test");
-        UserDAO.serialize(user);
+        Storage.newUser(user);
         UserStateService.setCurrentUserUsername(user.getUsername());
 
         // Delete the new user created
