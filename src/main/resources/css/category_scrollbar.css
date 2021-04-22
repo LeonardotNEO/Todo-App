@@ -1,6 +1,15 @@
+.root {
+    -fx-color-1: #001021;
+    -fx-color-2: #001933;
+    -fx-color-3: #00254d;
+    -fx-text-hover-color: orange;
+    -fx-color-5: #e6e6e6;
+    -fx-color-text-color: white;
+}
+
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
-    -fx-background-color :#001933;
+    -fx-background-color :-fx-color-1;
     -fx-border-color :transparent;
     -fx-background-radius : 0.0em;
     -fx-border-radius :2.0em;
@@ -37,14 +46,14 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color : #004fa4;
+    -fx-background-color : -fx-color-2;
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }
 
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color : #046ccf;
+    -fx-background-color : -fx-color-3;
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }
