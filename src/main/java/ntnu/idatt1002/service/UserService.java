@@ -3,10 +3,7 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.Notification;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.User;
-import ntnu.idatt1002.dao.CategoryDAO;
-import ntnu.idatt1002.dao.NotificationDAO;
-import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.dao.UserDAO;
+import ntnu.idatt1002.dao.*;
 
 import java.util.ArrayList;
 
@@ -44,16 +41,27 @@ public class UserService {
                 CategoryDAO.add(newUser.getUsername(), category);
             }
 
-            // transfer tasks
-            ArrayList<Task> tasks = TaskDAO.list(oldUser.getUsername());
-            tasks.forEach(task -> task.setUserName(newUser.getUsername()));
-            TaskDAO.serialize(tasks);
-
             // transfer notifications
             ArrayList<Notification> notifications = NotificationDAO.list(oldUser.getUsername());
             notifications.forEach(notif -> notif.setUsername(newUser.getUsername()));
             NotificationDAO.serialize(notifications);
 
+            // transfer projects
+            String[] projects = ProjectService.getProjectsCurrentUser();
+            for(String project : projects){
+                ProjectDAO.add(newUser.getUsername(), project);
+
+                // transfer categories of project
+                String[] projectCategories = CategoryDAO.list(oldUser.getUsername(), project);
+                for(String projectCategory : projectCategories){
+                    CategoryDAO.add(newUser.getUsername(), project, projectCategory);
+                }
+            }
+
+            // transfer tasks
+            ArrayList<Task> tasks = TaskDAO.list(oldUser.getUsername());
+            tasks.forEach(task -> task.setUserName(newUser.getUsername()));
+            TaskDAO.serialize(tasks);
 
             // delete old user
             if(!UserStateService.getCurrentUserUsername().equals(newUser.getUsername())){

@@ -18,7 +18,7 @@
          <left>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="WHITE" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 55;" text="ToDo" textAlignment="CENTER" wrappingWidth="237.9830722808838">
+                  <Text fill="WHITE" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto; -fx-font-size: 55;" styleClass="text-color" text="ToDo" textAlignment="CENTER" wrappingWidth="237.9830722808838">
                      <font>
                         <Font size="30.0" />
                      </font>
