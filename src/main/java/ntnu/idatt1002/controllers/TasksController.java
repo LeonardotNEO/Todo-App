@@ -54,7 +54,7 @@ public class TasksController {
         AnchorPane task = loader.load();
         TaskController taskController = loader.getController();
 
-        // add id to task anchorpane. A task is identified in TaskDAO as the taskobject's hashcode
+        // add id to task anchorpane
         task.setId(Long.toString(taskObject.getId()));
 
         // use controller to display task
@@ -125,7 +125,16 @@ public class TasksController {
      * If currently selected category is set to null, we show guide to add new category.
      */
     public void tasksIsEmpty(){
-        if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() != null) {
+        // set project and category
+        String project = UserStateService.getCurrentUser().getCurrentlySelectedProject();
+        String category;
+        if(project == null){
+            category = UserStateService.getCurrentUser().getCurrentlySelectedCategory();
+        } else {
+            category = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
+        }
+
+        if(project == null && category != null) {
             switch (UserStateService.getCurrentUser().getCurrentlySelectedCategory()){
                 case "Trash bin":
                     showMessage("There are no tasks in trash bin!");
@@ -137,9 +146,13 @@ public class TasksController {
                     showMessage("You have no tasks!");
                     break;
                 default:
-                    showMessage(null);
+                    showMessage("There are no tasks in \"" + category + "\" yet, create a new task!");
                     break;
             }
+        } else if(project != null && category == null){
+            showMessage("Select a category under project \"" + project + "\", or create a new one In the bar to the left!");
+        } else if(project != null && category != null){
+            showMessage("There are no tasks in project \"" + project + "\" and category \"" + category + "\" yet, create a new task!");
         } else {
             showMessage(null);
         }
