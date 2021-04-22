@@ -267,7 +267,7 @@ public class TaskController {
             ConfirmationRepeatDelController.display(this, "delete");
 
         } else if (TaskService.getTaskByCurrentUser(taskId).getCategory().equalsIgnoreCase("Trash bin") &&
-                UserStateService.getCurrentUser().isDeleteDeletedTaskDontShowAgainCheckbox()){
+                UserStateService.getCurrentUser().isPermanentDeleteDontShowAgainCheckbox()){
             deleteTask(event);
         } else if(TaskService.getTaskByCurrentUser(taskId).getCategory().equalsIgnoreCase("Trash bin")){
             ConfirmationController.display(this,"deleteDeletedTask");

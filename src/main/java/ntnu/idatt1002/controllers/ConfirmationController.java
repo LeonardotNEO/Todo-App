@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import ntnu.idatt1002.App;
-import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
@@ -100,7 +99,7 @@ public class ConfirmationController {
             } else if (operation.equalsIgnoreCase("finish")) {
                 UserStateService.getCurrentUser().setFinishTaskDontShowAgainCheckbox(true);
             } else if(operation.equalsIgnoreCase("deleteDeletedTask")){
-                UserStateService.getCurrentUser().setDeleteDeletedTaskDontShowAgainCheckbox(true);
+                UserStateService.getCurrentUser().setPermanentDeleteDontShowAgainCheckbox(true);
             }
         }
         if (operation.equalsIgnoreCase("delete")) {
@@ -125,7 +124,7 @@ public class ConfirmationController {
             } else if (operation.equalsIgnoreCase("finish")) {
                 UserStateService.getCurrentUser().setFinishTaskDontShowAgainCheckbox(true);
             } else if (operation.equalsIgnoreCase("deleteDeletedTask")){
-                UserStateService.getCurrentUser().setDeleteDeletedTaskDontShowAgainCheckbox(true);
+                UserStateService.getCurrentUser().setPermanentDeleteDontShowAgainCheckbox(true);
             }
         }
         popup.hide();
