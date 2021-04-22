@@ -18,7 +18,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="buttonAddTask" mnemonicParsing="false" style="-fx-background-radius: 10;" styleClass="background-color_1" text="Task" textFill="WHITE">
+            <Button fx:id="buttonAddTask" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-font-size: 12;" styleClass="button1" text="Task" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="#04ff00" glyphName="PLUS" />
                </graphic>

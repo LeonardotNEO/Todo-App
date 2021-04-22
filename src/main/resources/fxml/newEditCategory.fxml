@@ -43,12 +43,12 @@
                <children>
                   <JFXButton fx:id="button" maxWidth="1.7976931348623157E308" prefHeight="37.0" styleClass="button1" text="New category">
                      <graphic>
-                        <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" />
+                        <FontAwesomeIconView fill="LIME" glyphName="PLUS" />
                      </graphic>
                   </JFXButton>
                   <JFXButton onAction="#buttonCancelNewCategory" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
                      <graphic>
-                        <FontAwesomeIconView id="icon" fill="WHITE" glyphName="BAN" />
+                        <FontAwesomeIconView fill="RED" glyphName="BAN" />
                      </graphic>
                   </JFXButton>
                </children>
