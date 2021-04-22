@@ -311,8 +311,11 @@ public class TaskService {
      * @return An ArrayList of all the tasks that contains the DesiredName in the title or tag.
      */
     public static ArrayList<Task> containsDesiredNameInTitle(String DesiredName){
-        ArrayList<Task> userTasks = getTasksByCurrentUser();
 
+        ArrayList<String> unWantedCategories = new ArrayList<>();
+        unWantedCategories.add("Finished tasks");
+        unWantedCategories.add("Trash bin");
+        ArrayList<Task> userTasks = getTasksExcludingCategories(getTasksByCurrentUser(),unWantedCategories);
         //Get task name matches
         ArrayList<Task> nameMatch = userTasks.stream()
                 .filter(t-> t.getName().toLowerCase().contains(DesiredName.toLowerCase()))
