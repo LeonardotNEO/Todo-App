@@ -367,7 +367,7 @@
       {
         "title": null,
         "image": "src/main/resources/images/navbarButtons.png",
-        "altText": null,
+        "altText": "Image showing a red square encircling the buttons in the navigation bar located at the top of the application.",
         "text": "By clicking on one of the buttons you will be sent to the corresponding page. For example if you click on the \"Account\"-button you will be sent to the \"Account\" page. For the \"Log out\"-button you will be logged out."
       },
       {
@@ -379,7 +379,7 @@
       {
         "title": null,
         "image": "src/main/resources/images/navbarNotificationHistory.png",
-        "altText": null,
+        "altText": "Image showing the notification bell popup. On this image there are two red dots containing a number. Number 1 represents the notification history button located at the top of the popup. Number 2 represents the v-shaped button located in the top right corner of a notification.",
         "text": "If you click on the bell a new popup will appear. This popup contains all your notifications and a button at the top which reads \"Notification History\"(1). To remove a notification press the V-shaped(2) button in the top right corner of the notification you wish to remove. If you press the \"Notification History\"(1)-button you will be sent to the \"Notification History\" page."
       }
     ]
@@ -392,7 +392,7 @@
       {
         "title": "How to access",
         "image": "src/main/resources/images/navbarNotificationButton.png",
-        "altText": null,
+        "altText": "Image showing a red square encircling the notification bell button, located in the right corner of the navigation bar at the top of the application.",
         "text": "This page is accessed by pressing the \"Notification History\"-button. This button is located at the top of the popup from the \"Notification bell\"-button."
       },
       {
@@ -411,7 +411,7 @@
       {
         "title": "Create a new category",
         "image": "src/main/resources/images/categoryNewCategoryButton.png",
-        "altText": null,
+        "altText": "Arrow pointing at the new category button located below the premade categories in the dashboard sidebar.",
         "text": "Create a new category by clicking the \"+ New category\"-button. This button is located below the \"Finished tasks\" category in the sidebar in the \"Dashboard\" page."
       },
       {
@@ -423,7 +423,7 @@
       {
         "title": null,
         "image": "src/main/resources/images/categoryCreateNewCategory.png",
-        "altText": null,
+        "altText": "Image showing a numbered red dot representing the category title field located at the top of the create category page. There are also two numbered arrows pointing at the create category and cancel buttons located at the bottom center of the create category page.",
         "text": "When the \"+ Create category\"(2)-button is pressed the category will be created with the name from the title field. When the \"Cancel\"(3)-button is pressed you will be sent back to the category you were previously in and the new category will not be created."
       },
       {
@@ -441,7 +441,7 @@
       {
         "title": "Category-navigation bar",
         "image": "src/main/resources/images/categoryMenuBar.png",
-        "altText": null,
+        "altText": "Image showing five red numbered dots. Each representing an element found in the category navigation bar located at the top of the category page.",
         "text": "The category-navigation bar contains a couple of elements. These are the name of the category(1), the \"Edit\"(2)-button, the \"Delete\"(3)-button, \"Sort\"(4)-menu and \"Search...\"(5)-field."
       },
       {
@@ -502,7 +502,7 @@
       {
         "title": null,
         "image": "src/main/resources/images/dashboardDefaultCategories.png",
-        "altText": null,
+        "altText": "Image showing three red dots containing numbers. The three dots each represents one of the three premade categories found in the dashboard sidebar.",
         "text": "The application has a total of three premade categories. These are: \"All tasks\", \"Trash bin\" and \"Finished tasks\". They are all located in the sidebar in the \"Dashboard\" page."
       },
       {
@@ -533,19 +533,19 @@
       {
         "title": "New project",
         "image": "src/main/resources/images/projectNewProjectButton.png",
-        "altText": null,
+        "altText": "Arrow pointing at the new project button. This button is located under the projects folder in the dashboard sidebar.",
         "text": "Create a new project by clicking the \"+ New project\"-button. This button is located below the \"Projects\" folder in the sidebar in the \"Dashboard\" page."
       },
       {
         "title": null,
         "image": "src/main/resources/images/projectCreateNewProject.png",
-        "altText": null,
+        "altText": "Image showing a numbered red dot representing the project title field located at the top of the create project page. There are also two numbered arrows pointing at the create project and cancel buttons located at the bottom center of the create project page.",
         "text": "When clicked it will open the \"Create project\" page. On this page there is one \"Project title\" field above the center of the page. The field has to be filled for a new project to be made. This field represents the name of the project. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create project\"-button and the \"Cancel\"-button. When the \"+ Create project\"-button is pressed the project will be created with the name from the title field. When the \"Cancel\"-button is pressed you will be sent back to the page you were previously at and the new project will not be created."
       },
       {
         "title": "Project page and content",
         "image": "src/main/resources/images/projectProjectButton.png",
-        "altText": null,
+        "altText": "Image showing a red square encircling a project in the project folder located in the dashboard sidebar.",
         "text": "This page is accessed by clicking on the project name located in the sidebar in the \"Dashboard\" page. This will take you to the specific page for this project."
       },
       {
@@ -557,13 +557,13 @@
       {
         "title": "Adding categories",
         "image": "src/main/resources/images/projectNewCategoryButton.png",
-        "altText": null,
+        "altText": "Image showing a red square encircling the category button, located to the left of a project name in the dashboard sidebar.",
         "text": "The \"+ Category\"-button allows you to make a new category in this project. A project can hold multiple different categories within itself. These categories will be shown below the project as long as you have that project chosen."
       },
       {
         "title": null,
         "image": "src/main/resources/images/projectEditProjectEditCategoryButtons.png",
-        "altText": null,
+        "altText": "Image showing a red square encircling the left corner of the project navigation bar. In this square there are the buttons edit and delete for both the current category and project.",
         "text": "The two buttons at the top of the project bar will stay there even if you go into a category within that project. This is because you are still considered to be within this project. The two buttons are \"Edit\" and \"Delete\". Similarly to how they work in a category the \"Project Edit\" and \"Project Delete\" buttons allows you to edit the project name and delete the project."
       }
     ]
