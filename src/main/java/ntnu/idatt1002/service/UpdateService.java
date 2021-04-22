@@ -13,35 +13,42 @@ import java.util.TimerTask;
  */
 public class UpdateService {
     private static ArrayList<Notification> previousNotifications = new ArrayList<>();
+    private static Timer timer = new Timer();
 
+    /**
+     * Method for starting the update function in the background when app is running
+     */
     public static void start(){
-        Timer timer = new Timer();
-
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                javafx.application.Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        // only run when there actually is an user is userstate
-                        if(UserStateService.checkIfUserState()){
-
-                            // NOTIFICATIONS
-                            // If the current list of unchecked notifications changes, we update navbar UI
-                            if(!(previousNotifications.equals(NotificationService.getActiveAndNotCheckedNotifications()))){
-                                previousNotifications = NotificationService.getActiveAndNotCheckedNotifications();
-                                try {
-                                    MainController.getInstance().setNavbar("navbar");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                javafx.application.Platform.runLater(() -> {
+                    // only run when there actually is an user is userstate
+                    if(UserStateService.checkIfUserState()){
+                        // NOTIFICATIONS
+                        // If the current list of unchecked notifications changes, we update navbar UI
+                        if(!(previousNotifications.equals(NotificationService.getActiveAndNotCheckedNotifications()))){
+                            previousNotifications = NotificationService.getActiveAndNotCheckedNotifications();
+                            try {
+                                MainController.getInstance().setNavbar("navbar");
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                            // check if new notifications have become active
-                            NotificationService.checkIfNotificationHasBecomeActive(NotificationService.getNotificationsByUser());
                         }
+
+                        // check if new notifications have become active
+                        NotificationService.checkIfNotificationHasBecomeActive(NotificationService.getNotificationsByCurrentUser());
                     }
                 });
             }
         }, 0, 1000);
     }
+
+    /**
+     * Method for stopping the update function running in the background
+     */
+    public static void stop(){
+        timer.cancel();
+    }
+
 }

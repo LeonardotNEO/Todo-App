@@ -22,9 +22,7 @@ public class AttachedFilePopupController {
     public void buttonOpenFile() {
         try {
             File open = new File(filePath);
-            if (!Desktop.isDesktopSupported()) {
-
-            }
+            Desktop.isDesktopSupported();
             Desktop desktop = Desktop.getDesktop();
             if(open.exists()) {
                 desktop.open(open);

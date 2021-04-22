@@ -29,6 +29,7 @@ public class TaskController {
 
     private boolean fullDisplayed;
     private long taskId;
+    private Task task;
     @FXML private Text taskName;
     @FXML private Label taskDescription;
     @FXML private Text project;
@@ -89,6 +90,7 @@ public class TaskController {
      * @param task
      */
     public void display(Task task){
+        this.task = task;
         taskDescription.setText(task.getDescription());
         taskName.setText(task.getName());
         category.setText("Category: " + task.getCategory());
@@ -142,8 +144,7 @@ public class TaskController {
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
-        taskRepeat.setText("Task repeat: ");
-
+        taskRepeat.setText("Task repeat: " + TaskService.convertTimeRepeatToString(task));
         setButtons();
     }
 
@@ -221,16 +222,21 @@ public class TaskController {
     }
 
     /**
+     * Checks if task is repeatable. Displays confirmation popup for repeatable task if true. Else:
      * Checks for confirmation popup settings. Calls this.finishTask() if true.
      * Displays confirmation popup if false.
      * @param event
      * @throws IOException
      */
     public void clickFinishTask(ActionEvent event) throws IOException {
-        if (UserStateService.getCurrentUser().isFinishTaskDontShowAgainCheckbox()) {
-            this.finishTask(event);
+        if (TaskService.getTaskByCurrentUser(taskId).isRepeatable()) {
+            ConfirmationRepeatDelController.display(this, "finish");
         } else {
-            ConfirmationController.display(this, "finish");
+            if (UserStateService.getCurrentUser().isFinishTaskDontShowAgainCheckbox()) {
+                this.finishTask(event);
+            } else {
+                ConfirmationController.display(this, "finish");
+            }
         }
     }
 
@@ -245,22 +251,27 @@ public class TaskController {
             TaskService.nextRepeatableTask(taskId);
         }
         // update category of task to 'Finished tasks'
-        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks");
+        TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks", null);
         // update dashboard
         DashboardController.getInstance().initialize();
     }
 
     /**
+     * Checks if task is repeatable. Displays confirmation popup for repeatable task if true. Else:
      * Checks for confirmation popup settings. Calls this.deleteTask() if true.
      * Displays confirmation popup if false.
      * @param event
      * @throws IOException
      */
     public void clickDeleteButton(ActionEvent event) throws IOException {
-        if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
-            deleteTask(event);
-        } else {
-            ConfirmationController.display(this, "delete");
+        if (TaskService.getTaskByCurrentUser(taskId).isRepeatable()) {
+            ConfirmationRepeatDelController.display(this, "delete");
+        } else  {
+            if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
+                deleteTask(event);
+            } else {
+                ConfirmationController.display(this, "delete");
+            }
         }
     }
 
@@ -275,7 +286,7 @@ public class TaskController {
             TaskService.nextRepeatableTask(taskId);
         }
         // update category of task to 'Trash bin'
-        TaskService.editCategoryOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin");
+        TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin", null);
         // update dashboard
         DashboardController.getInstance().initialize();
     }
@@ -303,6 +314,14 @@ public class TaskController {
     }
 
     /**
+     * Used to set the tasks repeatable value.
+     * @param value     boolean new value of isRepeatable for this taskId.
+     */
+    public void setTaskIsRepeatable(boolean value) {
+        TaskService.setRepeatable(TaskService.getTaskByCurrentUser(taskId), value);
+    }
+
+    /**
      * Updates center-content of dashboard to editTask.fxml and adds prompt attributes from task selected
      * @param event
      * @throws IOException
@@ -316,7 +335,7 @@ public class TaskController {
      * @param priority The priority of task
      */
     public void setTaskPriority(int priority) {
-        taskPriority.setText("Priority: " + priority);
+        taskPriority.setText("Priority: " + TaskService.convertPriorityIntToString(priority));
 
         switch(priority){
             case 0:
@@ -420,7 +439,7 @@ public class TaskController {
      * Three outcomes: Finished tasks, Trash bin and default(all other categories).
      */
     public void setButtons() {
-        switch (TaskService.getTaskByCurrentUser(taskId).getCategory()){
+        switch (task.getCategory()){
             case "Finished tasks": //Shows only one button when in pre made category Finished tasks
                 buttonFinishTask.setVisible(false);
                 buttonFinishTask.setManaged(false);

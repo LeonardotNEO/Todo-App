@@ -20,13 +20,13 @@ public class User implements Serializable {
     private long dateCreated;
 
     // settings
-    String currentlySelectedCategory = "";
-    String currentlySelectedProject = "";
-    String currentlySelectedProjectCategory = "";
-    String currentlySelectedSort = "";
+    String currentlySelectedCategory = null;
+    String currentlySelectedProject = null;
+    String currentlySelectedProjectCategory = null;
+    String currentlySelectedSort = null;
     String currentlySelectedBackground = "-fx-background-color: #e6e6e6";
     boolean rememberMe = false;
-    String theme = "";
+    String theme = null;
     boolean deleteTaskDontShowAgainCheckbox;
     boolean finishTaskDontShowAgainCheckbox;
 
@@ -139,8 +139,8 @@ public class User implements Serializable {
     public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedCategory = currentlySelectedCategory;
-        this.currentlySelectedProjectCategory = "";
-        this.currentlySelectedProject = "";
+        this.currentlySelectedProjectCategory = null;
+        this.currentlySelectedProject = null;
 
         UserService.editUser(userBeforeChanges, this);
     }
@@ -152,7 +152,7 @@ public class User implements Serializable {
     public void setCurrentlySelectedProject(String currentlySelectedProject) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedProject = currentlySelectedProject;
-        this.currentlySelectedCategory = "";
+        this.currentlySelectedCategory = null;
 
         UserService.editUser(userBeforeChanges, this);
     }
@@ -164,7 +164,7 @@ public class User implements Serializable {
     public void setCurrentlySelectedProjectCategory(String currentlySelectedProjectCategory) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedProjectCategory = currentlySelectedProjectCategory;
-        this.currentlySelectedCategory = "";
+        this.currentlySelectedCategory = null;
 
         UserService.editUser(userBeforeChanges, this);
     }

@@ -2,7 +2,6 @@ package ntnu.idatt1002.controllers;
 
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -21,7 +20,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
-import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
@@ -69,6 +67,8 @@ public class NewEditTaskController {
     private File selectedFiles;
     private ArrayList<String> listOfFiles = new ArrayList<>();
     private Task taskWithFiles;
+    private boolean isNewTask;
+    private Task currentTask;
 
 
     /**
@@ -98,6 +98,9 @@ public class NewEditTaskController {
 
         // set header
         this.header.setText("New task");
+
+        // set boolean to show which page we are on
+        isNewTask = true;
     }
 
     /**
@@ -106,6 +109,9 @@ public class NewEditTaskController {
      * @param task the task that's going to be edited.
      */
     public void initializeEditTask(Task task){
+        // set current task
+        currentTask = task;
+
         // when editing, we want to show advanced template
         buttonAdvancedTemplate();
 
@@ -121,18 +127,18 @@ public class NewEditTaskController {
         setTaskWithFiles(task);
 
         // set datepicker prompt and DateConverter
-        LocalDate date = task.getDeadline() == 0l ? null : LocalDate.parse(DateUtils.getFormattedDate(task.getDeadline()), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate date = task.getDeadline() == 0L ? null : LocalDate.parse(DateUtils.getFormattedDate(task.getDeadline()), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         this.datePicker.setValue(date);
         this.datePicker.setConverter(new DateConverter());
 
         // set timePicker
-        LocalTime time = task.getDeadline() == 0l ? null : LocalTime.parse(DateUtils.getFormattedTime(task.getDeadline()), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime time = task.getDeadline() == 0L ? null : LocalTime.parse(DateUtils.getFormattedTime(task.getDeadline()), DateTimeFormatter.ofPattern("HH:mm"));
         this.timePicker.setValue(time);
         this.timePicker.setConverter(new TimeConverter());
         this.timePicker.set24HourView(true);
 
         // set priority prompt
-        this.priorityMenu.setText(Integer.toString(task.getPriority()));
+        this.priorityMenu.setText(TaskService.convertPriorityIntToString(task.getPriority()));
 
         //set repeatTime
         this.repeatMenu.setText(TaskService.convertTimeRepeatToString(task));
@@ -165,6 +171,9 @@ public class NewEditTaskController {
 
         // set header
         header.setText("Edit task");
+
+        // set boolean to show which page we are on
+        isNewTask = false;
     }
 
     /**
@@ -177,7 +186,7 @@ public class NewEditTaskController {
         selectedFiles = fileChooser.showOpenDialog(App.getStage());
         if (selectedFiles != null) {
             listOfFiles.add(selectedFiles.getAbsolutePath());
-        } else {}
+        }
         addUpdateAttachedFiles(listOfFiles);
         scrollPane.setContent(vboxForFiles);
     }
@@ -237,11 +246,9 @@ public class NewEditTaskController {
     /**
      * Cancel button loads the tasks page back into center-content of dashboard.
      *
-     * @param event
-     *
      * @throws IOException
      */
-    public void buttonCancelTask(ActionEvent event) throws IOException {
+    public void buttonCancelTask() throws IOException {
         DashboardController.getInstance().initialize();
     }
 
@@ -278,14 +285,14 @@ public class NewEditTaskController {
         if(timePicker.getValue() == null) timePicker.setValue(LocalTime.now());
 
         // convert the data from datePicker and timePicker into ms. Set to 0l if datePicker returns null
-        long deadlineTime = datePicker.getValue() == null ? 0l : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
+        long deadlineTime = datePicker.getValue() == null ? 0L : DateUtils.getAsMs(datePicker.getValue().atTime(timePicker.getValue().getHour() , timePicker.getValue().getMinute()));
 
         // check if there is any errorcodes
         ArrayList<Integer> errorCodes = TaskService.validateTaskInput(titleTextField.getText(), descriptionTextArea.getText(), priorityMenu.getText(), deadlineTime, TaskService.convertTimeRepeatToLong(repeatMenu.getText()));
 
         // handling if priority is set to empty
         if(errorCodes.contains(3)){
-            priorityMenu.setText("0");
+            priorityMenu.setText("None");
             errorCodes.remove(Integer.valueOf(3));
         }
 
@@ -299,9 +306,9 @@ public class NewEditTaskController {
             //oldTask.setTags(tagsList);
 
             // set the category and project of task
-            String projectString = "";
-            String categoryString = "";
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory().isEmpty()){
+            String projectString;
+            String categoryString;
+            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() == null){
                 categoryString = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
                 projectString = UserStateService.getCurrentUser().getCurrentlySelectedProject();
             } else {
@@ -313,7 +320,7 @@ public class NewEditTaskController {
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
                     .description(descriptionTextArea.getText())
                     .deadline(deadlineTime)
-                    .priority(Integer.parseInt(priorityMenu.getText()))
+                    .priority(TaskService.convertPriorityStringToInt(priorityMenu.getText()))
                     .startDate(DateUtils.getAsMs(LocalDate.now()))
                     .category(categoryString)
                     .project(projectString)
@@ -344,17 +351,13 @@ public class NewEditTaskController {
                 if(!oldTask.getCategory().equals(newTask.getCategory())){
                     TaskService.deleteTask(oldTask);
                 }
-                result = true;
             } else {
                 TaskService.newTask(newTask);
-                result = true;
             }
 
             // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
-            if(result){
-                // navigate back to tasks
-                DashboardController.getInstance().initialize();
-            }
+            // navigate back to tasks
+            DashboardController.getInstance().initialize();
         } else {
             errorMessage.setText(TaskService.getErrorMessageString(errorCodes));
         }
@@ -411,6 +414,13 @@ public class NewEditTaskController {
         MenuItem menuItem = (MenuItem) event.getSource();
         priorityMenu.setText(menuItem.getText());
     }
+    /**
+     * When RepeatMenuItem is clicked, we change the RepeatMenuButton to the selection.
+     *
+     * @param event
+     *
+     * @throws IOException
+     */
     public void clickRepeat(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         repeatMenu.setText(menuItem.getText());
@@ -447,7 +457,11 @@ public class NewEditTaskController {
     public void onKeyPressed(KeyEvent event){
         if(event.getCode().equals(KeyCode.ENTER)){
             try {
-                buttonNewTask();
+                if(isNewTask){
+                    buttonNewTask();
+                } else {
+                    buttonEditTask(currentTask);
+                }
             }catch (IOException ioe) {
                 ioe.printStackTrace();
             }

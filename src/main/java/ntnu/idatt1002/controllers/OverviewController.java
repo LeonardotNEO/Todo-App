@@ -205,11 +205,7 @@ public class OverviewController {
      */
     public void displayNode(String nodeId){
         for(Node node : content.getChildren()){
-            if(node.getId().equals(nodeId)){
-                node.setVisible(true);
-            } else {
-                node.setVisible(false);
-            }
+            node.setVisible(node.getId().equals(nodeId));
         }
     }
 

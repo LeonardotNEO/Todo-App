@@ -25,6 +25,8 @@ public class HelpPageController {
     @FXML private VBox vboxForInfoText;
     @FXML private ScrollPane infoScrollBar;
 
+    private final String DEFAULT_HOVER = "orange";
+    private final String DEFAULT_IDLE = "#00254d";
     public void initialize() {
         fillMenuPage();
     }
@@ -33,11 +35,18 @@ public class HelpPageController {
         ArrayList<String> pages = HelpService.getSections();
         ArrayList<Button> buttons = new ArrayList<>();
 
+        // Set default values
+        String color = DEFAULT_IDLE;
+        String hoverColor = DEFAULT_HOVER;
+
         // Create color theme from the users current theme
-        String theme = UserStateService.getCurrentUser().getTheme();
-        String[] colorTheme =  theme.split(";");
-        String color = colorTheme[2].split(":")[1];
-        String hoverColor = colorTheme[3].split(":")[1];
+        if(UserStateService.checkIfUserState()) {
+            String theme = UserStateService.getCurrentUser().getTheme();
+            String[] colorTheme =  theme.split(";");
+            color = colorTheme[2].split(":")[1];
+            hoverColor = colorTheme[3].split(":")[1];
+        }
+
         String idleStyle = "-fx-background-color: " +  color + "; -fx-background-radius: 5; -fx-font-size: 16; -fx-text-fill: white; -fx-background-size: 100% 100%;";
         String hoverStyle = "-fx-background-color: " +  color + ";-fx-text-fill: " +  hoverColor + "; -fx-background-radius: 5; -fx-font-size: 16; -fx-background-size: 100% 100%;";
 
@@ -52,12 +61,9 @@ public class HelpPageController {
             button.setMaxWidth(1.7976931348623157E308);
             button.setPrefWidth(Region.USE_COMPUTED_SIZE);
 
-            // Add style class
-            button.getStyleClass().add("button1");
-
             // Add button to list of buttons
             buttons.add(button);
-            /*
+
             // Set default style
             button.setStyle(idleStyle);
 
@@ -71,12 +77,11 @@ public class HelpPageController {
                 b.setStyle(idleStyle);
             }));
 
-             */
             // Add on action event
             button.setOnAction(event -> {
                 try {
                     // Make the button stay in on hover style
-                    //button.setOnMouseExited(e -> {});
+                    button.setOnMouseExited(e -> {});
 
                     // Load info pages
                     getInfoPage(page);

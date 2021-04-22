@@ -46,10 +46,6 @@ public class ProjectMenuButtonController {
         categories.getChildren().add(anchorPane);
     }
 
-    public Button getProjectTitleButton(){
-        return projectTitle;
-    }
-
     public void buttonNewCategory() throws IOException {
         // Load newEditTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditCategory.fxml"));
@@ -57,7 +53,6 @@ public class ProjectMenuButtonController {
         NewEditCategoryController newEditCategoryController = loader.getController();
 
         // load the newCategory part of newEditCategoryController
-        newEditCategoryController.setProjectName(projectTitle.getText());
         newEditCategoryController.intializeNewCategory();
 
         // set dashboard content to editMenu
