@@ -14,7 +14,7 @@
         "title": null,
         "image": "src/main/resources/images/registerPageHelp.png",
         "altText": "Image showing the register account page, with red dots containing a number representing the field",
-        "text": "On this page there are three input fields in the middle of the page. One for  a \"Username\", a \"Password\" and a field for \"Repeat password\". There are also two checkboxes below the fields. The checkboxes are for \"No password\" and \"Remember me\". With the \"No password\"-box checked the only field needed for a registration is the \"Username\" field, else a password must also be made. The \"Remember me\" checkbox, if checked, allows a user to be instantly logged in to their account after it has been made."
+        "text": "On this page there are three input fields in the middle of the page. One for  a \"Username\"(1), a \"Password\"(2) and a field for \"Repeat password\"(3). There are also two checkboxes below the fields. The checkboxes are for \"No password\"(4) and \"Remember me\"(5). With the \"No password\"(4)-box checked the only field needed for a registration is the \"Username\"(1) field, else a password must also be made. The \"Remember me\"(5) checkbox, if checked, allows a user to be instantly logged in to their account after it has been made."
       },
       {
         "title": null,
