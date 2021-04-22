@@ -6,6 +6,7 @@
 target/
 .idea/
 *.iml
+src/main/resources/saves
 
 # User-specific stuff
 .idea/**/workspace.xml
