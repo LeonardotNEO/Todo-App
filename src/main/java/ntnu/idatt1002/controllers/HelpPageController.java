@@ -52,9 +52,12 @@ public class HelpPageController {
             button.setMaxWidth(1.7976931348623157E308);
             button.setPrefWidth(Region.USE_COMPUTED_SIZE);
 
+            // Add style class
+            button.getStyleClass().add("button1");
+
             // Add button to list of buttons
             buttons.add(button);
-
+            /*
             // Set default style
             button.setStyle(idleStyle);
 
@@ -68,11 +71,12 @@ public class HelpPageController {
                 b.setStyle(idleStyle);
             }));
 
+             */
             // Add on action event
             button.setOnAction(event -> {
                 try {
                     // Make the button stay in on hover style
-                    button.setOnMouseExited(e -> {});
+                    //button.setOnMouseExited(e -> {});
 
                     // Load info pages
                     getInfoPage(page);
