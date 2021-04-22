@@ -288,9 +288,11 @@ public class TaskController {
             TaskDAO.delete(TaskService.getTaskByCurrentUser(taskId));
         }else {
             // update category of task to 'Trash bin'
+            // add new notification
             TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin", null);
-            // update dashboard
+
         }
+        // update dashboard
         DashboardController.getInstance().initialize();
     }
 
