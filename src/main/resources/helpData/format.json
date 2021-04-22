@@ -335,7 +335,7 @@
     "fields": [
       {
         "title": "How to access",
-        "image": null,
+        "image": "src/main/resources/images/navbarNotificationButton.png",
         "text": "This page is accessed by pressing the \"Notification History\"-button. This button is located at the top of the popup from the \"Notification bell\"-button."
       },
       {
@@ -429,7 +429,7 @@
     "fields": [
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/dashboardDefaultCategories.png",
         "text": "The application has a total of three premade categories. These are: \"All tasks\", \"Trash bin\" and \"Finished tasks\". They are all located in the sidebar in the \"Dashboard\" page."
       },
       {
@@ -456,17 +456,17 @@
     "fields": [
       {
         "title": "New project",
-        "image": null,
+        "image": "src/main/resources/images/projectNewProjectButton.png",
         "text": "Create a new project by clicking the \"+ New project\"-button. This button is located below the \"Projects\" folder in the sidebar in the \"Dashboard\" page."
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/projectCreateNewProject.png",
         "text": "When clicked it will open the \"Create project\" page. On this page there is one \"Project title\" field above the center of the page. The field has to be filled for a new project to be made. This field represents the name of the project. At the bottom-center of the page there are two buttons. These buttons are the \"+ Create project\"-button and the \"Cancel\"-button. When the \"+ Create project\"-button is pressed the project will be created with the name from the title field. When the \"Cancel\"-button is pressed you will be sent back to the page you were previously at and the new project will not be created."
       },
       {
         "title": "Project page and content",
-        "image": null,
+        "image": "src/main/resources/images/projectProjectButton.png",
         "text": "This page is accessed by clicking on the project name located in the sidebar in the \"Dashboard\" page. This will take you to the specific page for this project."
       },
       {
@@ -476,12 +476,12 @@
       },
       {
         "title": "Adding categories",
-        "image": null,
+        "image": "src/main/resources/images/projectNewCategoryButton.png",
         "text": "The \"+ Category\"-button allows you to make a new category in this project. A project can hold multiple different categories within itself. These categories will be shown below the project as long as you have that project chosen."
       },
       {
         "title": null,
-        "image": null,
+        "image": "src/main/resources/images/projectEditProjectEditCategoryButtons.png",
         "text": "The two buttons at the top of the project bar will stay there even if you go into a category within that project. This is because you are still considered to be within this project. The two buttons are \"Edit\" and \"Delete\". Similarly to how they work in a category the \"Project Edit\" and \"Project Delete\" buttons allows you to edit the project name and delete the project."
       }
     ]
