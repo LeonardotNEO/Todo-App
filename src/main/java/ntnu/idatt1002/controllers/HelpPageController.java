@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.HelpSection;
+import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.HelpService;
 import ntnu.idatt1002.service.UserStateService;
 
@@ -18,7 +19,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
+/**
+ * Controller for the helpPage
+ */
 public class HelpPageController {
     @FXML private VBox helpMenuVBox;
     @FXML private Text headerText;
@@ -29,12 +34,20 @@ public class HelpPageController {
     private final String DEFAULT_HOVER = "orange";
     private final String DEFAULT_IDLE = "#00254d";
     private final double SCROLL_SPEED = 3;
+
+    /**
+     * Method that is called when page is ran to populate it with the data needed.
+     */
     public void initialize() {
         fillMenuPage();
     }
 
+    /**
+     * Method that fills the menu with buttons
+     */
     public void fillMenuPage() {
         ArrayList<String> pages = HelpService.getSections();
+        pages.sort(String::compareToIgnoreCase);
         ArrayList<Button> buttons = new ArrayList<>();
 
         // Set default values
@@ -97,6 +110,11 @@ public class HelpPageController {
         });
     }
 
+    /**
+     * Method that that uses InfoFields to fill the page with the data of the specific section
+     * @param section The specific help section
+     * @throws IOException
+     */
     public void getInfoPage(String section) throws IOException {
         // Reset the scrollbar
         infoScrollBar.setHvalue(0);
@@ -144,19 +162,16 @@ public class HelpPageController {
             } else {
                 infoFieldController.hideImage();
             }
-            System.out.println(infoField.heightProperty());
+
             // Adding it to the vbox
             vboxForInfoText.getChildren().add(vboxForInfoText.getChildren().size(), infoField);
-            //System.out.println("I finished");
         }
 
         // Changing the scrollbar scroll speed
         Platform.runLater(() -> {
             double height = vboxForInfoText.getHeight();
-            System.out.println(height);
             infoScrollBar.getContent().setOnScroll(scrollEvent -> {
-                double deltaY = scrollEvent.getDeltaY() * SCROLL_SPEED/height;//(SCROLL_SPEED/718.4)/height  ;//*(718.4/height);// ((SCROLL_SPEED*718.4)/height);
-                System.out.println("Delta Y: " + scrollEvent.getDeltaY());
+                double deltaY = scrollEvent.getDeltaY() * SCROLL_SPEED/height;
                 infoScrollBar.setVvalue(infoScrollBar.getVvalue() - deltaY);
             });
         });
