@@ -95,19 +95,19 @@
         "title": "Content and simple view",
         "image": "src/main/resources/images/overviewPageSimpleViewButtons.png",
         "altText": "Image showing two red dots containing numbers, representing the two buttons they are close to. The dots are located towards the upper left corner of the image.",
-        "text": "On this page you can see two buttons. The are located in the upper left corner right below the application logo. These buttons are \"Simple view\" and \"Calendar view\"."
+        "text": "On this page you can see two buttons. The are located in the upper left corner right below the application logo. These buttons are \"Simple view\"(1) and \"Calendar view\"(2)."
       },
       {
         "title": null,
         "image": null,
         "altText": null,
-        "text": "The page you are currently on is the \"Simple view\" page, since this is the default overview page. Here you can see three containers with the text: \"Tasks due this week\", \"Tasks due the next 7 days\" and \"Tasks due this month\"."
+        "text": "The page you are currently on is the \"Simple view\"(1) page, since this is the default overview page. Here you can see three containers with the text: \"Tasks due this week\", \"Tasks due the next 7 days\" and \"Tasks due this month\"."
       },
       {
         "title": null,
         "image": "src/main/resources/images/overviewPageSimpleViewTables.png",
         "altText": "Image showing three red dots containing numbers. These dots each represents the section they are located within",
-        "text": "These containers will contain tasks with a deadline within the given time. Thus all not finished or deleted tasks which are due in the next 7 days will be in under the container \"Tasks due the next 7 days\". Similarly tasks which are due this month will be under \"Tasks due this month\" and the same for tasks under \"Tasks due this week\"."
+        "text": "These containers will contain tasks with a deadline within the given time. Thus all not finished or deleted tasks which are due in the next 7 days will be in under the container \"Tasks due the next 7 days\"(1). Similarly tasks which are due this month will be under \"Tasks due this month\"(3) and the same for tasks under \"Tasks due this week\"(2)."
       },
       {
         "title": "Calendar view",
@@ -119,7 +119,7 @@
         "title": null,
         "image": "src/main/resources/images/overviewPageCalendarViewNextDate.png",
         "altText": "Image showing two red dots containing the numbers 1 and 2. They are located in the upper-center of the image and represents the two arrow-buttons they are nex to.",
-        "text": "This is done by pressing the circle with the arrow button pointing to the right. This button is located in the upper-center of the \"Calendar view\" page. To the left of this button the currently viewed month and year is written. To the left of this again, a similar button with an arrow pointing to the left is located. By pressing this button you will be able to watch past months and years."
+        "text": "This is done by pressing the circle with the arrow button pointing to the right(2). This button is located in the upper-center of the \"Calendar view\" page. To the left of this button the currently viewed month and year is written. To the left of this again, a similar button with an arrow(1) pointing to the left is located. By pressing this button you will be able to watch past months and years."
       }
     ]
   },
