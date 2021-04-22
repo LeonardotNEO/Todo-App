@@ -122,7 +122,6 @@ public class HelpPageController {
 
         // Clearing children
         vboxForInfoText.getChildren().clear();
-        System.out.println( "After clear " + vboxForInfoText.getHeight());
         // Getting information
         HelpSection helpSection = HelpService.getSection(section);
 
