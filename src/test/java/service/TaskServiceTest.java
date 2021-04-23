@@ -24,6 +24,7 @@ public class TaskServiceTest {
     public static void test_data() {
         User user = new User("Test User");
         Storage.newUser(user);
+        Storage.read("Test User");
         UserStateService.setCurrentUserUsername("Test User");
         assertDoesNotThrow(() -> {
             CategoryService.addCategoryToCurrentUser("home");

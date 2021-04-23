@@ -153,12 +153,12 @@ public final class Storage {
 
         static ArrayList<User> list(){
             File dir = new File(SAVEPATH);
-            String[] userDirs = dir.list();
+            File[] userDirs = dir.listFiles(File::isDirectory);
             ArrayList<User> users = new ArrayList<>();
 
             if(userDirs != null) {
-                for (String username : userDirs) {
-                    users.add((User) GenericDAO.deserialize(userFile(username)));
+                for (File username : userDirs) {
+                    users.add((User) GenericDAO.deserialize(userFile(username.getName())));
                 }
             }
 
