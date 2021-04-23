@@ -105,28 +105,14 @@ public class NewEditCategoryController {
     public void buttonEditCategory() throws IOException {
         if(CategoryService.validateCategoryTitleSyntax(categoryTitle.getText())){
             if(projectName == null){
-                // Make new category
-                CategoryService.addCategoryToCurrentUser(categoryTitle.getText());
-
-                // Move tasks in old category to new category
-                ArrayList<Task> tasksToMove = TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), null);
-                TaskService.editCategoryAndProjectOfTasks(tasksToMove, categoryTitle.getText(), null);
-
-                // Delete old category
-                CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+                //Edit category
+                CategoryService.editCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), categoryTitle.getText());
 
                 // Set current category to new one
                 UserStateService.getCurrentUser().setCurrentlySelectedCategory(categoryTitle.getText());
             } else {
-                // Make new category
-                CategoryService.addCategoryToCurrentUser(projectName, categoryTitle.getText());
-
-                // Move tasks in old category to new category
-                ArrayList<Task> tasksToMove = TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), projectName);
-                TaskService.editCategoryAndProjectOfTasks(tasksToMove, categoryTitle.getText(), projectName);
-
-                // Delete old category
-                CategoryService.deleteCategoryCurrentUser(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), projectName);
+                //Edit category
+                CategoryService.editCategory(UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory(), projectName, categoryTitle.getText());
 
                 // Set current category to new one
                 UserStateService.getCurrentUser().setCurrentlySelectedProjectCategory(categoryTitle.getText());

@@ -1,5 +1,6 @@
 package ntnu.idatt1002.service;
 
+import ntnu.idatt1002.Task;
 import ntnu.idatt1002.dao.CommonDAO;
 
 import java.util.ArrayList;
@@ -60,6 +61,26 @@ public class CategoryService {
         }
 
         return categoriesWithoutPremades;
+    }
+
+    public static void editCategory(String oldCategory, String newCategory){
+        ArrayList<Task> tasks = CommonDAO.listTasksByCategory(oldCategory);
+        CommonDAO.addCategory(newCategory);
+        for(Task task : tasks){
+            task.setCategory(newCategory);
+            CommonDAO.addTask(task);
+        }
+        CommonDAO.deleteCategory(oldCategory);
+    }
+
+    public static void editCategory(String oldCategory, String project, String newCategory){
+        ArrayList<Task> tasks = CommonDAO.listTasks(project, oldCategory);
+        CommonDAO.addCategory(project, newCategory);
+        for(Task task : tasks){
+            task.setCategory(newCategory);
+            CommonDAO.addTask(task);
+        }
+        CommonDAO.deleteCategory(project, oldCategory);
     }
 
     /**
