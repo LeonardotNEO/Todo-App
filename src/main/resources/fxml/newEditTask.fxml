@@ -181,7 +181,7 @@
                         </HBox>
                         <HBox fx:id="attachBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="10.0">
                            <children>
-                              <JFXButton fx:id="buttonAttachFiles" onAction="#buttonAttachFiles" prefHeight="37.0" prefWidth="118.0" styleClass="button1" text="Attach files">
+                              <JFXButton fx:id="buttonAttachFiles" onAction="#buttonAttachFiles" styleClass="button1" text="Attach files">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
