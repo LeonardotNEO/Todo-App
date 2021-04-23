@@ -345,15 +345,10 @@ public class NewEditTaskController {
 
             // based on argument of method, we edit or add new task
             if(oldTask != null){
-                TaskService.editTask(newTask, oldTask.getId());
-
-                // if task change category, its not enough to override, because task has changed folder. We need to delete the old task from old folder
-                if(!oldTask.getCategory().equals(newTask.getCategory())){
-                    TaskService.deleteTask(oldTask);
-                }
-            } else {
-                TaskService.newTask(newTask);
+                TaskService.deleteTask(oldTask);
             }
+            TaskService.newTask(newTask);
+
 
             // if serializing the task is succesfull, we set current category to the new tasks category and initialize the dashboard
             // navigate back to tasks

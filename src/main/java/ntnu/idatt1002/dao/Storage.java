@@ -145,10 +145,9 @@ public final class Storage {
             }
         }
 
-        //Add new tasks
-        oldTasks = taskStorage.listTasks(currentUser);
+        //Add all new tasks to overwrite existing and add new ones
         for(Task task : newTasks){
-            if(!oldTasks.contains(task)){ taskStorage.serialize(currentUser, task);}
+            taskStorage.serialize(currentUser, task);
         }
     }
 
