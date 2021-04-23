@@ -53,7 +53,7 @@
 }
 
 .text-color {
-  -fx-text-fill: -fx-color-text-color;
+  /*-fx-text-fill: -fx-color-text-color;*/
   -fx-fill: -fx-color-text-color;
 }
 

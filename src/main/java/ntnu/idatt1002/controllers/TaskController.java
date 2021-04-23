@@ -305,7 +305,7 @@ public class TaskController {
             TaskService.nextRepeatableTask(taskId);
         }
         if(TaskService.getTaskByCurrentUser(taskId).getCategory().equals("Trash bin")){
-            TaskDAO.delete(TaskService.getTaskByCurrentUser(taskId));
+            TaskService.deleteTask(TaskService.getTaskByCurrentUser(taskId));
         }else {
             // update category of task to 'Trash bin'
             // add new notification

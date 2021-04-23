@@ -236,10 +236,20 @@ public class DashboardController {
     }
 
     /**
-     * Delete currently visited category.
-     * We differentiate between a normal category and a category under a project
+     * Displays a DeleteCategoryProject confirmation popup.
+     * @throws IOException
      */
     public void buttonDeleteCategory() throws IOException {
+        DeleteCategoryProjectController.display(this, project, category, "category");
+    }
+
+    /**
+     * Delete currently visited category.
+     * We differentiate between a normal category and a category under a project.
+     * Reloads page.
+     * @throws IOException
+     */
+    public void deleteCategory() throws IOException {
         if(project == null){
             CategoryService.deleteCategoryCurrentUser(category);
         } else {
@@ -267,6 +277,10 @@ public class DashboardController {
         setCenterContent(node);
     }
 
+    /**
+     * Loads edit page for project.
+     * @throws IOException
+     */
     public void buttonEditProject() throws IOException {
         // Load newEditTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditProject.fxml"));
@@ -280,7 +294,20 @@ public class DashboardController {
         setCenterContent(node);
     }
 
+    /**
+     * Displays a DeleteCategoryProject confirmation popup.
+     * @throws IOException
+     */
     public void buttonDeleteProject() throws IOException {
+        DeleteCategoryProjectController.display(this, project, category, "project");
+    }
+
+    /**
+     * Calls ProjectService.deleteProjectCurrentUser(project) (deletes project with categories).
+     * Reloads page.
+     * @throws IOException
+     */
+    public void deleteProject() throws IOException {
         ProjectService.deleteProjectCurrentUser(project);
 
         // reload dashboard
