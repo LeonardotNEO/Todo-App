@@ -52,7 +52,7 @@ public class User implements Serializable {
         this.password = password;
         this.salt = salt;
         this.dateCreated = DateUtils.getAsMs(LocalDate.now());
-        this.theme = "-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d; -fx-color-4: orange;";
+        this.theme = "-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d; -fx-text-hover-color: orange; -fx-color-text-color: white";
     }
 
     /**

@@ -21,7 +21,6 @@ import ntnu.idatt1002.utils.DateUtils;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +42,7 @@ public class TaskController {
     @FXML private Text color;
     @FXML private Text notification;
     @FXML private Text tags;
-    @FXML private Text attachedFiles;
+    @FXML private HBox attachedFilesHBox;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
     @FXML private Text taskRepeat;
@@ -61,7 +60,6 @@ public class TaskController {
      */
     public void initialize(){
         addClickTaskListener();
-        displayMinimizedTask();
     }
 
     /**
@@ -119,7 +117,9 @@ public class TaskController {
 
                 //Using regex to split up the filepath-string to the last element, (the file name and type)
                 String[] fileName = file.split("\\\\");
+
                 Hyperlink clickFile = new Hyperlink(fileName[fileName.length-1]);
+                clickFile.setPrefWidth(200);
 
                 clickFile.setOnAction(event -> {
                     try {
@@ -141,13 +141,15 @@ public class TaskController {
             }
         }
         tags.setText("Tags: " + tagsString);
-        attachedFiles.setText(("Attached files: "));
         taskDate.setText( (task.getDeadline() == 0 ? "This task got no deadline" : "This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline())));
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
         taskRepeat.setText("Task repeat: " + TaskService.convertTimeRepeatToString(task));
         setButtons();
+
+        // display minimized as default
+        displayMinimizedTask();
     }
 
     /**
@@ -173,12 +175,16 @@ public class TaskController {
         notification.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
-        attachedFiles.setVisible(false);
-        attachedFiles.setManaged(false);
         taskRepeat.setVisible(false);
         taskRepeat.setManaged(false);
-        flowPaneForFiles.setVisible(false);
-        flowPaneForFiles.setManaged(false);
+
+        if(flowPaneForFiles.getChildren().size() == 0){
+            attachedFilesHBox.setVisible(false);
+            attachedFilesHBox.setManaged(false);
+        } else {
+            attachedFilesHBox.setVisible(true);
+            attachedFilesHBox.setManaged(true);
+        }
 
         fullDisplayed = false;
     }
@@ -209,12 +215,8 @@ public class TaskController {
         notification.setManaged(true);
         tags.setVisible(true);
         tags.setManaged(true);
-        attachedFiles.setVisible(true);
-        attachedFiles.setManaged(true);
         taskRepeat.setVisible(true);
         taskRepeat.setManaged(true);
-        flowPaneForFiles.setVisible(true);
-        flowPaneForFiles.setManaged(true);
 
         fullDisplayed = true;
     }
