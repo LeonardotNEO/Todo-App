@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
  * a class which provides some necessary features which utilises task-data
  */
 public class TaskService {
+    private static ArrayList<Task> lastResult = CommonDAO.listTasks();
+    private static String lastValue = "";
 
     /**
      * Method to add a new task.
@@ -289,16 +291,19 @@ public class TaskService {
      * @return An ArrayList of all the tasks that contains the DesiredName in the title or tag.
      */
     public static ArrayList<Task> containsDesiredNameInTitle(String DesiredName){
-        ArrayList<Task> userTasks = getTasksByCurrentUser();
+        //If user has erased a character since last search, refill task list
+        if(DesiredName.length() - lastValue.length() <= 0){
+            updateList();
+        }
 
         //Get task name matches
-        ArrayList<Task> nameMatch = userTasks.stream()
+        ArrayList<Task> nameMatch = lastResult.stream()
                 .filter(t-> t.getName().toLowerCase().contains(DesiredName.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         //Get task tag matches
         ArrayList<Task> tagMatch = new ArrayList<>();
-        for (Task task : userTasks){
+        for (Task task : lastResult){
             for(String tag : task.getTags()){
                 if(tag.toLowerCase().contains(DesiredName.toLowerCase())){
                     tagMatch.add(task);
@@ -306,9 +311,22 @@ public class TaskService {
             }
         }
 
-        //Combine results, remove duplicates and return result
+        //Combine results and remove duplicates
         nameMatch.addAll(tagMatch);
-        return nameMatch.stream().distinct().collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Task> result = nameMatch.stream().distinct().collect(Collectors.toCollection(ArrayList::new));
+
+        //If user has added a character since last search, keep this result until next time
+        if(DesiredName.length() - lastValue.length() > 0){
+            lastResult = result;
+            lastValue = DesiredName;
+        }
+
+        return result;
+    }
+
+    public static void updateList(){
+        lastResult = CommonDAO.listTasks();
+        lastValue = "";
     }
 
     /**
