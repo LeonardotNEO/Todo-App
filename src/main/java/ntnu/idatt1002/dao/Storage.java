@@ -93,13 +93,6 @@ public final class Storage {
      * elements added since last call.
      */
     public static void write(){
-        //Delete removed tasks
-        ArrayList<Task> newTasks = CommonDAO.listTasks();
-        ArrayList<Task> oldTasks = taskStorage.listTasks(currentUser);
-        for(Task task : oldTasks){
-            if(!newTasks.contains(task)){ taskStorage.delete(currentUser, task);}
-        }
-
         //Delete removed projects
         String[] newProjects = CommonDAO.listProjects();
         String[] oldProjects = taskStorage.listProjects(currentUser);
@@ -116,11 +109,42 @@ public final class Storage {
                 String[] newCategories = CommonDAO.listCategories(project);
                 String[] oldCategories = taskStorage.listCategories(currentUser, project);
                 for(String category : oldCategories){
-                    if(Arrays.stream(newCategories).noneMatch(str -> str.equals(category)){
+                    if(Arrays.stream(newCategories).noneMatch(str -> str.equals(category))){
                         taskStorage.deleteByCategory(currentUser, project, category);
                     }
                 }
             }
+        }
+
+        //Delete removed tasks
+        ArrayList<Task> newTasks = CommonDAO.listTasks();
+        ArrayList<Task> oldTasks = taskStorage.listTasks(currentUser);
+        for(Task task : oldTasks){
+            if(!newTasks.contains(task)){ taskStorage.delete(currentUser, task);}
+        }
+
+        //Add new projects
+        for(String project : newProjects){
+            if(Arrays.stream(oldProjects).noneMatch(str -> str.equals(project))){
+                taskStorage.addProject(currentUser, project);
+            }
+        }
+
+        //Add new categories
+        for(String project : newProjects){
+            String[] newCategories = CommonDAO.listCategories(project);
+            String[] oldCategories = taskStorage.listCategories(currentUser, project);
+            for(String category : newCategories){
+                if(Arrays.stream(oldCategories).noneMatch(str -> str.equals(category))){
+                    taskStorage.addCategory(currentUser, project, category);
+                }
+            }
+        }
+
+        //Add new tasks
+        oldTasks = taskStorage.listTasks(currentUser);
+        for(Task task : newTasks){
+            if(!oldTasks.contains(task)){ taskStorage.serialize(currentUser, task);}
         }
     }
 
@@ -274,6 +298,80 @@ public final class Storage {
             return tasks;
         }
 
+        /**
+         * Get an array of project names for a user.
+         * @param username the users username.
+         * @return an array of strings.
+         */
+        static String[] listProjects(String username){
+            File projectsDir = new File(projectsDir(username));
+            return projectsDir.list();
+        }
+
+        /**
+         * Get an array of category names for a users project.
+         * @param username the users username.
+         * @param project the project name.
+         * @return an array of strings.
+         */
+        static String[] listCategories(String username, String project){
+            File projectDir = new File(projectsDir(username) + project);
+            return projectDir.list();
+        }
+
+        /**
+         * Get an arraylist of all tasks for a user.
+         * @param username the users username.
+         * @return an arraylist of task objects.
+         */
+        static ArrayList<Task> listTasks(String username){
+            ArrayList<Task> allTasks = new ArrayList<>();
+
+            for(String project : listProjects(username)){
+                for(String category : listCategories(username, project)){
+                    File categoryDir = new File(categoryDir(username, project, category));
+                    File[] filepaths = categoryDir.listFiles();
+                    if(filepaths != null){
+                        for(File file : filepaths){
+                            allTasks.add((Task) GenericDAO.deserialize(file.getPath()));
+                        }
+                    }
+                }
+            }
+
+            return allTasks;
+        }
+
+        /**
+         * Make a new project for a user.
+         * @param username the users username.
+         * @param project the project name.
+         */
+        static void addProject(String username, String project){
+            File projectDir = new File(projectsDir(username) + project);
+            projectDir.mkdir();
+        }
+
+        /**
+         * Make a new category for a users project.
+         * @param username the users username.
+         * @param project the project name.
+         * @param category the category name.
+         */
+        static void addCategory(String username, String project, String category){
+            File categoryDir = new File(categoryDir(username, project, category));
+            categoryDir.mkdir();
+        }
+
+        /**
+         * Serialize a task object to a users folder.
+         * @param username the users username.
+         * @param task the task object.
+         */
+        static void serialize(String username, Task task){
+            GenericDAO.serialize(task, filepath(username, task));
+        }
+
         static void deleteByUser(String username){
             File projectsDir = new File(projectsDir(username));
             String[] projects = projectsDir.list();
@@ -300,7 +398,7 @@ public final class Storage {
         }
 
         static void deleteByCategory(String username, String project, String category){
-            File categoryDir = new File(projectsDir(username) + project + "/" + category + "/");
+            File categoryDir = new File(categoryDir(username, project, category));
             File[] tasks = categoryDir.listFiles();
             if(tasks != null){
                 for(File task : tasks){
@@ -319,11 +417,15 @@ public final class Storage {
             return (SAVEPATH + username + "/Projects/");
         }
 
+        private static String categoryDir(String username, String project, String category){
+            return (projectsDir(username) + project + "/" + category + "/");
+        }
+
         private static String filepath(String username, Task task){
             String project = (task.getProject().isEmpty() ? "Standard" : task.getProject());
             String category = task.getCategory();
             long id = task.getId();
-            return (projectsDir(username) + project + "/" + category + "/" + PREFIX + id + FILETYPE);
+            return (categoryDir(username, project, category) + PREFIX + id + FILETYPE);
         }
     }
 
