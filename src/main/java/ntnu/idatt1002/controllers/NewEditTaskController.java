@@ -333,13 +333,14 @@ public class NewEditTaskController {
                 builder.repeatable(false, 0L);
             }
 
-
             // Create the task:
             Task newTask = builder.build();
 
             // based on argument of method, we edit or add new task
             if(oldTask != null){
                 TaskService.deleteTask(oldTask);
+                //Transfer category, in case the current category is 'All tasks'
+                newTask.setCategory(oldTask.getCategory());
             }
             TaskService.newTask(newTask);
 
