@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.service.ProjectService;
 import ntnu.idatt1002.service.UserStateService;
@@ -11,13 +13,15 @@ import ntnu.idatt1002.service.UserStateService;
 import java.io.IOException;
 
 public class NewEditProjectController {
-    @FXML private TextField title;
 
+    private boolean isNew;
+    @FXML private TextField title;
     @FXML private Text header;
     @FXML private Button buttonNewEditProject;
     @FXML private Label errorMessage;
 
     public void initializeNew(){
+        isNew = true;
         header.setText("Create project");
         buttonNewEditProject.setText("Create project");
         buttonNewEditProject.setOnAction(event -> {
@@ -30,6 +34,7 @@ public class NewEditProjectController {
     }
 
     public void initializeEdit(){
+        isNew = false;
         header.setText("Edit project");
         buttonNewEditProject.setText("Edit project");
         buttonNewEditProject.setOnAction(event -> {
@@ -76,6 +81,23 @@ public class NewEditProjectController {
         } else {
             // display errormessage if title is not valid
             errorMessage.setText("* Title must be between 0 and 30 characters");
+        }
+    }
+
+    /**
+     * When enter key is pressed, we either press new project button or edit project button
+     */
+    public void onKeyPressed(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            try {
+                if(isNew){
+                    newProject();
+                } else {
+                    editProject();
+                }
+            }catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
     }
 }

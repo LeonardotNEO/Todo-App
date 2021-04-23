@@ -70,12 +70,12 @@ public class NavbarController {
     }
 
     /**
-     * Communicate with mainController to update its main-content to about.fxml when butt0n in navbar is clicked
+     * Communicate with mainController to update its main-content to helpPage.fxml when butt0n in navbar is clicked
      * @param event
      * @throws IOException
      */
-    public void buttonAbout(ActionEvent event) throws IOException {
-        MainController.getInstance().setMainContent("about");
+    public void buttonHelp(ActionEvent event) throws IOException {
+        MainController.getInstance().setMainContent("helpPage");
     }
 
     /**

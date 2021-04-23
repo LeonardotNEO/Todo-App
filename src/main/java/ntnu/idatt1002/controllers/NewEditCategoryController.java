@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class NewEditCategoryController {
 
     private String projectName = "";
+    private boolean isNew;
     @FXML private TextField categoryTitle;
     @FXML private Label errorMessage;
     @FXML private Text headerText;
@@ -29,6 +30,7 @@ public class NewEditCategoryController {
     public void intializeNewCategory(){
         projectName = UserStateService.getCurrentUser().getCurrentlySelectedProject();
         headerText.setText("Create category");
+        isNew = true;
 
         button.setText("Create category");
         button.setOnAction(event -> {
@@ -43,6 +45,7 @@ public class NewEditCategoryController {
     public void intializeEditCategory(){
         projectName = UserStateService.getCurrentUser().getCurrentlySelectedProject();
         headerText.setText("Edit category");
+        isNew = false;
 
         button.setText("Edit category");
         button.setOnAction(event -> {
@@ -131,7 +134,11 @@ public class NewEditCategoryController {
     public void onKeyPressed(KeyEvent event){
         if(event.getCode().equals(KeyCode.ENTER)){
             try {
-                buttonNewCategory();
+                if(isNew){
+                    buttonNewCategory();
+                } else {
+                    buttonEditCategory();
+                }
             }catch (IOException ioe) {
                 ioe.printStackTrace();
             }

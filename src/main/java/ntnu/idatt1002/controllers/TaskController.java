@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
@@ -30,20 +29,22 @@ public class TaskController {
     private boolean fullDisplayed;
     private long taskId;
     private Task task;
-    @FXML private Text taskName;
+    @FXML private Label taskName;
     @FXML private Label taskDescription;
-    @FXML private Text project;
-    @FXML private Text category;
-    @FXML private Text startdate;
-    @FXML private Text duedate;
-    @FXML private Text taskLocation;
-    @FXML private Text color;
-    @FXML private Text notification;
-    @FXML private Text tags;
-    @FXML private Text attachedFiles;
+    @FXML private Label project;
+    @FXML private Label category;
+    @FXML private Label startdate;
+    @FXML private Label duedate;
+    @FXML private Label finishDate;
+    @FXML private Label taskLocation;
+    @FXML private Label color;
+    @FXML private Label notification;
+    @FXML private Label tags;
+    @FXML private HBox attachedFilesHBox;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
-    @FXML private Text taskRepeat;
+    @FXML private Label taskRepeat;
+    @FXML private Label attachedFiles;
     @FXML private Pane background;
     @FXML private HBox toolsHBox;
     @FXML private FlowPane flowPaneForFiles;
@@ -58,7 +59,6 @@ public class TaskController {
      */
     public void initialize(){
         addClickTaskListener();
-        displayMinimizedTask();
     }
 
     /**
@@ -70,16 +70,16 @@ public class TaskController {
         String notificationString = "";
 
         if (task.isNotification1Hour()) {
-            notificationString += "Notification 1 hour before duedate: yes\n";
+            notificationString += "Notification: 1 hour before due date\n";
         }
         if(task.isNotification24Hours()){
-            notificationString += "Notification 24 hours before duedate: yes\n";
+            notificationString += "Notification: 24 hours before due date\n";
         }
         if(task.isNotification7Days()){
-            notificationString += "Notification 7 days before duedate: yes\n";
+            notificationString += "Notification: 7 days before due date\n";
         }
         if(notificationString.isEmpty()){
-            notificationString += "No notifications";
+            notificationString += "Notification: None";
         }
 
         return notificationString;
@@ -94,18 +94,19 @@ public class TaskController {
         taskDescription.setText(task.getDescription());
         taskName.setText(task.getName());
         category.setText("Category: " + task.getCategory());
-        project.setText("Project: " + task.getProject());
+        project.setText("Project: " + (task.getProject() == null ? "None" : task.getProject()) );
         startdate.setText("Start date: " + DateUtils.getFormattedFullDate(task.getStartDate()));
-        duedate.setText("Due date: " + DateUtils.getFormattedFullDate(task.getDeadline()));
+        duedate.setText("Due date: " + (task.getDeadline() == 0 ? "None" : DateUtils.getFormattedFullDate(task.getDeadline()) ));
+        finishDate.setText("Finish date: " + DateUtils.getFormattedFullDate(task.getFinishDate()));
         taskLocation.setText("Location: " + task.getLocation());
         color.setText("Color: " + task.getColor());
         notification.setText(checkNotification(task));
         // tags
-        String tagsString = "";
+        StringBuilder tagsString = new StringBuilder();
         ArrayList<String> tagsList = task.getTags();
         if(tagsList!=null) { // null pointer exception when tagsList equals null
             for (String tag : tagsList) {
-                tagsString += tag + ", ";
+                tagsString.append(tag).append(", ");
             }
         }
         // files
@@ -115,16 +116,16 @@ public class TaskController {
 
                 //Using regex to split up the filepath-string to the last element, (the file name and type)
                 String[] fileName = file.split("\\\\");
+
                 Hyperlink clickFile = new Hyperlink(fileName[fileName.length-1]);
+                clickFile.setPrefWidth(200);
 
                 clickFile.setOnAction(event -> {
                     try {
                         File open = new File(file);
 
                         //Using the desktop library to open a file with the desktop
-                        if (!Desktop.isDesktopSupported()) {
-
-                        }
+                        Desktop.isDesktopSupported();
                         Desktop desktop = Desktop.getDesktop();
                         if(open.exists()) {
                             desktop.open(open);
@@ -139,13 +140,15 @@ public class TaskController {
             }
         }
         tags.setText("Tags: " + tagsString);
-        attachedFiles.setText(("Attached files: "));
         taskDate.setText( (task.getDeadline() == 0 ? "This task got no deadline" : "This task is due: " + DateUtils.getFormattedFullDate(task.getDeadline())));
         setTaskPriority(task.getPriority());
         taskId = task.getId();
         setTaskColor(task.getColor());
         taskRepeat.setText("Task repeat: " + TaskService.convertTimeRepeatToString(task));
         setButtons();
+
+        // display minimized as default
+        displayMinimizedTask();
     }
 
     /**
@@ -161,6 +164,8 @@ public class TaskController {
         startdate.setManaged(false);
         duedate.setVisible(false);
         duedate.setManaged(false);
+        finishDate.setVisible(false);
+        finishDate.setManaged(false);
         taskLocation.setVisible(false);
         taskLocation.setManaged(false);
         color.setVisible(false);
@@ -169,12 +174,16 @@ public class TaskController {
         notification.setManaged(false);
         tags.setVisible(false);
         tags.setManaged(false);
-        attachedFiles.setVisible(false);
-        attachedFiles.setManaged(false);
         taskRepeat.setVisible(false);
         taskRepeat.setManaged(false);
-        flowPaneForFiles.setVisible(false);
-        flowPaneForFiles.setManaged(false);
+
+        if(flowPaneForFiles.getChildren().size() == 0){
+            attachedFilesHBox.setVisible(false);
+            attachedFilesHBox.setManaged(false);
+        } else {
+            attachedFilesHBox.setVisible(true);
+            attachedFilesHBox.setManaged(true);
+        }
 
         fullDisplayed = false;
     }
@@ -192,6 +201,11 @@ public class TaskController {
         startdate.setManaged(true);
         duedate.setVisible(true);
         duedate.setManaged(true);
+        // Check if task is finished, display finishDate field if true.
+        if (task.isFinished()) {
+            finishDate.setVisible(true);
+            finishDate.setManaged(true);
+        }
         taskLocation.setVisible(true);
         taskLocation.setManaged(true);
         color.setVisible(true);
@@ -200,12 +214,8 @@ public class TaskController {
         notification.setManaged(true);
         tags.setVisible(true);
         tags.setManaged(true);
-        attachedFiles.setVisible(true);
-        attachedFiles.setManaged(true);
         taskRepeat.setVisible(true);
         taskRepeat.setManaged(true);
-        flowPaneForFiles.setVisible(true);
-        flowPaneForFiles.setManaged(true);
 
         fullDisplayed = true;
     }
@@ -242,6 +252,7 @@ public class TaskController {
 
     /**
      * Moves task to 'Finished tasks' folder.
+     * Setting finish date.
      * Creates new repeatable task if task is repeatable.
      * @param event
      * @throws IOException
@@ -250,6 +261,7 @@ public class TaskController {
         if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
             TaskService.nextRepeatableTask(taskId);
         }
+        TaskService.setFinished(task, true);
         // update category of task to 'Finished tasks'
         TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Finished tasks", null);
         // update dashboard
@@ -266,17 +278,23 @@ public class TaskController {
     public void clickDeleteButton(ActionEvent event) throws IOException {
         if (TaskService.getTaskByCurrentUser(taskId).isRepeatable()) {
             ConfirmationRepeatDelController.display(this, "delete");
-        } else  {
-            if (UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()) {
-                deleteTask(event);
-            } else {
-                ConfirmationController.display(this, "delete");
-            }
+
+        } else if (TaskService.getTaskByCurrentUser(taskId).getCategory().equalsIgnoreCase("Trash bin") &&
+                UserStateService.getCurrentUser().isPermanentDeleteDontShowAgainCheckbox()){
+            deleteTask(event);
+        } else if(TaskService.getTaskByCurrentUser(taskId).getCategory().equalsIgnoreCase("Trash bin")){
+            ConfirmationController.display(this,"deleteDeletedTask");
+
+        } else if(UserStateService.getCurrentUser().isDeleteTaskDontShowAgainCheckbox()){
+            deleteTask(event);
+
+        }  else{
+            ConfirmationController.display(this,"delete");
         }
     }
 
     /**
-     * Moves task to 'Trash bin' folder.
+     * Moves task to 'Trash bin' folder. or deletes task if it already is in delete folder.
      * Creates new repeatable task if task is repeatable.
      * @param event
      * @throws IOException
@@ -285,8 +303,14 @@ public class TaskController {
         if(TaskService.getTaskByCurrentUser(taskId).isRepeatable()){
             TaskService.nextRepeatableTask(taskId);
         }
-        // update category of task to 'Trash bin'
-        TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin", null);
+        if(TaskService.getTaskByCurrentUser(taskId).getCategory().equals("Trash bin")){
+            TaskService.deleteTask(TaskService.getTaskByCurrentUser(taskId));
+        }else {
+            // update category of task to 'Trash bin'
+            // add new notification
+            TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId), "Trash bin", null);
+
+        }
         // update dashboard
         DashboardController.getInstance().initialize();
     }
@@ -305,6 +329,7 @@ public class TaskController {
      * @throws IOException
      */
     public void restoreTask() throws IOException {
+        TaskService.setFinished(task, false);
         // update category of task
         TaskService.editCategoryAndProjectOfTask(TaskService.getTaskByCurrentUser(taskId),
                 TaskService.getTaskByCurrentUser(taskId).getOriginalCategory(),
@@ -378,28 +403,45 @@ public class TaskController {
 
     public void setTaskColor(String backgroundColor){
         background.setStyle("-fx-background-color: " + backgroundColor + "; -fx-background-radius:  5 20 5 5;");
+        toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
 
         if(ColorUtil.isVisibilityRatingOverThreshold(backgroundColor)){
+            taskName.setTextFill(Paint.valueOf("white"));
             taskDescription.setTextFill(Paint.valueOf("white"));
+            project.setTextFill(Paint.valueOf("white"));
+            category.setTextFill(Paint.valueOf("white"));
+            startdate.setTextFill(Paint.valueOf("white"));
+            duedate.setTextFill(Paint.valueOf("white"));
+            finishDate.setTextFill(Paint.valueOf("white"));
+            taskLocation.setTextFill(Paint.valueOf("white"));
+            color.setTextFill(Paint.valueOf("white"));
+            notification.setTextFill(Paint.valueOf("white"));
+            tags.setTextFill(Paint.valueOf("white"));
             taskDate.setTextFill(Paint.valueOf("white"));
             taskPriority.setTextFill(Paint.valueOf("white"));
-            taskRepeat.setFill(Paint.valueOf("white"));
-            taskName.setFill(Paint.valueOf("white"));
-            toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
+            taskRepeat.setTextFill(Paint.valueOf("white"));
+            attachedFiles.setTextFill(Paint.valueOf("white"));
         } else {
+            taskName.setTextFill(Paint.valueOf("black"));
             taskDescription.setTextFill(Paint.valueOf("black"));
+            project.setTextFill(Paint.valueOf("black"));
+            category.setTextFill(Paint.valueOf("black"));
+            startdate.setTextFill(Paint.valueOf("black"));
+            duedate.setTextFill(Paint.valueOf("black"));
+            finishDate.setTextFill(Paint.valueOf("black"));
+            taskLocation.setTextFill(Paint.valueOf("black"));
+            color.setTextFill(Paint.valueOf("black"));
+            notification.setTextFill(Paint.valueOf("black"));
+            tags.setTextFill(Paint.valueOf("black"));
             taskDate.setTextFill(Paint.valueOf("black"));
             taskPriority.setTextFill(Paint.valueOf("black"));
-            taskRepeat.setFill(Paint.valueOf("black"));
-            taskName.setFill(Paint.valueOf("black"));
-            toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
+            taskRepeat.setTextFill(Paint.valueOf("black"));
+            attachedFiles.setTextFill(Paint.valueOf("black"));
         }
     }
 
     public void addClickTaskListener(){
-        background.setOnMouseClicked(mouseEvent -> {
-            clickTask();
-        });
+        background.setOnMouseClicked(mouseEvent -> clickTask());
     }
 
     public void editTask() throws IOException {
@@ -455,8 +497,8 @@ public class TaskController {
                 buttonFinishTask.setManaged(false);
                 buttonEditTask.setVisible(false);
                 buttonEditTask.setManaged(false);
-                buttonDeleteTask.setVisible(false);
-                buttonDeleteTask.setManaged(false);
+                buttonDeleteTask.setVisible(true);
+                buttonDeleteTask.setManaged(true);
                 buttonRestoreTask.setVisible(true);
                 buttonRestoreTask.setManaged(true);
                 break;

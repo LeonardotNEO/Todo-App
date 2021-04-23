@@ -1,7 +1,5 @@
 package ntnu.idatt1002.controllers;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import ntnu.idatt1002.App;
 import ntnu.idatt1002.Task;
 import ntnu.idatt1002.service.CategoryService;
@@ -239,10 +236,20 @@ public class DashboardController {
     }
 
     /**
-     * Delete currently visited category.
-     * We differentiate between a normal category and a category under a project
+     * Displays a DeleteCategoryProject confirmation popup.
+     * @throws IOException
      */
     public void buttonDeleteCategory() throws IOException {
+        DeleteCategoryProjectController.display(this, project, category, "category");
+    }
+
+    /**
+     * Delete currently visited category.
+     * We differentiate between a normal category and a category under a project.
+     * Reloads page.
+     * @throws IOException
+     */
+    public void deleteCategory() throws IOException {
         if(project == null){
             CategoryService.deleteCategoryCurrentUser(category);
         } else {
@@ -270,6 +277,10 @@ public class DashboardController {
         setCenterContent(node);
     }
 
+    /**
+     * Loads edit page for project.
+     * @throws IOException
+     */
     public void buttonEditProject() throws IOException {
         // Load newEditTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditProject.fxml"));
@@ -283,7 +294,20 @@ public class DashboardController {
         setCenterContent(node);
     }
 
+    /**
+     * Displays a DeleteCategoryProject confirmation popup.
+     * @throws IOException
+     */
     public void buttonDeleteProject() throws IOException {
+        DeleteCategoryProjectController.display(this, project, category, "project");
+    }
+
+    /**
+     * Calls ProjectService.deleteProjectCurrentUser(project) (deletes project with categories).
+     * Reloads page.
+     * @throws IOException
+     */
+    public void deleteProject() throws IOException {
         ProjectService.deleteProjectCurrentUser(project);
 
         // reload dashboard
@@ -324,7 +348,7 @@ public class DashboardController {
     public void addSortingOptions(){
         sort.getItems().add(createSortingMenuItem("Priority", TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(category, project))));
         sort.getItems().add(createSortingMenuItem("Date", TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(category, project))));
-        sort.getItems().add(createSortingMenuItem("Alphabet", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(category, project))));
+        sort.getItems().add(createSortingMenuItem("Alphabetically", TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(category, project))));
     }
 
     /**

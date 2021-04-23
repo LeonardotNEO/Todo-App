@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.UpdateService;
 import ntnu.idatt1002.service.UserStateService;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Timer;
 
@@ -56,7 +58,24 @@ public class App extends Application {
             scene = new Scene(loadFXML("loginRegister"));
         }
 
-        // fill stage with the scene choosen above. Set properties of the stage.
+        // If f1 is clicked create a new help window
+        scene.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode().equals(KeyCode.F1)) {
+                try {
+                    Stage helpStage = new Stage();
+                    helpStage.setScene(new Scene(loadFXML("helpPage")));
+                    helpStage.getIcons().add(logo);
+                    helpStage.setTitle("ToDo-App Help");
+                    helpStage.setMinHeight(640);
+                    helpStage.setMinWidth(1020);
+                    helpStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // fill stage with the scene chosen above. Set properties of the stage.
         stage.setScene(scene);
         stage.setTitle("ToDo-App");
         stage.setMinHeight(640);
