@@ -52,7 +52,7 @@ public final class Storage {
      */
     public static void editUser(User oldUser, User newUser){
         if(oldUser.getUsername().equals(newUser.getUsername())){
-            userStorage.editObject(oldUser, newUser);
+            userStorage.serialize(newUser);
         }else{
             currentUser = newUser.getUsername();
             userStorage.editName(oldUser, newUser);
@@ -191,13 +191,9 @@ public final class Storage {
 
         static void editName(User oldUser, User newUser){
             File oldUserDir = new File(SAVEPATH + oldUser.getUsername());
-            oldUserDir.renameTo(new File(SAVEPATH + newUser.getUsername()));
-            editObject(oldUser, newUser);
-        }
-
-        static void editObject(User oldUser, User newUser){
             File userFile = new File(userFile(oldUser.getUsername()));
             userFile.delete();
+            oldUserDir.renameTo(new File(SAVEPATH + newUser.getUsername()));
             serialize(newUser);
         }
 
