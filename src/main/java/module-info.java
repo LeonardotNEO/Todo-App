@@ -6,6 +6,7 @@ module ntnu.idatt1002 {
     requires de.jensd.fx.glyphs.fontawesome;
     requires com.jfoenix;
     requires java.desktop;
+    requires com.google.gson;
     requires commons.csv;
     requires java.sql;
 
