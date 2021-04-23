@@ -95,17 +95,6 @@ public final class CommonDAO {
     }
 
     /**
-     * Get an ArrayList of all tasks within a project for the logged in user.
-     * @param project the project name.
-     * @return an {@link ArrayList}{@code <>} of {@link Task} objects.
-     */
-    public static ArrayList<Task> listTasks(String project){
-        ArrayList<Task> projectTasks = new ArrayList<>();
-        tasks.get(project).values().forEach(projectTasks::addAll);
-        return projectTasks;
-    }
-
-    /**
      * Get an ArrayList of all tasks within a project category for the logged in user.
      * @param project the project name.
      * @param category the category name.
