@@ -6,6 +6,7 @@ import ntnu.idatt1002.User;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public final class Storage {
@@ -88,11 +89,39 @@ public final class Storage {
     }
 
     /**
-     * Call this method on logout. This will delete all elements removed since last call, create all new
-     * elements and overwrite all changed elements.
+     * Call this method on logout. This will delete all elements removed since last call and create all new
+     * elements added since last call.
      */
     public static void write(){
+        //Delete removed tasks
+        ArrayList<Task> newTasks = CommonDAO.listTasks();
+        ArrayList<Task> oldTasks = taskStorage.listTasks(currentUser);
+        for(Task task : oldTasks){
+            if(!newTasks.contains(task)){ taskStorage.delete(currentUser, task);}
+        }
 
+        //Delete removed projects
+        String[] newProjects = CommonDAO.listProjects();
+        String[] oldProjects = taskStorage.listProjects(currentUser);
+        for(String project : oldProjects){
+            if(Arrays.stream(newProjects).noneMatch(str -> str.equals(project))){
+                taskStorage.deleteByProject(currentUser, project);
+            }
+        }
+
+        //Delete removed categories
+        oldProjects = taskStorage.listProjects(currentUser);
+        for(String project : oldProjects){
+            if(Arrays.asList(newProjects).contains(project)){
+                String[] newCategories = CommonDAO.listCategories(project);
+                String[] oldCategories = taskStorage.listCategories(currentUser, project);
+                for(String category : oldCategories){
+                    if(Arrays.stream(newCategories).noneMatch(str -> str.equals(category)){
+                        taskStorage.deleteByCategory(currentUser, project, category);
+                    }
+                }
+            }
+        }
     }
 
     private static final class userStorage{
@@ -183,6 +212,8 @@ public final class Storage {
     }
 
     private static final class taskStorage{
+        private static final String PREFIX = "task";
+
         /**
          * Get a HashMap with projects, categories and tasks for a {@link User}.
          * @param username the users username.
@@ -265,6 +296,7 @@ public final class Storage {
                     dir.delete();
                 }
             }
+            projectDir.delete();
         }
 
         static void deleteByCategory(String username, String project, String category){
@@ -275,10 +307,23 @@ public final class Storage {
                     task.delete();
                 }
             }
+            categoryDir.delete();
+        }
+
+        static void delete(String username, Task task){
+            File file = new File(filepath(username, task));
+            file.delete();
         }
 
         private static String projectsDir(String username){
             return (SAVEPATH + username + "/Projects/");
+        }
+
+        private static String filepath(String username, Task task){
+            String project = (task.getProject().isEmpty() ? "Standard" : task.getProject());
+            String category = task.getCategory();
+            long id = task.getId();
+            return (projectsDir(username) + project + "/" + category + "/" + PREFIX + id + FILETYPE);
         }
     }
 
