@@ -567,18 +567,5 @@
         "text": "The two buttons at the top of the project bar will stay there even if you go into a category within that project. This is because you are still considered to be within this project. The two buttons are \"Edit\" and \"Delete\". Similarly to how they work in a category the \"Project Edit\" and \"Project Delete\" buttons allows you to edit the project name and delete the project."
       }
     ]
-  },
-  {
-    "section": "Template",
-    "title": "Template",
-    "description": "This page gives information about how to create, add and delete a category",
-    "fields": [
-      {
-        "title": null,
-        "image": null,
-        "altText": null,
-        "text": ""
-      }
-    ]
   }
 ]
