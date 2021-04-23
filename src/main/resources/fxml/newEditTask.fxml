@@ -179,22 +179,21 @@
                               <Insets left="115.0" />
                            </padding>
                         </HBox>
-                        <HBox fx:id="attachBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" spacing="10.0">
+                        <HBox fx:id="attachBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="10.0">
                            <children>
                               <JFXButton fx:id="buttonAttachFiles" onAction="#buttonAttachFiles" prefHeight="37.0" prefWidth="118.0" styleClass="button1" text="Attach files">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="LIME" glyphName="PLUS" />
+                                 </graphic>
                               </JFXButton>
-                              <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="168.0">
-                                       <children>
-                                          <VBox fx:id="vboxForFiles" prefWidth="178.0" />
-                                       </children>
-                                    </AnchorPane>
-                                </content>
-                              </ScrollPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="168.0">
+                                 <children>
+                                    <VBox fx:id="vboxForFiles" prefWidth="178.0" />
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="47.0" prefWidth="466.0" spacing="10.0">
