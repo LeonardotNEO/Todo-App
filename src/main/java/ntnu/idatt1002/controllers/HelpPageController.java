@@ -33,6 +33,7 @@ public class HelpPageController {
 
     private final String DEFAULT_HOVER = "orange";
     private final String DEFAULT_IDLE = "#00254d";
+    private final String DEFAULT_TEXT_COLOR = "white";
     private final double SCROLL_SPEED = 3;
 
     /**
@@ -53,6 +54,7 @@ public class HelpPageController {
         // Set default values
         String color = DEFAULT_IDLE;
         String hoverColor = DEFAULT_HOVER;
+        String textColor = DEFAULT_TEXT_COLOR;
 
         // Create color theme from the users current theme
         if(UserStateService.checkIfUserState()) {
@@ -60,11 +62,11 @@ public class HelpPageController {
             String[] colorTheme =  theme.split(";");
             color = colorTheme[2].split(":")[1];
             hoverColor = colorTheme[3].split(":")[1];
+            textColor = colorTheme[4].split(":")[1];
         }
 
-        String idleStyle = "-fx-background-color: " +  color + "; -fx-background-radius: 5; -fx-font-size: 16; -fx-text-fill: white; -fx-background-size: 100% 100%;";
+        String idleStyle = "-fx-background-color: " +  color + "; -fx-background-radius: 5; -fx-font-size: 16; -fx-background-size: 100% 100%; -fx-text-fill: " + textColor + ";";
         String hoverStyle = "-fx-background-color: " +  color + ";-fx-text-fill: " +  hoverColor + "; -fx-background-radius: 5; -fx-font-size: 16; -fx-background-size: 100% 100%;";
-
         // Set spacing
         helpMenuVBox.setSpacing(5);
 
