@@ -121,8 +121,6 @@ public class TaskController {
                 Hyperlink clickFile = new Hyperlink(fileName[fileName.length-1]);
                 clickFile.setPrefWidth(200);
 
-                //Button button = new Button(fileName[fileName.length-1]);
-
                 clickFile.setOnAction(event -> {
                     try {
                         File open = new File(file);
