@@ -82,7 +82,10 @@
             <HBox fx:id="attachedFilesHBox">
                <children>
                   <Label minHeight="-Infinity" minWidth="-Infinity" text="Attached files" textFill="WHITE" />
-                  <FlowPane fx:id="flowPaneForFiles" prefWrapLength="200.0" rowValignment="TOP" />
+                  <FlowPane fx:id="flowPaneForFiles" prefWrapLength="200.0" rowValignment="TOP">
+                     <padding>
+                        <Insets top="-3.0" />
+                     </padding></FlowPane>
                </children>
             </HBox>
             <AnchorPane>

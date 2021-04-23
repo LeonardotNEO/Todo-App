@@ -158,7 +158,6 @@ public class NewEditTaskController {
         setListOfFiles(task.getFilePaths());
 
         addUpdateAttachedFiles(listOfFiles);
-        scrollPane.setContent(vboxForFiles);
 
         // set onAction of button and button text
         button.setText("Edit task");
@@ -189,7 +188,6 @@ public class NewEditTaskController {
             listOfFiles.add(selectedFiles.getAbsolutePath());
         }
         addUpdateAttachedFiles(listOfFiles);
-        scrollPane.setContent(vboxForFiles);
     }
 
     /**
