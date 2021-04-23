@@ -29,7 +29,11 @@ public final class Storage {
      * @return a {@link User} object with corresponding username.
      */
     public static User getUser(String username){
-        return userStorage.deserialize(username);
+        if(userExists(username)) {
+            return userStorage.deserialize(username);
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -94,7 +98,7 @@ public final class Storage {
      */
     public static void write(){
         //Delete removed projects
-        String[] newProjects = CommonDAO.listProjects();
+        String[] newProjects = CommonDAO.listAllProjects();
         String[] oldProjects = taskStorage.listProjects(currentUser);
         for(String project : oldProjects){
             if(Arrays.stream(newProjects).noneMatch(str -> str.equals(project))){
@@ -422,7 +426,7 @@ public final class Storage {
         }
 
         private static String filepath(String username, Task task){
-            String project = (task.getProject().isEmpty() ? "Standard" : task.getProject());
+            String project = (task.getProject() == null ? "Standard" : task.getProject());
             String category = task.getCategory();
             long id = task.getId();
             return (categoryDir(username, project, category) + PREFIX + id + FILETYPE);

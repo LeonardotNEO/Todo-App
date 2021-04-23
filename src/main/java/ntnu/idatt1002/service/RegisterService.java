@@ -17,6 +17,7 @@ public class RegisterService {
 
         // Update savefiles to include this new user
         Storage.newUser(newUser);
+        Storage.read(name);
 
         // Set current user to this username
         UserStateService.setCurrentUserUsername(name);
@@ -28,6 +29,9 @@ public class RegisterService {
         for (String premadeCategory : CategoryService.getPremadeCategories()) {
             CategoryService.addCategoryToCurrentUser(premadeCategory);
         }
+
+        //Update savefiles to include premade categories
+        Storage.write();
 
         return true;
     }

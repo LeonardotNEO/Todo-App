@@ -54,9 +54,15 @@ public final class CommonDAO {
      * @param task the {@link Task} object.
      */
     public static void addTask(Task task){
-        String project = (task.getProject().isEmpty() ? "Standard" : task.getProject());
+        String project = (task.getProject() == null ? "Standard" : task.getProject());
         String category = task.getCategory();
-        tasks.get(project).get(category).add(task);
+        if(listTasks(project, category).size() == 0){
+            ArrayList<Task> newTasks = new ArrayList<>();
+            newTasks.add(task);
+            tasks.get(project).put(category, newTasks);
+        }else {
+            tasks.get(project).get(category).add(task);
+        }
     }
 
     /**
@@ -64,7 +70,18 @@ public final class CommonDAO {
      * @return a {@link String}[] of project names.
      */
     public static String[] listProjects(){
-        return (String[]) tasks.keySet().toArray();
+        ArrayList<String> projects = new ArrayList<>(tasks.keySet());
+        projects.remove("Standard");
+        return projects.toArray(new String[0]);
+    }
+
+    /**
+     * Get an array of all projects, including 'Standard', for the logged in user.
+     * @return a {@link String}[] of project names.
+     */
+    static String[] listAllProjects(){
+        ArrayList<String> projects = new ArrayList<>(tasks.keySet());
+        return projects.toArray(new String[0]);
     }
 
     /**
@@ -72,7 +89,12 @@ public final class CommonDAO {
      * @return a {@link String}[] of category names.
      */
     public static String[] listCategories(){
-        return (String[]) tasks.get("Standard").keySet().toArray();
+        try {
+            ArrayList<String> categories = new ArrayList<>(tasks.get("Standard").keySet());
+            return categories.toArray(new String[0]);
+        }catch (NullPointerException npe){
+            return new String[0];
+        }
     }
 
     /**
@@ -81,7 +103,8 @@ public final class CommonDAO {
      * @return a {@link String}[] of category names.
      */
     public static String[] listCategories(String project){
-        return (String[]) tasks.get(project).keySet().toArray();
+        ArrayList<String> categories = new ArrayList<>(tasks.get(project).keySet());
+        return categories.toArray(new String[0]);
     }
 
     /**
@@ -101,7 +124,11 @@ public final class CommonDAO {
      * @return an {@link ArrayList}{@code <>} of {@link Task} objects.
      */
     public static ArrayList<Task> listTasks(String project, String category){
-        return tasks.get(project).get(category);
+        try {
+            return tasks.get(project).get(category);
+        }catch (NullPointerException npe){
+            return new ArrayList<>();
+        }
     }
 
     /**
@@ -193,7 +220,7 @@ public final class CommonDAO {
      * @param task the {@link Task} object.
      */
     public static void deleteTask(Task task){
-        String project = (task.getProject().isEmpty() ? "Standard" : task.getProject());
+        String project = (task.getProject() == null ? "Standard" : task.getProject());
         String category = task.getCategory();
         tasks.get(project).get(category).remove(task);
     }
