@@ -10,17 +10,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="background" styleClass="background-color_1" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.TaskController">
    <children>
       <VBox fx:id="vbox" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text fx:id="taskName" fill="ORANGE" strokeType="OUTSIDE" strokeWidth="0.0" text="task_name">
+            <Label fx:id="taskName" text="name" textFill="ORANGE">
                <font>
                   <Font size="20.0" />
                </font>
-            </Text>
+            </Label>
             <Label fx:id="taskDescription" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="16.0" />
@@ -29,59 +28,59 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Text fx:id="taskLocation" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="location" wrappingWidth="239.0703125">
+            <Label fx:id="taskLocation" text="location" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="startdate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="startdate" wrappingWidth="239.0703125">
+            </Label>
+            <Label fx:id="startdate" text="startdate" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="duedate" boundsType="VISUAL" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="duedate" wrappingWidth="239.0703125">
+            </Label>
+            <Label fx:id="duedate" text="duedate" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="finishDate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="finishDate" wrappingWidth="239.0703125">
+            </Label>
+            <Label fx:id="finishDate" text="finishdate" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="tags" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="tags: ....." wrappingWidth="281.0703125">
+            </Label>
+            <Label fx:id="tags" text="tags" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="color" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="color" wrappingWidth="239.0703125">
+            </Label>
+            <Label fx:id="color" text="color" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="project" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="project" wrappingWidth="239.0703125">
+            </Label>
+            <Label fx:id="project" text="project" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="category" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="category" wrappingWidth="239.0703125">
+            </Label>
+            <Label fx:id="category" text="category" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="notification" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="notification 1 hour before duedate" wrappingWidth="385.0703125">
+            </Label>
+            <Label fx:id="notification" text="notificaiton" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
-            <Text fx:id="taskRepeat" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="task repeat" wrappingWidth="385.0703125">
+            </Label>
+            <Label fx:id="taskRepeat" text="taskrepeat" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </Text>
+            </Label>
             <HBox fx:id="attachedFilesHBox">
                <children>
-                  <Label minHeight="-Infinity" minWidth="-Infinity" text="Attached files" textFill="WHITE" />
+                  <Label fx:id="attachedFiles" minHeight="-Infinity" minWidth="-Infinity" text="Attached files" textFill="WHITE" />
                   <FlowPane fx:id="flowPaneForFiles" prefWrapLength="200.0" rowValignment="TOP">
                      <padding>
                         <Insets top="-3.0" />

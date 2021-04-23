@@ -31,21 +31,22 @@ public class TaskController {
     private boolean fullDisplayed;
     private long taskId;
     private Task task;
-    @FXML private Text taskName;
+    @FXML private Label taskName;
     @FXML private Label taskDescription;
-    @FXML private Text project;
-    @FXML private Text category;
-    @FXML private Text startdate;
-    @FXML private Text duedate;
-    @FXML private Text finishDate;
-    @FXML private Text taskLocation;
-    @FXML private Text color;
-    @FXML private Text notification;
-    @FXML private Text tags;
+    @FXML private Label project;
+    @FXML private Label category;
+    @FXML private Label startdate;
+    @FXML private Label duedate;
+    @FXML private Label finishDate;
+    @FXML private Label taskLocation;
+    @FXML private Label color;
+    @FXML private Label notification;
+    @FXML private Label tags;
     @FXML private HBox attachedFilesHBox;
     @FXML private Label taskDate;
     @FXML private Label taskPriority;
-    @FXML private Text taskRepeat;
+    @FXML private Label taskRepeat;
+    @FXML private Label attachedFiles;
     @FXML private Pane background;
     @FXML private HBox toolsHBox;
     @FXML private FlowPane flowPaneForFiles;
@@ -404,21 +405,40 @@ public class TaskController {
 
     public void setTaskColor(String backgroundColor){
         background.setStyle("-fx-background-color: " + backgroundColor + "; -fx-background-radius:  5 20 5 5;");
+        toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
 
         if(ColorUtil.isVisibilityRatingOverThreshold(backgroundColor)){
+            taskName.setTextFill(Paint.valueOf("white"));
             taskDescription.setTextFill(Paint.valueOf("white"));
+            project.setTextFill(Paint.valueOf("white"));
+            category.setTextFill(Paint.valueOf("white"));
+            startdate.setTextFill(Paint.valueOf("white"));
+            duedate.setTextFill(Paint.valueOf("white"));
+            finishDate.setTextFill(Paint.valueOf("white"));
+            taskLocation.setTextFill(Paint.valueOf("white"));
+            color.setTextFill(Paint.valueOf("white"));
+            notification.setTextFill(Paint.valueOf("white"));
+            tags.setTextFill(Paint.valueOf("white"));
             taskDate.setTextFill(Paint.valueOf("white"));
             taskPriority.setTextFill(Paint.valueOf("white"));
-            taskRepeat.setFill(Paint.valueOf("white"));
-            taskName.setFill(Paint.valueOf("white"));
-            toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
+            taskRepeat.setTextFill(Paint.valueOf("white"));
+            attachedFiles.setTextFill(Paint.valueOf("white"));
         } else {
+            taskName.setTextFill(Paint.valueOf("black"));
             taskDescription.setTextFill(Paint.valueOf("black"));
+            project.setTextFill(Paint.valueOf("black"));
+            category.setTextFill(Paint.valueOf("black"));
+            startdate.setTextFill(Paint.valueOf("black"));
+            duedate.setTextFill(Paint.valueOf("black"));
+            finishDate.setTextFill(Paint.valueOf("black"));
+            taskLocation.setTextFill(Paint.valueOf("black"));
+            color.setTextFill(Paint.valueOf("black"));
+            notification.setTextFill(Paint.valueOf("black"));
+            tags.setTextFill(Paint.valueOf("black"));
             taskDate.setTextFill(Paint.valueOf("black"));
             taskPriority.setTextFill(Paint.valueOf("black"));
-            taskRepeat.setFill(Paint.valueOf("black"));
-            taskName.setFill(Paint.valueOf("black"));
-            toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
+            taskRepeat.setTextFill(Paint.valueOf("black"));
+            attachedFiles.setTextFill(Paint.valueOf("black"));
         }
     }
 
