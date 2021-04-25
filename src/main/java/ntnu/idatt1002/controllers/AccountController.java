@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * A class which contains the buttons related to a user account
+ * Controller for account.fxml
  */
 public class AccountController {
 
@@ -121,6 +121,11 @@ public class AccountController {
         showInformationPage();
     }
 
+    /**
+     * Method for handling when the "add background" button is clicked
+     * @param event
+     * @throws IOException
+     */
     public void buttonAddBackground(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Add background image");
@@ -131,6 +136,10 @@ public class AccountController {
         initialize();
     }
 
+    /**
+     * Method for displaying the current users images to the backgrounds HBox
+     * Add listener to each button, to change the background when clicked.
+     */
     public void displayBackgrounds(){
         // remove background if there are any
         removeBackgroundImages();
@@ -154,10 +163,16 @@ public class AccountController {
         });
     }
 
+    /**
+     * Method for removing all background UI buttons from backgrounds HBox.
+     */
     public void removeBackgroundImages(){
         backgrounds.getChildren().removeAll(backgrounds.getChildren());
     }
 
+    /**
+     * Method for handling when the "None" background button is clicked.
+     */
     public void buttonNoBackground(){
         UserStateService.getCurrentUser().setCurrentlySelectedBackground("-fx-background-color: #e6e6e6;");
         initialize();
@@ -218,23 +233,43 @@ public class AccountController {
     }
 
     /**
-     * Change the users theme in their user settings variables, and then update UI
+     * When button is clicked, we change the theme of the current user (Blue)
      */
     public void buttonBlueTheme(){
         App.updateThemeCurrentUser("-fx-color-1: #001021; -fx-color-2: #001933 ; -fx-color-3: #00254d; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
+
+    /**
+     * When button is clicked, we change the theme of the current user (Green)
+     */
     public void buttonGreenTheme(){
         App.updateThemeCurrentUser("-fx-color-1: #004d00; -fx-color-2: #006600; -fx-color-3: #008000; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
+
+    /**
+     * When button is clicked, we change the theme of the current user (Red)
+     */
     public void buttonRedTheme(){
         App.updateThemeCurrentUser("-fx-color-1: #660011; -fx-color-2: #800015; -fx-color-3: #99001a; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
+
+    /**
+     * When button is clicked, we change the theme of the current user (Pink)
+     */
     public void buttonPinkTheme(){
         App.updateThemeCurrentUser("-fx-color-1: #ff99aa; -fx-color-2: #ffb3bf; -fx-color-3: #ffc0cb; -fx-text-hover-color: #404040; -fx-color-text-color: black");
     }
+
+    /**
+     * When button is clicked, we change the theme of the current user (Brown)
+     */
     public void buttonBrownTheme(){
         App.updateThemeCurrentUser("-fx-color-1: #3d1010; -fx-color-2: #511515; -fx-color-3: #651b1b; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }
+
+    /**
+     * When button is clicked, we change the theme of the current user (Purple)
+     */
     public void buttonPurpleTheme(){
         App.updateThemeCurrentUser("-fx-color-1: #4d004d; -fx-color-2: #660066; -fx-color-3: #800080; -fx-text-hover-color: orange; -fx-color-text-color: white");
     }

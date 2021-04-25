@@ -25,7 +25,7 @@ public class UserService {
 
     /**
      * Method used for editing a user.
-     * We transfer values from old user to new user, and transfer categories, tasks and notifications
+     * We transfer values from old user to new user, and transfer projects, categories, tasks and notifications
      * @param oldUser
      * @param newUser
      */

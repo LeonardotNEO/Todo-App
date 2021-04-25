@@ -12,6 +12,9 @@ import ntnu.idatt1002.service.UserStateService;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Controller for calenderElement.fxml
+ */
 public class CalenderElementController {
     @FXML private Text dateText;
     @FXML private HBox tasksHBox;

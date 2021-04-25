@@ -16,7 +16,8 @@ public class UpdateService {
     private static Timer timer = new Timer();
 
     /**
-     * Method for starting the update function in the background when app is running
+     * Method for updating/checking certain criteria every second.
+     * This method is used in the start() method of App.java.
      */
     public static void start(){
         timer.scheduleAtFixedRate(new TimerTask() {

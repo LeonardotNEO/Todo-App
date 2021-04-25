@@ -4,11 +4,10 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
+/**
+ * Controller for notificationMenuPopup.fxml
+ */
 public class NotificationMenuPopupController {
-
-    public void initialize(){
-
-    }
 
     /**
      * Communicate with mainController to update its main-content to notificationHistory.fxml when button in notificationBell-menu is clicked

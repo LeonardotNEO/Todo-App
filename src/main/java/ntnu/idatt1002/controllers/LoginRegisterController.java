@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Controller that handles login inn and creation of a new user
+ * Controller for loginRegister.fxml
  */
 public class LoginRegisterController {
     // general

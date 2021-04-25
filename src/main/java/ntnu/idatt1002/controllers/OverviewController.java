@@ -27,6 +27,9 @@ import java.time.temporal.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Controller for overview.fxml
+ */
 public class OverviewController {
 
     public static ArrayList<String> excludedCategories;

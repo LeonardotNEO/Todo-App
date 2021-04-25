@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * A class which contains the methods related to the task page
+ * Controller for the tasks.fxml
  */
 public class TasksController {
 
@@ -32,6 +32,9 @@ public class TasksController {
     @FXML private Label messageText;
     @FXML private VBox background;
 
+    /**
+     * When this tasks.fxml is initialized, we add scrollpane listener (for resizing), decide if we show the "add task" button and set the style of the background
+     */
     public void initialize(){
         // make vbox inside scrollpanes resizeable
         addScrollpaneListener();
@@ -64,6 +67,10 @@ public class TasksController {
         tasksVBox.getChildren().add(tasksVBox.getChildren().size(), task);
     }
 
+    /**
+     * Method for handling what happens when "add task" button is pressed.
+     * We load the newEditTask page.
+     */
     public void buttonAddTask(){
         // Load newEditTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
@@ -87,6 +94,9 @@ public class TasksController {
         }
     }
 
+    /**
+     * Method used for deciding if we want to show the "add task" button.
+     */
     public void showAddTaskButton(){
         // set button to hidden as default
         buttonAddTask.setVisible(false);
@@ -104,7 +114,7 @@ public class TasksController {
     }
 
     /**
-     * Uses helper-method addTask to add an arraylist of tasks
+     * Method used for adding task UI elements to the tasks page.
      * @param tasks
      */
     public void addTasks(ArrayList<Task> tasks){
@@ -120,9 +130,7 @@ public class TasksController {
     }
 
     /**
-     * Method for setting content of tasks to empty.
-     * If currently selected category is not set to null, we show some text.
-     * If currently selected category is set to null, we show guide to add new category.
+     * Method used for determining what text to display when there is no tasks.
      */
     public void tasksIsEmpty(){
         // set project and category
@@ -159,7 +167,7 @@ public class TasksController {
     }
 
     /**
-     * Method for displaying UI in tasks when we are using searchbar
+     * Method for displaying UI in tasks when we searching for tasks yields no result.
      */
     public void tasksIsEmptySearch(){
         showMessage("No task matching your search!");
@@ -177,6 +185,10 @@ public class TasksController {
         });
     }
 
+    /**
+     * Method for showing text in tasks-page
+     * @param message
+     */
     public void showMessage(String message){
         if(message == null){
             messageText.setVisible(false);

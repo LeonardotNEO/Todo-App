@@ -19,7 +19,7 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * A class which contains the buttons related to the navigation bar
+ * Controller for navbar.fxml
  */
 public class NavbarController {
 

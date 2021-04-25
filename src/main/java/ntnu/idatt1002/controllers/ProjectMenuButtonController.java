@@ -11,6 +11,10 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ * Controller for projectMenuButton.fxml
+ * ProjectMenuButton are loaded into dashboard (For showcasing projects on the left side).
+ */
 public class ProjectMenuButtonController {
     @FXML private VBox categories;
     @FXML private Button buttonNewCategory;
@@ -42,10 +46,18 @@ public class ProjectMenuButtonController {
         }
     }
 
+    /**
+     * Add a category UI element to categories VBox
+     * @param anchorPane
+     */
     public void addCategoryUI(AnchorPane anchorPane){
         categories.getChildren().add(anchorPane);
     }
 
+    /**
+     * Method running when nodes with onAction buttonNewCategory is clicked
+     * @throws IOException
+     */
     public void buttonNewCategory() throws IOException {
         // Load newEditTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditCategory.fxml"));
@@ -59,6 +71,10 @@ public class ProjectMenuButtonController {
         DashboardController.getInstance().setCenterContent(node);
     }
 
+    /**
+     * Method for handling what happens when a project is clicked.
+     * @throws IOException
+     */
     public void buttonClickProject() throws IOException {
         // show add category button for the selected project
         categories.setVisible(true);

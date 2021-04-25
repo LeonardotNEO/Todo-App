@@ -12,6 +12,9 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ * Controller for newEditProject.fxml
+ */
 public class NewEditProjectController {
 
     private boolean isNew;
@@ -20,6 +23,9 @@ public class NewEditProjectController {
     @FXML private Button buttonNewEditProject;
     @FXML private Label errorMessage;
 
+    /**
+     * Method for initializing the new part of newEditProject
+     */
     public void initializeNew(){
         isNew = true;
         header.setText("Create project");
@@ -33,6 +39,9 @@ public class NewEditProjectController {
         });
     }
 
+    /**
+     * Method for initializing the edit part of newEditProject
+     */
     public void initializeEdit(){
         isNew = false;
         header.setText("Edit project");
@@ -46,10 +55,19 @@ public class NewEditProjectController {
         });
     }
 
+    /**
+     * Button for handling when the cancel button is pressed.
+     * When the button is pressed we load the dashboard back in.
+     * @throws IOException
+     */
     public void buttonCancel() throws IOException {
         DashboardController.getInstance().initialize();
     }
 
+    /**
+     * Method for handling when the "newProject" button is pressed
+     * @throws IOException
+     */
     public void newProject() throws IOException {
         // check if title is valid
         if(ProjectService.validateTitle(title.getText())){
@@ -67,6 +85,10 @@ public class NewEditProjectController {
         }
     }
 
+    /**
+     * Method for handling when the "editProject" button is pressed
+     * @throws IOException
+     */
     public void editProject() throws IOException {
         // check if title is valid
         if(ProjectService.validateTitle(title.getText())){
