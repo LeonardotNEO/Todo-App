@@ -485,7 +485,12 @@ public class TaskService {
         Task T= TaskService.getTaskByCurrentUser(taskId);
         if(T.isRepeatable()) {
             if (T.getTimeRepeat() != 0L) {
-                Task t = TaskDAO.deserialize(T.getUserName(), T.getCategory(), T.getId());
+                Task t;
+                if (T.getProject() == null) {
+                    t = TaskDAO.deserialize(T.getUserName(), T.getCategory(), T.getId());
+                } else {
+                    t = TaskDAO.deserialize(T.getUserName(), T.getProject(), T.getCategory(), T.getId());
+                }
                 t.setDeadline(t.getDeadline() + T.getTimeRepeat());
                 t.setId(t.generateId());
                 TaskService.newTask(t);
