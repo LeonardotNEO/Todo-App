@@ -208,7 +208,7 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox fx:id="taskHBox" alignment="CENTER_RIGHT" layoutX="758.0" maxWidth="-Infinity" prefHeight="75.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
+            <HBox fx:id="taskHBox" alignment="CENTER_RIGHT" layoutX="734.0" layoutY="18.0" maxWidth="-Infinity" spacing="10.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <MenuButton fx:id="sort" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-font-size: 15; -fx-background-radius: 10;" styleClass="background-color_1" text="Sort" textFill="WHITE">
                      <font>
@@ -221,15 +221,23 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MenuButton>
-                  <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="120.0" promptText="Search..." style="-fx-font-size: 15; -fx-background-radius: 10; -fx-font-style: none;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <styleClass>
-                        <String fx:value="background-color_1" />
-                        <String fx:value="text-color" />
-                     </styleClass>
-                  </TextField>
+                  <HBox alignment="CENTER" prefHeight="39.0" prefWidth="120.0" style="-fx-background-radius: 10;" styleClass="background-color_1">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
+                        <TextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="120.0" promptText="Search..." style="-fx-font-size: 15; -fx-background-radius: 10; -fx-font-style: none;">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="background-color_1" />
+                              <String fx:value="text-color" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
                </children>
                <padding>
                   <Insets left="18.0" right="18.0" />
