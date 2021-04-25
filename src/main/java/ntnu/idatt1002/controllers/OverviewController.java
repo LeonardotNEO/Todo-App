@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;

@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import ntnu.idatt1002.App;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.ProjectService;
 import ntnu.idatt1002.service.TaskService;
@@ -31,7 +31,6 @@ import ntnu.idatt1002.utils.TimeConverter;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

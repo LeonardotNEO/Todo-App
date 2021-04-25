@@ -2,7 +2,7 @@ package ntnu.idatt1002.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import ntnu.idatt1002.HelpSection;
+import ntnu.idatt1002.model.HelpSection;
 
 import java.io.FileReader;
 import java.io.IOException;

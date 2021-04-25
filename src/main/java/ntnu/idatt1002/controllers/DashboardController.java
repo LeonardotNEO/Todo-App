@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ntnu.idatt1002.App;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.ProjectService;
 import ntnu.idatt1002.service.TaskService;

@@ -1,8 +1,8 @@
 package ntnu.idatt1002.dao;
 
-import ntnu.idatt1002.Notification;
-import ntnu.idatt1002.Task;
-import ntnu.idatt1002.User;
+import ntnu.idatt1002.model.Notification;
+import ntnu.idatt1002.model.Task;
+import ntnu.idatt1002.model.User;
 
 import java.io.File;
 import java.util.ArrayList;

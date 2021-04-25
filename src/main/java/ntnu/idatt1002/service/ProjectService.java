@@ -1,6 +1,6 @@
 package ntnu.idatt1002.service;
 
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.dao.ProjectDAO;
 
 import java.util.ArrayList;

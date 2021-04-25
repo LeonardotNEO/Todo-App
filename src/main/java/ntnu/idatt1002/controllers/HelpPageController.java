@@ -10,8 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import ntnu.idatt1002.HelpSection;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.HelpSection;
 import ntnu.idatt1002.service.HelpService;
 import ntnu.idatt1002.service.UserStateService;
 
@@ -19,7 +18,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * Controller for the helpPage

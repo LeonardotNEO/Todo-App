@@ -9,14 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.UserStateService;
-import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +47,7 @@ public class TasksController {
      * @param taskObject A task object is turned into a UI element
      * @throws IOException
      */
-    public void addTask(ntnu.idatt1002.Task taskObject) throws IOException {
+    public void addTask(Task taskObject) throws IOException {
         // Loads task page and get the controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
         AnchorPane task = loader.load();

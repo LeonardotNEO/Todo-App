@@ -1,7 +1,7 @@
 package ntnu.idatt1002.dao;
 
-import ntnu.idatt1002.Task;
-import ntnu.idatt1002.User;
+import ntnu.idatt1002.model.Task;
+import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.utils.DateUtils;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -9,7 +9,6 @@ import org.apache.commons.csv.CSVPrinter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
 /**

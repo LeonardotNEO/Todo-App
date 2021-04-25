@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import ntnu.idatt1002.Notification;
+import ntnu.idatt1002.model.Notification;
 import ntnu.idatt1002.dao.NotificationDAO;
 import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.service.UserStateService;

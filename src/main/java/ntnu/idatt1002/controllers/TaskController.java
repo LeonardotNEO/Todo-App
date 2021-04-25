@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.ColorUtil;
