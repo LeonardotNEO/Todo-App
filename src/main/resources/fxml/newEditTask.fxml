@@ -77,11 +77,17 @@
                <graphic>
                   <FontAwesomeIconView fill="LIME" glyphName="PLUS" />
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
             <JFXButton layoutX="380.0" layoutY="8.0" onAction="#buttonCancelTask" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="BAN" selectionFill="RED" />
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
          </children>
       </AnchorPane>
