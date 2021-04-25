@@ -114,22 +114,16 @@ public class NavbarController {
     }
 
     /**
-     *
+     * Method for setting the style of the button representing the currently selected page
      */
     public void setSelectedButton(){
         for(Node node : navbarHbox.getChildren()){
             Button button = (Button) node;
-
-
             FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
-            //System.out.println(icon.getStyle());
 
             if(button.getText().equals(currentlySelectedPage)){
-                System.out.println(button.getStyleClass());
                 button.getStyleClass().clear();
                 button.getStyleClass().add("navbarButton-selected");
-                //button.setStyle("-fx-text-fill: -fx-text-hover-color");
-                //icon.setStyle("-fx-fill: -fx-text-hover-color; -fx-font-family: FontAwesome; -fx-font-size: 1em;");
             } else {
                 button.getStyleClass().clear();
                 button.getStyleClass().add("navbarButton");
