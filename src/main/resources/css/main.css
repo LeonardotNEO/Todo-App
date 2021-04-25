@@ -79,10 +79,12 @@
   -fx-font-size: 18;
   -fx-text-fill: -fx-text-hover-color;
   -fx-padding: 6 0 6 12;
+  -fx-underline: true;
 }
 
 .categoryButton-selected #icon {
   -fx-fill: -fx-text-hover-color;
+  -fx-underline: true;
 }
 
 /* finishedtasks categorybutton */
