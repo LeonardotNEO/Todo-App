@@ -11,5 +11,6 @@ module ntnu.idatt1002 {
     requires java.sql;
 
     exports ntnu.idatt1002;
+    exports ntnu.idatt1002.model;
     opens ntnu.idatt1002.controllers to javafx.fxml;
 }
