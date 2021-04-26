@@ -28,8 +28,8 @@ public class NewEditProjectController {
      */
     public void initializeNew(){
         isNew = true;
-        header.setText("Create project");
-        buttonNewEditProject.setText("Create project");
+        header.setText("New project");
+        buttonNewEditProject.setText("Create");
         buttonNewEditProject.setOnAction(event -> {
             try {
                 newProject();
