@@ -19,7 +19,9 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import ntnu.idatt1002.App;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
+import ntnu.idatt1002.service.CategoryService;
+import ntnu.idatt1002.service.ProjectService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.utils.ColorUtil;
 import ntnu.idatt1002.utils.DateConverter;
@@ -61,6 +63,12 @@ public class NewEditTaskController {
     @FXML private Button button;
     @FXML private Button buttonAttachFiles;
     @FXML private VBox vboxForFiles;
+    @FXML private HBox priorityBox;
+    @FXML private HBox repeatBox;
+    @FXML private HBox projectBox;
+    @FXML private MenuButton projectMenu;
+    @FXML private HBox categoryBox;
+    @FXML private MenuButton categoryMenu;
     @FXML private ScrollPane scrollPane;
     @FXML private static AnchorPane fileOptionsPopup;
     @FXML private static Popup popup;
@@ -86,6 +94,9 @@ public class NewEditTaskController {
         // set timePicker
         this.timePicker.setConverter(new TimeConverter());
         this.timePicker.set24HourView(true);
+
+        // populate project and category buttons
+        populateProjectMenu();
 
         // set onAction of button
         this.button.setText("New task");
@@ -125,6 +136,10 @@ public class NewEditTaskController {
         // set location prompt
         this.locationTextField.setText(task.getLocation());
 
+        // populate project and category buttons
+        populateProjectMenu();
+
+        // populate files
         setTaskWithFiles(task);
 
         // set datepicker prompt and DateConverter
@@ -292,6 +307,11 @@ public class NewEditTaskController {
             errorCodes.remove(Integer.valueOf(3));
         }
 
+        // set project to null if it is "No project"
+        if(projectMenu.getText().equals("No project")){
+            projectMenu.setText(null);
+        }
+
         if(errorCodes.size() == 0){
             // get all the input tags and put them in a list
             ArrayList<String> tagsList = new ArrayList<>();
@@ -299,25 +319,14 @@ public class NewEditTaskController {
                 tagsList.add(tag.toString());
             });
 
-            // set the category and project of task
-            String projectString;
-            String categoryString;
-            if(UserStateService.getCurrentUser().getCurrentlySelectedCategory() == null){
-                categoryString = UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory();
-                projectString = UserStateService.getCurrentUser().getCurrentlySelectedProject();
-            } else {
-                categoryString = UserStateService.getCurrentUser().getCurrentlySelectedCategory();
-                projectString = null;
-            }
-
             // TaskBuilder
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())
                     .description(descriptionTextArea.getText())
                     .deadline(deadlineTime)
                     .priority(TaskService.convertPriorityStringToInt(priorityMenu.getText()))
                     .startDate(DateUtils.getAsMs(LocalDateTime.now()))
-                    .category(categoryString)
-                    .project(projectString)
+                    .category(categoryMenu.getText())
+                    .project(projectMenu.getText())
                     .color(ColorUtil.getCorrectColorFormat(color.getValue().toString()))
                     .location(locationTextField.getText())
                     .tags(tagsList)
@@ -365,10 +374,10 @@ public class NewEditTaskController {
         descriptionTextArea.setManaged(false);
         locationTextField.setVisible(false);
         locationTextField.setManaged(false);
-        priorityMenu.setVisible(false);
-        priorityMenu.setManaged(false);
-        repeatMenu.setVisible(false);
-        repeatMenu.setManaged(false);
+        priorityBox.setVisible(false);
+        priorityBox.setManaged(false);
+        repeatBox.setVisible(false);
+        repeatBox.setManaged(false);
         colorBox.setVisible(false);
         colorBox.setManaged(false);
         tagsBox.setVisible(false);
@@ -385,10 +394,10 @@ public class NewEditTaskController {
         descriptionTextArea.setManaged(true);
         locationTextField.setVisible(true);
         locationTextField.setManaged(true);
-        priorityMenu.setVisible(true);
-        priorityMenu.setManaged(true);
-        repeatMenu.setVisible(true);
-        repeatMenu.setManaged(true);
+        priorityBox.setVisible(true);
+        priorityBox.setManaged(true);
+        repeatBox.setVisible(true);
+        repeatBox.setManaged(true);
         colorBox.setVisible(true);
         colorBox.setManaged(true);
         tagsBox.setVisible(true);
@@ -418,6 +427,76 @@ public class NewEditTaskController {
     public void clickRepeat(ActionEvent event) throws IOException{
         MenuItem menuItem = (MenuItem) event.getSource();
         repeatMenu.setText(menuItem.getText());
+    }
+
+    /**
+     * Method for populating the project menu button with menuItems
+     */
+    public void populateProjectMenu() {
+        // get currently selected project
+        String currentProject = UserStateService.getCurrentUser().getCurrentlySelectedProject();
+
+        // get arraylist of all projects
+        ArrayList<String> projects = ProjectService.getProjectCurrentUserArraylist();
+
+        // add "No project" as the first option
+        projects.add(0, "No project");
+
+        // set initial text and elements of projectMenu
+        if(currentProject != null){
+            projectMenu.setText(currentProject);
+            populateCategoryButton(CategoryService.getCategoriesByProjectCurrentUserArraylist(currentProject), UserStateService.getCurrentUser().getCurrentlySelectedProjectCategory());
+        } else {
+            projectMenu.setText("No project");
+            populateCategoryButton(CategoryService.getCategoriesCurrentUserWithoutPremades(), UserStateService.getCurrentUser().getCurrentlySelectedCategory());
+        }
+
+        // add listener to each project menuitem button. When clicked, we change the categorymenu depending on which project was clicked.
+        for(String project : projects){
+            MenuItem menuItem = new MenuItem(project);
+
+            if(project.equals("No project")){
+                menuItem.setOnAction(event -> {
+                    projectMenu.setText("No project");
+                    populateCategoryButton(CategoryService.getCategoriesCurrentUserWithoutPremades(), null);
+                });
+            } else {
+                menuItem.setOnAction(event -> {
+                    projectMenu.setText(project);
+                    populateCategoryButton(CategoryService.getCategoriesByProjectCurrentUserArraylist(project), null);
+                });
+            }
+
+            // add menuitem to projectmenu
+            projectMenu.getItems().add(menuItem);
+        }
+    }
+
+    /**
+     * Method for populating the categoryMenuButton with categories.
+     * @param categories A menuitem is added corresponding to each element in categories arraylist
+     * @param currentlySelectedCategory The initial text of category is set to currentlySelectedCategory parameter
+     */
+    public void populateCategoryButton(ArrayList<String> categories, String currentlySelectedCategory){
+        // clear the category menu before adding new elements
+        categoryMenu.getItems().clear();
+
+        // set the initial value of categoryMenu text
+        if(currentlySelectedCategory == null){
+            categoryMenu.setText(categories.get(0));
+        } else {
+            categoryMenu.setText(currentlySelectedCategory);
+        }
+
+        // add menuitems
+        for(String category : categories){
+            MenuItem menuItem = new MenuItem(category);
+            menuItem.setOnAction(event -> {
+                categoryMenu.setText(category);
+            });
+
+            categoryMenu.getItems().add(menuItem);
+        }
     }
 
     /**

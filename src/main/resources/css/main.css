@@ -79,10 +79,12 @@
   -fx-font-size: 18;
   -fx-text-fill: -fx-text-hover-color;
   -fx-padding: 6 0 6 12;
+  -fx-underline: true;
 }
 
 .categoryButton-selected #icon {
   -fx-fill: -fx-text-hover-color;
+  -fx-underline: true;
 }
 
 /* finishedtasks categorybutton */
@@ -144,17 +146,27 @@
   -fx-font-size: 18;
 }
 
+.navbarButton-selected {
+  -fx-background-color: transparent;
+  -fx-text-fill: -fx-text-hover-color;
+  -fx-font-size: 18;
+}
+
+.navbarButton-selected #icon {
+  -fx-fill: -fx-text-hover-color;
+}
+
 .navbarButton:focused {
   -fx-text-fill: -fx-color-text-color;
   -fx-font-size: 18;
 }
 
-#navbarButton:hover {
+.navbarButton:hover {
   -fx-text-fill: -fx-text-hover-color;
   -fx-background-color:  transparent;
 }
 
-#navbarButton:hover #icon {
+.navbarButton:hover #icon {
   -fx-fill: -fx-text-hover-color;
 }
 

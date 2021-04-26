@@ -1,12 +1,7 @@
 package classes;
 
-import ntnu.idatt1002.Task;
-import ntnu.idatt1002.service.TaskService;
-import ntnu.idatt1002.service.UserStateService;
-import ntnu.idatt1002.utils.DateUtils;
+import ntnu.idatt1002.model.Task;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 

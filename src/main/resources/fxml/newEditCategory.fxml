@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -45,11 +46,17 @@
                      <graphic>
                         <FontAwesomeIconView fill="LIME" glyphName="PLUS" />
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
                   <JFXButton onAction="#buttonCancelNewCategory" prefHeight="37.0" prefWidth="115.0" styleClass="button1" text="Cancel">
                      <graphic>
                         <FontAwesomeIconView fill="RED" glyphName="BAN" />
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
                </children>
             </HBox>

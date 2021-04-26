@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ntnu.idatt1002.App;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.ProjectService;
 import ntnu.idatt1002.service.TaskService;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * A class which contains the buttons related to the dashboard page of the application
+ * Controller for dashboard.fxml
  */
 public class DashboardController {
     //VARIABLES
@@ -106,6 +106,10 @@ public class DashboardController {
         categories.getChildren().removeAll(categories.getChildren());
     }
 
+    /**
+     * Methodf or loading projectButton to the left menu of dashboard
+     * @throws IOException
+     */
     public void loadProjectButtons() throws IOException {
         // delete old buttons before loading new ones
         deleteProjectButtons();
@@ -131,6 +135,12 @@ public class DashboardController {
         }
     }
 
+    /**
+     * Method for loading projectCategoryButtons UI in to projectButton UI (left side menu)
+     * @param projectName name of the project
+     * @param projectMenuButtonController The controller for this projectMenuButton
+     * @throws IOException
+     */
     public void loadProjectCategoryButtons(String projectName, ProjectMenuButtonController projectMenuButtonController) throws IOException {
         // iterate through each category under this project, and add them to projectMenuButton
         for(String category : CategoryService.getCategoriesByProjectCurrentUser(projectName)){
@@ -149,6 +159,9 @@ public class DashboardController {
         }
     }
 
+    /**
+     * Method for removing project UI buttons from projects VBox.
+     */
     public void deleteProjectButtons(){
         projects.getChildren().removeAll(projects.getChildren());
     }

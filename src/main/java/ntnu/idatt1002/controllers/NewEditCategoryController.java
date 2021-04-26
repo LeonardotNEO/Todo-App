@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * A class which contains the buttons related to the creation of a new category
+ * Controller for newEditCategory.fxml
  */
 public class NewEditCategoryController {
 
@@ -27,6 +27,9 @@ public class NewEditCategoryController {
     @FXML private Text headerText;
     @FXML private Button button;
 
+    /**
+     * Method for loading the new part of newEditCategory
+     */
     public void intializeNewCategory(){
         projectName = UserStateService.getCurrentUser().getCurrentlySelectedProject();
         headerText.setText("Create category");
@@ -42,6 +45,9 @@ public class NewEditCategoryController {
         });
     }
 
+    /**
+     * Method or loading the edit part of newEditCategory
+     */
     public void intializeEditCategory(){
         projectName = UserStateService.getCurrentUser().getCurrentlySelectedProject();
         headerText.setText("Edit category");

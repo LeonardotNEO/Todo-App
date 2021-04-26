@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import ntnu.idatt1002.User;
+import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.LoginService;
 import ntnu.idatt1002.service.RegisterService;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Controller that handles login inn and creation of a new user
+ * Controller for loginRegister.fxml
  */
 public class LoginRegisterController {
     // general

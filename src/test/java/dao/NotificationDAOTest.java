@@ -1,7 +1,7 @@
 package dao;
 
-import ntnu.idatt1002.Notification;
-import ntnu.idatt1002.User;
+import ntnu.idatt1002.model.Notification;
+import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.dao.NotificationDAO;
 import ntnu.idatt1002.dao.UserDAO;
 import org.junit.jupiter.api.AfterAll;

@@ -9,10 +9,17 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ * Controller for categoryMenuButton.fxml
+ */
 public class CategoryMenuButtonController {
     @FXML private Button buttonAddTask;
     @FXML private Button buttonClickCategory;
 
+    /**
+     * Method used when we want to load a normal category button
+     * @param category Name of the category (stand-alone category)
+     */
     public void initializeNormalCategory(String category){
         buttonClickCategory.setText(category);
 
@@ -46,6 +53,11 @@ public class CategoryMenuButtonController {
         setStyleOfButton(buttonClickCategory);
     }
 
+    /**
+     * Method used when we want to load a category button under a project
+     * @param category Name of the category
+     * @param project Name of the project
+     */
     public void initializeProjectCategory(String category, String project){
         buttonClickCategory.setText(category);
 
@@ -79,6 +91,10 @@ public class CategoryMenuButtonController {
         setStyleOfButtonProject(buttonClickCategory);
     }
 
+    /**
+     * Method running when addTask button is clicked (to the right of currently selected category)
+     * @throws IOException
+     */
     public void buttonAddTask() throws IOException {
         // Load newEditTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));
@@ -92,6 +108,11 @@ public class CategoryMenuButtonController {
         DashboardController.getInstance().setCenterContent(node);
     }
 
+    /**
+     * Method used for setting the style of the category button.
+     * Different styles depending on which category and if that category is selected.
+     * @param button
+     */
     public void setStyleOfButton(Button button){
         // set icons for trash bin and finished tasks
         FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();

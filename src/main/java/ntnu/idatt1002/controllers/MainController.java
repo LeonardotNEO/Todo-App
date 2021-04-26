@@ -8,7 +8,8 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
 /**
- * A class which contains the basic methods related to the javafx layout for the application
+ * Controller for main.fxml
+ * This controller is responsible for updating the mainContent and navbar of the app.
  */
 public class MainController {
 

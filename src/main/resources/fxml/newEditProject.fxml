@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,11 +21,17 @@
                   <JFXButton fx:id="buttonNewEditProject" styleClass="button1" text="New project">
                      <graphic>
                         <FontAwesomeIconView fill="LIME" glyphName="PLUS" />
-                     </graphic></JFXButton>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
                   <JFXButton onAction="#buttonCancel" styleClass="button1" text="Cancel">
                      <graphic>
                         <FontAwesomeIconView fill="RED" glyphName="BAN" />
-                     </graphic></JFXButton>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXButton>
                </children>
             </HBox>
          </children>

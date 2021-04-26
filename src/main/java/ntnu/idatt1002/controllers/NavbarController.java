@@ -1,10 +1,13 @@
 package ntnu.idatt1002.controllers;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -19,14 +22,16 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * A class which contains the buttons related to the navigation bar
+ * Controller for navbar.fxml
  */
 public class NavbarController {
 
+    private String currentlySelectedPage = "Dashboard";
     @FXML private Pane notificationCountPane;
     @FXML private Text notificationCountText;
     @FXML private static AnchorPane notificationMenuPopup;
     @FXML private static Popup popup;
+    @FXML private HBox navbarHbox;
 
     /**
      * Initialize method adds notificationHistoryButton and notifications to notificationBell
@@ -40,6 +45,9 @@ public class NavbarController {
             notificationCountPane.setVisible(true);
             notificationCountText.setText(Integer.toString(NotificationService.getActiveAndNotCheckedNotifications().size()));
         }
+
+        // set selected button
+        setSelectedButton();
     }
 
     /**
@@ -49,6 +57,8 @@ public class NavbarController {
      */
     public void buttonDashboard(ActionEvent event) throws IOException {
         MainController.getInstance().setMainContent("dashboard");
+        currentlySelectedPage = "Dashboard";
+        setSelectedButton();
     }
 
     /**
@@ -58,6 +68,8 @@ public class NavbarController {
      */
     public void buttonAccount(ActionEvent event) throws IOException {
         MainController.getInstance().setMainContent("account");
+        currentlySelectedPage = "Account";
+        setSelectedButton();
     }
 
     /**
@@ -67,6 +79,8 @@ public class NavbarController {
      */
     public void buttonOverview(ActionEvent event) throws IOException {
         MainController.getInstance().setMainContent("overview");
+        currentlySelectedPage = "Overview";
+        setSelectedButton();
     }
 
     /**
@@ -76,6 +90,8 @@ public class NavbarController {
      */
     public void buttonHelp(ActionEvent event) throws IOException {
         MainController.getInstance().setMainContent("helpPage");
+        currentlySelectedPage = "Help";
+        setSelectedButton();
     }
 
     /**
@@ -95,6 +111,24 @@ public class NavbarController {
      */
     public void buttonNotificationMenuPopup(ActionEvent event) throws IOException {
         showNotificationBellPopup();
+    }
+
+    /**
+     * Method for setting the style of the button representing the currently selected page
+     */
+    public void setSelectedButton(){
+        for(Node node : navbarHbox.getChildren()){
+            Button button = (Button) node;
+            FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
+
+            if(button.getText().equals(currentlySelectedPage)){
+                button.getStyleClass().clear();
+                button.getStyleClass().add("navbarButton-selected");
+            } else {
+                button.getStyleClass().clear();
+                button.getStyleClass().add("navbarButton");
+            }
+        }
     }
 
     /**

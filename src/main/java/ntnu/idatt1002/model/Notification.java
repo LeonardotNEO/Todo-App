@@ -1,9 +1,8 @@
-package ntnu.idatt1002;
+package ntnu.idatt1002.model;
 
 import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

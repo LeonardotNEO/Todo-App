@@ -10,9 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import ntnu.idatt1002.Task;
-import ntnu.idatt1002.dao.TaskDAO;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.ColorUtil;
@@ -24,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * A class which contains the buttons related to a singular task
+ * Controller for task.fxml
  */
 public class TaskController {
 
@@ -57,7 +55,7 @@ public class TaskController {
     @FXML private Button buttonRestoreTask;
 
     /**
-     * At initializing of this UI, we display the minimized version
+     * At initializing of a task UI element, we add a listener to task when clicked
      */
     public void initialize(){
         addClickTaskListener();
@@ -88,7 +86,7 @@ public class TaskController {
     }
 
     /**
-     * Method for displaying this task UI
+     * Method for displaying this tasks UI
      * @param task
      */
     public void display(Task task){
@@ -382,6 +380,10 @@ public class TaskController {
 
     }
 
+    /**
+     * Method for setting turning repeatTime values of task into text displayed to the user
+     * @param repeatTime
+     */
     public void setRepeatTime(String repeatTime){
         if(repeatTime==null){
             repeatTime = "";
@@ -399,10 +401,12 @@ public class TaskController {
         }
     }
 
-    public void setTaskId(long id){
-        this.taskId = id;
-    }
 
+    /**
+     * Method for adjusting the text color of task UI, according to the background color.
+     * Helper methods in ColorUtil are used to determine the outcome.
+     * @param backgroundColor The background color as HEX
+     */
     public void setTaskColor(String backgroundColor){
         background.setStyle("-fx-background-color: " + backgroundColor + "; -fx-background-radius:  5 20 5 5;");
         toolsHBox.setStyle("-fx-background-color: #f7f7f7; -fx-background-radius:  0 15 0 15;");
@@ -442,6 +446,9 @@ public class TaskController {
         }
     }
 
+    /**
+     * Method for adding onMouseClicked listener to this tasks background.
+     */
     public void addClickTaskListener(){
         background.setOnMouseClicked(mouseEvent -> clickTask());
     }

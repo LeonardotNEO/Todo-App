@@ -1,8 +1,8 @@
 package ntnu.idatt1002.service;
 
-import ntnu.idatt1002.Notification;
-import ntnu.idatt1002.Task;
-import ntnu.idatt1002.User;
+import ntnu.idatt1002.model.Notification;
+import ntnu.idatt1002.model.Task;
+import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.dao.*;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class UserService {
 
     /**
      * Method used for editing a user.
-     * We transfer values from old user to new user, and transfer categories, tasks and notifications
+     * We transfer values from old user to new user, and transfer projects, categories, tasks and notifications
      * @param oldUser
      * @param newUser
      */

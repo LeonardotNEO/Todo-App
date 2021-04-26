@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -32,7 +31,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Button fx:id="buttonAddTask" mnemonicParsing="false" onAction="#buttonAddTask" prefWidth="150.0" style="-fx-background-radius: 30;" text="Task" textFill="WHITE">
+            <Button fx:id="buttonAddTask" mnemonicParsing="false" onAction="#buttonAddTask" prefWidth="150.0" style="-fx-background-radius: 30;" styleClass="button1" text="Task" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="#09ff00" glyphName="PLUS" />
                </graphic>
@@ -45,10 +44,6 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <styleClass>
-                  <String fx:value="background-color_1" />
-                  <String fx:value="text-color" />
-               </styleClass>
             </Button>
          </children>
       </VBox>

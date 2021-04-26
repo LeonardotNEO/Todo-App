@@ -1,7 +1,7 @@
 package service;
 
-import ntnu.idatt1002.Task;
-import ntnu.idatt1002.User;
+import ntnu.idatt1002.model.Task;
+import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.CategoryService;
 import ntnu.idatt1002.service.TaskService;

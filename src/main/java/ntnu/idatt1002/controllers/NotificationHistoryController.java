@@ -1,13 +1,12 @@
 package ntnu.idatt1002.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import ntnu.idatt1002.Notification;
+import ntnu.idatt1002.model.Notification;
 import ntnu.idatt1002.service.NotificationService;
 import ntnu.idatt1002.service.UserStateService;
 
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * A class which contains the methods related to the notification history page of the application
+ * Controller for notificationHistory.fxml
  */
 public class NotificationHistoryController {
 
@@ -35,15 +34,6 @@ public class NotificationHistoryController {
 
         // set background
         background.setStyle(UserStateService.getCurrentUser().getCurrentlySelectedBackground());
-    }
-
-    /**
-     * When newNotificationButton is pressed, add a new notification UI element
-     * @param event
-     * @throws IOException
-     */
-    public void newNotification(ActionEvent event) throws IOException {
-
     }
 
     /**

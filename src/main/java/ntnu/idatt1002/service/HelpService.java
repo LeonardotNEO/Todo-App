@@ -1,12 +1,11 @@
 package ntnu.idatt1002.service;
 
-import ntnu.idatt1002.HelpSection;
+import ntnu.idatt1002.model.HelpSection;
 import ntnu.idatt1002.dao.HelpPageDAO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class HelpService {
 

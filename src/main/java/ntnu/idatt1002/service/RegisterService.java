@@ -1,6 +1,6 @@
 package ntnu.idatt1002.service;
 
-import ntnu.idatt1002.User;
+import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.dao.UserDAO;
 
 public class RegisterService {

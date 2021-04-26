@@ -1,10 +1,9 @@
 package ntnu.idatt1002.service;
 
-import ntnu.idatt1002.Task;
+import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.dao.TaskDAO;
 import ntnu.idatt1002.utils.DateUtils;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,6 +1,6 @@
 package ntnu.idatt1002.service;
 
-import ntnu.idatt1002.Notification;
+import ntnu.idatt1002.model.Notification;
 import ntnu.idatt1002.dao.NotificationDAO;
 import ntnu.idatt1002.utils.DateUtils;
 

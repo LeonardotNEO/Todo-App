@@ -1,8 +1,6 @@
-package ntnu.idatt1002;
+package ntnu.idatt1002.model;
 
 import ntnu.idatt1002.service.NotificationService;
-import ntnu.idatt1002.utils.ColorUtil;
-import ntnu.idatt1002.utils.DateUtils;
 
 import java.io.Serializable;
 import java.time.Instant;
