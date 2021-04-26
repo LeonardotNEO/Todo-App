@@ -99,7 +99,7 @@ public class NewEditTaskController {
         populateProjectMenu();
 
         // set onAction of button
-        this.button.setText("New task");
+        this.button.setText("Create");
         this.button.setOnAction(event -> {
             try {
                 buttonNewTask();

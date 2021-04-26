@@ -32,10 +32,10 @@ public class NewEditCategoryController {
      */
     public void intializeNewCategory(){
         projectName = UserStateService.getCurrentUser().getCurrentlySelectedProject();
-        headerText.setText("Create category");
+        headerText.setText("New category");
         isNew = true;
 
-        button.setText("Create category");
+        button.setText("Create");
         button.setOnAction(event -> {
             try {
                 buttonNewCategory();
