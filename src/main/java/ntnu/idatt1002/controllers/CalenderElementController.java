@@ -8,7 +8,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.service.UserStateService;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,8 +20,8 @@ public class CalenderElementController {
 
     /**
      * Method used for displaying a calender element
-     * @param date
-     * @param tasks
+     * @param date The date that you want the tasks to correspond to.
+     * @param tasks Arraylist of the task object
      */
     public void display(String date, ArrayList<Task> tasks){
         dateText.setText(date);

@@ -11,10 +11,11 @@ import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
 
+/**
+ *  Class for deleting projects with categories.
+ */
 public class DeleteCategoryProjectController {
 
-    private String project;
-    private String category;
     private DashboardController dashboardController;
     private String delete;
     @FXML private Text headerText;
@@ -24,7 +25,7 @@ public class DeleteCategoryProjectController {
 
     Popup popup = new Popup();
 
-    public static void display(DashboardController dashboardController, String project, String category,
+    public static void display(DashboardController dashboardController,
                                String delete) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ConfirmationController.class.getResource("/fxml/deleteCategoryProject.fxml"));
         AnchorPane anchorPane = fxmlLoader.load(); //root
@@ -32,8 +33,6 @@ public class DeleteCategoryProjectController {
         anchorPane.setStyle(UserStateService.getCurrentUser().getTheme());
         DeleteCategoryProjectController deleteCategoryProjectControllerInstance = fxmlLoader.getController();
         deleteCategoryProjectControllerInstance.dashboardController = dashboardController;
-        deleteCategoryProjectControllerInstance.project = project;
-        deleteCategoryProjectControllerInstance.category = category;
         deleteCategoryProjectControllerInstance.delete = delete;
 
         deleteCategoryProjectControllerInstance.popup.getContent().add(anchorPane);

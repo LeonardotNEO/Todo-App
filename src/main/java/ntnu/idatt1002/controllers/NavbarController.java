@@ -1,7 +1,6 @@
 package ntnu.idatt1002.controllers;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -52,10 +51,9 @@ public class NavbarController {
 
     /**
      * Communicate with mainController to update its main-content to dashboard.fxml when button in navbar is clicked
-     * @param event
      * @throws IOException
      */
-    public void buttonDashboard(ActionEvent event) throws IOException {
+    public void buttonDashboard() throws IOException {
         MainController.getInstance().setMainContent("dashboard");
         currentlySelectedPage = "Dashboard";
         setSelectedButton();
@@ -63,10 +61,9 @@ public class NavbarController {
 
     /**
      * Communicate with mainController to update its main-content to account.fxml when button in navbar is clicked
-     * @param event
      * @throws IOException
      */
-    public void buttonAccount(ActionEvent event) throws IOException {
+    public void buttonAccount() throws IOException {
         MainController.getInstance().setMainContent("account");
         currentlySelectedPage = "Account";
         setSelectedButton();
@@ -74,10 +71,9 @@ public class NavbarController {
 
     /**
      * Communicate with mainController to update its main-content to overview.fxml when butt0n in navbar is clicked
-     * @param event
      * @throws IOException
      */
-    public void buttonOverview(ActionEvent event) throws IOException {
+    public void buttonOverview() throws IOException {
         MainController.getInstance().setMainContent("overview");
         currentlySelectedPage = "Overview";
         setSelectedButton();
@@ -85,10 +81,9 @@ public class NavbarController {
 
     /**
      * Communicate with mainController to update its main-content to helpPage.fxml when butt0n in navbar is clicked
-     * @param event
      * @throws IOException
      */
-    public void buttonHelp(ActionEvent event) throws IOException {
+    public void buttonHelp() throws IOException {
         MainController.getInstance().setMainContent("helpPage");
         currentlySelectedPage = "Help";
         setSelectedButton();
@@ -96,20 +91,18 @@ public class NavbarController {
 
     /**
      * Method for loading login.fxml
-     * @param event
      * @throws IOException
      */
-    public void buttonLogout(ActionEvent event) throws IOException {
+    public void buttonLogout() throws IOException {
         App.setRoot("loginRegister");
         LoginService.logOut();
     }
 
     /**
      * When notification bell button in navbar is pressed, when show the notification bell popup
-     * @param event
      * @throws IOException
      */
-    public void buttonNotificationMenuPopup(ActionEvent event) throws IOException {
+    public void buttonNotificationMenuPopup() throws IOException {
         showNotificationBellPopup();
     }
 
@@ -209,7 +202,7 @@ public class NavbarController {
 
     /**
      * Get the whole UI for popup
-     * @return
+     * @return A AnchorPane
      */
     public static AnchorPane getNotificationMenuPopup(){
         return notificationMenuPopup;

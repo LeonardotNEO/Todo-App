@@ -77,11 +77,20 @@ public final class ExcelDAO {
         else{ return file; }
     }
 
-    //Get paths
+    /**
+     * return the directory for user.
+     * @param username the username
+     * @return directory for the user
+     */
     private static String userDir(String username){
         return (SAVEPATH + "/" + username + "/");
     }
 
+    /**
+     * return the filepath for user.
+     * @param username the username
+     * @return filepath for the user
+     */
     private static String filepath(String username){
         return (userDir(username) + username + ".csv");
     }

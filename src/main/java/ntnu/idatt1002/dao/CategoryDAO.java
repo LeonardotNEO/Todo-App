@@ -135,7 +135,6 @@ public final class CategoryDAO {
      */
     public static boolean delete(String username, String project, String category){
         File directory = new File(projectPath(username, project) + category);
-        boolean success = TaskDAO.deleteByProjectCategory(username, project, category);
 
         return directory.delete();
     }
@@ -171,11 +170,19 @@ public final class CategoryDAO {
         }
     }
 
-    //Get paths
+    /**
+     * return the paths for categories within a user folder.
+     * @param username the username
+     * @return filepath for categories
+     */
     private static String categoriesPath(String username){
         return (SAVEPATH + "/" + username + "/Categories/");
     }
-
+    /**
+     * return the paths for projects within a user folder.
+     * @param username the username
+     * @return filepath for projects
+     */
     private static String projectPath(String username, String project){
         return (SAVEPATH + "/" + username + "/Projects/" + project + "/");
     }

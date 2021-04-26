@@ -21,7 +21,7 @@ public class ProjectMenuButtonController {
     @FXML private Button projectTitle;
 
     /**
-     * When this projectmenu is loaded, we set addCategory button to visible if its the currently selected project
+     * When this projectMenu is loaded, we set addCategory button to visible if its the currently selected project
      */
     public void initializeProject(String projectName){
         projectTitle.setText(projectName);

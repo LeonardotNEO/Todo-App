@@ -93,7 +93,7 @@ public class CategoryMenuButtonController {
 
     /**
      * Method running when addTask button is clicked (to the right of currently selected category)
-     * @throws IOException
+     * @throws IOException can be caused by non existing file, or wrong filepath
      */
     public void buttonAddTask() throws IOException {
         // Load newEditTask page. get fxml variable and controller variable

@@ -77,7 +77,7 @@ public class OverviewController {
         displayNode("simpleView");
 
         // add listeners to scrollpanes (for resizing)
-        addScrollpaneListener();
+        addScrollPaneListener();
 
         // Time now
         LocalDateTime now = LocalDateTime.now();
@@ -302,7 +302,7 @@ public class OverviewController {
     /**
      * Adds a listener to scrollpane that makes the width of tasksVBox change when scrollpane size changes
      */
-    public void addScrollpaneListener(){
+    public void addScrollPaneListener(){
         scrollpane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
