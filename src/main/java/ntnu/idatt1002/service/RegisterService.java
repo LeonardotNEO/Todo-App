@@ -12,7 +12,10 @@ public class RegisterService {
      * @return
      */
     public static boolean registerNewUser(String name, String password, boolean rememberMe){
-        User newUser = new User(name, password, UserDAO.generateSalt());
+        // Hash password and create user object
+        byte[] salt = UserDAO.generateSalt();
+        String hash = UserDAO.hashPassword(password, salt);
+        User newUser = new User(name, hash, salt);
 
         // Update savefiles to include this new user
         UserDAO.serialize(newUser);

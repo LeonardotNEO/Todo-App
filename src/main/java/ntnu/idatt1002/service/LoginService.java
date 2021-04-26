@@ -36,8 +36,12 @@ public class LoginService {
         User user = UserDAO.deserialize(username);
 
         if(user != null) {
-            if (user.getPassword().isEmpty() || user.getPassword().equals(password)) {
+            if (user.getPassword().isEmpty()) {
                 result = true;
+            }else{
+                byte[] salt = user.getSalt();
+                String hash = UserDAO.hashPassword(password, salt);
+                result = user.getPassword().equals(hash);
             }
         }
 
