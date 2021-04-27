@@ -1,5 +1,6 @@
 package ntnu.idatt1002.model;
 
+import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.UserService;
 import ntnu.idatt1002.utils.DateUtils;
 
@@ -44,7 +45,7 @@ public class User implements Serializable {
     /**
      * A constructor for the user class which needs all the necessary information on a user
      * @param username the users name
-     * @param password pre-determined password
+     * @param password hashed password
      * @param salt Genreated salt
      */
     public User(String username, String password, byte[] salt){
@@ -105,7 +106,8 @@ public class User implements Serializable {
      */
     public void setPassword(String password) {
         User userBeforeChanges = new User(this);
-        this.password = password;
+        userBeforeChanges.getSalt();
+        this.password = UserDAO.hashPassword(password, userBeforeChanges.getSalt());
 
         UserService.editUser(userBeforeChanges, this);
     }

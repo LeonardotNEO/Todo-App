@@ -24,11 +24,15 @@ public class LoginServiceTest {
 
     @Test
     public void checkIfLoginValidTest() {
-        User test = new User("Abc", "ABC", null);
+        User test = new User("Abc");
         UserStateService.setCurrentUserUsername("Abc");
+
+        // Setting password
         test.setSalt(UserDAO.generateSalt());
+        test.setPassword("ABC");
+
+        // Serializing user
         UserDAO.serialize(test);
-        byte[] salt = test.getSalt();
         // Wrong password
         assertFalse(LoginService.checkIfLoginValid("Abc", "djsakdjsajdasj"));
 
