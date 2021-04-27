@@ -1,20 +1,13 @@
 package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.dao.UserDAO;
-import ntnu.idatt1002.dao.UserStateDAOTest;
 import ntnu.idatt1002.model.User;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.UserDataHandler;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginServiceTest {
-
-    @BeforeAll
-    public static void setup() {
-        User test = new User("Abc", "ABC", null);
-    }
 
     @Test
     public void checkIfLoginSyntaxValidTest() {
@@ -38,5 +31,11 @@ public class LoginServiceTest {
 
         // Correct password
         assertTrue(LoginService.checkIfLoginValid("Abc", "ABC"));
+    }
+
+    @AfterAll
+    public static void clean() {
+        UserDAO.delete("Abc");
+        UserStateService.setCurrentUserUsername(null);
     }
 }
