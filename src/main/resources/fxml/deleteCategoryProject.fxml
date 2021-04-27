@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" styleClass="background-color_3" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.DeleteCategoryProjectController">
+<AnchorPane prefHeight="200.0" prefWidth="400.0" styleClass="background-color_3" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.ntnu.idatt1002.controllers.DeleteCategoryProjectController">
    <children>
       <Text fx:id="headerText" fill="WHITE" layoutX="15.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning!" textAlignment="CENTER" wrappingWidth="369.2734375" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
          <font>

@@ -1,6 +1,5 @@
-package dao;
+package ntnu.idatt1002.dao;
 
-import ntnu.idatt1002.dao.UserStateDAO;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 

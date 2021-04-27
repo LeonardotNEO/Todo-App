@@ -1,6 +1,5 @@
-package service;
+package ntnu.idatt1002.service;
 
-import ntnu.idatt1002.service.HelpService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-package service;
+package ntnu.idatt1002.service;
 
 import org.junit.jupiter.api.Test;
 

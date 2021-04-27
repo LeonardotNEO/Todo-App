@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.ProjectMenuButtonController">
+<AnchorPane stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.ntnu.idatt1002.controllers.ProjectMenuButtonController">
    <children>
       <VBox>
          <children>

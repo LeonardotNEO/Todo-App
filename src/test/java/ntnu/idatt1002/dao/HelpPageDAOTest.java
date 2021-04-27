@@ -1,9 +1,6 @@
-package dao;
+package ntnu.idatt1002.dao;
 
-import ntnu.idatt1002.dao.HelpPageDAO;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 public class HelpPageDAOTest {
 

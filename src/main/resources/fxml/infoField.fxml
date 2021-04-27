@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.InfoFieldController">
+<AnchorPane fx:id="anchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.ntnu.idatt1002.controllers.InfoFieldController">
    <children>
       <VBox minWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

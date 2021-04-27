@@ -1,11 +1,7 @@
-package dao;
+package ntnu.idatt1002.dao;
 
 import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.model.User;
-import ntnu.idatt1002.dao.CategoryDAO;
-import ntnu.idatt1002.dao.ProjectDAO;
-import ntnu.idatt1002.dao.TaskDAO;
-import ntnu.idatt1002.dao.UserDAO;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;

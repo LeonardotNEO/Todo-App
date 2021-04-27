@@ -1,12 +1,8 @@
-package service;
+package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.dao.UserDAO;
-import ntnu.idatt1002.service.CategoryService;
-import ntnu.idatt1002.service.TaskService;
-import ntnu.idatt1002.service.UserService;
-import ntnu.idatt1002.service.UserStateService;
 import ntnu.idatt1002.utils.DateUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

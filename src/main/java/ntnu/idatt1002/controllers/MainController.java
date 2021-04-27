@@ -50,7 +50,7 @@ public class MainController {
     }
 
     /**
-     * Returns an instance of MainController, which can be used by the others controllers to edit the content of navbar and content
+     * Returns an instance of MainController, which can be used by the others ntnu.idatt1002.controllers to edit the content of navbar and content
      * @return
      */
     public static MainController getInstance(){

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="250.0" prefWidth="500.0" styleClass="background-color_3" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.controllers.ConfirmationController">
+<AnchorPane prefHeight="250.0" prefWidth="500.0" styleClass="background-color_3" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ntnu.idatt1002.ntnu.idatt1002.controllers.ConfirmationController">
    <children>
       <Button fx:id="noButton" layoutX="231.0" layoutY="199.0" mnemonicParsing="false" onAction="#noOption" styleClass="button1" text="No, it was a mistake!" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="84.0">
          <cursor>

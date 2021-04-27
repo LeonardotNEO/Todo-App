@@ -1,9 +1,7 @@
-package service;
+package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.dao.UserDAO;
-import ntnu.idatt1002.service.UserService;
-import ntnu.idatt1002.service.UserStateService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

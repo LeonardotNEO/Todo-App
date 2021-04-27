@@ -1,6 +1,5 @@
-package utils;
+package ntnu.idatt1002.utils;
 
-import ntnu.idatt1002.utils.ColorUtil;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package classes;
+package ntnu.idatt1002.model;
 
 import ntnu.idatt1002.model.Task;
 import org.junit.jupiter.api.Test;

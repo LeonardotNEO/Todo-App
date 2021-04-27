@@ -135,39 +135,8 @@ public final class CategoryDAO {
      */
     public static boolean delete(String username, String project, String category){
         File directory = new File(projectPath(username, project) + category);
-
+        TaskDAO.deleteByProjectCategory(username,project,category);
         return directory.delete();
-    }
-
-    /**
-     * Check if the category exists.
-     * @param username the {@code username} variable in a {@link User}.
-     * @param category the name of the category.
-     * @return {@code True} or {@code False}.
-     */
-    static boolean exists(String username, String category){
-        if(UserDAO.exists(username)){
-            File catDir = new File(categoriesPath(username) + category);
-            return catDir.exists();
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     * Check if the category exists.
-     * @param username the {@code username} variable in a {@link User}.
-     * @param project the name of the project.
-     * @param category the name of the category.
-     * @return {@code True} or {@code False}.
-     */
-    static boolean exists(String username, String project, String category){
-        if(UserDAO.exists(username)){
-            File catDir = new File(projectPath(username, project) + category);
-            return catDir.exists();
-        }else{
-            return false;
-        }
     }
 
     /**
@@ -178,6 +147,7 @@ public final class CategoryDAO {
     private static String categoriesPath(String username){
         return (SAVEPATH + "/" + username + "/Categories/");
     }
+
     /**
      * return the paths for projects within a user folder.
      * @param username the username
