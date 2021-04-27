@@ -17,7 +17,7 @@ public class NotificationDAOTest {
     public static final int id_A = notifA.getNotifId();
 
     @BeforeAll
-    public static void test_data(){
+    public static void testData(){
         UserDAO.serialize(new User("olanormann"));
         NotificationDAO.serialize(notifA);
         NotificationDAO.serialize(new Notification("Task B expired", "olanormann", "", LocalDateTime.now()));
@@ -25,14 +25,14 @@ public class NotificationDAOTest {
     }
 
     @Test
-    public void list_of_notifications(){
+    public void listOfNotificationsTest(){
         ArrayList<Notification> notifs = NotificationDAO.list("olanormann");
 
         assertEquals(notifs.size(), 3);
     }
 
     @Test
-    public void deserializing_notification(){
+    public void deserializingNotificationTest(){
         Notification notifB = NotificationDAO.deserialize("olanormann", id_A);
 
         assertEquals(notifA, notifB);
@@ -41,30 +41,30 @@ public class NotificationDAOTest {
     @Nested
     public class wrong_arguments{
         @Test
-        public void list_of_none_existing_notifications(){
+        public void listOfNoneExistingNotificationsTest(){
             assertEquals(NotificationDAO.list("joseph").size(), 0);
         }
 
         @Test
-        public void deserializing_notification_that_dont_exist(){
+        public void deserializingNotificationThatDontExistTest(){
             assertNull(NotificationDAO.deserialize("joseph", id_A));
             assertNull(NotificationDAO.deserialize("olanormann", 666666));
         }
 
         @Test
-        public void delete_notifications_that_does_not_exist_by_user(){
+        public void deleteNotificationsThatDoesNotExistByUserTest(){
             assertFalse(NotificationDAO.deleteByUser("joseph"));
         }
 
         @Test
-        public void delete_notifications_by_id_with_wrong_arguments(){
+        public void deleteNotificationsByIdWithWrongArgumentsTest(){
             assertFalse(NotificationDAO.delete("joseph", id_A));
             assertFalse(NotificationDAO.delete("olanormann", 666666));
         }
     }
 
     @AfterAll
-    public static void delete_test_data(){
+    public static void deleteTestData(){
         UserDAO.delete("olanormann");
     }
 }

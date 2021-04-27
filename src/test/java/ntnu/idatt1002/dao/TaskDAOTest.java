@@ -28,7 +28,7 @@ public class TaskDAOTest {
     private final static long id_B = taskB.getId();
 
     @BeforeAll
-    public static void test_data(){
+    public static void testData(){
         UserDAO.serialize(new User("olanormann"));
         CategoryDAO.add("olanormann", "Home");
         ProjectDAO.add("olanormann", "Build house");
@@ -38,7 +38,7 @@ public class TaskDAOTest {
     }
 
     @Test
-    public void list_of_tasks(){
+    public void listOfTasksTest(){
         ArrayList<Task> allTasks = TaskDAO.list("olanormann");
         ArrayList<Task> categoryTasks = TaskDAO.list("olanormann", "Home");
         ArrayList<Task> projectTasks = TaskDAO.list("olanormann", "Build house", "Carpentry");
@@ -48,7 +48,7 @@ public class TaskDAOTest {
     }
 
     @Test
-    public void deserialize_tasks(){
+    public void deserializeTasksTest(){
         Task taskC = TaskDAO.deserialize("olanormann", id_A);
         Task taskD = TaskDAO.deserialize("olanormann", "Home", id_A);
 
@@ -63,7 +63,7 @@ public class TaskDAOTest {
     @Nested
     public class wrong_arguments{
         @Test
-        public void list_with_wrong_arguments(){
+        public void listWithWrongArgumentsTest(){
             assertNull(TaskDAO.list("joseph"));
             assertNull(TaskDAO.list("joseph", "Home"));
             assertNull(TaskDAO.list("olanormann", "Work"));
@@ -73,7 +73,7 @@ public class TaskDAOTest {
         }
 
         @Test
-        public void deserializing_non_existing_tasks(){
+        public void deserializingNonExistingTasksTest(){
             assertNull(TaskDAO.deserialize("joseph", id_A));
             assertNull(TaskDAO.deserialize("olanormann", 66666));
             assertNull(TaskDAO.deserialize("joseph", "Home", id_A));
@@ -86,25 +86,25 @@ public class TaskDAOTest {
         }
 
         @Test
-        public void delete_tasks_by_none_existing_user(){
+        public void deleteTasksByNoneExistingUserTest(){
             assertFalse(TaskDAO.deleteByUser("joseph"));
         }
 
         @Test
-        public void delete_none_existing_tasks(){
+        public void deleteNoneExistingTasksTest(){
             assertFalse(TaskDAO.deleteByCategory("joseph", "Home"));
             assertFalse(TaskDAO.deleteByCategory("olanormann", "Work"));
         }
 
         @Test
-        public void delete_tasks_in_non_existing_project(){
+        public void deleteTasksInNonExistingProjectTest(){
             assertFalse(TaskDAO.deleteByProjectCategory("joseph", "Build house", "Carpentry"));
             assertFalse(TaskDAO.deleteByProjectCategory("olanormann", "Start business", "Take loan"));
             assertFalse(TaskDAO.deleteByProjectCategory("olanormann", "Build house", "Foundation"));
         }
 
         @Test
-        public void deleting_tasks_with_wrong_arguments(){
+        public void deletingTasksWithWrongArgumentsTest(){
             assertFalse(TaskDAO.delete("joseph", "Home", id_A));
             assertFalse(TaskDAO.delete("olanormann", "Work", id_A));
             assertFalse(TaskDAO.delete("olanormann", "Home", 666666));
@@ -116,7 +116,7 @@ public class TaskDAOTest {
     }
 
     @AfterAll
-    public static void delete_test_data(){
+    public static void deleteTestData(){
         UserDAO.delete("olanormann");
     }
 }

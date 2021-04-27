@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ProjectDAOTest {
     @BeforeAll
-    public static void test_data(){
+    public static void testData(){
         UserDAO.serialize(new User("olanormann"));
         ProjectDAO.add("olanormann", "Build house");
         ProjectDAO.add("olanormann", "Start business");
     }
 
     @Test
-    public void list_of_projects(){
+    public void listOfProjectsTest(){
         String[] projects = ProjectDAO.list("olanormann");
 
         assertTrue(projects.length == 2 && Arrays.asList(projects).contains("Build house"));
@@ -28,22 +28,22 @@ public class ProjectDAOTest {
     @Nested
     public class wrong_arguments{
         @Test
-        public void list_of_projects_by_non_existing_user(){
+        public void listOfProjectsByNonExistingUserTest(){
             assertNull(ProjectDAO.list("joseph"));
         }
 
         @Test
-        public void add_project_to_none_existing_user(){
+        public void addProjectToNoneExistingUserTest(){
             assertFalse(ProjectDAO.add("joseph", "Renovate kitchen"));
         }
 
         @Test
-        public void delete_project_by_none_existing_user(){
+        public void deleteProjectByNoneExistingUserTest(){
             assertFalse(ProjectDAO.deleteByUser("joseph"));
         }
 
         @Test
-        public void delete_project_with_wrong_arguments(){
+        public void deleteProjectWithWrongArgumentsTest(){
             assertFalse(ProjectDAO.delete("joseph", "Renovate kitchen"));
 
             assertFalse(ProjectDAO.delete("olanormann", "Renovate kitchen"));
@@ -51,7 +51,7 @@ public class ProjectDAOTest {
     }
 
     @AfterAll
-    public static void delete_test_data(){
+    public static void deleteTestData(){
         UserDAO.delete("olanormann");
     }
 }

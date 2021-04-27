@@ -14,21 +14,21 @@ public class UserDAOTest {
     private final static User userA = new User("olanormann");
 
     @BeforeAll
-    public static void test_data(){
+    public static void testData(){
         UserDAO.serialize(userA);
     }
 
     @Nested
-    public class serializing_and_deserializing{
+    public class SerializingAndDeserializing{
         @Test
-        public void deserializing_user(){
+        public void deserializingUserTest(){
             User userB = UserDAO.deserialize("olanormann");
 
             assertEquals(userA, userB);
         }
 
         @Test
-        public void get_user(){
+        public void getUserTest(){
             ArrayList<User> users = UserDAO.list();
 
             assertFalse(users.isEmpty());
@@ -36,7 +36,7 @@ public class UserDAOTest {
         }
 
         @Test
-        public void user_not_existing_handled(){
+        public void userNotExistingHandledTest(){
             User userB = UserDAO.deserialize("joseph");
 
             assertNull(userB);
@@ -45,12 +45,12 @@ public class UserDAOTest {
         @Nested
         public class wrong_arguments{
             @Test
-            public void deserializing_none_existing_user(){
+            public void deserializingNoneExistingUserTest(){
                 assertNull(UserDAO.deserialize("joseph"));
             }
 
             @Test
-            public void delete_none_existing_user(){
+            public void deleteNoneExistingUserTest(){
                 assertFalse(UserDAO.delete("joseph"));
             }
         }
@@ -59,7 +59,7 @@ public class UserDAOTest {
     @Nested
     public class salt_and_hashing{
         @Test
-        public void two_salts_are_not_equal(){
+        public void twoSaltsAreNotEqualTest(){
             byte[] saltA = UserDAO.generateSalt();
             byte[] saltB = UserDAO.generateSalt();
 
@@ -67,7 +67,7 @@ public class UserDAOTest {
         }
 
         @Test
-        public void equal_string_equal_salt_makes_same_hash(){
+        public void equalStringEqualSaltMakesSameHashTest(){
             byte[] salt = UserDAO.generateSalt();
             String password = "test123";
 
@@ -78,9 +78,9 @@ public class UserDAOTest {
         }
 
         @Nested
-        public class makes_not_same_hash{
+        public class MakesNotSameHash{
             @Test
-            public void equal_string_different_salt(){
+            public void equalStringDifferentSaltTest(){
                 byte[] saltA = UserDAO.generateSalt();
                 byte[] saltB = UserDAO.generateSalt();
                 String password = "test123";
@@ -92,7 +92,7 @@ public class UserDAOTest {
             }
 
             @Test
-            public void different_string_equal_salt(){
+            public void differentStringEqualSaltTest(){
                 byte[] salt = UserDAO.generateSalt();
                 String passwordA = "test123";
                 String passwordB = "password99";
@@ -106,7 +106,7 @@ public class UserDAOTest {
     }
 
     @AfterAll
-    public static void delete_test_data(){
+    public static void deleteTestData(){
         boolean result = UserDAO.delete("olanormann");
     }
 }

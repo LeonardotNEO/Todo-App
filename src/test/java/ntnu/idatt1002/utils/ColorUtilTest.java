@@ -42,12 +42,12 @@ public class ColorUtilTest {
 
     @Test
     public void check_text_color_withHex_background(){
-        String hexcolor = "#FFFFFF";
+        String hexColor = "#FFFFFF";
         // Max brightness
-        assertEquals(100, ColorUtil.getHexBrightness(hexcolor));
+        assertEquals(100, ColorUtil.getHexBrightness(hexColor));
         // No saturation
-        assertEquals(0, ColorUtil.getHexSaturation(hexcolor));
+        assertEquals(0, ColorUtil.getHexSaturation(hexColor));
         // Highest contrast -> black
-        assertEquals(0, ColorUtil.getVisiblityRating(hexcolor));
+        assertEquals(0, ColorUtil.getVisiblityRating(hexColor));
     }
 }

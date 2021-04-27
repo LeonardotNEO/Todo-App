@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TaskServiceTest {
 
     @BeforeAll
-    public static void test_data() {
+    public static void testData() {
         User user = new User("Test User");
         UserDAO.serialize(user);
         UserStateService.setCurrentUserUsername("Test User");
@@ -115,26 +115,26 @@ public class TaskServiceTest {
 
 
     @Test
-    public void sort_tasks_alphabetically(){
+    public void sortTasksAlphabeticallyTest(){
         UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.getTasksSortedAlphabetically(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), null));
         assertTrue(list.get(0).getName().compareTo(list.get(list.size() - 1).getName())<1);
     }
 
     @Test
-    public void sort_tasks_by_category() {
+    public void sortTasksByCategoryTest() {
         HashMap<String, ArrayList<Task>> list = TaskService.getCategoriesWithTasks();
         assertEquals("Hei",list.get("Category").get(0).getName());
     }
 
     @Test
-    public void get_all_tasks_in_given_category() {
+    public void getAllTasksInGivenCategoryTest() {
         ArrayList<Task> taskList = TaskService.getCategoryWithTasks("Category");
         assertEquals(taskList.get(0).getName(), "Hei");
     }
 
     @Test
-    public void sort_tasks_by_priority() {
+    public void sortTasksByPriorityTest() {
         UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.getTasksSortedByPriority(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), null));
 
@@ -143,7 +143,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void get_tasks_between_a_interval() {
+    public void getTasksBetweenAIntervalTest() {
         long start = DateUtils.getAsMs(LocalDate.of(2021, 02, 12)) - 100;
         long end = DateUtils.getAsMs(LocalDate.of(2021, 02, 12)) + 100;
 
@@ -155,7 +155,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void sort_tasks_by_date() {
+    public void sortTasksByDateTest() {
         UserStateService.getCurrentUser().setCurrentlySelectedCategory("home");
         ArrayList<Task> list = TaskService.getTasksSortedByDate(TaskService.getTasksByCategory(UserStateService.getCurrentUser().getCurrentlySelectedCategory(), null));
 
@@ -166,7 +166,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void get_tasks_between_dates(){
+    public void getTasksBetweenDatesTest(){
         ArrayList<Task> taskList = TaskService.getCategoryWithTasks("home");
         System.out.println(TaskService.getTasksInDateInterval(taskList, DateUtils.getAsMs(LocalDate.of(2021, 1, 1)), DateUtils.getAsMs(LocalDate.of(2021,12,28))).size());
 
@@ -174,14 +174,14 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void get_a_repeatable_task_a_day_when_it_is_repeated(){
+    public void getARepeatableTaskADayWhenItIsRepeatedTest(){
         ArrayList<Task> taskList = TaskService.getCategoryWithTasks("Stonks");
         long day = DateUtils.getAsMs(LocalDate.now());
         assertTrue(TaskService.getTasksOnGivenDate(taskList,day).size() == 2);
     }
 
     @AfterAll
-    public static void delete_test_data() {
+    public static void deleteTestData() {
         UserService.deleteUser();
     }
 
