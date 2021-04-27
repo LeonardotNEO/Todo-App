@@ -7,12 +7,12 @@ import ntnu.idatt1002.dao.UserDAO;
 import java.io.IOException;
 
 /**
- * A class which provides some necessary features for the login of teh application
+ * A class which provides some necessary features for the login of teh application.
  */
 public class LoginService {
 
     /**
-     * Check if login syntax is valid
+     * Check if login syntax is valid.
      * @param username
      * @return
      */
@@ -26,7 +26,7 @@ public class LoginService {
     }
 
     /**
-     * Check if user with username and password exists in savefiles
+     * Check if user with username and password exists in saveFiles.
      * @param username
      * @param password
      * @return
@@ -50,8 +50,9 @@ public class LoginService {
     }
 
     /**
-     * When logged in, save user-information to userState savefile
+     * When logged in, save user-information to userState saveFile.
      * @param username
+     * @param rememberMe
      */
     public static void saveLogin(String username, boolean rememberMe){
         // Set UserState
@@ -61,7 +62,7 @@ public class LoginService {
     }
 
     /**
-     * Sets userstate to null
+     * Sets userState to null.
      */
     public static void logOut(){
         UserStateService.setCurrentUserUsername(null);

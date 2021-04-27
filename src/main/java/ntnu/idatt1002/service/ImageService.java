@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Class used for handling getting, adding and deleting images
+ * Class used for handling getting, adding and deleting images.
  */
 public class ImageService {
 
     /**
-     * Method communicating with ImageDAO to fetch the current users images
-     * @return
+     * Method communicating with ImageDAO to fetch the current users images.
+     * @return ArrayList of files which are the images saved by the user.
      */
     public static ArrayList<File> getAllImagesCurrentUser(){
         File[] files = ImageDAO.list(UserStateService.getCurrentUser().getUsername());
@@ -26,7 +26,7 @@ public class ImageService {
     }
 
     /**
-     * Method communicating with ImageDAO to add an image to the current user
+     * Method communicating with ImageDAO to add an image to the current user.
      * @param file
      * @throws IOException
      */
