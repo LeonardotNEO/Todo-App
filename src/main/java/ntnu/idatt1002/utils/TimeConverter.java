@@ -6,29 +6,23 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The class TimeConverter is used to convert the time from/to localDate to/from a String.
+ */
 public class TimeConverter extends StringConverter<LocalTime> {
     DateTimeFormatter dateFormatter;
 
     /**
-     * A constructor which sets the format of the DateConverter to (HH:mm)
+     * A constructor which sets the format of the DateConverter to (HH:mm).
      */
     public TimeConverter () {
         dateFormatter = DateTimeFormatter.ofPattern("HH:mm");
     }
 
     /**
-     * A constructor which sets the format for the time converter
-     * @param format
-     */
-    // This should be checked to be valid / it throws invalid argument exception if pattern is invalid.
-    public TimeConverter(String format) {
-        dateFormatter = DateTimeFormatter.ofPattern(format);
-    }
-
-    /**
-     * A method to turn a date into a string
-     * @param date
-     * @return
+     * A method to turn a date into a string.
+     * @param date LocalTime object.
+     * @return String representing the time. or a empty string.
      */
     @Override
     public String toString(LocalTime date) {
@@ -40,9 +34,9 @@ public class TimeConverter extends StringConverter<LocalTime> {
     }
 
     /**
-     * A method to turn a string into a date
-     * @param string
-     * @return
+     * A method to turn a string into a date.
+     * @param string String representing a local Time.
+     * @return a localTime.
      */
     @Override
     public LocalTime fromString(String string) {
