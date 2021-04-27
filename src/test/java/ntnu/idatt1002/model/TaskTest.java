@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskTest {
     @Test
-    public void createTaskTest() {
+    public void createTaskWithBuilderTest() {
         Task t = new Task.TaskBuilder("admin", "This is the task title")
                 .category("test")
                 .build();

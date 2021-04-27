@@ -2,25 +2,44 @@ package ntnu.idatt1002.service;
 
 import ntnu.idatt1002.model.User;
 import ntnu.idatt1002.dao.UserDAO;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOError;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
 
     @Test
-    public void deleteUserThatIsAlreadyLoggedInTest() {
-        // Create a new user, save and serialize it
+    public void deleteUserWithoutAUserTest() {
         User user = new User("Test");
         UserDAO.serialize(user);
-        UserStateService.setCurrentUserUsername(user.getUsername());
-
-        // Delete the new user created
+        UserStateService.setCurrentUserUsername("Test");
         assertTrue(UserService.deleteUser());
+
+        // No user
+        assertThrows(NullPointerException.class, UserService::deleteUser);
     }
 
     @Test
-    public void DeleteUserWithoutAUserInStateTest() {
-        assertThrows(NullPointerException.class,()->UserService.deleteUser());
+    public void editUserTest() {
+        User user = new User("Testuser1232132");
+        UserDAO.serialize(user);
+
+        User newUser = new User("UserTestABCD");
+        UserStateService.setCurrentUserUsername("UserTestABCD");
+
+        // Edit with valid username
+        UserService.editUser(user, newUser);
+
+        assertEquals("UserTestABCD", UserStateService.getCurrentUser().getUsername());
+    }
+
+    @AfterAll
+    static public void clean() {
+        UserDAO.delete("Test");
+        UserDAO.delete("User Test");
+        UserDAO.delete("UserTestABCD");
     }
 }

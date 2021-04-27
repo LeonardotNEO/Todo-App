@@ -13,7 +13,12 @@ public class HelpServiceTest {
 
     @Test
     public void getSpecificSectionTest() {
+
+        //Existing Section
         String section = HelpService.getSections().get(0);
         assertEquals(section, HelpService.getSection(section).getSection());
+
+        // Not existing
+        assertNull(HelpService.getSection("This Section Does Not Exist"));
     }
 }
