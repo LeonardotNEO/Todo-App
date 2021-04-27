@@ -3,6 +3,7 @@ package ntnu.idatt1002.service;
 import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.model.User;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.UserDataHandler;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,12 +23,14 @@ public class UserStateTest {
 
     @Test
     public void checkIfUserStateTest() {
+        UserStateService.setCurrentUserUsername(null);
         //No userState
         assertFalse(UserStateService.checkIfUserState());
 
         //User in state
         User user = new User("Test");
         UserDAO.serialize(user);
+        UserStateService.setCurrentUserUsername("Test");
         assertTrue(UserStateService.checkIfUserState());
     }
 
@@ -44,6 +47,7 @@ public class UserStateTest {
 
     @Test
     public void getCurrentUserUsernameTest() {
+        UserStateService.setCurrentUserUsername(null);
         // No user
         assertThrows(NullPointerException.class, UserStateService::getCurrentUserUsername);
 

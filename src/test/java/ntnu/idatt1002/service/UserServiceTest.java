@@ -39,7 +39,6 @@ public class UserServiceTest {
     @AfterAll
     static public void clean() {
         UserDAO.delete("Test");
-        UserDAO.delete("User Test");
-        UserDAO.delete("UserTestABCD");
+        UserDAO.delete("Testuser1232132");
     }
 }
