@@ -1,8 +1,7 @@
-package dao;
+package ntnu.idatt1002.dao;
 
 import ntnu.idatt1002.model.Task;
 import ntnu.idatt1002.model.User;
-import ntnu.idatt1002.dao.*;
 import ntnu.idatt1002.utils.DateUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -45,12 +44,12 @@ public class ExcelDAOTest {
     }
 
     @Test
-    public void _write(){
+    public void writeTest(){
         assertDoesNotThrow(() -> ExcelDAO.write("olanormann"));
     }
 
     @Test
-    public void _read(){
+    public void readTest(){
         File file = ExcelDAO.read("olanormann");
         assertNotNull(file);
         assertTrue(file.exists());
@@ -59,12 +58,12 @@ public class ExcelDAOTest {
     @Nested
     public class wrong_arguments{
         @Test
-        public void _write(){
+        public void writeWithWrongArgumentsTest(){
             assertDoesNotThrow(() -> ExcelDAO.write("joseph"));
         }
 
         @Test
-        public void _read(){
+        public void readWithWrongArgumentsTest(){
             assertNull(ExcelDAO.read("joseph"));
         }
     }

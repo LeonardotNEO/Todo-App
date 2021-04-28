@@ -87,7 +87,7 @@ public class TaskController {
 
     /**
      * Method for displaying this tasks UI
-     * @param task
+     * @param task task that is displayed
      */
     public void display(Task task){
         this.task = task;
@@ -348,10 +348,9 @@ public class TaskController {
 
     /**
      * Updates center-content of dashboard to editTask.fxml and adds prompt attributes from task selected
-     * @param event
      * @throws IOException
      */
-    public void buttonEditTask(ActionEvent event) throws IOException{
+    public void buttonEditTask() throws IOException{
         editTask();
     }
 
@@ -453,6 +452,10 @@ public class TaskController {
         background.setOnMouseClicked(mouseEvent -> clickTask());
     }
 
+    /**
+     * methode used for editing a task.
+     * @throws IOException
+     */
     public void editTask() throws IOException {
         // Load editTask page. get fxml variable and controller variable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newEditTask.fxml"));

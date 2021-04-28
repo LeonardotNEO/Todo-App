@@ -35,7 +35,7 @@ public class HelpPageDAO {
      * A method that returns all the sections in the helpPage json file
      */
     public static ArrayList<String> getSections()  {
-        HelpSection[] helpSections = helpSections = getData();
+        HelpSection[] helpSections = getData();
         if(helpSections == null) return null;
         return Arrays.stream(helpSections).map(HelpSection::getSection).collect(Collectors.toCollection(ArrayList::new));
     }

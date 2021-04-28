@@ -1,6 +1,5 @@
-package dao;
+package ntnu.idatt1002.dao;
 
-import ntnu.idatt1002.dao.UserStateDAO;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -11,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserStateDAOTest {
     @Nested
-    public class userstate {
+    public class UserState {
         @Test
-        public void values_store_properly() {
+        public void valuesStoreProperlyTest() {
             UserStateDAO.setUserState("olanormann", "Home", "Date", false);
             String username = UserStateDAO.getUsername();
             String category = UserStateDAO.getSelectedCategory();
@@ -25,7 +24,7 @@ public class UserStateDAOTest {
         }
 
         @Test
-        public void handle_file_not_existing() {
+        public void handleFileNotExistingTest() {
             File file = new File("src/main/resources/saves/userstate.ser");
             boolean result = file.delete();
 
@@ -36,9 +35,9 @@ public class UserStateDAOTest {
     }
 
     @Nested
-    public class loggedusers{
+    public class Loggedusers{
         @Test
-        public void values_store_properly(){
+        public void valuesStoreProperlyTest(){
             String[] users = {"joseph", "maria", "judas", "adam"};
             UserStateDAO.setLoggedInUsers(users);
 
@@ -46,7 +45,7 @@ public class UserStateDAOTest {
         }
 
         @Test
-        public void add_logged_users(){
+        public void addLoggedUsersTest(){
             String[] oldUsers = {"joseph", "maria", "judas", "adam"};
             UserStateDAO.setLoggedInUsers(oldUsers);
             UserStateDAO.addLoggedUser("homer");
@@ -56,7 +55,7 @@ public class UserStateDAOTest {
         }
 
         @Test
-        public void remove_from_list(){
+        public void removeFromListTest(){
             String[] oldUsers = {"joseph", "maria", "judas", "adam"};
             UserStateDAO.setLoggedInUsers(oldUsers);
             UserStateDAO.removeFromList("adam");
@@ -66,7 +65,7 @@ public class UserStateDAOTest {
         }
 
         @Test
-        public void clear_list(){
+        public void clearListTest(){
             String[] oldUsers = {"joseph", "maria", "judas", "adam"};
             UserStateDAO.setLoggedInUsers(oldUsers);
             UserStateDAO.clearList();

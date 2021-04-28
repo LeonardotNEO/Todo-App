@@ -2,7 +2,6 @@ package ntnu.idatt1002.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
 import java.awt.*;
 import java.io.File;
 

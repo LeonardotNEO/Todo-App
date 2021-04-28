@@ -307,17 +307,17 @@ public class NewEditTaskController {
             errorCodes.remove(Integer.valueOf(3));
         }
 
-        // set project to null if it is "No project"
-        if(projectMenu.getText().equals("No project")){
-            projectMenu.setText(null);
-        }
-
         if(errorCodes.size() == 0){
             // get all the input tags and put them in a list
             ArrayList<String> tagsList = new ArrayList<>();
             tags.getChips().forEach(tag -> {
                 tagsList.add(tag.toString());
             });
+
+            // set project to null if it is "No project"
+            if(projectMenu.getText().equals("No project")){
+                projectMenu.setText(null);
+            }
 
             // TaskBuilder
             Task.TaskBuilder builder = new Task.TaskBuilder(UserStateService.getCurrentUser().getUsername(), titleTextField.getText())

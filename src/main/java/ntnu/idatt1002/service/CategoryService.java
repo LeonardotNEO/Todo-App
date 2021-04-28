@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * A class which provides some necessary features which utilises category-data
+ * A class which provides some necessary features which utilises category-data.
  */
 public class CategoryService {
 
@@ -20,34 +20,34 @@ public class CategoryService {
     };
 
     /**
-     * Get categories by current user
-     * @return String[] of all the categories that the user has
+     * Get categories by current user.
+     * @return String[] of all the categories that the user has.
      */
     public static String[] getCategoriesCurrentUser(){
         return CategoryDAO.list(UserStateDAO.getUsername());
     }
 
     /**
-     * get the categories in a project, by the current user
-     * @param projectName name of the project
-     * @return String[] of all the categories within the project
+     * get the categories in a project, by the current user.
+     * @param projectName name of the project.
+     * @return String[] of all the categories within the project.
      */
     public static String[] getCategoriesByProjectCurrentUser(String projectName){
         return CategoryDAO.list(UserStateService.getCurrentUser().getUsername(), projectName);
     }
 
     /**
-     * get the categories in a project, by the current user
-     * @param projectName name of the project
-     * @return ArrayList <String> of all the categories within the project
+     * get the categories in a project, by the current user.
+     * @param projectName name of the project.
+     * @return ArrayList <String> of all the categories within the project.
      */
     public static ArrayList<String> getCategoriesByProjectCurrentUserArraylist(String projectName){
         return new ArrayList<>(Arrays.asList(getCategoriesByProjectCurrentUser(projectName)));
     }
 
     /**
-     * Method for getting all categories without the pre-made one defined in pre-made Categories object variable
-     * @return all categories excluding pre-mades
+     * Method for getting all categories without the pre-made one defined in pre-made Categories object variable.
+     * @return all categories excluding pre-made.
      */
     public static ArrayList<String> getCategoriesCurrentUserWithoutPremades(){
         ArrayList<String> categoriesWithoutPremades = new ArrayList<>();
@@ -64,8 +64,8 @@ public class CategoryService {
     }
 
     /**
-     * Delete categories by current user
-     * @param categoryName the name of the category that is being deleted
+     * Delete categories by current user.
+     * @param categoryName the name of the category that is being deleted.
      */
     public static void deleteCategoryCurrentUser(String categoryName){
         String username = UserStateDAO.getUsername();
@@ -74,9 +74,9 @@ public class CategoryService {
     }
 
     /**
-     * Delete categories by current user inside project
-     * @param categoryName name of category
-     * @param projectName name of project
+     * Delete categories by current user inside project.
+     * @param categoryName name of category.
+     * @param projectName name of project.
      */
     public static void deleteCategoryCurrentUser(String categoryName, String projectName){
         String username = UserStateService.getCurrentUser().getUsername();
@@ -85,17 +85,17 @@ public class CategoryService {
     }
 
     /**
-     * Add new category to current user
-     * @param categoryName name of category
+     * Add new category to current user.
+     * @param categoryName name of category.
      */
     public static void addCategoryToCurrentUser(String categoryName){
         CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), categoryName);
     }
 
     /**
-     * Add new category to current user under project
-     * @param projectName project name
-     * @param categoryName the new category name
+     * Add new category to current user under project.
+     * @param projectName project name.
+     * @param categoryName the new category name.
      */
     public static void addCategoryToCurrentUser(String projectName, String categoryName){
         CategoryDAO.add(UserStateService.getCurrentUser().getUsername(), projectName, categoryName);
@@ -103,7 +103,7 @@ public class CategoryService {
 
     /**
      * Validate syntax of categoryTitle. Must be a length of more than 0 and less than 24.
-     * @param categoryTitle the name of the category
+     * @param categoryTitle the name of the category.
      * @return boolean according to if the Category title is less that 24 letters, and more than 0.
      */
     public static boolean validateCategoryTitleSyntax(String categoryTitle){
@@ -111,7 +111,7 @@ public class CategoryService {
     }
 
     /**
-     * Method that takes an Array of category-strings, turns it into an array and adds "Trash bin" and "Finished tasks" the the bottom
+     * Method that takes an Array of category-strings, turns it into an array and adds "Trash bin" and "Finished tasks" the the bottom.
      */
     public static ArrayList<String> getArrayListCategoriesOrganized(){
         ArrayList<String> categoriesList = new ArrayList<>();
@@ -127,6 +127,10 @@ public class CategoryService {
         return categoriesList;
     }
 
+    /**
+     * methode for getting all pre-made categories.
+     * @return arraylist of Strings containing all pre-made categories.
+     */
     public static ArrayList<String> getPremadeCategories(){
         return premadeCategories;
     }

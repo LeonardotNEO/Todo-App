@@ -106,7 +106,7 @@ public class LoginRegisterController {
             // Set login button to run the loginButtonEvent method when clicked
             controller.login.setOnAction(actionEvent -> {
                 try {
-                    if(u.getPassword().isEmpty()) {
+                    if( LoginService.checkIfLoginValid(u.getUsername(), "") || u.getPassword().isEmpty()) {
                         LoginService.login(u.getUsername(), true);
                     } else {
                         displayLogin(u.getUsername());

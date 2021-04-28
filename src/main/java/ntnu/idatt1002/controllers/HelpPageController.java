@@ -29,9 +29,6 @@ public class HelpPageController {
     @FXML private VBox vboxForInfoText;
     @FXML private ScrollPane infoScrollBar;
 
-    private final String DEFAULT_HOVER = "orange";
-    private final String DEFAULT_IDLE = "#00254d";
-    private final String DEFAULT_TEXT_COLOR = "white";
     private final double SCROLL_SPEED = 3;
 
     /**
@@ -50,9 +47,9 @@ public class HelpPageController {
         ArrayList<Button> buttons = new ArrayList<>();
 
         // Set default values
-        String color = DEFAULT_IDLE;
-        String hoverColor = DEFAULT_HOVER;
-        String textColor = DEFAULT_TEXT_COLOR;
+        String color = "#00254d";
+        String hoverColor = "orange";
+        String textColor = "white";
 
         // Create color theme from the users current theme
         if(UserStateService.checkIfUserState()) {

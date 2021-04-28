@@ -1,5 +1,6 @@
 package ntnu.idatt1002.model;
 
+import ntnu.idatt1002.dao.UserDAO;
 import ntnu.idatt1002.service.UserService;
 import ntnu.idatt1002.utils.DateUtils;
 
@@ -43,9 +44,9 @@ public class User implements Serializable {
 
     /**
      * A constructor for the user class which needs all the necessary information on a user
-     * @param username
-     * @param password
-     * @param salt
+     * @param username the users name
+     * @param password hashed password
+     * @param salt Genreated salt
      */
     public User(String username, String password, byte[] salt){
         this.username = username;
@@ -105,7 +106,8 @@ public class User implements Serializable {
      */
     public void setPassword(String password) {
         User userBeforeChanges = new User(this);
-        this.password = password;
+        userBeforeChanges.getSalt();
+        this.password = UserDAO.hashPassword(password, userBeforeChanges.getSalt());
 
         UserService.editUser(userBeforeChanges, this);
     }
@@ -129,14 +131,26 @@ public class User implements Serializable {
         UserService.editUser(userBeforeChanges, this);
     }
 
+    /**
+     * Returns the date which the user was first initialized.
+     * @return a long representing the date.
+     */
     public long getDateCreated() {
         return dateCreated;
     }
 
+    /**
+     * Methode to get the currently selected category.
+     * @return the currently selected category.
+     */
     public String getCurrentlySelectedCategory() {
         return currentlySelectedCategory;
     }
 
+    /**
+     * Methode for setting the currently selected category.
+     * @param currentlySelectedCategory Name of the currently selected category.
+     */
     public void setCurrentlySelectedCategory(String currentlySelectedCategory) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedCategory = currentlySelectedCategory;
@@ -146,10 +160,17 @@ public class User implements Serializable {
         UserService.editUser(userBeforeChanges, this);
     }
 
+    /**
+     * Methode to get the currently selected project.
+     * @return the currently selected project.
+     */
     public String getCurrentlySelectedProject() {
         return currentlySelectedProject;
     }
-
+    /**
+     * Methode for setting the currently selected project.
+     * @param currentlySelectedProject Name of the currently selected project.
+     */
     public void setCurrentlySelectedProject(String currentlySelectedProject) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedProject = currentlySelectedProject;
@@ -157,11 +178,17 @@ public class User implements Serializable {
 
         UserService.editUser(userBeforeChanges, this);
     }
-
+    /**
+     * Methode to get the currently selected project category.
+     * @return the currently selected project category.
+     */
     public String getCurrentlySelectedProjectCategory() {
         return currentlySelectedProjectCategory;
     }
-
+    /**
+     * Methode for setting the currently selected project category.
+     * @param currentlySelectedProjectCategory Name of the currently selected project category.
+     */
     public void setCurrentlySelectedProjectCategory(String currentlySelectedProjectCategory) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedProjectCategory = currentlySelectedProjectCategory;
@@ -169,22 +196,34 @@ public class User implements Serializable {
 
         UserService.editUser(userBeforeChanges, this);
     }
-
+    /**
+     * Methode to get the currently selected sort.
+     * @return the currently selected sort.
+     */
     public String getCurrentlySelectedSort() {
         return currentlySelectedSort;
     }
-
+    /**
+     * Methode for setting the currently selected sort.
+     * @param currentlySelectedSort Name of the currently selected sort.
+     */
     public void setCurrentlySelectedSort(String currentlySelectedSort) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedSort = currentlySelectedSort;
 
         UserService.editUser(userBeforeChanges, this);
     }
-
+    /**
+     * Methode to get the currently selected background.
+     * @return the currently selected background.
+     */
     public String getCurrentlySelectedBackground() {
         return currentlySelectedBackground;
     }
-
+    /**
+     * Methode for setting the currently selected background.
+     * @param currentlySelectedBackground Name of the currently selected background.
+     */
     public void setCurrentlySelectedBackground(String currentlySelectedBackground) {
         User userBeforeChanges = new User(this);
         this.currentlySelectedBackground = currentlySelectedBackground;
@@ -192,12 +231,17 @@ public class User implements Serializable {
         UserService.editUser(userBeforeChanges, this);
     }
 
-    // For deleteTask popup
+    /**
+     * Methode to get the isDeletedTaskDontShowAgainCheckbox boolean.
+     * @return isDeletedTaskDontShowAgainCheckbox boolean.
+     */
     public boolean isDeleteTaskDontShowAgainCheckbox() {
         return deleteTaskDontShowAgainCheckbox;
     }
-
-    // For deleteTask popup
+    /**
+     * Methode to set the isDeletedTaskDontShowAgainCheckbox boolean.
+     * @param checkbox boolean.
+     */
     public void setDeleteTaskDontShowAgainCheckbox(boolean checkbox) {
         User userBeforeChanges = new User(this);
         this.deleteTaskDontShowAgainCheckbox = checkbox;
@@ -206,41 +250,66 @@ public class User implements Serializable {
     }
 
 
-    // For finishTask popup
+    /**
+     * Methode to get the isFinishTaskDontShowAgainCheckbox boolean.
+     * @return isFinishTaskDontShowAgainCheckbox boolean.
+     */
     public boolean isFinishTaskDontShowAgainCheckbox() {
         return finishTaskDontShowAgainCheckbox;
     }
 
-    // For finishTask popup
+    /**
+     * Methode to set the isFinishTaskDontShowAgainCheckbox boolean.
+     * @param checkbox boolean.
+     */
     public void setFinishTaskDontShowAgainCheckbox(boolean checkbox) {
         User userBeforeChanges = new User(this);
         this.finishTaskDontShowAgainCheckbox = checkbox;
         UserService.editUser(userBeforeChanges, this);
     }
-
+    /**
+     * Methode to get the permanentDeleteDontShowAgainCheckbox boolean.
+     * @return permanentDeleteDontShowAgainCheckbox boolean.
+     */
     public boolean isPermanentDeleteDontShowAgainCheckbox(){return permanentDeleteDontShowAgainCheckbox;}
 
+    /**
+     * Methode to set the permanentDeleteDontShowAgainCheckbox boolean.
+     * @param permanentDeleteDontShowAgainCheckbox boolean.
+     */
     public void setPermanentDeleteDontShowAgainCheckbox(boolean permanentDeleteDontShowAgainCheckbox) {
         User userBeforeChanges = new User(this);
         this.permanentDeleteDontShowAgainCheckbox = permanentDeleteDontShowAgainCheckbox;
         UserService.editUser(userBeforeChanges, this);
     }
-
+    /**
+     * Methode to get the theme boolean.
+     * @return theme string.
+     */
     public String getTheme() {
         return theme;
     }
-
+    /**
+     * Methode to set the theme.
+     * @param theme string.
+     */
     public void setTheme(String theme) {
         User userBeforeChanges = new User(this);
         this.theme = theme;
 
         UserService.editUser(userBeforeChanges, this);
     }
-
+    /**
+     * Methode to get the isRememberMe boolean.
+     * @return isRememberMe boolean.
+     */
     public boolean isRememberMe() {
         return rememberMe;
     }
-
+    /**
+     * Methode to set the RememberMe boolean.
+     * @param rememberMe boolean.
+     */
     public void setRememberMe(boolean rememberMe) {
         User userBeforeChanges = new User(this);
         this.rememberMe = rememberMe;
@@ -248,10 +317,10 @@ public class User implements Serializable {
         UserService.editUser(userBeforeChanges, this);
     }
 
-    /** // Hvor skal dette?
-     * A equals method which compares a objects content with this user-object
-     * @param o
-     * @return
+    /**
+     * A equals method which compares a objects content with this user-object.
+     * @param o object.
+     * @return a boolean depending on the objects being compared are equal.
      */
     @Override
     public boolean equals(Object o) {
@@ -262,8 +331,8 @@ public class User implements Serializable {
     }
 
     /**
-     * A method which returns hashCode of the user object
-     * @return
+     * A method which returns hashCode of the user object.
+     * @return a hash of the username.
      */
     @Override
     public int hashCode() {

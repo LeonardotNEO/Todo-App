@@ -4,24 +4,9 @@ import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.Calendar;
 
-/* This could be added in some settings page. Ofc more could be added but i think these are enough.
-Allowed dates:
-- dd/MM/yyyy   // 22/02/2021
-- dd/MMM/yyyy  // 22/Mar/2021
-
-- MM/dd/yyyy // 02/22/2021
-- MMM/dd/yyyy // Mar/22/2021
-
-Date splitters:
-- " "
-- "/"
-- "-"
-
-Allowed clocks:q
-- hh:mm   // 22:30
-- HH:mm a // 10:30 PM
-*/
-
+/**
+ * The DateUtil class contains utility methods to alter the formatting of time.
+ */
 public final class DateUtils {
     // Private constructor to stop instantiation and overwrite the default constructor.
     private DateUtils () {
@@ -29,19 +14,19 @@ public final class DateUtils {
     }
 
     /**
-     * Returns a long representing time in milliseconds since 1/1/1970
-     * @param localdate
-     * @return
+     * Returns a long representing time in milliseconds since 1/1/1970 UTC+1.
+     * @param localDate Object of the LocalDateClass which refer to a specific date.
+     * @return The date given as milli seconds.
      */
-    public static long getAsMs(LocalDate localdate) {
-        Instant instant = localdate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+    public static long getAsMs(LocalDate localDate) {
+        Instant instant = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
         return instant.toEpochMilli();
     }
 
     /**
-     * Returns a long representing time in milliseconds since 1/1/1970
-     * @param localDateTime
-     * @return
+     * Returns a long representing time in milliseconds since 1/1/1970 UTC+1.
+     * @param localDateTime Object of the LocalDateTimeClass which refer to a specific time.
+     * @return The time given as milli seconds.
      */
     public static long getAsMs(LocalDateTime localDateTime) {
         Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
@@ -49,9 +34,9 @@ public final class DateUtils {
     }
 
     /**
-     * Takes a long and turns it into a date in the format dd/MM/yyyy HH:mm. The ms inserted represents the time since 1/1/1970
-     * @param ms
-     * @return
+     * Takes a long and turns it into a date in the format dd/MM/yyyy HH:mm. The ms inserted represents the time since 1/1/1970 UTC+1.
+     * @param ms The time given as milli seconds.
+     * @return date and time given in the format dd/MM/yyyy HH:mm.
      */
     public static String getFormattedFullDate(long ms) {
         Calendar calendar = Calendar.getInstance();
@@ -63,9 +48,9 @@ public final class DateUtils {
     }
 
     /**
-     * Takes a long and turns it into a date in the format dd/MM/yyyy. The ms inserted represents the time since 1/1/1970
-     * @param ms
-     * @return
+     * Takes a long and turns it into a date in the format dd/MM/yyyy. The ms inserted represents the time since 1/1/1970 UTC+1.
+     * @param ms The time given as milli seconds.
+     * @return date given in the format dd/MM/yyyy.
      */
     public static String getFormattedDate(long ms) {
         Calendar calendar = Calendar.getInstance();
@@ -76,9 +61,9 @@ public final class DateUtils {
     }
 
     /**
-     * Takes a long and turns it into a date with the and outputs the time that given day. THe ms inserted represents the time since 1/1/1970
-     * @param ms
-     * @return
+     * Takes a long and turns it into a date with the and outputs the time that given day. THe ms inserted represents the time since 1/1/1970 UTC+1.
+     * @param ms The time given as milli seconds.
+     * @return time given in the format HH:mm.
      */
     public static String getFormattedTime(long ms) {
         Calendar calendar = Calendar.getInstance();

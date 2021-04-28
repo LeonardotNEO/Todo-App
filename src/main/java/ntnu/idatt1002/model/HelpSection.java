@@ -28,7 +28,7 @@ public class HelpSection {
 
     /**
      * Gets all fields in of this instance
-     * @return Arraylist of Info classes
+     * @return Arraylist of Info ntnu.idatt1002.classes
      */
     public ArrayList<Info> getFields() {
         return fields;

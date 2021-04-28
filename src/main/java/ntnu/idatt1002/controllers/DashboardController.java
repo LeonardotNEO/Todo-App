@@ -3,6 +3,7 @@ package ntnu.idatt1002.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import java.util.ArrayList;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -16,7 +17,7 @@ import ntnu.idatt1002.service.TaskService;
 import ntnu.idatt1002.service.UserStateService;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 /**
  * Controller for dashboard.fxml
@@ -41,6 +42,9 @@ public class DashboardController {
     @FXML private Button buttonDeleteCategory;
     @FXML private TextField searchField;
 
+    /**
+     * Constructor for DashboardController.
+     */
     public DashboardController(){
         instance = this;
     }
@@ -253,7 +257,7 @@ public class DashboardController {
      * @throws IOException
      */
     public void buttonDeleteCategory() throws IOException {
-        DeleteCategoryProjectController.display(this, project, category, "category");
+        DeleteCategoryProjectController.display(this, "category");
     }
 
     /**
@@ -312,7 +316,7 @@ public class DashboardController {
      * @throws IOException
      */
     public void buttonDeleteProject() throws IOException {
-        DeleteCategoryProjectController.display(this, project, category, "project");
+        DeleteCategoryProjectController.display(this, "project");
     }
 
     /**
@@ -325,17 +329,6 @@ public class DashboardController {
 
         // reload dashboard
         initialize();
-    }
-
-    /**
-     * Updates center-content of dashboard to new fxml page
-     * @param page name of fxml page in resources/fxml/--pageName--
-     * @throws IOException
-     */
-    public Node setCenterContent(String page) throws IOException {
-        Node node =  FXMLLoader.load(getClass().getResource("/fxml/" + page + ".fxml"));
-        borderPane.setCenter(node);
-        return node;
     }
 
     /**
@@ -436,7 +429,7 @@ public class DashboardController {
     /**
      * Method for creating MenuItem element, and adding an action event to it
      * @param name
-     * @return
+     * @return returns a menuItem
      */
     public MenuItem createSortingMenuItem(String name, ArrayList<Task> tasks){
         MenuItem menuItem = new MenuItem();

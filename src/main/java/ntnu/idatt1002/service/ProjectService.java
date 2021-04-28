@@ -6,13 +6,13 @@ import ntnu.idatt1002.dao.ProjectDAO;
 import java.util.ArrayList;
 
 /**
- * Class used for handling projects
+ * Class used for handling projects. The class includes methodes for deletion and adding projects, as well as deleting them.
  */
 public class ProjectService {
 
     /**
      * Method communicating with ProjectDAO to fetch the current users projects
-     * @return
+     * @return String[] of all project by current user.
      */
     public static String[] getProjectsCurrentUser(){
         return ProjectDAO.list(UserStateService.getCurrentUser().getUsername());
@@ -20,7 +20,7 @@ public class ProjectService {
 
     /**
      * Method returning an arraylist of the current users projects
-     * @return
+     * @return Arraylist of strings of all projects by current user
      */
     public static ArrayList<String> getProjectCurrentUserArraylist(){
         ArrayList<String> projects = new ArrayList<>();

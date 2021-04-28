@@ -68,9 +68,9 @@ public class AccountController {
      * Method runs when confirmEditUser is clicked.
      * Check if username and password syntax is valid, and display errormessage.
      * Display successful message if successful.
-     * @param event
+     * @param actionEvent
      */
-    public void confirmEditUser(ActionEvent event){
+    public void confirmEditUser(ActionEvent actionEvent){
         String errorMessageString = "";
 
         // username
@@ -107,26 +107,23 @@ public class AccountController {
 
     /**
      * Button editAccount in information page
-     * @param event
      */
-    public void buttonEditUser(ActionEvent event){
+    public void buttonEditUser(){
         showEditAccountPage();
     }
 
     /**
      * Button cancel in edit account page
-     * @param event
      */
-    public void buttonCancel(ActionEvent event){
+    public void buttonCancel(){
         showInformationPage();
     }
 
     /**
      * Method for handling when the "add background" button is clicked
-     * @param event
      * @throws IOException
      */
-    public void buttonAddBackground(ActionEvent event) throws IOException {
+    public void buttonAddBackground() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Add background image");
         File file = fileChooser.showOpenDialog(App.getStage());
@@ -150,7 +147,9 @@ public class AccountController {
             try {
                 Button button = (Button) App.loadFXML("backgroundButton");
                 button.setOnAction(event -> {
-                    UserStateService.getCurrentUser().setCurrentlySelectedBackground("-fx-background-image: url(\"" + file.toURI().toString() + "\");-fx-background-size: stretch; -fx-background-color: #e6e6e6;");
+                    UserStateService.getCurrentUser()
+                            .setCurrentlySelectedBackground("-fx-background-image: url(\"" + file.toURI().toString() + "\");-fx-background-size: stretch; -fx-background-color: #e6e6e6;");
+
                     initialize();
                 });
                 ImageView imageView = (ImageView) button.getGraphic();
@@ -205,7 +204,7 @@ public class AccountController {
 
     /**
      * Display this page under anchorpane content in account page
-     * @param nodeId
+     * @param nodeId Id for node
      */
     public void displayNode(Parent parentNode, String nodeId){
         for(Node node : parentNode.getChildrenUnmodifiable()){
@@ -219,6 +218,10 @@ public class AccountController {
         }
     }
 
+    /**
+     * Set background to a given style
+     * @param style preferred Style.
+     */
     public void setBackground(String style){
         background.setStyle(style);
     }

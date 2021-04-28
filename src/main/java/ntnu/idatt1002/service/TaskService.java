@@ -156,7 +156,6 @@ public class TaskService {
 
     /**
      * Get all tasks for the user currently logged inn.
-     *
      * @return an ArrayList of task-objects by the current user.
      */
     public static ArrayList<Task> getTasksByCurrentUser(){
@@ -177,7 +176,6 @@ public class TaskService {
 
     /**
      * A method which returns a HashMap for all the categories with all tasks in an arraylist.
-     *
      * @return a HashMap for all the categories with all tasks in an arraylist.
      */
     public static HashMap<String, ArrayList<Task>> getCategoriesWithTasks() {
@@ -192,7 +190,6 @@ public class TaskService {
 
     /**
      * A method which returns a list of task from a given category.
-     *
      * @param category Name of the category you want to get tasks from.
      * @return List of tasks or null if category is not found.
      */
@@ -202,7 +199,6 @@ public class TaskService {
 
     /**
      * Methode that sorts all the tasks by category.
-     *
      * @param CategoryName the category to sort by.
      * @return an ArrayList of task-objects, containing task with the given category.
      */
@@ -224,7 +220,6 @@ public class TaskService {
      * A method which sorts tasks by their deadline.
      * The task with the earliest deadline will be the first index in the ArrayList.
      * The further away the deadline of the task is, the higher index it has.
-     *
      * @return An ArrayList of all tasks in the currently selected category, sorted by date.
      */
     public static ArrayList<Task> getTasksSortedByDate(ArrayList<Task> tasks){
@@ -243,7 +238,6 @@ public class TaskService {
     /**
      * Returns an ArrayList of all the tasks sorted by the alphabetical order of the first letter in them.
      * Tasks inside the currently selected category by the user.
-     *
      * @return an ArrayList of tasks that is sorted alphabetically by the title of the task. it only sorts the
      */
     public static ArrayList<Task> getTasksSortedAlphabetically(ArrayList<Task> tasks){
@@ -253,7 +247,6 @@ public class TaskService {
 
     /**
      * Finds all tasks withing a given interval. It uses all the tasks that the user has currently active.
-     *
      * @param start interval start time in ms
      * @param end interval end time in ms
      * @return Lists of all tasks within the given interval
@@ -264,7 +257,6 @@ public class TaskService {
 
     /**
      * Method that returns a list of tasks between a specific set of dates.
-     *
      * @param tasks The set of tasks the methode is being preformed on.
      * @param start interval start time in ms.
      * @param end interval end time in ms.
@@ -278,16 +270,6 @@ public class TaskService {
         return tasks.stream()
                 .filter(t-> t.getDeadline() > start && t.getDeadline() < end)
                 .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
-     * Finds all tasks withing a given interval. It uses all the tasks that the user has currently active.
-     * @param start interval start time in ms
-     * @param end interval end time in ms
-     * @return Lists of all tasks within the given interval
-     */
-    public static ArrayList<Task> getTasksInDateInterval(long start, long end) {
-        return getTasksInDateInterval(getTasksByCurrentUser(),start,end);
     }
 
     /**
@@ -305,7 +287,6 @@ public class TaskService {
     /**
      * Returns an ArrayList of Tasks that have a name or tag that contains the given string.
      * The methode is not case sensitive.
-     *
      * @param DesiredName A part(or entire) string that is contained in the task(s) that you want to find.
      * @return An ArrayList of all the tasks that contains the DesiredName in the title or tag.
      */
@@ -337,7 +318,6 @@ public class TaskService {
 
     /**
      * Uses TaskDAO and UserStateDAO to get task by id for current user.
-     *
      * @param id the id of the singular task.
      * @return the task-object.
      */
@@ -347,7 +327,6 @@ public class TaskService {
 
     /**
      * Communicates with TaskDAO to delete a task.
-     *
      * @param task The task that is going to be deleted.
      */
     public static void deleteTask(Task task){
@@ -357,7 +336,6 @@ public class TaskService {
 
     /**
      * Method that validates if task input is correct.
-     *
      * @param title Title of task.
      * @param description Description of the task.
      * @return an ArrayList of errorCodes. ErrorCodes can be used i front end to display an errormessage for each scenario.
@@ -368,10 +346,6 @@ public class TaskService {
         if(title.length() < 1 || title.length() > 30){
             errorsCodes.add(1);
         }
-        /* TODO: Make better description validation? Restricting description length is not useful.
-        if(description.length() > 5000){
-            errorsCodes.add(2);
-        }*/
         try{
             convertPriorityStringToInt(priority);
         } catch (NumberFormatException nfe) {
@@ -382,13 +356,6 @@ public class TaskService {
         } else if (deadlineTime > 0 && deadlineTime < new Date().getTime()) {
             errorsCodes.add(4);
         }
-        /*
-        if(deadlineTime == 0) {
-            errorsCodes.add(5);
-        } else if(deadlineTime < new Date().getTime()) {
-            errorsCodes.add(4);
-        }
-        */
         return errorsCodes;
     }
 
@@ -529,6 +496,11 @@ public class TaskService {
         }
     }
 
+    /**
+     * Methode for converting a priority given as a int, into a string to describe the int.
+     * @param priority integer stored in user.
+     * @return
+     */
     public static String convertPriorityIntToString(int priority){
         switch (priority){
             default:
@@ -542,6 +514,12 @@ public class TaskService {
 
         }
     }
+
+    /**
+     * Methode for converting a descriptive string, into a int.
+     * @param Priority Description of the priority (Low,Medium,High, or default)
+     * @return a corresponding int.
+     */
     public static int convertPriorityStringToInt(String Priority){
         switch (Priority) {
             case "Low":

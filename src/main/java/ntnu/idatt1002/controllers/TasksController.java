@@ -33,7 +33,7 @@ public class TasksController {
      */
     public void initialize(){
         // make vbox inside scrollpanes resizeable
-        addScrollpaneListener();
+        addScrollPaneListener();
 
         // decide if we show the addTaskButton
         showAddTaskButton();
@@ -172,7 +172,7 @@ public class TasksController {
     /**
      * Adds a listener to scrollpane that makes the width of tasksVBox change when scrollpane size changes
      */
-    public void addScrollpaneListener(){
+    public void addScrollPaneListener(){
         scrollpane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -183,7 +183,7 @@ public class TasksController {
 
     /**
      * Method for showing text in tasks-page
-     * @param message
+     * @param message text which is displayed
      */
     public void showMessage(String message){
         if(message == null){
