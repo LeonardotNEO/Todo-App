@@ -39,7 +39,7 @@ public class CategoryService {
     /**
      * get the categories in a project, by the current user.
      * @param projectName name of the project.
-     * @return ArrayList <String> of all the categories within the project.
+     * @return ArrayList of Strings representing all the categories within the project.
      */
     public static ArrayList<String> getCategoriesByProjectCurrentUserArraylist(String projectName){
         return new ArrayList<>(Arrays.asList(getCategoriesByProjectCurrentUser(projectName)));

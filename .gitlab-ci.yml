@@ -3,6 +3,7 @@ image: maven:latest
 stages:
   - build
   - test
+  - pages
 
 cache:
   paths:
@@ -26,3 +27,12 @@ test:
   script:
     - echo "RUNNING TESTS"
     - mvn clean test -e
+
+pages:
+  script:
+    - mvn javadoc:javadoc
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
