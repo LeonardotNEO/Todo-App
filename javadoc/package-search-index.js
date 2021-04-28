@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"ntnu.idatt1002","l":"ntnu.idatt1002"},{"m":"ntnu.idatt1002","l":"ntnu.idatt1002.controllers"},{"m":"ntnu.idatt1002","l":"ntnu.idatt1002.dao"},{"m":"ntnu.idatt1002","l":"ntnu.idatt1002.model"},{"m":"ntnu.idatt1002","l":"ntnu.idatt1002.service"},{"m":"ntnu.idatt1002","l":"ntnu.idatt1002.utils"}]

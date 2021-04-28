@@ -1,0 +1,7 @@
+module:ntnu.idatt1002
+ntnu.idatt1002
+ntnu.idatt1002.controllers
+ntnu.idatt1002.dao
+ntnu.idatt1002.model
+ntnu.idatt1002.service
+ntnu.idatt1002.utils

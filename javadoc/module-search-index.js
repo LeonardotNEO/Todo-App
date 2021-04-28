@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"ntnu.idatt1002"}]
