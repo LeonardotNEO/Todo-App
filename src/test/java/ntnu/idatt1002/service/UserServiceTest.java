@@ -40,5 +40,6 @@ public class UserServiceTest {
     static public void clean() {
         UserDAO.delete("Test");
         UserDAO.delete("Testuser1232132");
+        UserDAO.delete("UserTestABCD");
     }
 }
