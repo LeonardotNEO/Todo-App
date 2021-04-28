@@ -211,13 +211,25 @@
         "title": null,
         "image": null,
         "altText": null,
-        "text": "Below the task title(1) field there is a due date(2) field and due time(3) field. These can either be blank or a time can be set. To set the due date(2) you either click on the calendar icon to the left of the field, or click on the field and write the date yourself. If you click on the calendar icon simply click on the desired due date and it will be set. To set the due time(3) you either click on the clock icon to the left of the field, or click on the field and write the time yourself. If you click on the clock simply click on the desired due time yourself and it will be set."
+        "text": "Below the task title(1) field there is a \"Project\"(2) menu. The default for this one is \"No project\". By clicking on the menu all your projects will appear as options. Click on one to set the project of this task to that one. If you have not made any categories within this project the task change will not be saved."
+      },
+      {
+        "title": null,
+        "image": null,
+        "altText": null,
+        "text": "Below the \"Project\"(2) menu there is a \"Category\"(3) menu. This defaults to the category you are currently in. By clicking on the menu all categories you have made will appear as options. Click on one to set the category of the task to that one. This will change where to find the task."
+      },
+      {
+        "title": null,
+        "image": null,
+        "altText": null,
+        "text": "Below the \"Category\"(3) menu there is a due date(4) field and due time(5) field. These can either be blank or a time can be set. To set the due date(4) you either click on the calendar icon to the left of the field, or click on the field and write the date yourself. If you click on the calendar icon simply click on the desired due date and it will be set. To set the due time(5) you either click on the clock icon to the left of the field, or click on the field and write the time yourself. If you click on the clock simply click on the desired due time yourself and it will be set."
       },
       {
         "title": null,
         "image": "src/main/resources/images/newEditTaskSimpleOptions.png",
         "altText": "Image showing four red dots containing numbers. They represent, in order: the title field, due date, due time and remind me checkboxes in the simple format for the create and edit task pages.",
-        "text": "Below the due time(2) and due date(3) fields there are three checkboxes(4). These checkboxes(4) are for reminders of the task. When checked they will send a notification about the task when the due date is within the checked time. Thus if the deadline of a task is within the next 24 hours and the 24 hours box is checked, you will receive a notification about the task. Multiple boxes can be checked for a single task."
+        "text": "Below the due time(4) and due date(5) fields there are three checkboxes(6). These checkboxes(6) are for reminders of the task. When checked they will send a notification about the task when the due date is within the checked time. Thus if the deadline of a task is within the next 24 hours and the 24 hours box is checked, you will receive a notification about the task. Multiple boxes can be checked for a single task."
       },
       {
         "title": null,
@@ -286,28 +298,40 @@
         "text": "To get rid of a repeating task, simply press the \"Delete\"-button located in the top right corner of the task. A new popup will appear, explaining a bit about what this action will do and if you want to do it."
       },
       {
-        "title": "Due date(5) and time(6)",
+        "title": "Project(5)",
         "image": null,
         "altText": null,
-        "text": "Below the \"Repeat task\"(4) menu there is a \"Due date\"(5) field and \"Due time\"(6) field. These can either be blank or a time can be set."
+        "text": "Below the \"Repeat task\"(4) menu there is a \"Project\"(5) menu. The default for this one is \"No project\". By clicking on the menu all your projects will appear as options. Click on one to set the project of this task to that one. If you have not made any categories within this project the task change will not be saved."
+      },
+      {
+        "title": "Category(6)",
+        "image": null,
+        "altText": null,
+        "text": "Below the \"Project\"(5) menu there is a \"Category\"(6) menu. This defaults to the category you are currently in. By clicking on the menu all categories you have made will appear as options. Click on one to set the category of the task to that one. This will change where to find the task."
+      },
+      {
+        "title": "Due date(7) and time(8)",
+        "image": null,
+        "altText": null,
+        "text": "Below the \"Category\"(6) menu there is a \"Due date\"(7) field and \"Due time\"(8) field. These can either be blank or a time can be set."
       },
       {
         "title": null,
         "image": null,
         "altText": null,
-        "text": "To set the due date(5) you either click on the calendar icon to the left of the field, or click on the field and write the date yourself. If you click on the calendar icon simply click on the desired due date and it will be set."
+        "text": "To set the due date(7) you either click on the calendar icon to the left of the field, or click on the field and write the date yourself. If you click on the calendar icon simply click on the desired due date and it will be set."
       },
       {
         "title": null,
         "image": "src/main/resources/images/newEditTaskTimeAndDatePicker.png",
         "altText": "Image showing red dots containing numbers in the date and time picker page. Number 1 represents the year field, numbers 2 and 3 represents the arrows for changing month, numbers 4 and 5 represents the hour and at what minute for the due date.",
-        "text": "To set the due time(6) you either click on the clock icon to the left of the field, or click on the field and write the time yourself. If you click on the clock simply click on the desired due time yourself and it will be set."
+        "text": "To set the due time(8) you either click on the clock icon to the left of the field, or click on the field and write the time yourself. If you click on the clock simply click on the desired due time yourself and it will be set."
       },
       {
-        "title": "Task color(7)",
+        "title": "Task color(9)",
         "image": null,
         "altText": null,
-        "text": "Below the \"Due date\"(5) and \"Due time\"(6) fields there is a \"Task color\"(7) button. This button lets you change the color of the task when pressed."
+        "text": "Below the \"Due date\"(7) and \"Due time\"(8) fields there is a \"Task color\"(9) button. This button lets you change the color of the task when pressed."
       },
       {
         "title": null,
@@ -322,16 +346,16 @@
         "text": "This will take you to a menu that opens a color picker and lets you insert color in the formats RGB, HSB and HEX."
       },
       {
-        "title": "Tags(8)",
+        "title": "Tags(10)",
         "image": null,
         "altText": null,
-        "text": "Below \"Task color\"(7) there is a large field about the same size as the \"Description\"(1) field. This field is known as the \"Tags\"(8) field. Tags are normally used to have small search terms on your task. This is helpful if you got a lot of tasks in the same category. To create a tag simply click the \"Tags\"(8) field and start typing. When you have written the tag simply press enter and it will be made."
+        "text": "Below \"Task color\"(9) there is a large field about the same size as the \"Description\"(1) field. This field is known as the \"Tags\"(10) field. Tags are normally used to have small search terms on your task. This is helpful if you got a lot of tasks in the same category. To create a tag simply click the \"Tags\"(10) field and start typing. When you have written the tag simply press enter and it will be made."
       },
       {
-        "title": "Attach files(9)",
+        "title": "Attach files(11)",
         "image": null,
         "altText": null,
-        "text": "Just below the \"Tags\"(8) field there is another button. This button is known as the \"Attach files\"(9) button and the field next to it is where attached files will be displayed. To attach a file, just click this button and a file explorer will appear. Choose the file you want and it will appear in the field to the right. All chosen files in the field can be clicked. If enough files are attached to the task you will have to scroll in the field to the file you want to click."
+        "text": "Just below the \"Tags\"(10) field there is another button. This button is known as the \"Attach files\"(11) button and the field next to it is where attached files will be displayed. To attach a file, just click this button and a file explorer will appear. Choose the file you want and it will appear in the field to the right. All chosen files in the field can be clicked. If enough files are attached to the task you will have to scroll in the field to the file you want to click."
       },
       {
         "title": null,
@@ -340,10 +364,10 @@
         "text": "By clicking on a file, a new popup will appear. Here you have three options. Two buttons at the bottom of the popup and a X-shaped button in the top right corner. The two buttons are the \"Open file\"(1) button and the \"Remove file\"(2) button. Click the \"Open file\"(1) button to open the file and click the \"Remove file\"(2) button to remove the file from the task. The X-shaped button will close the popup. The popup will also close if you click any other place on the page than the popup."
       },
       {
-        "title": "Notifications(10)",
+        "title": "Notifications(12)",
         "image": null,
         "altText": null,
-        "text": "Just above the bottom of the page there are three checkboxes(10). These checkboxes are for reminders of the task. When checked they will send a notification about the task when the due date is within the checked time. Thus if the deadline of a task is within the next 24 hours and the 24 hours box is checked, you will receive a notification about the task. Multiple boxes can be checked for a single task."
+        "text": "Just above the bottom of the page there are three checkboxes(12). These checkboxes are for reminders of the task. When checked they will send a notification about the task when the due date is within the checked time. Thus if the deadline of a task is within the next 24 hours and the 24 hours box is checked, you will receive a notification about the task. Multiple boxes can be checked for a single task."
       },
       {
         "title": "Bottom buttons",
