@@ -90,7 +90,6 @@
                     <source>11</source>
                     <reportOutputDirectory>public</reportOutputDirectory>
                     <destDir>/</destDir>
-                    <overview>src/main/resources/javadoc/overview.html</overview>
                 </configuration>
             </plugin>
             <!-- maven -->
