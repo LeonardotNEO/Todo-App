@@ -5,8 +5,6 @@ import ntnu.idatt1002.dao.UserDAO;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOError;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
