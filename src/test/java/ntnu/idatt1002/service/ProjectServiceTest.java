@@ -55,5 +55,6 @@ public class ProjectServiceTest {
         ProjectService.editProject("My Project", "My Project 2");
         ProjectService.deleteProjectCurrentUser("My Project");
         assertEquals("My Project 2", ProjectService.getProjectsCurrentUser()[0]);
+        ProjectService.deleteProjectCurrentUser("My Project 2");
     }
 }
